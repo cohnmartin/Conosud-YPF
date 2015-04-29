@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2"
+xmlns:atom="http://www.w3.org/2005/Atom"
+xmlns:gx="http://www.google.com/kml/ext/2.2">
+<Document>
+<open>1</open>
+<visibility>1</visibility>
+<description><![CDATA[]]></description>
+<name><![CDATA[clinica]]></name>
+<atom:author><atom:name><![CDATA[Creado por My Tracks en Android.]]></atom:name></atom:author>
+<Style id="track">
+<LineStyle><color>7f0000ff</color><width>4</width></LineStyle>
+<IconStyle>
+<scale>1.3</scale>
+<Icon><href>http://earth.google.com/images/kml-icons/track-directional/track-0.png</href></Icon>
+</IconStyle>
+</Style>
+<Style id="start"><IconStyle>
+<scale>1.3</scale>
+<Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-circle.png</href></Icon>
+<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+</IconStyle></Style>
+<Style id="end"><IconStyle>
+<scale>1.3</scale>
+<Icon><href>http://maps.google.com/mapfiles/kml/paddle/red-circle.png</href></Icon>
+<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+</IconStyle></Style>
+<Style id="statistics"><IconStyle>
+<scale>1.3</scale>
+<Icon><href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href></Icon>
+<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+</IconStyle></Style>
+<Style id="waypoint"><IconStyle>
+<scale>1.3</scale>
+<Icon><href>http://maps.google.com/mapfiles/kml/pushpin/blue-pushpin.png</href></Icon>
+<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+</IconStyle></Style>
+<Schema id="schema">
+<gx:SimpleArrayField name="power" type="int">
+<displayName><![CDATA[Potencia (W)]]></displayName>
+</gx:SimpleArrayField>
+<gx:SimpleArrayField name="cadence" type="int">
+<displayName><![CDATA[Cadencia (rpm)]]></displayName>
+</gx:SimpleArrayField>
+<gx:SimpleArrayField name="heart_rate" type="int">
+<displayName><![CDATA[Frecuencia cardíaca (lpm)]]></displayName>
+</gx:SimpleArrayField>
+<gx:SimpleArrayField name="battery_level" type="int">
+<displayName><![CDATA[Nivel de la batería (%)]]></displayName>
+</gx:SimpleArrayField>
+</Schema>
+<Placemark>
+<description><![CDATA[]]></description>
+<name><![CDATA[clinica (Inicio)]]></name>
+<styleUrl>#start</styleUrl>
+<Point>
+<coordinates>-68.803117,-32.922265,751.5</coordinates>
+</Point>
+</Placemark>
+<Placemark id="tour">
+<description><![CDATA[]]></description>
+<name><![CDATA[clinica]]></name>
+<styleUrl>#track</styleUrl>
+<gx:MultiTrack>
+<altitudeMode>absolute</altitudeMode>
+<gx:interpolate>1</gx:interpolate>
+<gx:Track>
+<when>2014-07-10T19:54:37.932Z</when>
+<gx:coord>-68.803117 -32.922265 751.5</gx:coord>
+<when>2014-07-10T19:55:17.000Z</when>
+<gx:coord>-68.802542 -32.923023 784.5999755859375</gx:coord>
+<when>2014-07-10T19:55:18.000Z</when>
+<gx:coord>-68.802521 -32.92305 782.5</gx:coord>
+<when>2014-07-10T19:55:44.000Z</when>
+<gx:coord>-68.801691 -32.922615 782.7000122070313</gx:coord>
+<when>2014-07-10T19:55:45.000Z</when>
+<gx:coord>-68.801647 -32.922523 783.2000122070313</gx:coord>
+<when>2014-07-10T19:55:53.000Z</when>
+<gx:coord>-68.801303 -32.921748 783.2999877929688</gx:coord>
+<when>2014-07-10T19:55:54.000Z</when>
+<gx:coord>-68.801249 -32.921646 783.5</gx:coord>
+<when>2014-07-10T19:56:10.000Z</when>
+<gx:coord>-68.800964 -32.920824 781.5999755859375</gx:coord>
+<when>2014-07-10T19:56:11.000Z</when>
+<gx:coord>-68.800981 -32.92077 781.2999877929688</gx:coord>
+<when>2014-07-10T19:56:21.000Z</when>
+<gx:coord>-68.801926 -32.920673 779.2999877929688</gx:coord>
+<when>2014-07-10T19:56:22.000Z</when>
+<gx:coord>-68.802074 -32.920656 778.5</gx:coord>
+<when>2014-07-10T19:56:28.000Z</when>
+<gx:coord>-68.803052 -32.920627 778.5999755859375</gx:coord>
+<when>2014-07-10T19:56:29.000Z</when>
+<gx:coord>-68.803224 -32.92062 778.9000244140625</gx:coord>
+<when>2014-07-10T19:56:36.000Z</when>
+<gx:coord>-68.804288 -32.920558 777.5999755859375</gx:coord>
+<when>2014-07-10T19:56:37.000Z</when>
+<gx:coord>-68.804442 -32.92054 777.9000244140625</gx:coord>
+<when>2014-07-10T19:56:43.000Z</when>
+<gx:coord>-68.805338 -32.920518 778.7000122070313</gx:coord>
+<when>2014-07-10T19:56:44.000Z</when>
+<gx:coord>-68.805511 -32.920532 778.9000244140625</gx:coord>
+<when>2014-07-10T19:56:50.000Z</when>
+<gx:coord>-68.806464 -32.920596 779.7999877929688</gx:coord>
+<when>2014-07-10T19:56:51.000Z</when>
+<gx:coord>-68.806646 -32.920622 779.9000244140625</gx:coord>
+<when>2014-07-10T19:56:56.999Z</when>
+<gx:coord>-68.807612 -32.920582 779.0</gx:coord>
+<when>2014-07-10T19:56:58.000Z</when>
+<gx:coord>-68.807776 -32.920584 778.7999877929688</gx:coord>
+<when>2014-07-10T19:57:03.000Z</when>
+<gx:coord>-68.808725 -32.920535 779.4000244140625</gx:coord>
+<when>2014-07-10T19:57:04.000Z</when>
+<gx:coord>-68.808927 -32.920527 779.5</gx:coord>
+<when>2014-07-10T19:57:08.999Z</when>
+<gx:coord>-68.809971 -32.920486 781.2999877929688</gx:coord>
+<when>2014-07-10T19:57:10.000Z</when>
+<gx:coord>-68.810174 -32.920464 781.2999877929688</gx:coord>
+<when>2014-07-10T19:57:15.000Z</when>
+<gx:coord>-68.811205 -32.920435 782.0999755859375</gx:coord>
+<when>2014-07-10T19:57:16.000Z</when>
+<gx:coord>-68.81141 -32.920423 781.7999877929688</gx:coord>
+<when>2014-07-10T19:57:21.000Z</when>
+<gx:coord>-68.81234 -32.92038 782.7000122070313</gx:coord>
+<when>2014-07-10T19:57:22.000Z</when>
+<gx:coord>-68.812531 -32.920376 782.4000244140625</gx:coord>
+<when>2014-07-10T19:57:29.000Z</when>
+<gx:coord>-68.813587 -32.920309 786.2999877929688</gx:coord>
+<when>2014-07-10T19:57:30.000Z</when>
+<gx:coord>-68.813728 -32.920285 786.7999877929688</gx:coord>
+<when>2014-07-10T19:57:38.000Z</when>
+<gx:coord>-68.814683 -32.920029 789.4000244140625</gx:coord>
+<when>2014-07-10T19:57:39.000Z</when>
+<gx:coord>-68.81482 -32.920019 790.2999877929688</gx:coord>
+<when>2014-07-10T19:57:45.000Z</when>
+<gx:coord>-68.815787 -32.919965 791.2999877929688</gx:coord>
+<when>2014-07-10T19:57:46.000Z</when>
+<gx:coord>-68.81596 -32.91995 791.2999877929688</gx:coord>
+<when>2014-07-10T19:57:51.000Z</when>
+<gx:coord>-68.81692 -32.919876 792.7000122070313</gx:coord>
+<when>2014-07-10T19:57:52.000Z</when>
+<gx:coord>-68.817116 -32.919857 792.9000244140625</gx:coord>
+<when>2014-07-10T19:57:57.000Z</when>
+<gx:coord>-68.818143 -32.919805 797.2000122070313</gx:coord>
+<when>2014-07-10T19:57:58.000Z</when>
+<gx:coord>-68.818337 -32.919797 796.9000244140625</gx:coord>
+<when>2014-07-10T19:58:03.000Z</when>
+<gx:coord>-68.81931 -32.919854 797.0</gx:coord>
+<when>2014-07-10T19:58:04.000Z</when>
+<gx:coord>-68.819516 -32.919879 797.5999755859375</gx:coord>
+<when>2014-07-10T19:58:09.000Z</when>
+<gx:coord>-68.82053 -32.920098 798.5</gx:coord>
+<when>2014-07-10T19:58:09.998Z</when>
+<gx:coord>-68.820712 -32.920114 797.9000244140625</gx:coord>
+<when>2014-07-10T19:58:15.000Z</when>
+<gx:coord>-68.821674 -32.920278 796.5999755859375</gx:coord>
+<when>2014-07-10T19:58:16.000Z</when>
+<gx:coord>-68.821867 -32.920308 796.5999755859375</gx:coord>
+<when>2014-07-10T19:58:22.000Z</when>
+<gx:coord>-68.822809 -32.920527 797.7999877929688</gx:coord>
+<when>2014-07-10T19:58:23.000Z</when>
+<gx:coord>-68.822903 -32.920541 798.0</gx:coord>
+<when>2014-07-10T19:58:36.000Z</when>
+<gx:coord>-68.822796 -32.919705 796.4000244140625</gx:coord>
+<when>2014-07-10T19:58:37.000Z</when>
+<gx:coord>-68.822768 -32.919624 795.7999877929688</gx:coord>
+<when>2014-07-10T19:58:53.000Z</when>
+<gx:coord>-68.822701 -32.918732 794.9000244140625</gx:coord>
+<when>2014-07-10T19:58:54.000Z</when>
+<gx:coord>-68.822775 -32.91872 795.4000244140625</gx:coord>
+<when>2014-07-10T19:59:09.000Z</when>
+<gx:coord>-68.82373 -32.918333 795.7000122070313</gx:coord>
+<when>2014-07-10T19:59:10.000Z</when>
+<gx:coord>-68.823727 -32.918245 795.4000244140625</gx:coord>
+<when>2014-07-10T19:59:17.000Z</when>
+<gx:coord>-68.823702 -32.91744 795.5</gx:coord>
+<when>2014-07-10T19:59:18.000Z</when>
+<gx:coord>-68.823679 -32.917294 795.2999877929688</gx:coord>
+<when>2014-07-10T19:59:23.000Z</when>
+<gx:coord>-68.823623 -32.91655 793.7000122070313</gx:coord>
+<when>2014-07-10T19:59:24.000Z</when>
+<gx:coord>-68.823619 -32.916386 793.7999877929688</gx:coord>
+<when>2014-07-10T19:59:29.000Z</when>
+<gx:coord>-68.823538 -32.915569 791.5999755859375</gx:coord>
+<when>2014-07-10T19:59:30.000Z</when>
+<gx:coord>-68.823515 -32.915406 791.7000122070313</gx:coord>
+<when>2014-07-10T19:59:36.000Z</when>
+<gx:coord>-68.823289 -32.914535 793.4000244140625</gx:coord>
+<when>2014-07-10T19:59:37.000Z</when>
+<gx:coord>-68.823245 -32.914374 793.7000122070313</gx:coord>
+<when>2014-07-10T19:59:41.998Z</when>
+<gx:coord>-68.822951 -32.913526 792.7999877929688</gx:coord>
+<when>2014-07-10T19:59:43.000Z</when>
+<gx:coord>-68.822904 -32.913341 793.2999877929688</gx:coord>
+<when>2014-07-10T19:59:47.000Z</when>
+<gx:coord>-68.822627 -32.912616 794.4000244140625</gx:coord>
+<when>2014-07-10T19:59:48.000Z</when>
+<gx:coord>-68.822545 -32.912436 794.4000244140625</gx:coord>
+<when>2014-07-10T19:59:52.000Z</when>
+<gx:coord>-68.82226 -32.911719 795.5</gx:coord>
+<when>2014-07-10T19:59:53.000Z</when>
+<gx:coord>-68.8222 -32.911541 794.7000122070313</gx:coord>
+<when>2014-07-10T19:59:57.000Z</when>
+<gx:coord>-68.821888 -32.910779 794.2000122070313</gx:coord>
+<when>2014-07-10T19:59:58.000Z</when>
+<gx:coord>-68.821805 -32.91059 793.5999755859375</gx:coord>
+<when>2014-07-10T20:00:02.000Z</when>
+<gx:coord>-68.82144 -32.90979 794.2999877929688</gx:coord>
+<when>2014-07-10T20:00:03.000Z</when>
+<gx:coord>-68.821333 -32.909585 794.0999755859375</gx:coord>
+<when>2014-07-10T20:00:07.000Z</when>
+<gx:coord>-68.82101 -32.908762 792.2000122070313</gx:coord>
+<when>2014-07-10T20:00:08.000Z</when>
+<gx:coord>-68.820938 -32.908561 792.7000122070313</gx:coord>
+<when>2014-07-10T20:00:12.000Z</when>
+<gx:coord>-68.820602 -32.907754 790.7000122070313</gx:coord>
+<when>2014-07-10T20:00:13.000Z</when>
+<gx:coord>-68.820524 -32.907544 790.0</gx:coord>
+<when>2014-07-10T20:00:17.000Z</when>
+<gx:coord>-68.820226 -32.90671 788.2000122070313</gx:coord>
+<when>2014-07-10T20:00:18.000Z</when>
+<gx:coord>-68.820175 -32.906495 787.9000244140625</gx:coord>
+<when>2014-07-10T20:00:21.000Z</when>
+<gx:coord>-68.820013 -32.905825 787.4000244140625</gx:coord>
+<when>2014-07-10T20:00:22.000Z</when>
+<gx:coord>-68.819979 -32.905599 786.9000244140625</gx:coord>
+<when>2014-07-10T20:00:26.000Z</when>
+<gx:coord>-68.819855 -32.904708 785.7000122070313</gx:coord>
+<when>2014-07-10T20:00:27.000Z</when>
+<gx:coord>-68.819827 -32.904489 785.7999877929688</gx:coord>
+<when>2014-07-10T20:00:30.000Z</when>
+<gx:coord>-68.81971 -32.903814 784.4000244140625</gx:coord>
+<when>2014-07-10T20:00:31.000Z</when>
+<gx:coord>-68.819676 -32.903588 784.2000122070313</gx:coord>
+<when>2014-07-10T20:00:35.000Z</when>
+<gx:coord>-68.819532 -32.902697 783.0</gx:coord>
+<when>2014-07-10T20:00:36.000Z</when>
+<gx:coord>-68.819501 -32.902482 782.2000122070313</gx:coord>
+<when>2014-07-10T20:00:40.000Z</when>
+<gx:coord>-68.819377 -32.901628 781.5</gx:coord>
+<when>2014-07-10T20:00:41.000Z</when>
+<gx:coord>-68.819342 -32.901405 781.5999755859375</gx:coord>
+<when>2014-07-10T20:00:45.000Z</when>
+<gx:coord>-68.819216 -32.900562 780.5</gx:coord>
+<when>2014-07-10T20:00:46.000Z</when>
+<gx:coord>-68.819183 -32.90034 780.2000122070313</gx:coord>
+<when>2014-07-10T20:00:50.000Z</when>
+<gx:coord>-68.819173 -32.899518 777.7999877929688</gx:coord>
+<when>2014-07-10T20:00:51.000Z</when>
+<gx:coord>-68.81918 -32.899332 777.0</gx:coord>
+<when>2014-07-10T20:00:56.000Z</when>
+<gx:coord>-68.819123 -32.898435 777.2000122070313</gx:coord>
+<when>2014-07-10T20:00:57.000Z</when>
+<gx:coord>-68.819093 -32.898274 777.0</gx:coord>
+<when>2014-07-10T20:01:02.000Z</when>
+<gx:coord>-68.818925 -32.897518 777.5</gx:coord>
+<when>2014-07-10T20:01:03.000Z</when>
+<gx:coord>-68.818897 -32.897379 777.2999877929688</gx:coord>
+<when>2014-07-10T20:01:10.000Z</when>
+<gx:coord>-68.81944 -32.896622 774.7999877929688</gx:coord>
+<when>2014-07-10T20:01:11.000Z</when>
+<gx:coord>-68.819578 -32.896581 774.7000122070313</gx:coord>
+<when>2014-07-10T20:01:16.000Z</when>
+<gx:coord>-68.820426 -32.896827 773.7000122070313</gx:coord>
+<when>2014-07-10T20:01:17.000Z</when>
+<gx:coord>-68.820592 -32.896917 774.5</gx:coord>
+<when>2014-07-10T20:01:22.000Z</when>
+<gx:coord>-68.821473 -32.897206 772.5</gx:coord>
+<when>2014-07-10T20:01:23.000Z</when>
+<gx:coord>-68.821651 -32.89723 772.5</gx:coord>
+<when>2014-07-10T20:01:28.000Z</when>
+<gx:coord>-68.822609 -32.897225 771.7999877929688</gx:coord>
+<when>2014-07-10T20:01:29.000Z</when>
+<gx:coord>-68.822815 -32.897224 772.2000122070313</gx:coord>
+<when>2014-07-10T20:01:34.000Z</when>
+<gx:coord>-68.823849 -32.897166 774.2000122070313</gx:coord>
+<when>2014-07-10T20:01:35.000Z</when>
+<gx:coord>-68.824073 -32.897163 774.7999877929688</gx:coord>
+<when>2014-07-10T20:01:39.000Z</when>
+<gx:coord>-68.824967 -32.897171 775.2000122070313</gx:coord>
+<when>2014-07-10T20:01:40.000Z</when>
+<gx:coord>-68.825175 -32.897171 774.7999877929688</gx:coord>
+<when>2014-07-10T20:01:45.000Z</when>
+<gx:coord>-68.826102 -32.897172 772.9000244140625</gx:coord>
+<when>2014-07-10T20:01:46.000Z</when>
+<gx:coord>-68.826253 -32.897168 773.0999755859375</gx:coord>
+<when>2014-07-10T20:02:04.000Z</when>
+<gx:coord>-68.827298 -32.897134 773.7999877929688</gx:coord>
+<when>2014-07-10T20:02:05.000Z</when>
+<gx:coord>-68.827349 -32.897124 773.7999877929688</gx:coord>
+<when>2014-07-10T20:02:35.000Z</when>
+<gx:coord>-68.828379 -32.896947 772.9000244140625</gx:coord>
+<when>2014-07-10T20:02:36.000Z</when>
+<gx:coord>-68.828426 -32.896945 773.2000122070313</gx:coord>
+<when>2014-07-10T20:03:19.000Z</when>
+<gx:coord>-68.829454 -32.896741 774.0</gx:coord>
+<when>2014-07-10T20:03:20.000Z</when>
+<gx:coord>-68.829497 -32.896732 774.7000122070313</gx:coord>
+<when>2014-07-10T20:03:58.999Z</when>
+<gx:coord>-68.83051 -32.896566 773.0</gx:coord>
+<when>2014-07-10T20:04:00.000Z</when>
+<gx:coord>-68.830551 -32.896563 772.9000244140625</gx:coord>
+<when>2014-07-10T20:04:50.000Z</when>
+<gx:coord>-68.831556 -32.896416 772.2999877929688</gx:coord>
+<when>2014-07-10T20:04:50.999Z</when>
+<gx:coord>-68.831625 -32.896415 773.2999877929688</gx:coord>
+<when>2014-07-10T20:05:40.000Z</when>
+<gx:coord>-68.832628 -32.896242 774.0999755859375</gx:coord>
+<when>2014-07-10T20:05:41.000Z</when>
+<gx:coord>-68.832694 -32.896246 775.0999755859375</gx:coord>
+<when>2014-07-10T20:05:57.000Z</when>
+<gx:coord>-68.833749 -32.89612 773.7000122070313</gx:coord>
+<when>2014-07-10T20:05:58.000Z</when>
+<gx:coord>-68.833771 -32.896122 774.4000244140625</gx:coord>
+<when>2014-07-10T20:06:10.999Z</when>
+<gx:coord>-68.834778 -32.896031 774.7000122070313</gx:coord>
+<when>2014-07-10T20:06:12.000Z</when>
+<gx:coord>-68.834887 -32.896005 774.7000122070313</gx:coord>
+<when>2014-07-10T20:06:20.000Z</when>
+<gx:coord>-68.835854 -32.895833 776.2000122070313</gx:coord>
+<when>2014-07-10T20:06:20.999Z</when>
+<gx:coord>-68.835965 -32.895811 776.2000122070313</gx:coord>
+<when>2014-07-10T20:07:07.000Z</when>
+<gx:coord>-68.83698 -32.895643 778.5</gx:coord>
+<when>2014-07-10T20:07:08.000Z</when>
+<gx:coord>-68.837093 -32.895609 778.2999877929688</gx:coord>
+<when>2014-07-10T20:07:15.000Z</when>
+<gx:coord>-68.838038 -32.895407 777.9000244140625</gx:coord>
+<when>2014-07-10T20:07:16.000Z</when>
+<gx:coord>-68.838168 -32.895391 778.5</gx:coord>
+<when>2014-07-10T20:07:23.000Z</when>
+<gx:coord>-68.839149 -32.895254 778.2999877929688</gx:coord>
+<when>2014-07-10T20:07:23.999Z</when>
+<gx:coord>-68.839276 -32.895233 778.2000122070313</gx:coord>
+<when>2014-07-10T20:07:32.000Z</when>
+<gx:coord>-68.840221 -32.895027 778.9000244140625</gx:coord>
+<when>2014-07-10T20:07:33.000Z</when>
+<gx:coord>-68.840315 -32.895017 777.9000244140625</gx:coord>
+<when>2014-07-10T20:07:43.000Z</when>
+<gx:coord>-68.841282 -32.894891 777.9000244140625</gx:coord>
+<when>2014-07-10T20:07:44.000Z</when>
+<gx:coord>-68.841372 -32.894882 778.0</gx:coord>
+<when>2014-07-10T20:07:57.000Z</when>
+<gx:coord>-68.842407 -32.894658 778.2000122070313</gx:coord>
+<when>2014-07-10T20:07:58.000Z</when>
+<gx:coord>-68.842534 -32.894651 778.0999755859375</gx:coord>
+<when>2014-07-10T20:08:08.000Z</when>
+<gx:coord>-68.843587 -32.8945 777.9000244140625</gx:coord>
+<when>2014-07-10T20:08:09.000Z</when>
+<gx:coord>-68.843667 -32.894473 777.7999877929688</gx:coord>
+<when>2014-07-10T20:08:20.000Z</when>
+<gx:coord>-68.844678 -32.894246 779.2999877929688</gx:coord>
+<when>2014-07-10T20:08:21.000Z</when>
+<gx:coord>-68.844783 -32.894222 779.4000244140625</gx:coord>
+<when>2014-07-10T20:08:29.000Z</when>
+<gx:coord>-68.84569 -32.894079 779.7000122070313</gx:coord>
+<when>2014-07-10T20:08:30.000Z</when>
+<gx:coord>-68.845838 -32.894045 779.2999877929688</gx:coord>
+<when>2014-07-10T20:08:38.000Z</when>
+<gx:coord>-68.846801 -32.89395 780.0</gx:coord>
+<when>2014-07-10T20:08:39.000Z</when>
+<gx:coord>-68.846923 -32.89394 779.9000244140625</gx:coord>
+<when>2014-07-10T20:08:46.000Z</when>
+<gx:coord>-68.847846 -32.89372 781.2999877929688</gx:coord>
+<when>2014-07-10T20:08:47.000Z</when>
+<gx:coord>-68.847962 -32.893677 781.4000244140625</gx:coord>
+<when>2014-07-10T20:08:54.000Z</when>
+<gx:coord>-68.848967 -32.89344 780.4000244140625</gx:coord>
+<when>2014-07-10T20:08:55.000Z</when>
+<gx:coord>-68.849042 -32.89342 781.2999877929688</gx:coord>
+<when>2014-07-10T20:09:03.000Z</when>
+<gx:coord>-68.850086 -32.893241 786.2000122070313</gx:coord>
+<when>2014-07-10T20:09:04.000Z</when>
+<gx:coord>-68.850195 -32.893223 786.7999877929688</gx:coord>
+<when>2014-07-10T20:09:20.000Z</when>
+<gx:coord>-68.851204 -32.892984 787.9000244140625</gx:coord>
+<when>2014-07-10T20:09:21.000Z</when>
+<gx:coord>-68.851248 -32.892962 786.0</gx:coord>
+<when>2014-07-10T20:11:30.000Z</when>
+<gx:coord>-68.851796 -32.892815 800.0999755859375</gx:coord>
+<ExtendedData>
+<SchemaData schemaUrl="#schema">
+</SchemaData>
+</ExtendedData>
+</gx:Track>
+</gx:MultiTrack>
+</Placemark>
+<Placemark>
+<description><![CDATA[Creado por My Tracks en Android.
+
+Nombre: clinica
+Tipo de actividad: -.
+Descripción: -
+Distancia total: 8,31 km (5,2 mi).
+Tiempo total: 17:05.
+Tiempo en movimiento: 14:43.
+Velocidad promedio: 29,19 km/h (18,1 mi/h).
+Velocidad promedio de movimiento: 33,88 km/h (21,1 mi/h).
+Velocidad máx.: 90,90 km/h (56,5 mi/h).
+Ritmo promedio: 2,06 min/km (3,3 min/mi).
+Ritmo promedio de movimiento: 1,77 min/km (2,9 min/mi).
+Ritmo más rápido: 0,66 min/km (1,1 min/mi).
+Elevación máx.: 796 m (2610 pies).
+Elevación mín.: 752 m (2466 pies).
+Altitud: 24 m (79 pies).
+Pendiente máx.: 2 %.
+Pendiente mín.: -1 %.
+Registrado: 10/07/2014 4:54 p.m..
+]]></description>
+<name><![CDATA[clinica (Fin)]]></name>
+<styleUrl>#end</styleUrl>
+<Point>
+<coordinates>-68.851796,-32.892815,800.0999755859375</coordinates>
+</Point>
+</Placemark>
+</Document>
+</kml>

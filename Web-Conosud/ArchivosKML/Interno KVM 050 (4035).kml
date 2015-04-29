@@ -1,0 +1,23 @@
+<kml xmlns="http://earth.google.com/kml/2.0">
+<Folder>
+<Placemark>
+<description> Equipo ID: 6520 Estado GPS: Válido Dirección: Argentina, Prov Mendoza, Dpto Maipú
+ <![CDATA[<a href="http://www.omniavl.com.ar/">OMNIAVL MAP</a>]]></description>"
+<name> Movil: Industrial Andesmar 4035 GPS: 22/07/2014 01:56:36 p.m. Autoreporte  Vel: 0</name>
+<LookAt>
+<longitude>-68.80351</longitude>
+<latitude>-32.93229</latitude>
+<range>1000</range>
+<tilt>0</tilt>
+<heading></heading>
+</LookAt>
+<Style>
+<IconStyle>
+<Icon>
+<href>root://icons/palette-4.png</href>
+<x>192</x><y>32</y><w>32</w><h>32</h></Icon></IconStyle></Style><Point>
+<coordinates>-68.80351,-32.93229,0</coordinates>
+</Point>
+</Placemark>
+</Folder>
+</kml>

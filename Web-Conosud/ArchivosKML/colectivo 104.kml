@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2"
+xmlns:atom="http://www.w3.org/2005/Atom"
+xmlns:gx="http://www.google.com/kml/ext/2.2">
+<Document>
+<open>1</open>
+<visibility>1</visibility>
+<description><![CDATA[]]></description>
+<name><![CDATA[colectivo 104]]></name>
+<atom:author><atom:name><![CDATA[Creado por My Tracks en Android.]]></atom:name></atom:author>
+<Style id="track">
+<LineStyle><color>7f0000ff</color><width>4</width></LineStyle>
+<IconStyle>
+<scale>1.3</scale>
+<Icon><href>http://earth.google.com/images/kml-icons/track-directional/track-0.png</href></Icon>
+</IconStyle>
+</Style>
+<Style id="start"><IconStyle>
+<scale>1.3</scale>
+<Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-circle.png</href></Icon>
+<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+</IconStyle></Style>
+<Style id="end"><IconStyle>
+<scale>1.3</scale>
+<Icon><href>http://maps.google.com/mapfiles/kml/paddle/red-circle.png</href></Icon>
+<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+</IconStyle></Style>
+<Style id="statistics"><IconStyle>
+<scale>1.3</scale>
+<Icon><href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href></Icon>
+<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+</IconStyle></Style>
+<Style id="waypoint"><IconStyle>
+<scale>1.3</scale>
+<Icon><href>http://maps.google.com/mapfiles/kml/pushpin/blue-pushpin.png</href></Icon>
+<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+</IconStyle></Style>
+<Schema id="schema">
+<gx:SimpleArrayField name="power" type="int">
+<displayName><![CDATA[Potencia (W)]]></displayName>
+</gx:SimpleArrayField>
+<gx:SimpleArrayField name="cadence" type="int">
+<displayName><![CDATA[Cadencia (rpm)]]></displayName>
+</gx:SimpleArrayField>
+<gx:SimpleArrayField name="heart_rate" type="int">
+<displayName><![CDATA[Frecuencia cardíaca (lpm)]]></displayName>
+</gx:SimpleArrayField>
+<gx:SimpleArrayField name="battery_level" type="int">
+<displayName><![CDATA[Nivel de la batería (%)]]></displayName>
+</gx:SimpleArrayField>
+</Schema>
+<Placemark>
+<description><![CDATA[]]></description>
+<name><![CDATA[colectivo 104 (Inicio)]]></name>
+<styleUrl>#start</styleUrl>
+<Point>
+<coordinates>-68.809689,-32.912002,747.7000122070313</coordinates>
+</Point>
+</Placemark>
+<Placemark id="tour">
+<description><![CDATA[]]></description>
+<name><![CDATA[colectivo 104]]></name>
+<styleUrl>#track</styleUrl>
+<gx:MultiTrack>
+<altitudeMode>absolute</altitudeMode>
+<gx:interpolate>1</gx:interpolate>
+<gx:Track>
+<when>2014-07-17T20:45:52.764Z</when>
+<gx:coord>-68.809689 -32.912002 747.7000122070313</gx:coord>
+<when>2014-07-17T20:45:59.763Z</when>
+<gx:coord>-68.810078 -32.912805 693.5</gx:coord>
+<when>2014-07-17T20:46:00.783Z</when>
+<gx:coord>-68.810185 -32.912871 690.4000244140625</gx:coord>
+<when>2014-07-17T20:46:04.794Z</when>
+<gx:coord>-68.810418 -32.913733 705.7000122070313</gx:coord>
+<when>2014-07-17T20:46:05.760Z</when>
+<gx:coord>-68.810464 -32.913778 730.7000122070313</gx:coord>
+<when>2014-07-17T20:46:11.717Z</when>
+<gx:coord>-68.811207 -32.914935 818.9000244140625</gx:coord>
+<when>2014-07-17T20:47:02.000Z</when>
+<gx:coord>-68.810233 -32.914661 733.2999877929688</gx:coord>
+<when>2014-07-17T20:47:03.000Z</when>
+<gx:coord>-68.810112 -32.914664 733.5</gx:coord>
+<when>2014-07-17T20:47:09.000Z</when>
+<gx:coord>-68.809206 -32.91475 737.7000122070313</gx:coord>
+<when>2014-07-17T20:47:10.000Z</when>
+<gx:coord>-68.808962 -32.914851 739.0</gx:coord>
+<when>2014-07-17T20:47:16.000Z</when>
+<gx:coord>-68.807895 -32.914892 739.7999877929688</gx:coord>
+<when>2014-07-17T20:47:17.000Z</when>
+<gx:coord>-68.807609 -32.914989 740.0999755859375</gx:coord>
+<when>2014-07-17T20:47:22.000Z</when>
+<gx:coord>-68.806625 -32.915089 740.5999755859375</gx:coord>
+<when>2014-07-17T20:47:23.000Z</when>
+<gx:coord>-68.806363 -32.915054 745.7999877929688</gx:coord>
+<when>2014-07-17T20:47:27.000Z</when>
+<gx:coord>-68.805481 -32.915165 753.0</gx:coord>
+<when>2014-07-17T20:47:28.000Z</when>
+<gx:coord>-68.805296 -32.915166 755.0</gx:coord>
+<when>2014-07-17T20:47:34.000Z</when>
+<gx:coord>-68.804346 -32.915168 755.5</gx:coord>
+<when>2014-07-17T20:47:35.000Z</when>
+<gx:coord>-68.804171 -32.915163 757.5</gx:coord>
+<when>2014-07-17T20:47:44.000Z</when>
+<gx:coord>-68.803146 -32.915217 759.5</gx:coord>
+<when>2014-07-17T20:47:45.000Z</when>
+<gx:coord>-68.803094 -32.915205 759.5</gx:coord>
+<when>2014-07-17T20:47:56.000Z</when>
+<gx:coord>-68.802045 -32.915238 760.7999877929688</gx:coord>
+<when>2014-07-17T20:47:57.000Z</when>
+<gx:coord>-68.801955 -32.91524 760.9000244140625</gx:coord>
+<when>2014-07-17T20:48:08.000Z</when>
+<gx:coord>-68.800958 -32.915288 761.9000244140625</gx:coord>
+<when>2014-07-17T20:48:09.000Z</when>
+<gx:coord>-68.800865 -32.915284 761.2999877929688</gx:coord>
+<when>2014-07-17T20:48:17.000Z</when>
+<gx:coord>-68.799916 -32.915336 761.5999755859375</gx:coord>
+<when>2014-07-17T20:48:18.000Z</when>
+<gx:coord>-68.799769 -32.915329 761.9000244140625</gx:coord>
+<when>2014-07-17T20:48:27.000Z</when>
+<gx:coord>-68.798758 -32.915366 762.9000244140625</gx:coord>
+<when>2014-07-17T20:48:28.000Z</when>
+<gx:coord>-68.798694 -32.91537 762.7999877929688</gx:coord>
+<when>2014-07-17T20:48:58.000Z</when>
+<gx:coord>-68.798936 -32.916229 764.2000122070313</gx:coord>
+<when>2014-07-17T20:48:59.000Z</when>
+<gx:coord>-68.798946 -32.916306 765.2999877929688</gx:coord>
+<when>2014-07-17T20:49:08.000Z</when>
+<gx:coord>-68.799364 -32.917079 767.7000122070313</gx:coord>
+<when>2014-07-17T20:49:09.000Z</when>
+<gx:coord>-68.79941 -32.917174 767.7000122070313</gx:coord>
+<when>2014-07-17T20:49:17.000Z</when>
+<gx:coord>-68.799789 -32.918014 768.0999755859375</gx:coord>
+<when>2014-07-17T20:49:18.000Z</when>
+<gx:coord>-68.799847 -32.918137 768.4000244140625</gx:coord>
+<when>2014-07-17T20:49:25.000Z</when>
+<gx:coord>-68.800184 -32.91897 769.5999755859375</gx:coord>
+<when>2014-07-17T20:49:26.000Z</when>
+<gx:coord>-68.800243 -32.919076 769.7999877929688</gx:coord>
+<when>2014-07-17T20:49:33.000Z</when>
+<gx:coord>-68.800597 -32.919836 768.5</gx:coord>
+<when>2014-07-17T20:49:34.000Z</when>
+<gx:coord>-68.800629 -32.919942 768.2000122070313</gx:coord>
+<when>2014-07-17T20:50:09.000Z</when>
+<gx:coord>-68.800929 -32.920804 776.0</gx:coord>
+<when>2014-07-17T20:50:10.000Z</when>
+<gx:coord>-68.80094 -32.920804 776.5999755859375</gx:coord>
+<when>2014-07-17T20:51:21.000Z</when>
+<gx:coord>-68.801274 -32.92162 784.2000122070313</gx:coord>
+<ExtendedData>
+<SchemaData schemaUrl="#schema">
+</SchemaData>
+</ExtendedData>
+</gx:Track>
+</gx:MultiTrack>
+</Placemark>
+<Placemark>
+<description><![CDATA[Creado por My Tracks en Android.
+
+Nombre: colectivo 104
+Tipo de actividad: -.
+Descripción: -
+Distancia total: 2,28 km (1,4 mi).
+Tiempo total: 14:15.
+Tiempo en movimiento: 05:28.
+Velocidad promedio: 9,59 km/h (6,0 mi/h).
+Velocidad promedio de movimiento: 24,99 km/h (15,5 mi/h).
+Velocidad máx.: 70,20 km/h (43,6 mi/h).
+Ritmo promedio: 6,26 min/km (10,1 min/mi).
+Ritmo promedio de movimiento: 2,40 min/km (3,9 min/mi).
+Ritmo más rápido: 0,85 min/km (1,4 min/mi).
+Elevación máx.: 766 m (2512 pies).
+Elevación mín.: 709 m (2327 pies).
+Altitud: 23 m (74 pies).
+Pendiente máx.: 4 %.
+Pendiente mín.: 1 %.
+Registrado: 17/07/2014 5:37 p.m..
+]]></description>
+<name><![CDATA[colectivo 104 (Fin)]]></name>
+<styleUrl>#end</styleUrl>
+<Point>
+<coordinates>-68.801274,-32.92162,784.2000122070313</coordinates>
+</Point>
+</Placemark>
+</Document>
+</kml>
