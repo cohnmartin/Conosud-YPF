@@ -3,7 +3,6 @@
 
 <%@ Register Assembly="ControlsAjaxNotti" Namespace="ControlsAjaxNotti" TagPrefix="cc1" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <link href="Styles/stylesMenuAlt.css" rel="stylesheet" type="text/css" />
     <link href="Scripts/Jquery-UI/css/start/jquery-ui-1.10.3.custom.min.css" rel="stylesheet"
@@ -13,7 +12,6 @@
     <script src="Scripts/Jquery-UI/js/jquery-1.9.1.js" type="text/javascript"></script>
     <script src="angular/js/angular.js" type="text/javascript"></script>
     <script src="angular/controllers/controller_Domicilios.js" type="text/javascript"></script>
-
     <style type="text/css">
         .divRecorrido
         {
@@ -216,6 +214,12 @@
                             <td class="tdSimple" align="left" style="width: 65px; background-color: Gray">
                                 <input id="txtTipo" type="text" ng-model="Current.TipoTurno" style="width: 96%" />
                             </td>
+                            <td class="tdSimple" align="left" style="width: 220px; background-color: Gray">
+                               <select id="cboRecorridosAsignacion" ng-model="Current.LineaAsignada" 
+                                ng-options="clasif.Id as clasif.NombreAbreviado for clasif in recorridos">
+                                </select>
+
+                            </td>
                             <td style="width: 35px; background-color: Gray" class="tdSimple">
                                 <center>
                                     <img ng-click="GrabarDomicilio();" src="~/images/grabar.png" width="16" alt="grabar"
@@ -257,6 +261,9 @@
                                 </select>
                             </th>
                             <th class="Theader">
+                                Linea Asignada
+                            </th>
+                            <th class="Theader">
                                 &nbsp;
                             </th>
                         </tr>
@@ -286,6 +293,9 @@
                             <td class="tdSimple" align="left" style="width: 60px">
                                 <span>{{item.TipoTurno}}</span>
                             </td>
+                            <td class="tdSimple" align="left" style="width: 220px">
+                                <span>{{item.descLineaAsignada}}</span>
+                            </td>
                             <td style="width: 35px" class="tdSimple">
                                 <center>
                                     <span>
@@ -307,10 +317,17 @@
     <div class="divRecorrido">
         Recorrido: <span style="font-weight: bold" id="lblRecorrido"></span>
     </div>
-    <div id="dialog-DivEliminar" title="Ruta" style="font-size: 82.5%;display: none; overflow: hidden">
-        <p>Esta seguro de eliminar la ruta seleccionada?</p>
+    <div id="dialog-DivEliminar" title="Ruta" style="font-size: 62.5%; display: none;
+        overflow: hidden">
+        <p>
+            Selecione el recorrido que desea ELIMINAR</p>
+        <br />
+        <p id="lblEliminar" style="color: Red; display: none">
+            ESTA SEGURO DE ELIMINAR LA RUTA SELECCIONADA?</p>
+        <br />
+        <select id="cboRecorridosEliminar" style="width: 95%">
+        </select>
     </div>
-
     <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
     </script>
     <script type="text/javascript">
@@ -395,6 +412,18 @@
                     options.append($("<option />").val(result[i].Id).text(result[i].Nombre)).css("color", "Black");
                 }
 
+                var options = $("#cboRecorridosEliminar");
+                for (var i = 0; i < result.length; i++) {
+                    options.append($("<option />").val(result[i].Id).text(result[i].Nombre)).css("color", "Black");
+                }
+
+//                var options = $("#cboRecorridosAsignacion");
+//                for (var i = 0; i < result.length; i++) {
+//                    options.append($("<option />").val(result[i].Id).text(result[i].NombreAbreviado)).css("color", "Black");
+//                }
+
+                angular.element(document.getElementById('ng-app')).scope().setRecorridos(result);
+
             }, function () { alert("Error al buscar datos de recorrido"); });
 
         });
@@ -402,8 +431,8 @@
         dialogEliminar = $("#dialog-DivEliminar").dialog(
             {
                 autoOpen: false,
-                height: 150,
-                width: 380,
+                height: 210,
+                width: 370,
                 modal: true,
                 buttons: { "Eliminar": EliminarRutaConfirmada, Cancelar: function () { dialogEliminar.dialog("close"); } }
             });
@@ -431,7 +460,7 @@
             {
                 autoOpen: false,
                 height: 650,
-                width: 1020,
+                width: 1220,
                 modal: true,
                 buttons: { "Cargar Todos": function () { CargarTodos() }, Cancelar: function () { dialogDirPer.dialog("close"); } }
             });
@@ -886,19 +915,22 @@
         }
 
         function EliminarRuta() {
-            if ($(".divRecorrido").css("display") != "none") {
-                dialogEliminar.dialog("open");
-            }
-            else {
-                alert("Debe abrir una ruta para poder eliminarla");
-            }
+            dialogEliminar.dialog("open");
         }
 
         function EliminarRutaConfirmada() {
-            angular.element(document.getElementById('ng-app')).scope().EliminarRuta(idRecorrido);
-            flightPlanCoordinates = [];
-            markers = [];
-            reloadMap();
+            if ($("#lblEliminar").css("display") != "none") {
+                angular.element(document.getElementById('ng-app')).scope().EliminarRuta($("#cboRecorridosEliminar option:selected").val());
+                dialogEliminar.dialog("close");
+                $("#cboRecorridosEliminar option:selected").remove();
+                $("#lblEliminar").css("display", "none");
+                flightPlanCoordinates = [];
+                markers = [];
+                reloadMap();
+            }
+            else {
+                $("#lblEliminar").css("display", "block");
+            }
         }
     </script>
 </asp:Content>

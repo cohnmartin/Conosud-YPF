@@ -131,7 +131,7 @@
                 // fitBounds acercará el mapa con el zoom adecuado de acuerdo a lo buscado
                 map.fitBounds(results[0].geometry.viewport);
                 // Dibujamos un marcador con la ubicación del primer resultado obtenido
-                var markerOptions = { position: results[0].geometry.location }
+                var markerOptions = { position: results[0].geometry.location, icon: new google.maps.MarkerImage("http://maps.google.com/mapfiles/ms/micons/man.png") }
 
                 markerLocation = new google.maps.Marker(markerOptions);
                 markerLocation.setMap(map);
@@ -203,6 +203,24 @@
             for (var i = 0; i < datos["PuntosCercanos"].length; i++) {
                 destinosPosibles.push(new google.maps.LatLng(datos["PuntosCercanos"][i].Key, datos["PuntosCercanos"][i].Value));
             }
+
+//            var respondio = true;
+//            var i = 1;
+//            do {
+
+//                if (respondio) {
+//                    respondio = false;
+//                    calcularPuntoMasCercano(destinosPosibles.slice(i, 20), ubicacionOrigen).then(function (result) {
+//                        datosIda = result;
+//                        i = i + 20;
+//                        respondio = true;
+//                    });
+//                }
+//                
+//            } while (i<datos["PuntosCercanos"].length);
+
+
+
 
             calcularPuntoMasCercano(destinosPosibles, ubicacionOrigen).then(function (result) {
                 datosIda = result;

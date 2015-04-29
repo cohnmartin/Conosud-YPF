@@ -227,7 +227,7 @@ public partial class ConsultaRutasTransportes : System.Web.UI.Page
                          }).ToList();
 
             ///2.
-            var ptos = (from p in puntos.Where(w => w.Cabecera == cabeceraIda.Id && w.Id > idPuntoIda - 2 && w.Id < idPuntoIda + 2).ToList()
+            var ptos = (from p in puntos.Where(w => w.Cabecera == cabeceraIda.Id && w.Id >= idPuntoIda - 0 && w.Id <= idPuntoIda + 0).ToList()
                         select new
                         {
                             Key = Convert.ToDouble(p.Latitud),
@@ -257,11 +257,12 @@ public partial class ConsultaRutasTransportes : System.Web.UI.Page
                                 }).ToList();
 
 
-                var ptosAlt = (from p in puntos.Where(w => w.Cabecera == cabeceraRegreso.Id && w.Id > idPuntoRegreso - 2 && w.Id < idPuntoRegreso + 2).ToList()
+                var ptosAlt = (from p in puntos.Where(w => w.Cabecera == cabeceraRegreso.Id && w.Id >= idPuntoRegreso - 0 && w.Id <= idPuntoRegreso + 0).ToList()
                                select new
                                {
                                    Key = Convert.ToDouble(p.Latitud),
-                                   Value = Convert.ToDouble(p.Longitud)
+                                   Value = Convert.ToDouble(p.Longitud),
+                                   id = p.Id
                                }).ToList();
 
                 valores.Add("RutaAlt", datosAlt.ToList());

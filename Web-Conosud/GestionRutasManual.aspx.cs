@@ -122,7 +122,8 @@ public partial class GestionRutasManual : System.Web.UI.Page
                     Id = r.Id,
                     Nombre = r.Empresa + " - LINEA " + r.Linea + " - " + r.TipoTurno + " - " + r.TipoRecorrido,
                     linea = int.TryParse(r.Linea, out res) ? Convert.ToInt32(r.Linea) : 1000,
-                    empresa = r.Empresa
+                    empresa = r.Empresa,
+                    NombreAbreviado = r.Empresa.Substring(0, 3) + " - L:" + r.Linea + "-" + r.TipoTurno.Substring(0, 1) + "-" + r.TipoRecorrido
                 }).ToList().OrderBy(w=>w.empresa).ThenBy(w=>w.linea) ;
 
 
