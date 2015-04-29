@@ -1,0 +1,185 @@
+*{
+	/* A universal CSS reset */
+	margin:0;
+	padding:0;
+}
+
+
+
+#navigationMenu li{
+	list-style:none;
+	height:39px;
+	padding-left:3px;
+	width:40px;
+
+}
+
+#navigationMenu span{
+	/* Container properties */
+	width:0;
+	left:38px;
+	padding:0;
+	position:absolute;
+	overflow:hidden;
+
+	/* Text properties */
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	font-weight:bold;
+	letter-spacing:0.6px;
+	white-space:nowrap;
+	line-height:39px;
+	color :White;
+	
+	/* CSS3 Transition: */
+	-webkit-transition: 0.25s;
+	
+	/* Future proofing (these do not work yet): */
+	-moz-transition: 0.25s;
+	transition: 0.25s;
+}
+
+#navigationMenu a{
+	background:url('../images/navigation.jpg') no-repeat;
+
+	height:39px;
+	width:38px;
+	display:block;
+	position:relative;
+}
+
+/* General hover styles */
+
+#navigationMenu a:hover span{ width:auto; padding:0 20px;overflow:visible; }
+#navigationMenu a:hover{
+	text-decoration:none;
+	
+	/* CSS outer glow with the box-shadow property */
+	-moz-box-shadow:0 0 5px #9ddff5;
+	-webkit-box-shadow:0 0 5px #9ddff5;
+	box-shadow:0 0 5px #9ddff5;
+}
+
+/* Green Button */
+
+#navigationMenu .home {	background-position:0 0;}
+#navigationMenu .home:hover {	background-position:0 -39px;}
+#navigationMenu .home span{
+	background-color:#1e8bb4;
+	text-shadow:1px 1px 0 #44a8d0;
+}
+
+/* .eliminarSel Button */
+
+#navigationMenu .eliminarSel { background-position:-38px 0;}
+#navigationMenu .eliminarSel:hover { background-position:-38px -39px;}
+#navigationMenu .eliminarSel span{
+	background-color:#1e8bb4;
+	text-shadow:1px 1px 0 #44a8d0;
+}
+
+/* grabar Button */
+
+#navigationMenu .grabar { background-position:-76px 0;}
+#navigationMenu .grabar:hover { background-position:-76px -39px;}
+#navigationMenu .grabar span{
+	background-color:#1e8bb4;
+	text-shadow:1px 1px 0 #44a8d0;
+}
+
+/* Yellow Button */
+
+#navigationMenu .DirPersonal { background-position:-114px 0;}
+#navigationMenu .DirPersonal:hover{ background-position:-114px -39px;}
+#navigationMenu .DirPersonal span{
+	background-color:#1e8bb4;
+	text-shadow:1px 1px 0 #44a8d0;
+}
+
+/* Purple Button */
+
+#navigationMenu .CargarRecorrido { background-position:-152px 0;}
+#navigationMenu .CargarRecorrido:hover { background-position:-152px -39px;}
+#navigationMenu .CargarRecorrido span{
+	background-color:#1e8bb4;
+	text-shadow:1px 1px 0 #44a8d0;
+}
+
+/* Purple Button */
+
+#navigationMenu .contact { background-position:-190px 0;}
+#navigationMenu .contact:hover { background-position:-190px -39px;}
+#navigationMenu .contact span{
+	background-color:#1e8bb4;
+	text-shadow:1px 1px 0 #44a8d0;
+}
+
+
+/* CalcularKm */
+
+#navigationMenu .CalcularKm { background-position:-228px 0;}
+#navigationMenu .CalcularKm:hover { background-position:-228px -39px;}
+#navigationMenu .CalcularKm span{
+	background-color:#1e8bb4;
+	text-shadow:1px 1px 0 #44a8d0;
+}
+
+
+/* eliminarRuta Button */
+
+#navigationMenu .eliminarRuta { background-position:-266px 0;}
+#navigationMenu .eliminarRuta:hover { background-position:-266px -39px;}
+#navigationMenu .eliminarRuta span{
+	background-color:#1e8bb4;
+	text-shadow:1px 1px 0 #44a8d0;
+}
+
+
+/* The styles below are only needed for the demo page */
+
+#main
+{
+	top:30px;
+	position:absolute;
+	width:40px;
+	z-index:99999999;
+}
+
+
+h1{
+	color:#fff;
+	font-size:30px;
+	font-weight:normal;
+	padding:60px 0 20px;
+	text-align:center;
+}
+
+h2{
+	font-weight:normal;
+	text-align:center;
+}
+
+h1,h2{
+	font-family:"Myriad Pro",Arial,Helvetica,sans-serif;
+}
+
+a, a:visited,a:active {
+	color:#0196e3;
+	text-decoration:none;
+	outline:none;
+}
+
+a:hover{
+	text-decoration:underline;
+}
+
+a img{
+	border:none;
+}
+
+p.note{
+	color:#707070;
+	font-size:10px;
+	text-align:center;
+	margin:50px;
+}
