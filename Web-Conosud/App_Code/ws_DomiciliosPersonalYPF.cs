@@ -31,7 +31,8 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
             Dictionary<string, object> datos = new Dictionary<string, object>();
 
             var domicilios = (from d in dc.DomiciliosPersonal.Include("CabeceraRutas")
-                              where d.objLineaAsignada != null
+                              //where d.objLineaAsignada != null
+                              orderby d.NombreLegajo
                               select new
                               {
                                   d.Distrito,
@@ -82,9 +83,11 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
             current.Domicilio = domicilio["Domicilio"].ToString();
             current.Poblacion = domicilio["Poblacion"].ToString();
             current.Distrito = domicilio["Distrito"].ToString();
-            current.TipoTurno = domicilio["TipoTurno"].ToString();
+            current.TipoTurno = domicilio["TipoTurno"] != null ? domicilio["TipoTurno"].ToString() : null; 
             current.Latitud = domicilio["Latitud"] != null ? domicilio["Latitud"].ToString() : null;
             current.Longitud = domicilio["Longitud"] != null ? domicilio["Longitud"].ToString() : null;
+            if(domicilio["LineaAsignada"] != null){current.LineaAsignada = long.Parse(domicilio["LineaAsignada"].ToString());}
+
 
             dc.SaveChanges();
         }
