@@ -46,7 +46,7 @@ public partial class GestionRutasManual : System.Web.UI.Page
     }
 
     [WebMethod(EnableSession = true)]
-    public static object GrabarRuta(string Empresa, string HorarioS, string HorarioL, string TipoUnidad, string Turno, string Linea, string TIpoRecorrido, string TipoTurno, List<IDictionary<string, object>> datos, long id)
+    public static object GrabarRuta(string Empresa, string HorarioS, string HorarioL, string TipoUnidad, string Turno, string Linea, string TIpoRecorrido, string TipoTurno, List<IDictionary<string, object>> datos, long id, decimal distanciaRuta, string detalle)
     {
 
         using (EntidadesConosud dc = new EntidadesConosud())
@@ -68,7 +68,9 @@ public partial class GestionRutasManual : System.Web.UI.Page
                 cab.Linea = Linea;
                 cab.TipoRecorrido = TIpoRecorrido;
                 cab.TipoTurno = TipoTurno;
-
+                cab.Km = distanciaRuta;
+                cab.DetalleRuta = detalle;
+                
                 foreach (var item in detalles)
                 {
                     dc.DeleteObject(item);
@@ -167,7 +169,7 @@ public partial class GestionRutasManual : System.Web.UI.Page
             }).ToList());
 
             var cab = datos.First().objCabecera;
-            resultado.Add("cabecera", new { cab.Empresa, cab.HorariosLlegada, cab.HorariosSalida, cab.Linea, cab.TipoRecorrido, cab.TipoTurno, cab.TipoUnidad, cab.Turno, cab.Id });
+            resultado.Add("cabecera", new { cab.Empresa, cab.HorariosLlegada, cab.HorariosSalida, cab.Linea, cab.TipoRecorrido, cab.TipoTurno, cab.TipoUnidad, cab.Turno, cab.Id , cab.Km , cab.DetalleRuta });
 
             return resultado;
         }

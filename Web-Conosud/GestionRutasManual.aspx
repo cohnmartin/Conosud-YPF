@@ -89,7 +89,7 @@
         <table border="0" cellpadding="0" cellspacing="4" style="text-align: left; width: 100%;
             margin-top: 5px; border: 0px solid black;">
             <tr>
-                <td rowspan="5" align="center" style="padding: 5px; width: 80px" valign="middle">
+                <td rowspan="6" align="center" style="padding: 5px; width: 80px" valign="middle">
                     <img src="images/autobus.jpg" alt="" width="65px" />
                 </td>
             </tr>
@@ -170,6 +170,22 @@
                         <option value="DIURNO">DIURNO</option>
                         <option value="TEMPORAL">TEMPORAL</option>
                     </select>
+
+                    <asp:Label ID="Label2" runat="server" Style="font-size: x-small; font-weight: bold;padding-right:5px;padding-left:10px"
+                        Text="Total Km:"></asp:Label>
+
+                    <asp:Label ID="lblKm" runat="server" Style="font-size: x-small;"
+                        Text="Km:"></asp:Label>
+                </td>
+            </tr>
+           
+            <tr>
+                <td >
+                    <asp:Label ID="Label11" runat="server" Style="font-size: x-small; font-weight: bold"
+                        Text="Detalle:"></asp:Label>
+                </td>
+                <td colspan="3" style="padding-top:5px">
+                    <textarea rows="4" id="txtDetalle" style="width: 95%" class="text ui-widget-content ui-corner-all"></textarea>
                 </td>
             </tr>
         </table>
@@ -215,10 +231,8 @@
                                 <input id="txtTipo" type="text" ng-model="Current.TipoTurno" style="width: 96%" />
                             </td>
                             <td class="tdSimple" align="left" style="width: 220px; background-color: Gray">
-                               <select id="cboRecorridosAsignacion" ng-model="Current.LineaAsignada" 
-                                ng-options="clasif.Id as clasif.NombreAbreviado for clasif in recorridos">
+                                <select id="cboRecorridosAsignacion" ng-model="Current.LineaAsignada" ng-options="clasif.Id as clasif.NombreAbreviado for clasif in recorridos">
                                 </select>
-
                             </td>
                             <td style="width: 35px; background-color: Gray" class="tdSimple">
                                 <center>
@@ -294,12 +308,13 @@
                                 <span>{{item.TipoTurno}}</span>
                             </td>
                             <td class="tdSimple" align="left" style="width: 220px">
-                                <span>{{item.descLineaAsignada}}</span>
+                                <span ng-show="Current==null || Current.Id != item.Id" id="spanLineaAsignada" ng-repeat="val in recorridos | filter:{Id: item.LineaAsignada}:true">
+                                    {{val.NombreAbreviado}}</span>
                             </td>
                             <td style="width: 35px" class="tdSimple">
                                 <center>
                                     <span>
-                                        <asp:Image ng-show="item.Latitud == null " ng-click="UbicarDomicilioMapa(item);"
+                                        <asp:Image ng-show="item.Latitud == null && item.LongitudReposicion == null" ng-click="UbicarDomicilioMapa(item);"
                                             ImageUrl="~/images/menuges.gif" ID="Image1" runat="server" Style="cursor: hand;" />
                                         <asp:Image ng-show="item.Latitud != null && item.LongitudReposicion == null" ng-click="MostrarUbicacion(item);"
                                             ImageUrl="~/images/ok_16x16.gif" ID="Image2" runat="server" Style="cursor: hand;" />
@@ -417,10 +432,10 @@
                     options.append($("<option />").val(result[i].Id).text(result[i].Nombre)).css("color", "Black");
                 }
 
-//                var options = $("#cboRecorridosAsignacion");
-//                for (var i = 0; i < result.length; i++) {
-//                    options.append($("<option />").val(result[i].Id).text(result[i].NombreAbreviado)).css("color", "Black");
-//                }
+                //                var options = $("#cboRecorridosAsignacion");
+                //                for (var i = 0; i < result.length; i++) {
+                //                    options.append($("<option />").val(result[i].Id).text(result[i].NombreAbreviado)).css("color", "Black");
+                //                }
 
                 angular.element(document.getElementById('ng-app')).scope().setRecorridos(result);
 
@@ -441,7 +456,7 @@
         dialog = $("#dialog-form").dialog(
             {
                 autoOpen: false,
-                height: 300,
+                height: 345,
                 width: 800,
                 modal: true,
                 buttons: { "Guardar": Grabar, Cancelar: function () { dialog.dialog("close"); } }
@@ -480,19 +495,21 @@
         }
 
         function GrabarRuta() {
-            //            if (idRecorrido == 0)
-            //                dialog.dialog("open");
-            //            else
-            //                Grabar();
+
+            var path = flightPath.getPath();
+            var distance = google.maps.geometry.spherical.computeLength(path.getArray()) / 1000;
+
+            $('#<%= lblKm.ClientID %>').text(distance.toFixed(2));
 
             dialog.dialog("open");
         }
 
         function Grabar() {
 
-            //PageMethods.GrabarRuta(document.getElementById("nombreRutaTemportal").value, flightPlanCoordinates, idRecorrido,
+            var path = flightPath.getPath();
+            var distance = google.maps.geometry.spherical.computeLength(path.getArray()) / 1000;
 
-            PageMethods.GrabarRuta($('#cboEmpresa').val(), $('#txtHorarioSalida').val(), $('#txtHorarioLlegada').val(), $('#cboTipoUnidad').val(), $('#txtTurno').val(), $('#txtLinea').val(), $('#cboTipoRecorrido').val(), $('#cboTipoTurno').val(), flightPlanCoordinates, idRecorrido, function () { idRecorrido = 0; window.location.reload(); }, function () { alert("Error de Grabación, por favor tome contacto con el administrador."); });
+            PageMethods.GrabarRuta($('#cboEmpresa').val(), $('#txtHorarioSalida').val(), $('#txtHorarioLlegada').val(), $('#cboTipoUnidad').val(), $('#txtTurno').val(), $('#txtLinea').val(), $('#cboTipoRecorrido').val(), $('#cboTipoTurno').val(), flightPlanCoordinates, idRecorrido, distance.toFixed(2), $('#txtDetalle').val(), function () { idRecorrido = 0; window.location.reload(); }, function () { alert("Error de Grabación, por favor tome contacto con el administrador."); });
 
         }
 
@@ -520,6 +537,9 @@
                 $('#txtLinea').val(result["cabecera"].Linea);
                 $('#cboTipoRecorrido').val(result["cabecera"].TipoRecorrido);
                 $('#cboTipoTurno').val(result["cabecera"].TipoTurno);
+                $('#txtDetalle').val(result["cabecera"].DetalleRuta);
+                $('#<%= lblKm.ClientID %>').text(result["cabecera"].Km);
+
 
                 for (var i = 0; i < flightPlanCoordinates.length; i++) {
                     markers.push(createMarker(map, flightPlanCoordinates[i], "marker", "some text for marker ", "change", i));
