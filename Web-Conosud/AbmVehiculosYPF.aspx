@@ -7,6 +7,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <script src="angular/js/angular.js" type="text/javascript"></script>
     <script src="angular/controllers/controller_Vehiculos.js" type="text/javascript"></script>
+    <script src="angular/directives/DirectivasGenerales.js" type="text/javascript"></script>
 
     <telerik:RadScriptBlock ID="RadScriptBlock1" runat="server">
         <script type="text/javascript">
@@ -290,7 +291,8 @@
                     </td>
                     <td style="width: 35px" class="tdSimple">
                         <center>
-                            <asp:Image ng-click="BajaVehiculo(item);" ImageUrl="~/images/delete.gif" ID="Image1" runat="server" Style="cursor: hand;" /></center>
+                            <asp:Image confirmed-click="BajaVehiculo(item)" 
+                            ng-confirm-click="Esta seguro de dar de baja al vehículo seleccionado?" ImageUrl="~/images/delete.gif" ID="Image1" runat="server" Style="cursor: hand;" /></center>
                     </td>
                 </tr>
             </tbody>
