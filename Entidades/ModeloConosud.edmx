@@ -296,6 +296,8 @@
           <Property Name="TipoUnidad" Type="varchar" MaxLength="50" />
           <Property Name="TipoRecorrido" Type="varchar" MaxLength="50" />
           <Property Name="TipoTurno" Type="varchar" MaxLength="50" />
+          <Property Name="Km" Type="decimal" Scale="2" />
+          <Property Name="DetalleRuta" Type="varchar" MaxLength="1500" />
         </EntityType>
         <EntityType Name="CategoriasItems">
           <Key>
@@ -2223,6 +2225,8 @@
           <Property Type="String" Name="TipoRecorrido" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="TipoTurno" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DomiciliosPersonal" Relationship="ModeloConosud.FK_DomiciliosPersonal_CabeceraRutasTransportes" FromRole="CabeceraRutasTransportes" ToRole="DomiciliosPersonal" />
+          <Property Type="Decimal" Name="Km" Precision="18" Scale="2" />
+          <Property Type="String" Name="DetalleRuta" />
         </EntityType>
         <EntityType Name="RutasTransportes">
           <Key>
@@ -3040,6 +3044,8 @@
           <EntitySetMapping Name="CabeceraRutasTransportes">
             <EntityTypeMapping TypeName="ModeloConosud.CabeceraRutasTransportes">
               <MappingFragment StoreEntitySet="CabeceraRutasTransportes">
+                <ScalarProperty Name="DetalleRuta" ColumnName="DetalleRuta" />
+                <ScalarProperty Name="Km" ColumnName="Km" />
                 <ScalarProperty Name="TipoTurno" ColumnName="TipoTurno" />
                 <ScalarProperty Name="TipoRecorrido" ColumnName="TipoRecorrido" />
                 <ScalarProperty Name="HorariosLlegada" ColumnName="HorariosLlegada" />

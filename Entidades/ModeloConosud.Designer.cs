@@ -1983,6 +1983,54 @@ namespace Entidades
         private global::System.String _TipoTurno;
         partial void OnTipoTurnoChanging(global::System.String value);
         partial void OnTipoTurnoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> Km
+        {
+            get
+            {
+                return _Km;
+            }
+            set
+            {
+                OnKmChanging(value);
+                ReportPropertyChanging("Km");
+                _Km = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Km");
+                OnKmChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _Km;
+        partial void OnKmChanging(Nullable<global::System.Decimal> value);
+        partial void OnKmChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String DetalleRuta
+        {
+            get
+            {
+                return _DetalleRuta;
+            }
+            set
+            {
+                OnDetalleRutaChanging(value);
+                ReportPropertyChanging("DetalleRuta");
+                _DetalleRuta = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("DetalleRuta");
+                OnDetalleRutaChanged();
+            }
+        }
+        private global::System.String _DetalleRuta;
+        partial void OnDetalleRutaChanging(global::System.String value);
+        partial void OnDetalleRutaChanged();
 
         #endregion
     
