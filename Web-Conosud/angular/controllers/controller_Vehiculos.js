@@ -3,8 +3,6 @@ var myAppModule = angular.module('myApp', []);
 
 myAppModule.service('PageMethods', function ($http) {
 
-
-
     this.BajaVehiculo = function (Id) {
 
         return $http({
