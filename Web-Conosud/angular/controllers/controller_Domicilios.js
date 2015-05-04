@@ -59,6 +59,7 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
     $scope.filteredDom;
     $scope.recorridos;
 
+
     $scope.setRecorridos = function (r) {
         $scope.recorridos = r
     };
@@ -199,33 +200,37 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
 
     $scope.EliminarRuta = function (idRecorrido) {
 
-      
+
 
         PageMethodsDomicilios.EliminarRuta(idRecorrido)
                     .then(function (response) {
                         $scope.$digest();
                     });
 
-        $scope.CancelarEdicion();
+        $scope.hideEdicion();
 
     }
 
     $scope.GrabarDomicilio = function () {
 
-        $scope.Current.Latitud = null;
-        $scope.Current.Longitud = null;
+        if ($scope.Current.LongitudReposicion != null) {
+            $scope.Current.Latitud = null;
+            $scope.Current.Longitud = null;
+        }
 
         PageMethodsDomicilios.GrabarDomicilio($scope.Current)
                     .then(function (response) {
                         $scope.$digest();
                     });
 
-        $scope.CancelarEdicion();
+        $scope.hideEdicion();
 
     }
 
-    $scope.CancelarEdicion = function () {
+    $scope.hideEdicion = function () {
+
         $scope.Current = null;
+
         angular.element("#tblEdicion").css('display', 'none');
         $("#txtNombre").parentsUntil("tr").parent().find("span").css("display", "inline");
 
@@ -238,6 +243,11 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
         $("#cboRecorridosAsignacion").css("display", "none");
         $("#" + Constants.controlImgGrabar).css("display", "none");
 
+    }
+
+    $scope.CancelarEdicion = function () {
+        $scope.Current.LineaAsignada = null;
+        $scope.hideEdicion();
     }
     $scope.Editar = function ($event, domicilio) {
 
