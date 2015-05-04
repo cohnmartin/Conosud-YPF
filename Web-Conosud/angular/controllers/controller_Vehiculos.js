@@ -57,6 +57,9 @@ myAppModule.service('PageMethods', function ($http) {
 
 });
 
+
+
+
 myAppModule.controller('controller_vehiculos', function ($scope, PageMethods) {
     $scope.Vehiculos;
     $scope.Current;
@@ -159,8 +162,19 @@ myAppModule.controller('controller_vehiculos', function ($scope, PageMethods) {
 
     };
 
+    $scope.ajustarTamaños = function () {
+        var div = document.getElementById('divPrincipal');
+
+        if (div != null) {
+            $(div).css("width", (document.documentElement.clientWidth * 0.85) + "px");
+        }
+    };
+
+
+
     $scope.BuscarVehiculos();
     $scope.getContextoClasificaciones();
+    $scope.ajustarTamaños();
 
 });
 
