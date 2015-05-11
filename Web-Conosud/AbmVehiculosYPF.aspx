@@ -2,13 +2,10 @@
     AutoEventWireup="true" CodeFile="AbmVehiculosYPF.aspx.cs" Inherits="AbmVehiculosYPF" %>
 
 <%@ Register Assembly="ControlsAjaxNotti" Namespace="ControlsAjaxNotti" TagPrefix="cc1" %>
-
-
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <script src="angular/js/angular.js" type="text/javascript"></script>
     <script src="angular/controllers/controller_Vehiculos.js" type="text/javascript"></script>
     <script src="angular/directives/DirectivasGenerales.js" type="text/javascript"></script>
-
     <telerik:RadScriptBlock ID="RadScriptBlock1" runat="server">
         <script type="text/javascript">
 
@@ -39,25 +36,26 @@
                                 <asp:Label ID="Label2" runat="server" SkinID="lblConosud" Text="Dominio:"></asp:Label>
                             </td>
                             <td align="left">
-                                <input type="text" ng-model="Current.Patente" style="width: 80%" id="txtPatente" runat="server" />
-                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtPatente" 
-                                ErrorMessage="*"></asp:RequiredFieldValidator>
+                                <input type="text" ng-model="Current.Patente" style="width: 80%" id="txtPatente"
+                                    runat="server" />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtPatente"
+                                    ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
                             <td align="left">
                                 <asp:Label ID="Label1" runat="server" SkinID="lblConosud" Text="Tipo y Modelo:"></asp:Label>
                             </td>
                             <td align="left">
                                 <input type="text" ng-model="Current.Modelo" style="width: 90%" runat="server" id="txtModelo" />
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtModelo" 
-                                ErrorMessage="*"></asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtModelo"
+                                    ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
                             <td align="left">
                                 <asp:Label ID="Label3" runat="server" SkinID="lblConosud" Text="Modelo Año:"></asp:Label>
                             </td>
                             <td align="left">
-                                <input type="text" ng-model="Current.Anio" style="width: 90%" runat="server" id ="txtAnio" />
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtAnio" 
-                                ErrorMessage="*"></asp:RequiredFieldValidator>
+                                <input type="text" ng-model="Current.Anio" style="width: 90%" runat="server" id="txtAnio" />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtAnio"
+                                    ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
                         </tr>
                         <tr>
@@ -65,9 +63,8 @@
                                 <asp:Label ID="Label4" runat="server" SkinID="lblConosud" Text="Combustible:"></asp:Label>
                             </td>
                             <td align="left">
-                                <select runat="server" ng-model="Current.IdTipoCombustible" 
-                                ng-options="clasif.Id as clasif.Descripcion for clasif in Clasificaciones | filter:Tipo='Tipo Combustible'">
-                                 <option value="" ng-if="false"></option>
+                                <select runat="server" ng-model="Current.IdTipoCombustible" ng-options="clasif.Id as clasif.Descripcion for clasif in Clasificaciones | filter:Tipo='Tipo Combustible'">
+                                    <option value="" ng-if="false"></option>
                                 </select>
                             </td>
                             <td align="left">
@@ -99,8 +96,8 @@
                                 <telerik:RadDatePicker ID="txtVtoTarjVerde" MinDate="1950/1/1" runat="server" ZIndex="922000000"
                                     Width="95%">
                                 </telerik:RadDatePicker>
-                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtVtoTarjVerde" 
-                                ErrorMessage="*"></asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtVtoTarjVerde"
+                                    ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
                             <td align="left">
                                 <asp:Label ID="Label9" runat="server" SkinID="lblConosud" Text="Vto. Rev. Técnica:"></asp:Label>
@@ -109,6 +106,22 @@
                                 <telerik:RadDatePicker ID="txtVtoRevTecnica" MinDate="1950/1/1" runat="server" ZIndex="922000000"
                                     Width="95%">
                                 </telerik:RadDatePicker>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <asp:Label ID="Label15" runat="server" SkinID="lblConosud" Text="Fecha:"></asp:Label>
+                            </td>
+                            <td align="left">
+                                <telerik:RadDatePicker ID="txtVelocimetroFecha" MinDate="1950/1/1" runat="server"
+                                    ZIndex="922000000" Width="95%">
+                                </telerik:RadDatePicker>
+                            </td>
+                            <td align="left">
+                                <asp:Label ID="Label16" runat="server" SkinID="lblConosud" Text="Odómetro:"></asp:Label>
+                            </td>
+                            <td align="left" colspan="3">
+                                <input type="text" ng-model="Current.VelocimetroOdometro" style="width: 95%" />
                             </td>
                         </tr>
                         <tr>
@@ -138,24 +151,43 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="6" style="background-color: #CACACA; padding-left: 10px; height: 28px;">
-                                <asp:Label ID="Label14" runat="server" SkinID="lblConosud" Text="ULTIMO REGISTRO VELOCIMETRO"></asp:Label>
+                            <td align="left">
+                                <asp:Label ID="Label14" runat="server" SkinID="lblConosud" Text="Razon Social:"></asp:Label>
+                            </td>
+                            <td align="left">
+                                <input type="text" ng-model="Current.Contrato" style="width: 95%" />
+                            </td>
+                            <td align="left">
+                                <asp:Label ID="Label20" runat="server" SkinID="lblConosud" Text="Tarjeta Activas:"></asp:Label>
+                            </td>
+                            <td align="left">
+                                <input type="text" ng-model="Current.NroTarjeta" style="width: 95%" />
+                            </td>
+                            <td align="left">
+                                <asp:Label ID="Label21" runat="server" SkinID="lblConosud" Text="Limite Credito:"></asp:Label>
+                            </td>
+                            <td align="left">
+                                <input type="text" ng-model="Current.NroTarjeta" style="width: 95%" />
                             </td>
                         </tr>
                         <tr>
                             <td align="left">
-                                <asp:Label ID="Label15" runat="server" SkinID="lblConosud" Text="Fecha:"></asp:Label>
+                                <asp:Label ID="Label23" runat="server" SkinID="lblConosud" Text="PIN:"></asp:Label>
                             </td>
                             <td align="left">
-                                <telerik:RadDatePicker ID="txtVelocimetroFecha" MinDate="1950/1/1" runat="server"
-                                    ZIndex="922000000" Width="95%">
-                                </telerik:RadDatePicker>
+                                <input type="text" ng-model="Current.Contrato" style="width: 95%" />
                             </td>
                             <td align="left">
-                                <asp:Label ID="Label16" runat="server" SkinID="lblConosud" Text="Odómetro:"></asp:Label>
+                                <asp:Label ID="Label24" runat="server" SkinID="lblConosud" Text="Titula PIN:"></asp:Label>
                             </td>
-                            <td align="left" colspan="3">
-                                <input type="text" ng-model="Current.VelocimetroOdometro" style="width: 95%" />
+                            <td align="left">
+                                <input type="text" ng-model="Current.NroTarjeta" style="width: 95%" />
+                            </td>
+                            <td align="left">
+                                <asp:Label ID="Label18" runat="server" SkinID="lblConosud" Text="Centro Costo:"></asp:Label>
+                            </td>
+                            <td align="left">
+                                <input type="text" ng-model="Current.CentroCosto" style="width: 95%" />
                             </td>
                         </tr>
                         <tr>
@@ -165,24 +197,18 @@
                         </tr>
                         <tr>
                             <td align="left">
-                                <asp:Label ID="Label18" runat="server" SkinID="lblConosud" Text="Centro Costo:"></asp:Label>
-                            </td>
-                            <td align="left">
-                                <input type="text" ng-model="Current.CentroCosto" style="width: 95%" />
-                            </td>
-                            <td align="left">
                                 <asp:Label ID="Label19" runat="server" SkinID="lblConosud" Text="Observacion:"></asp:Label>
                             </td>
-                            <td align="left" colspan="4">
+                            <td align="left" colspan="6">
                                 <textarea rows="3" ng-model="Current.Observacion" style="width: 95%"></textarea>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="6">
-                            <center>
-                                <asp:Button ID="btnBuscar" SkinID="btnConosudBasic" runat="server" Text="Grabar"
-                                    ng-click="GrabarVehiculo()" OnClientClick="return false;" />
-                                    </center>
+                                <center>
+                                    <asp:Button ID="btnBuscar" SkinID="btnConosudBasic" runat="server" Text="Grabar"
+                                        ng-click="GrabarVehiculo()" OnClientClick="return false;" />
+                                </center>
                             </td>
                         </tr>
                     </table>
@@ -291,8 +317,8 @@
                     </td>
                     <td style="width: 35px" class="tdSimple">
                         <center>
-                            <asp:Image confirmed-click="BajaVehiculo(item)" 
-                            ng-confirm-click="Esta seguro de dar de baja al vehículo seleccionado?" ImageUrl="~/images/delete.gif" ID="Image1" runat="server" Style="cursor: hand;" /></center>
+                            <asp:Image confirmed-click="BajaVehiculo(item)" ng-confirm-click="Esta seguro de dar de baja al vehículo seleccionado?"
+                                ImageUrl="~/images/delete.gif" ID="Image1" runat="server" Style="cursor: hand;" /></center>
                     </td>
                 </tr>
             </tbody>
