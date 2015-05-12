@@ -87,6 +87,23 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
             if (vehiculo.ContainsKey("Observacion") && vehiculo["Observacion"] != null)
                 current.Observacion = vehiculo["Observacion"].ToString();
 
+
+            if (vehiculo.ContainsKey("RazonSocial") && vehiculo["RazonSocial"] != null)
+                current.RazonSocial = vehiculo["RazonSocial"].ToString();
+
+            if (vehiculo.ContainsKey("TarjetasActivas") && vehiculo["TarjetasActivas"] != null)
+                current.TarjetasActivas = int.Parse( vehiculo["TarjetasActivas"].ToString());
+
+            if (vehiculo.ContainsKey("LimiteCredito") && vehiculo["LimiteCredito"] != null)
+                current.LimiteCredito = int.Parse( vehiculo["LimiteCredito"].ToString());
+
+            if (vehiculo.ContainsKey("PIN") && vehiculo["PIN"] != null)
+                current.PIN = int.Parse (vehiculo["PIN"].ToString());
+
+            if (vehiculo.ContainsKey("TitularPin") && vehiculo["TitularPin"] != null)
+                current.TitularPin = vehiculo["TitularPin"].ToString();
+
+
             dc.SaveChanges();
         }
         return true;
@@ -151,7 +168,12 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                              v.NroTarjeta,
                              v.VelocimetroOdometro,
                              v.Año,
-                             v.Observacion
+                             v.Observacion,
+                             v.RazonSocial,
+                             v.TarjetasActivas,
+                             v.LimiteCredito,
+                             v.PIN,
+                             v.TitularPin
 
                          }).Take(25).ToList();
 
@@ -186,7 +208,13 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                         v.NroTarjeta,
                         v.VelocimetroOdometro,
                         Anio = v.Año,
-                        v.Observacion
+                        v.Observacion,
+                        v.RazonSocial,
+                        v.TarjetasActivas,
+                        v.LimiteCredito,
+                        v.PIN,
+                        v.TitularPin
+
 
                     }).ToList();
 
@@ -225,7 +253,13 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                              v.NroTarjeta,
                              v.VelocimetroOdometro,
                              v.Año,
-                             v.Observacion
+                             v.Observacion,
+                             v.RazonSocial,
+                             v.TarjetasActivas,
+                             v.LimiteCredito,
+                             v.PIN,
+                             v.TitularPin
+                             
 
                          }).Take(10).ToList();
 
@@ -260,7 +294,12 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                         v.NroTarjeta,
                         v.VelocimetroOdometro,
                         Anio = v.Año,
-                        v.Observacion
+                        v.Observacion,
+                        v.RazonSocial,
+                        v.TarjetasActivas,
+                        v.LimiteCredito,
+                        v.PIN,
+                        v.TitularPin
 
                     }).ToList();
 
