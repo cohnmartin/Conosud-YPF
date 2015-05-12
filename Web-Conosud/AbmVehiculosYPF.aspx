@@ -155,19 +155,19 @@
                                 <asp:Label ID="Label14" runat="server" SkinID="lblConosud" Text="Razon Social:"></asp:Label>
                             </td>
                             <td align="left">
-                                <input type="text" ng-model="Current.Contrato" style="width: 95%" />
+                                <input type="text" ng-model="Current.RazonSocial" style="width: 95%" />
                             </td>
                             <td align="left">
                                 <asp:Label ID="Label20" runat="server" SkinID="lblConosud" Text="Tarjeta Activas:"></asp:Label>
                             </td>
                             <td align="left">
-                                <input type="text" ng-model="Current.NroTarjeta" style="width: 95%" />
+                                <input type="text" ng-model="Current.TarjetasActivas" style="width: 95%" />
                             </td>
                             <td align="left">
                                 <asp:Label ID="Label21" runat="server" SkinID="lblConosud" Text="Limite Credito:"></asp:Label>
                             </td>
                             <td align="left">
-                                <input type="text" ng-model="Current.NroTarjeta" style="width: 95%" />
+                                <input type="text" ng-model="Current.LimiteCredito" style="width: 95%" />
                             </td>
                         </tr>
                         <tr>
@@ -175,13 +175,13 @@
                                 <asp:Label ID="Label23" runat="server" SkinID="lblConosud" Text="PIN:"></asp:Label>
                             </td>
                             <td align="left">
-                                <input type="text" ng-model="Current.Contrato" style="width: 95%" />
+                                <input type="text" ng-model="Current.PIN" style="width: 95%" />
                             </td>
                             <td align="left">
                                 <asp:Label ID="Label24" runat="server" SkinID="lblConosud" Text="Titula PIN:"></asp:Label>
                             </td>
                             <td align="left">
-                                <input type="text" ng-model="Current.NroTarjeta" style="width: 95%" />
+                                <input type="text" ng-model="Current.TitularPin" style="width: 95%" />
                             </td>
                             <td align="left">
                                 <asp:Label ID="Label18" runat="server" SkinID="lblConosud" Text="Centro Costo:"></asp:Label>
