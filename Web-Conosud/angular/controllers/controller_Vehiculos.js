@@ -24,6 +24,15 @@ myAppModule.service('PageMethods', function ($http) {
         });
     };
 
+    this.exportarExcel = function () {
+
+        return $http({
+            method: 'POST',
+            url: 'ws_VehiculosYPF.asmx/getExportacion',
+            data: {},
+            contentType: 'application/json; charset=utf-8'
+        });
+    };
 
     this.getContextoClasificaciones = function () {
 
@@ -66,6 +75,12 @@ myAppModule.controller('controller_vehiculos', function ($scope, PageMethods) {
     $scope.Clasificaciones;
     $scope.textSearch;
 
+
+    $scope.exportarExcel = function () {
+
+        document.getElementById(Constants.controlbtnExportar).click();
+
+    };
 
 
     $scope.Filtrar = function () {
