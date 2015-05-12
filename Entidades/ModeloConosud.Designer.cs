@@ -11598,6 +11598,126 @@ namespace Entidades
         private global::System.String _Observacion;
         partial void OnObservacionChanging(global::System.String value);
         partial void OnObservacionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String RazonSocial
+        {
+            get
+            {
+                return _RazonSocial;
+            }
+            set
+            {
+                OnRazonSocialChanging(value);
+                ReportPropertyChanging("RazonSocial");
+                _RazonSocial = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("RazonSocial");
+                OnRazonSocialChanged();
+            }
+        }
+        private global::System.String _RazonSocial;
+        partial void OnRazonSocialChanging(global::System.String value);
+        partial void OnRazonSocialChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> TarjetasActivas
+        {
+            get
+            {
+                return _TarjetasActivas;
+            }
+            set
+            {
+                OnTarjetasActivasChanging(value);
+                ReportPropertyChanging("TarjetasActivas");
+                _TarjetasActivas = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TarjetasActivas");
+                OnTarjetasActivasChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _TarjetasActivas;
+        partial void OnTarjetasActivasChanging(Nullable<global::System.Int32> value);
+        partial void OnTarjetasActivasChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> LimiteCredito
+        {
+            get
+            {
+                return _LimiteCredito;
+            }
+            set
+            {
+                OnLimiteCreditoChanging(value);
+                ReportPropertyChanging("LimiteCredito");
+                _LimiteCredito = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LimiteCredito");
+                OnLimiteCreditoChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _LimiteCredito;
+        partial void OnLimiteCreditoChanging(Nullable<global::System.Int32> value);
+        partial void OnLimiteCreditoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PIN
+        {
+            get
+            {
+                return _PIN;
+            }
+            set
+            {
+                OnPINChanging(value);
+                ReportPropertyChanging("PIN");
+                _PIN = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PIN");
+                OnPINChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PIN;
+        partial void OnPINChanging(Nullable<global::System.Int32> value);
+        partial void OnPINChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String TitularPin
+        {
+            get
+            {
+                return _TitularPin;
+            }
+            set
+            {
+                OnTitularPinChanging(value);
+                ReportPropertyChanging("TitularPin");
+                _TitularPin = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("TitularPin");
+                OnTitularPinChanged();
+            }
+        }
+        private global::System.String _TitularPin;
+        partial void OnTitularPinChanging(global::System.String value);
+        partial void OnTitularPinChanged();
 
         #endregion
     

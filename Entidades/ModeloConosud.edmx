@@ -739,6 +739,11 @@
           <Property Name="VelocimetroOdometro" Type="varchar" MaxLength="150" />
           <Property Name="FechaBaja" Type="datetime" />
           <Property Name="Observacion" Type="varchar" MaxLength="5000" />
+          <Property Name="RazonSocial" Type="varchar" MaxLength="150" />
+          <Property Name="TarjetasActivas" Type="int" />
+          <Property Name="LimiteCredito" Type="int" />
+          <Property Name="PIN" Type="int" />
+          <Property Name="TitularPin" Type="varchar" MaxLength="150" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'Conosud.dbo.View_EmpresasContratos' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -2197,6 +2202,11 @@
           <NavigationProperty Name="objDepartamento" Relationship="ModeloConosud.FK_VehiculosYPF_Departamento" FromRole="VehiculosYPF" ToRole="Clasificacion" />
           <NavigationProperty Name="objSector" Relationship="ModeloConosud.FK_VehiculosYPF_Sectores" FromRole="VehiculosYPF" ToRole="Clasificacion" />
           <NavigationProperty Name="objTipoAsignacion" Relationship="ModeloConosud.FK_VehiculosYPF_TipoAsignacion" FromRole="VehiculosYPF" ToRole="Clasificacion" />
+          <Property Type="String" Name="RazonSocial" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="TarjetasActivas" />
+          <Property Type="Int32" Name="LimiteCredito" />
+          <Property Type="Int32" Name="PIN" />
+          <Property Type="String" Name="TitularPin" MaxLength="150" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="InformacionPlanTrabajo">
           <Key>
@@ -3007,6 +3017,11 @@
           <EntitySetMapping Name="VehiculosYPF">
             <EntityTypeMapping TypeName="ModeloConosud.VehiculosYPF">
               <MappingFragment StoreEntitySet="VehiculosYPF">
+                <ScalarProperty Name="TitularPin" ColumnName="TitularPin" />
+                <ScalarProperty Name="PIN" ColumnName="PIN" />
+                <ScalarProperty Name="LimiteCredito" ColumnName="LimiteCredito" />
+                <ScalarProperty Name="TarjetasActivas" ColumnName="TarjetasActivas" />
+                <ScalarProperty Name="RazonSocial" ColumnName="RazonSocial" />
                 <ScalarProperty Name="Observacion" ColumnName="Observacion" />
                 <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
                 <ScalarProperty Name="VelocimetroOdometro" ColumnName="VelocimetroOdometro" />
