@@ -13,13 +13,15 @@
                 controlPopUp: '<%= ServerControlVehiculos.ClientID %>',
                 controltxtVtoTarjVerde: '<%= txtVtoTarjVerde.ClientID %>',
                 controltxtVtoRevTecnica: '<%= txtVtoRevTecnica.ClientID %>',
-                controltxtVelocimetroFecha: '<%= txtVelocimetroFecha.ClientID %>'
-
+                controltxtVelocimetroFecha: '<%= txtVelocimetroFecha.ClientID %>',
+                controlbtnExportar: '<%= btnExportar.ClientID %>'
+                
             };
 
 
         </script>
     </telerik:RadScriptBlock>
+
     <div id="ng-app" ng-app="myApp" ng-controller="controller_vehiculos">
         <cc1:ServerControlWindow ID="ServerControlVehiculos" runat="server" BackColor="WhiteSmoke"
             WindowColor="Rojo">
@@ -256,10 +258,16 @@
                 <tr>
                     <th class="tdFunctionAdd" colspan="8">
                         <center>
-                            <div style="cursor: hand; width: 120px;" ng-click="NuevoVehiculo()">
+                            <div style="cursor: hand; width: 120px;display:inline" ng-click="NuevoVehiculo()">
                                 <asp:Image ImageUrl="~/images/AddRecord.gif" ID="Image2" runat="server" Style="cursor: hand;
                                     padding-right: 5px;" /><span style="color: White; position: relative; top: -3px">Nuevo
                                         Vehículo</span></div>
+                            <div style="cursor: hand; width: 120px;display:inline" ng-click="exportarExcel()">
+                                <asp:ImageButton ID="imgExportar" ImageUrl="~/images/excel_16x16.gif" runat="server"
+                                    Style="cursor: hand; padding-right: 5px;" /><span style="color: White; position: relative;
+                                        top: -3px">Exportar Excel</span>
+                                        <asp:Button ID="btnExportar" runat="server" Text="Exportar" OnClick="btnBuscar_Click" CausesValidation="false" style="display:none" />
+                                        </div>
                         </center>
                     </th>
                 </tr>
