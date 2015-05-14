@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Services;
 using Entidades;
+using System.Web.UI.WebControls;
+using System.Web.UI;
 
 /// <summary>
 /// Summary description for ws_VehiculosYPF
@@ -92,13 +94,13 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                 current.RazonSocial = vehiculo["RazonSocial"].ToString();
 
             if (vehiculo.ContainsKey("TarjetasActivas") && vehiculo["TarjetasActivas"] != null)
-                current.TarjetasActivas = int.Parse( vehiculo["TarjetasActivas"].ToString());
+                current.TarjetasActivas = int.Parse(vehiculo["TarjetasActivas"].ToString());
 
             if (vehiculo.ContainsKey("LimiteCredito") && vehiculo["LimiteCredito"] != null)
-                current.LimiteCredito = int.Parse( vehiculo["LimiteCredito"].ToString());
+                current.LimiteCredito = int.Parse(vehiculo["LimiteCredito"].ToString());
 
             if (vehiculo.ContainsKey("PIN") && vehiculo["PIN"] != null)
-                current.PIN = int.Parse (vehiculo["PIN"].ToString());
+                current.PIN = int.Parse(vehiculo["PIN"].ToString());
 
             if (vehiculo.ContainsKey("TitularPin") && vehiculo["TitularPin"] != null)
                 current.TitularPin = vehiculo["TitularPin"].ToString();
@@ -259,7 +261,7 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                              v.LimiteCredito,
                              v.PIN,
                              v.TitularPin
-                             
+
 
                          }).Take(10).ToList();
 
@@ -326,5 +328,59 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
 
     }
 
+    [WebMethod]
+    public List<VehiculosYPF> getExportacion()
+    {
 
+        using (EntidadesConosud dc = new EntidadesConosud())
+        {
+            long? nullValue = null;
+
+            var datos = (from v in dc.VehiculosYPF
+                         select new
+                         {
+                             v.Id,
+                             v.Patente,
+                             v.Modelo,
+                             Departamento = v.objDepartamento,
+                             Sector = v.objSector,
+                             TipoCombustible = v.objTipoCombustible,
+                             TipoAsignacion = v.objTipoAsignacion,
+
+                             v.Titular,
+                             v.FechaBaja,
+                             CentroCosto = v.CentroCosto,
+                             VtoTarjVerde = v.FechaVtoTarjVerde,
+                             VtoRevTecnica = v.FechaVtoRevTecnica,
+                             VelocimetroFecha = v.VelocimetroFecha,
+                             v.Contrato,
+                             v.NroTarjeta,
+                             v.VelocimetroOdometro,
+                             v.Año,
+                             v.Observacion,
+                             v.RazonSocial,
+                             v.TarjetasActivas,
+                             v.LimiteCredito,
+                             v.PIN,
+                             v.TitularPin
+
+
+                         }).ToList();
+
+
+            List<VehiculosYPF> datosExportar = (from v in datos
+                                           select new VehiculosYPF
+                                           {
+                                               Id =  v.Id,
+                                               Patente = v.Patente,
+                                               Modelo = v.Modelo,
+
+                                           }).ToList<VehiculosYPF>();
+
+
+            return datosExportar;
+        }
+
+    
+    }
 }
