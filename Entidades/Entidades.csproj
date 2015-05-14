@@ -86,6 +86,7 @@
     <Compile Include="ArchivosSueldos.cs" />
     <Compile Include="CabeceraHojasDeRuta.cs" />
     <Compile Include="ClasesAuxiliares.cs" />
+    <Compile Include="ClasesConsulta.cs" />
     <Compile Include="ContratoEmpresas.cs" />
     <Compile Include="CredencialVisita.cs">
       <SubType>Component</SubType>
