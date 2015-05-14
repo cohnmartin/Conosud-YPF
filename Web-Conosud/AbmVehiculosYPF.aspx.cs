@@ -19,7 +19,7 @@ public partial class AbmVehiculosYPF : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-     
+
 
     }
 
@@ -33,6 +33,25 @@ public partial class AbmVehiculosYPF : System.Web.UI.Page
         List<string> camposExcluir = new List<string>(); ;
         Dictionary<string, string> alias = new Dictionary<string, string>();
 
+        alias.Add("Patente", "Dominio");
+        alias.Add("Modelo", "Vehiculo");
+        alias.Add("Año", "Modelo Año");
+        alias.Add("TipoCombustible", "Combustiblre");
+        alias.Add("VtoTarjVerde", "Vencimiento T. Verde");
+        alias.Add("VtoRevTecnica", "Vencimiento Rev. Tec.");
+        alias.Add("VelocimetroFecha", "Fecha Odom.");
+        alias.Add("VelocimetroOdometro", "Velocidad Odom.");
+
+        alias.Add("Contrato", "Conrtato YER");
+        alias.Add("CentroCosto", "CeCo");
+        alias.Add("TipoAsignacion", "Asignación");
+        alias.Add("RazonSocial", "Razon Social Contrato YER");
+        alias.Add("NroTarjeta", "Tarjeta YER Nro.");
+
+        alias.Add("TarjetasActivas", "Tarjetas Activas");
+        alias.Add("LimiteCredito", "Límite Crédito");
+
+        alias.Add("TitularPin", "Titular PIN");
 
 
         List<string> DatosReporte = new List<string>();

@@ -329,7 +329,7 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public List<VehiculosYPF> getExportacion()
+    public List<vehiculosYpfTemp> getExportacion()
     {
 
         using (EntidadesConosud dc = new EntidadesConosud())
@@ -368,14 +368,32 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                          }).ToList();
 
 
-            List<VehiculosYPF> datosExportar = (from v in datos
-                                           select new VehiculosYPF
-                                           {
-                                               Id =  v.Id,
-                                               Patente = v.Patente,
-                                               Modelo = v.Modelo,
 
-                                           }).ToList<VehiculosYPF>();
+            List<vehiculosYpfTemp> datosExportar = (from v in datos
+                                                select new vehiculosYpfTemp
+                                                {
+                                                    Patente = v.Patente,
+                                                    Modelo = v.Modelo,
+                                                    Departamento = v.Departamento != null ? v.Departamento.Descripcion:"",
+                                                    Sector = v.Sector != null ? v.Sector.Descripcion : "",
+                                                    TipoCombustible = v.TipoCombustible != null ? v.TipoCombustible.Descripcion : "",
+                                                    TipoAsignacion = v.TipoAsignacion != null ? v.TipoAsignacion.Descripcion : "",
+                                                    Titular = v.Titular,
+                                                    CentroCosto = v.CentroCosto,
+                                                    VtoTarjVerde = v.VtoRevTecnica.ToString(),
+                                                    VtoRevTecnica = v.VtoTarjVerde.ToString(),
+                                                    VelocimetroFecha = v.VelocimetroFecha.ToString(),
+                                                    Contrato = v.Contrato,
+                                                    NroTarjeta =v.NroTarjeta,
+                                                    VelocimetroOdometro = v.VelocimetroOdometro,
+                                                    Año =v.Año,
+                                                    RazonSocial = v.RazonSocial,
+                                                    TarjetasActivas = v.TarjetasActivas.ToString(),
+                                                    LimiteCredito = v.LimiteCredito.ToString(),
+                                                    PIN = v.PIN.ToString(),
+                                                    TitularPin = v.TitularPin
+
+                                                }).ToList<vehiculosYpfTemp>();
 
 
             return datosExportar;
