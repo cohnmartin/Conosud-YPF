@@ -45,6 +45,45 @@ public partial class GestionRutasManual : System.Web.UI.Page
         }
     }
 
+    public void btnBuscar_Click(object sender, EventArgs e)
+    {
+        ws_DomiciliosPersonalYPF ws = new ws_DomiciliosPersonalYPF();
+
+        // object datosExportar1 = ws.getDomiciliosExport();
+        List<dynamic> datosExportar = ws.getDomiciliosExport();
+
+
+        List<string> camposExcluir = new List<string>(); ;
+        Dictionary<string, string> alias = new Dictionary<string, string>();
+
+        camposExcluir.Add("Id");
+        camposExcluir.Add("Latitud");
+        camposExcluir.Add("LatitudReposicion");
+        camposExcluir.Add("Longitud");
+        camposExcluir.Add("LongitudReposicion");
+
+
+        List<string> DatosReporte = new List<string>();
+        DatosReporte.Add("Domicilios de los legajos");
+        DatosReporte.Add("Fecha y Hora emisi&oacute;n:" + DateTime.Now.ToString());
+        DatosReporte.Add("");
+        DatosReporte.Add("Incluye todos los legajos importados al sistema junto con sus datos de direcci&oacute;n");
+
+
+        GridView gv = Helpers.GenerarExportExcel(datosExportar.ToList<dynamic>(), alias, camposExcluir, DatosReporte);
+
+        System.IO.StringWriter stringWrite = new System.IO.StringWriter();
+        System.Web.UI.HtmlTextWriter htmlWrite = new HtmlTextWriter(stringWrite);
+        gv.RenderControl(htmlWrite);
+
+        HttpContext.Current.Response.ClearContent();
+        HttpContext.Current.Response.AddHeader("content-disposition", "attachment;filename=DireccionesLegajos" + "_" + DateTime.Now.ToString("M_dd_yyyy_H_M_s") + ".xls");
+        HttpContext.Current.Response.ContentType = "application/xls";
+        HttpContext.Current.Response.Write(stringWrite.ToString());
+        HttpContext.Current.Response.End();
+    }
+
+
     [WebMethod(EnableSession = true)]
     public static object GrabarRuta(string Empresa, string HorarioS, string HorarioL, string TipoUnidad, string Turno, string Linea, string TIpoRecorrido, string TipoTurno, List<IDictionary<string, object>> datos, long id, decimal distanciaRuta, string detalle)
     {
@@ -56,8 +95,8 @@ public partial class GestionRutasManual : System.Web.UI.Page
             if (id > 0)
             {
                 var detalles = (from r in dc.RutasTransportes
-                      where r.Cabecera == id
-                      select r).ToList();
+                                where r.Cabecera == id
+                                select r).ToList();
 
                 cab = detalles.FirstOrDefault().objCabecera;
                 cab.Empresa = Empresa;
@@ -70,12 +109,12 @@ public partial class GestionRutasManual : System.Web.UI.Page
                 cab.TipoTurno = TipoTurno;
                 cab.Km = distanciaRuta;
                 cab.DetalleRuta = detalle;
-                
+
                 foreach (var item in detalles)
                 {
                     dc.DeleteObject(item);
                 }
-               
+
             }
             else
             {
@@ -99,20 +138,18 @@ public partial class GestionRutasManual : System.Web.UI.Page
                 RutasTransportes ruta = new RutasTransportes();
                 ruta.Departamento = "";
                 ruta.Latitud = (item as IDictionary<string, object>).First().Value.ToString().Replace(".", ",");
-                ruta.Longitud = (item as IDictionary<string,object>).Last().Value.ToString().Replace(".", ",");
+                ruta.Longitud = (item as IDictionary<string, object>).Last().Value.ToString().Replace(".", ",");
                 ruta.objCabecera = cab;
 
             }
 
-            
+
             dc.SaveChanges();
         }
 
         return null;
 
     }
-
-
 
     [WebMethod(EnableSession = true)]
     public static object getRecorridos()
@@ -126,11 +163,10 @@ public partial class GestionRutasManual : System.Web.UI.Page
                     linea = int.TryParse(r.Linea, out res) ? Convert.ToInt32(r.Linea) : 1000,
                     empresa = r.Empresa,
                     NombreAbreviado = r.Empresa.Substring(0, 3) + " - L:" + r.Linea + "-" + r.TipoTurno.Substring(0, 1) + "-" + r.TipoRecorrido
-                }).ToList().OrderBy(w=>w.empresa).ThenBy(w=>w.linea) ;
+                }).ToList().OrderBy(w => w.empresa).ThenBy(w => w.linea);
 
 
     }
-
 
     [WebMethod(EnableSession = true)]
     public static object getPuntosRecorridos(long id)
@@ -169,7 +205,7 @@ public partial class GestionRutasManual : System.Web.UI.Page
             }).ToList());
 
             var cab = datos.First().objCabecera;
-            resultado.Add("cabecera", new { cab.Empresa, cab.HorariosLlegada, cab.HorariosSalida, cab.Linea, cab.TipoRecorrido, cab.TipoTurno, cab.TipoUnidad, cab.Turno, cab.Id , cab.Km , cab.DetalleRuta });
+            resultado.Add("cabecera", new { cab.Empresa, cab.HorariosLlegada, cab.HorariosSalida, cab.Linea, cab.TipoRecorrido, cab.TipoTurno, cab.TipoUnidad, cab.Turno, cab.Id, cab.Km, cab.DetalleRuta });
 
             return resultado;
         }

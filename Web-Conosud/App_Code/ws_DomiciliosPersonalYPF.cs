@@ -146,6 +146,37 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
         return true;
     }
 
+    [WebMethod]
+    public List<dynamic> getDomiciliosExport()
+    {
+
+        using (EntidadesConosud dc = new EntidadesConosud())
+        {
+
+            List<dynamic> domicilios = (from d in dc.DomiciliosPersonal.Include("CabeceraRutas")
+                              orderby d.NombreLegajo
+                              select new
+                              {
+                                  d.Legajo,
+                                  d.NombreLegajo,
+                                  d.Domicilio,
+                                  d.Distrito,
+                                  d.Poblacion,
+                                  d.Id,
+                                  d.Latitud,
+                                  d.LatitudReposicion,
+                                  d.Longitud,
+                                  d.LongitudReposicion,
+                                  d.TipoTurno,
+                                  LineaAsignada = d.objLineaAsignada.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignada.Linea + "-" + d.objLineaAsignada.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignada.TipoRecorrido
+
+                              }).ToList<dynamic>();
+
+            return domicilios;
+
+        }
+
+    }
 
 
 }

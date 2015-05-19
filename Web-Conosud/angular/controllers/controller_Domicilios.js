@@ -73,6 +73,11 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
 
     };
 
+    $scope.exportarExcel = function () {
+
+        document.getElementById(Constants.controlbtnExportar).click();
+
+    };
 
     $scope.BuscarDomicilios = function () {
 

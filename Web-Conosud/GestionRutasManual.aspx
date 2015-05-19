@@ -58,6 +58,8 @@
             z-index: 999999999;
         }
     </style>
+    <asp:Button ID="btnExportar" runat="server" Text="Exportar" OnClick="btnBuscar_Click"
+        CausesValidation="false" Style="display: none" />
     <cc1:ServerControlWindow ID="ServerControlVehiculos" runat="server" BackColor="WhiteSmoke"
         WindowColor="Gray">
         <ContentControls>
@@ -170,21 +172,17 @@
                         <option value="DIURNO">DIURNO</option>
                         <option value="TEMPORAL">TEMPORAL</option>
                     </select>
-
-                    <asp:Label ID="Label2" runat="server" Style="font-size: x-small; font-weight: bold;padding-right:5px;padding-left:10px"
-                        Text="Total Km:"></asp:Label>
-
-                    <asp:Label ID="lblKm" runat="server" Style="font-size: x-small;"
-                        Text="Km:"></asp:Label>
+                    <asp:Label ID="Label2" runat="server" Style="font-size: x-small; font-weight: bold;
+                        padding-right: 5px; padding-left: 10px" Text="Total Km:"></asp:Label>
+                    <asp:Label ID="lblKm" runat="server" Style="font-size: x-small;" Text="Km:"></asp:Label>
                 </td>
             </tr>
-           
             <tr>
-                <td >
+                <td>
                     <asp:Label ID="Label11" runat="server" Style="font-size: x-small; font-weight: bold"
                         Text="Detalle:"></asp:Label>
                 </td>
-                <td colspan="3" style="padding-top:5px">
+                <td colspan="3" style="padding-top: 5px">
                     <textarea rows="4" id="txtDetalle" style="width: 95%" class="text ui-widget-content ui-corner-all"></textarea>
                 </td>
             </tr>
@@ -244,10 +242,29 @@
                     </tbody>
                 </table>
             </div>
-            <div style="overflow: scroll; height: 550px">
+            <div style="overflow: scroll; height: 550px; display: inline">
                 <table id="tblDirecciones" width="97%" class="TVista" border="0" cellpadding="0"
                     cellspacing="0">
                     <thead>
+                        <tr style="display: inline; background-color: #006699; height: 28px">
+                            <th colspan="8">
+                                <center>
+                                    <div style="cursor: hand;" ng-click="exportarExcel()">
+                                        <table id="Table1" width="10%" class="" border="0" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="width: 30px; background-color: #006699">
+                                                    <asp:ImageButton ID="imgExportar" ImageUrl="~/images/excel_16x16.gif" runat="server"
+                                                        Style="cursor: hand; padding-right: 1px;" />
+                                                </td>
+                                                <td style="width: 130px; background-color: #006699; text-align: left">
+                                                    <span style="color: White;">Exportar Excel</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </center>
+                            </th>
+                        </tr>
                         <tr>
                             <th class="Theader">
                                 &nbsp;
@@ -364,7 +381,8 @@
 
         var Constants = {
             controlImgCancelar: '<%= imgCancelar.ClientID %>',
-            controlImgGrabar: '<%= imgGrabar.ClientID %>'
+            controlImgGrabar: '<%= imgGrabar.ClientID %>',
+            controlbtnExportar: '<%= btnExportar.ClientID %>'
         };
 
         var objCorreccion = new Object;

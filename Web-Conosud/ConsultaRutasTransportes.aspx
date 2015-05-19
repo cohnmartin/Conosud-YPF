@@ -204,23 +204,6 @@
                 destinosPosibles.push(new google.maps.LatLng(datos["PuntosCercanos"][i].Key, datos["PuntosCercanos"][i].Value));
             }
 
-//            var respondio = true;
-//            var i = 1;
-//            do {
-
-//                if (respondio) {
-//                    respondio = false;
-//                    calcularPuntoMasCercano(destinosPosibles.slice(i, 20), ubicacionOrigen).then(function (result) {
-//                        datosIda = result;
-//                        i = i + 20;
-//                        respondio = true;
-//                    });
-//                }
-//                
-//            } while (i<datos["PuntosCercanos"].length);
-
-
-
 
             calcularPuntoMasCercano(destinosPosibles, ubicacionOrigen).then(function (result) {
                 datosIda = result;
@@ -235,28 +218,28 @@
                         datosRegreso = result;
 
                         DibujarKML(datos, destinosPosibles[0]);
-                        createMarker(map, datosIda.pointMin, 'Punto de Abordaje mas cercano a la ida', "Punto de Abordaje Ida", "Abordaje Ida");
-                        createMarker(map, datosRegreso.pointMin, 'Punto de Bajada mas cercano a la vuelta', "Punto de Bajada Regreso", "Bajada Regreso");
+                        //createMarker(map, datosIda.pointMin, 'Punto de Abordaje mas cercano a la ida', "Punto de Abordaje Ida", "Abordaje Ida");
+                        //createMarker(map, datosRegreso.pointMin, 'Punto de Bajada mas cercano a la vuelta', "Punto de Bajada Regreso", "Bajada Regreso");
                         createMarker(map, ubicacionOrigen, "Ubicación Pasajero", "Ubicación Pasajero", "star");
 
-                        $("#<%= lblPtoCercano.ClientID %>").text(datosIda.destinoMin);
+                       /* $("#<%= lblPtoCercano.ClientID %>").text(datosIda.destinoMin);
                         $("#<%= lblDistancia.ClientID %>").text(datosIda.descDistancia);
                         $("#<%= lblDuracion.ClientID %>").text(datosIda.descDuracion);
 
                         $("#<%= lblPtoCercanoAlt.ClientID %>").text(datosRegreso.destinoMin);
                         $("#<%= lblDistanciaAlt.ClientID %>").text(datosRegreso.descDistancia);
-                        $("#<%= lblDuracionAlt.ClientID %>").text(datosRegreso.descDuracion);
+                        $("#<%= lblDuracionAlt.ClientID %>").text(datosRegreso.descDuracion);*/
                     });
                 }
                 else {
 
                     DibujarKML(datos, destinosPosibles[0]);
-                    createMarker(map, datosIda.pointMin, 'Punto de Abordaje mas cercano a la ida', "Punto de Abordaje Ida", "Abordaje Ida");
+                    //createMarker(map, datosIda.pointMin, 'Punto de Abordaje mas cercano a la ida', "Punto de Abordaje Ida", "Abordaje Ida");
                     createMarker(map, ubicacionOrigen, "Ubicación Pasajero", "Ubicación Pasajero", "star");
 
-                    $("#<%= lblPtoCercano.ClientID %>").text(datosIda.destinoMin);
+                    /*$("#<%= lblPtoCercano.ClientID %>").text(datosIda.destinoMin);
                     $("#<%= lblDistancia.ClientID %>").text(datosIda.descDistancia);
-                    $("#<%= lblDuracion.ClientID %>").text(datosIda.descDuracion);
+                    $("#<%= lblDuracion.ClientID %>").text(datosIda.descDuracion);*/
                     
 
                 }
@@ -669,7 +652,7 @@
                                     <asp:Label ID="lblTurno" runat="server" SkinID="lblConosudNormal" Text="1 y 2"></asp:Label>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr style="display:none">
                                 <td>
                                     <asp:Label ID="Label14" runat="server" SkinID="lblConosud" Text="Pto Mas Cercano:"></asp:Label>
                                 </td>
@@ -678,7 +661,7 @@
                                 </td>
                                 
                             </tr>
-                            <tr>
+                            <tr style="display:none">
                                 <td>
                                     <asp:Label ID="Label5" runat="server" SkinID="lblConosud" Text="Distnacia:"></asp:Label>
                                 </td>
@@ -717,7 +700,7 @@
                                 </td>
                             </tr>
                            
-                            <tr>
+                            <tr style="display:none">
                                 <td>
                                     <asp:Label ID="Label24" runat="server" SkinID="lblConosud" Text="Pto Mas Cercano:"></asp:Label>
                                 </td>
@@ -726,7 +709,7 @@
                                 </td>
                                 
                             </tr>
-                            <tr>
+                            <tr style="display:none">
                                 <td>
                                     <asp:Label ID="Label28" runat="server" SkinID="lblConosud" Text="Distnacia:"></asp:Label>
                                 </td>

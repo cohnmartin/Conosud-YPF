@@ -331,18 +331,6 @@
             });
         }
     </script>
-    <div id="main">
-        <ul id="navigationMenu">
-            <li><a class="home" href="#"><span>Borrar Todos</span> </a></li>
-            <li><a class="eliminarSel" href="#"><span>Eliminar Seleccionados</span> </a></li>
-            <li><a class="grabar" href="#"><span>Guadar Cambios</span> </a></li>
-            <li><a class="CalcularKm" href="#"><span>Calcular Km Ruta</span> </a></li>
-            <li><a class="CargarRecorrido" href="#"><span>Cargar Ruta</span> </a></li>
-            <li><a class="DirPersonal" href="#"><span>Direcciones del Personal</span> </a></li>
-            <li><a class="contact" href="#"><span>Reemplazar Ruta</span> </a></li>
-            <li><a class="eliminarRuta" href="#"><span>Eliminar Ruta</span> </a></li>
-        </ul>
-    </div>
     <div id="DivDescripcionPto" style="display: inline; background-color: White;">
         <table border="0" cellpadding="0" cellspacing="0" style="border: 1px solid #0066CC;
             text-align: left; width: 99%; margin-top: 5px; background-color: white;">
