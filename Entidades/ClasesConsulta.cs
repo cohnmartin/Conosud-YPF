@@ -14,7 +14,9 @@ namespace Entidades
         public string TipoCombustible { get; set; }
         public string Departamento { get; set; }
         public string Sector { get; set; }
+        public string Responsable { get; set; }
         public string Titular { get; set; }
+        
         public string VtoTarjVerde { get; set; }
         public string VtoRevTecnica { get; set; }
         public string VelocimetroFecha { get; set; }
@@ -30,7 +32,7 @@ namespace Entidades
         public string LimiteCredito { get; set; }
         public string PIN { get; set; }
         public string TitularPin { get; set; }
-
+        public string Observacion { get; set; }
 
     }
 }

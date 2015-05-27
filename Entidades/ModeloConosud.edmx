@@ -744,6 +744,7 @@
           <Property Name="LimiteCredito" Type="int" />
           <Property Name="PIN" Type="int" />
           <Property Name="TitularPin" Type="varchar" MaxLength="150" />
+          <Property Name="Responsable" Type="varchar" MaxLength="500" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'Conosud.dbo.View_EmpresasContratos' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -2207,6 +2208,7 @@
           <Property Type="Int32" Name="LimiteCredito" />
           <Property Type="Int32" Name="PIN" />
           <Property Type="String" Name="TitularPin" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Responsable" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="InformacionPlanTrabajo">
           <Key>
@@ -3017,6 +3019,7 @@
           <EntitySetMapping Name="VehiculosYPF">
             <EntityTypeMapping TypeName="ModeloConosud.VehiculosYPF">
               <MappingFragment StoreEntitySet="VehiculosYPF">
+                <ScalarProperty Name="Responsable" ColumnName="Responsable" />
                 <ScalarProperty Name="TitularPin" ColumnName="TitularPin" />
                 <ScalarProperty Name="PIN" ColumnName="PIN" />
                 <ScalarProperty Name="LimiteCredito" ColumnName="LimiteCredito" />

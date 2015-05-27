@@ -11718,6 +11718,30 @@ namespace Entidades
         private global::System.String _TitularPin;
         partial void OnTitularPinChanging(global::System.String value);
         partial void OnTitularPinChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Responsable
+        {
+            get
+            {
+                return _Responsable;
+            }
+            set
+            {
+                OnResponsableChanging(value);
+                ReportPropertyChanging("Responsable");
+                _Responsable = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Responsable");
+                OnResponsableChanged();
+            }
+        }
+        private global::System.String _Responsable;
+        partial void OnResponsableChanging(global::System.String value);
+        partial void OnResponsableChanged();
 
         #endregion
     
