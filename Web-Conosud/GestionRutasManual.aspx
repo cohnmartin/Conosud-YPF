@@ -242,14 +242,14 @@
                     </tbody>
                 </table>
             </div>
-            <div style="overflow: scroll; height: 550px; display: inline">
+            <div style="overflow: scroll; height: 550px;">
                 <table id="tblDirecciones" width="97%" class="TVista" border="0" cellpadding="0"
                     cellspacing="0">
                     <thead>
-                        <tr style="display: inline; background-color: #006699; height: 28px">
+                        <tr style="background-color: #006699; height: 28px">
                             <th colspan="8">
-                                <center>
-                                    <div style="cursor: hand;" ng-click="exportarExcel()">
+                               <center>
+                                    <div style="cursor: hand;width:100%" ng-click="exportarExcel()">
                                         <table id="Table1" width="10%" class="" border="0" cellpadding="0" cellspacing="0">
                                             <tr>
                                                 <td style="width: 30px; background-color: #006699">
@@ -262,7 +262,7 @@
                                             </tr>
                                         </table>
                                     </div>
-                                </center>
+                               </center>
                             </th>
                         </tr>
                         <tr>
@@ -277,12 +277,12 @@
                             </th>
                             <th class="Theader">
                                 <select id="Select1" style="width: 95%" ng-model="textSearch">
-                                    <option value="" selected="selected">Población</option>
+                                    <option value="" selected="selected">Localidad</option>
                                     <option ng-repeat="p in Poblaciones" value="{{p}}">{{p}}</option>
                                 </select>
                             </th>
                             <th class="Theader">
-                                Distrito
+                                Departamento
                             </th>
                             <th class="Theader">
                                 <select id="Select2" style="width: 95%" ng-model="textSearchTipo">
