@@ -26,7 +26,7 @@
         <cc1:ServerControlWindow ID="ServerControlVehiculos" runat="server" BackColor="WhiteSmoke"
             WindowColor="Rojo">
             <ContentControls>
-                <div id="divPrincipal" style="height: 400px; width: 1100px">
+                <div id="divPrincipal" style="height: 430px; width: 1100px">
                     <table cellpadding="2" cellspacing="2" style="width: 100%;">
                         <tr>
                             <td colspan="6" style="background-color: #CACACA; padding-left: 10px; height: 28px;">
@@ -37,8 +37,8 @@
                             <td align="left">
                                 <asp:Label ID="Label2" runat="server" SkinID="lblConosud" Text="Dominio:"></asp:Label>
                             </td>
-                            <td align="left">
-                                <input type="text" ng-model="Current.Patente" style="width: 80%" id="txtPatente"
+                            <td align="left" >
+                                <input type="text" ng-model="Current.Patente" style="width: 130px" id="txtPatente"
                                     runat="server" />
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtPatente"
                                     ErrorMessage="*"></asp:RequiredFieldValidator>
@@ -47,7 +47,7 @@
                                 <asp:Label ID="Label1" runat="server" SkinID="lblConosud" Text="Tipo y Modelo:"></asp:Label>
                             </td>
                             <td align="left">
-                                <input type="text" ng-model="Current.Modelo" style="width: 90%" runat="server" id="txtModelo" />
+                                <input type="text" ng-model="Current.Modelo" style="width: 130px" runat="server" id="txtModelo" />
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtModelo"
                                     ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
@@ -55,7 +55,7 @@
                                 <asp:Label ID="Label3" runat="server" SkinID="lblConosud" Text="Modelo Año:"></asp:Label>
                             </td>
                             <td align="left">
-                                <input type="text" ng-model="Current.Anio" style="width: 90%" runat="server" id="txtAnio" />
+                                <input type="text" ng-model="Current.Anio" style="width: 130px" runat="server" id="txtAnio" />
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtAnio"
                                     ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
@@ -65,7 +65,7 @@
                                 <asp:Label ID="Label4" runat="server" SkinID="lblConosud" Text="Combustible:"></asp:Label>
                             </td>
                             <td align="left">
-                                <select runat="server" ng-model="Current.IdTipoCombustible" ng-options="clasif.Id as clasif.Descripcion for clasif in Clasificaciones | filter:Tipo='Tipo Combustible'">
+                                <select runat="server" ng-model="Current.IdTipoCombustible" style="width: 170px" ng-options="clasif.Id as clasif.Descripcion for clasif in Clasificaciones | filter:Tipo='Tipo Combustible'">
                                     <option value="" ng-if="false"></option>
                                 </select>
                             </td>
@@ -73,14 +73,14 @@
                                 <asp:Label ID="Label5" runat="server" SkinID="lblConosud" Text="Departamento:"></asp:Label>
                             </td>
                             <td>
-                                <select ng-model="Current.IdDepartamento" ng-options="clasif.Id as clasif.Descripcion for clasif in Clasificaciones | filter:Tipo='Departamentos'">
+                                <select ng-model="Current.IdDepartamento" style="width: 170px" ng-options="clasif.Id as clasif.Descripcion for clasif in Clasificaciones | filter:Tipo='Departamentos'">
                                 </select>
                             </td>
                             <td align="left">
                                 <asp:Label ID="Label6" runat="server" SkinID="lblConosud" Text="Sector:"></asp:Label>
                             </td>
                             <td>
-                                <select ng-model="Current.IdSector" ng-options="clasif.Id as clasif.Descripcion for clasif in Clasificaciones | filter:Tipo='Sectores'">
+                                <select ng-model="Current.IdSector" style="width: 170px" ng-options="clasif.Id as clasif.Descripcion for clasif in Clasificaciones | filter:Tipo='Sectores'">
                                 </select>
                             </td>
                         </tr>
@@ -89,19 +89,28 @@
                                 <asp:Label ID="Label7" runat="server" SkinID="lblConosud" Text="Titular:"></asp:Label>
                             </td>
                             <td align="left">
-                                <input type="text" ng-model="Current.Titular" style="width: 95%" />
+                                <input type="text" ng-model="Current.Titular" style="width: 130px" />
                             </td>
                             <td align="left">
-                                <asp:Label ID="Label8" runat="server" SkinID="lblConosud" Text="Vto. Tarj. Verder:"></asp:Label>
+                                <asp:Label ID="Label25" runat="server" SkinID="lblConosud" Text="Responsable:"></asp:Label>
+                            </td>
+                            <td align="left">
+                                <input type="text" ng-model="Current.Responsable" style="width: 130px" />
+                            </td>
+                            <td align="left">
+                                <asp:Label ID="Label8" runat="server" SkinID="lblConosud" Text="Vto. Tarj. Verde:"></asp:Label>
                             </td>
                             <td align="left">
                                 <telerik:RadDatePicker ID="txtVtoTarjVerde" MinDate="1950/1/1" runat="server" ZIndex="922000000"
-                                    Width="95%">
+                                    Width="130px">
                                 </telerik:RadDatePicker>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtVtoTarjVerde"
                                     ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
-                            <td align="left">
+                            
+                        </tr>
+                        <tr>
+                        <td align="left">
                                 <asp:Label ID="Label9" runat="server" SkinID="lblConosud" Text="Vto. Rev. Técnica:"></asp:Label>
                             </td>
                             <td align="left">
@@ -109,10 +118,8 @@
                                     Width="95%">
                                 </telerik:RadDatePicker>
                             </td>
-                        </tr>
-                        <tr>
                             <td align="left">
-                                <asp:Label ID="Label15" runat="server" SkinID="lblConosud" Text="Fecha:"></asp:Label>
+                                <asp:Label ID="Label15" runat="server" SkinID="lblConosud" Text="Fecha Odóm.:"></asp:Label>
                             </td>
                             <td align="left">
                                 <telerik:RadDatePicker ID="txtVelocimetroFecha" MinDate="1950/1/1" runat="server"
@@ -122,7 +129,7 @@
                             <td align="left">
                                 <asp:Label ID="Label16" runat="server" SkinID="lblConosud" Text="Odómetro:"></asp:Label>
                             </td>
-                            <td align="left" colspan="3">
+                            <td align="left" >
                                 <input type="text" ng-model="Current.VelocimetroOdometro" style="width: 95%" />
                             </td>
                         </tr>
