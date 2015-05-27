@@ -63,6 +63,7 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
 
 
             current.Titular = vehiculo["Titular"].ToString();
+            current.Responsable = vehiculo["Responsable"].ToString();
             current.Combustible = long.Parse(vehiculo["IdTipoCombustible"].ToString());
 
             if (vehiculo.ContainsKey("IdTipoAsignacion") && vehiculo["IdTipoAsignacion"] != null)
@@ -246,6 +247,7 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                              TipoAsignacion = v.objTipoAsignacion,
 
                              v.Titular,
+                             v.Responsable,
                              v.FechaBaja,
                              CentroCosto = v.CentroCosto,
                              VtoTarjVerde = v.FechaVtoTarjVerde,
@@ -287,6 +289,7 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
 
 
                         v.Titular,
+                        v.Responsable,
                         FechaBaja = string.Format("{0:dd/MM/yyyy}", v.FechaBaja),
                         v.CentroCosto,
                         VtoTarjVerde = string.Format("{0:dd/MM/yyyy}", v.VtoTarjVerde),
@@ -348,6 +351,7 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                              TipoAsignacion = v.objTipoAsignacion,
 
                              v.Titular,
+                             v.Responsable,
                              v.FechaBaja,
                              CentroCosto = v.CentroCosto,
                              VtoTarjVerde = v.FechaVtoTarjVerde,
@@ -375,13 +379,15 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                                                     Patente = v.Patente,
                                                     Modelo = v.Modelo,
                                                     Departamento = v.Departamento != null ? v.Departamento.Descripcion:"",
-                                                    Sector = v.Sector != null ? v.Sector.Descripcion : "",
+                                                    
                                                     TipoCombustible = v.TipoCombustible != null ? v.TipoCombustible.Descripcion : "",
                                                     TipoAsignacion = v.TipoAsignacion != null ? v.TipoAsignacion.Descripcion : "",
+                                                    Sector = v.Sector != null ? v.Sector.Descripcion : "",
+                                                    Responsable = v.Responsable,
                                                     Titular = v.Titular,
                                                     CentroCosto = v.CentroCosto,
-                                                    VtoTarjVerde = v.VtoRevTecnica.ToString(),
-                                                    VtoRevTecnica = v.VtoTarjVerde.ToString(),
+                                                    VtoTarjVerde = v.VtoTarjVerde.ToString(),
+                                                    VtoRevTecnica = v.VtoRevTecnica.ToString(),
                                                     VelocimetroFecha = v.VelocimetroFecha.ToString(),
                                                     Contrato = v.Contrato,
                                                     NroTarjeta =v.NroTarjeta,
@@ -391,7 +397,8 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                                                     TarjetasActivas = v.TarjetasActivas.ToString(),
                                                     LimiteCredito = v.LimiteCredito.ToString(),
                                                     PIN = v.PIN.ToString(),
-                                                    TitularPin = v.TitularPin
+                                                    TitularPin = v.TitularPin,
+                                                    Observacion = v.Observacion
 
                                                 }).ToList<vehiculosYpfTemp>();
 
