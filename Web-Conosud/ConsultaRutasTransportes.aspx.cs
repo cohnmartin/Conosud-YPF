@@ -13,6 +13,16 @@ using System.Xml;
 
 public partial class ConsultaRutasTransportes : System.Web.UI.Page
 {
+    public class infoPuntosCercanos
+    {
+
+        public double masCercano { get; set; }
+        public CabeceraRutasTransportes cabeceraIda { get; set; }
+        public long idPuntoIda { get; set; }
+        public long idCab { get; set; }
+
+    }
+
     private static Double deg2rad(Double deg)
     {
         return (deg * Math.PI / 180.0);
@@ -103,8 +113,8 @@ public partial class ConsultaRutasTransportes : System.Web.UI.Page
         return null;
         //return datos.Take(1000).ToList();
 
-        
-        
+
+
 
     }
 
@@ -127,7 +137,7 @@ public partial class ConsultaRutasTransportes : System.Web.UI.Page
             CabeceraRutasTransportes cabeceraRegreso = null;
             long idPuntoRegreso = 0;
 
-            
+
             var puntos = (from p in dc.RutasTransportes
                           where p.objCabecera.TipoTurno != "Temporal"
                           && p.objCabecera.TipoTurno == TipoTurno
@@ -135,8 +145,10 @@ public partial class ConsultaRutasTransportes : System.Web.UI.Page
 
             List<RutasTransportes> puntosIda;
             List<RutasTransportes> puntosRegreso;
+            SortedList<double, infoPuntosCercanos> infoPuntosIda = new SortedList<double, infoPuntosCercanos>();
             if (TipoTurno == "DIURNO")
             {
+                #region  Busqueda del punto mas cercano para las rutas IDA y VUELTA
                 puntosIda = (from p in puntos
                              where p.objCabecera.TipoRecorrido == "IDA"
                              select p).ToList();
@@ -145,25 +157,71 @@ public partial class ConsultaRutasTransportes : System.Web.UI.Page
                                  where p.objCabecera.TipoRecorrido != "IDA"
                                  select p).ToList();
 
-                foreach (var item in puntosIda)
+                var puntosIdaGrupo = (from p in puntosIda
+                                      group p by p.Cabecera.Value into g
+                                      select new
+                                      {
+                                          idCab = g.Key,
+                                          puntos = g
+                                      }).ToList();
+
+                foreach (var itemG in puntosIdaGrupo)
                 {
-                    Double latTo = deg2rad(Convert.ToDouble(item.Latitud));
-                    Double lonTo = deg2rad(Convert.ToDouble(item.Longitud));
-
-                    Double latDelta = latTo - latFrom;
-                    Double lonDelta = lonTo - lonFrom;
-
-                    Double angle = 2 * Math.Asin(Math.Sqrt(Math.Pow(Math.Sin(latDelta / 2), 2) + Math.Cos(latFrom) * Math.Cos(latTo) * Math.Pow(Math.Sin(lonDelta / 2), 2)));
-                    Double distancia = (angle * earthRadius) / 1000;
-                    if (distancia < masCercano)
+                    foreach (var item in itemG.puntos)
                     {
-                        masCercano = distancia;
-                        cabeceraIda = item.objCabecera;
-                        idPuntoIda = item.Id;
+                        Double latTo = deg2rad(Convert.ToDouble(item.Latitud));
+                        Double lonTo = deg2rad(Convert.ToDouble(item.Longitud));
+
+                        Double latDelta = latTo - latFrom;
+                        Double lonDelta = lonTo - lonFrom;
+
+                        Double angle = 2 * Math.Asin(Math.Sqrt(Math.Pow(Math.Sin(latDelta / 2), 2) + Math.Cos(latFrom) * Math.Cos(latTo) * Math.Pow(Math.Sin(lonDelta / 2), 2)));
+                        Double distancia = (angle * earthRadius) / 1000;
+                        if (distancia < masCercano)
+                        {
+                            masCercano = distancia;
+                            cabeceraIda = item.objCabecera;
+                            idPuntoIda = item.Id;
+                        }
                     }
+                    infoPuntosCercanos info = new infoPuntosCercanos();
+                    info.masCercano = masCercano;
+                    info.cabeceraIda = cabeceraIda;
+                    info.idPuntoIda = idPuntoIda;
+                    info.idCab = itemG.idCab;
 
-
+                    if (!infoPuntosIda.ContainsKey(masCercano))
+                        infoPuntosIda.Add(masCercano, info);
+                    else
+                        infoPuntosIda.Add(masCercano + (Convert.ToDouble(itemG.idCab) / 10000000), info);
                 }
+
+                /// Busco los dos mas cercanos
+                var primerLineaIda = infoPuntosIda.OrderBy(w => w.Key).Take(1).Select(w => w.Value);
+                var segundaLineaIda = infoPuntosIda.OrderBy(w => w.Key).Skip(1).Take(1).Select(w => w.Value);
+
+
+
+                //foreach (var item in puntosIda)
+                //{
+
+                //    Double latTo = deg2rad(Convert.ToDouble(item.Latitud));
+                //    Double lonTo = deg2rad(Convert.ToDouble(item.Longitud));
+
+                //    Double latDelta = latTo - latFrom;
+                //    Double lonDelta = lonTo - lonFrom;
+
+                //    Double angle = 2 * Math.Asin(Math.Sqrt(Math.Pow(Math.Sin(latDelta / 2), 2) + Math.Cos(latFrom) * Math.Cos(latTo) * Math.Pow(Math.Sin(lonDelta / 2), 2)));
+                //    Double distancia = (angle * earthRadius) / 1000;
+                //    if (distancia < masCercano)
+                //    {
+                //        masCercano = distancia;
+                //        cabeceraIda = item.objCabecera;
+                //        idPuntoIda = item.Id;
+                //    }
+
+
+                //}
 
                 /// Busco para las lineas de regreso
                 masCercano = 10000;
@@ -186,9 +244,12 @@ public partial class ConsultaRutasTransportes : System.Web.UI.Page
 
 
                 }
+
+                #endregion
             }
             else
             {
+                #region Busqueda del punto mas cercano para las rutas IDA
                 foreach (var item in puntos)
                 {
                     Double latTo = deg2rad(Convert.ToDouble(item.Latitud));
@@ -208,17 +269,18 @@ public partial class ConsultaRutasTransportes : System.Web.UI.Page
 
 
                 }
-            
+                #endregion
+
             }
 
 
-           
+
             /// Regla de Negocio
             /// 1. Deberia devolver las lista de puntos del recorrido mar cercano 
             /// 2. y los 6 puntos al rededor del punto mas cercano para RE calcular segun la api de google el punto mas cercano
 
-
-            ///1. Busco los datos necesario para la IDA y en cado de Tipo Turno "TURNO" busco un solo porque la ida y la vuelta es la misma.
+            #region Recupero todos lo puntos para el recorrido de la ida
+            
             var datos = (from p in puntos.Where(w => w.Cabecera == cabeceraIda.Id).ToList()
                          select new
                          {
@@ -244,11 +306,12 @@ public partial class ConsultaRutasTransportes : System.Web.UI.Page
             valores.Add("TipoTurno", TipoTurno);
             valores.Add("TipoRecorrido", cabeceraIda.TipoRecorrido);
 
-            
+            #endregion
 
 
             if (TipoTurno == "DIURNO")
             {
+                #region Solo si el recorrido es de DIURNO busco todos lo puntos para el recorrido en la vuelta
                 var datosAlt = (from p in puntos.Where(w => w.Cabecera == cabeceraRegreso.Id).ToList()
                                 select new
                                 {
@@ -274,10 +337,14 @@ public partial class ConsultaRutasTransportes : System.Web.UI.Page
                 valores.Add("TipoUnidadAlt", cabeceraRegreso.TipoUnidad);
                 valores.Add("TipoTurnoAlt", TipoTurno);
                 valores.Add("TipoRecorridoAlt", cabeceraRegreso.TipoRecorrido);
+                #endregion
             }
 
             return valores;
 
+
+            /// TERMINAR DE HACER EL MISMO CODIGO PARA LA VUELTA Y DEVOLVER TODOS LOS DATOS 
+            /// QUE SERIAN 2 O 4 CONJUNTO DE DATOS.
         }
     }
 
