@@ -745,6 +745,14 @@
           <Property Name="PIN" Type="int" />
           <Property Name="TitularPin" Type="varchar" MaxLength="150" />
           <Property Name="Responsable" Type="varchar" MaxLength="500" />
+          <Property Name="PIN1" Type="int" />
+          <Property Name="TitularPin1" Type="varchar" MaxLength="150" />
+          <Property Name="PIN2" Type="int" />
+          <Property Name="TitularPin2" Type="varchar" MaxLength="150" />
+          <Property Name="PIN3" Type="int" />
+          <Property Name="TitularPin3" Type="varchar" MaxLength="150" />
+          <Property Name="PIN4" Type="int" />
+          <Property Name="TitularPin4" Type="varchar" MaxLength="150" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'Conosud.dbo.View_EmpresasContratos' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -2209,6 +2217,14 @@
           <Property Type="Int32" Name="PIN" />
           <Property Type="String" Name="TitularPin" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Responsable" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="PIN1" />
+          <Property Type="String" Name="TitularPin1" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="PIN2" />
+          <Property Type="String" Name="TitularPin2" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="PIN3" />
+          <Property Type="String" Name="TitularPin3" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="PIN4" />
+          <Property Type="String" Name="TitularPin4" MaxLength="150" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="InformacionPlanTrabajo">
           <Key>
@@ -3019,6 +3035,14 @@
           <EntitySetMapping Name="VehiculosYPF">
             <EntityTypeMapping TypeName="ModeloConosud.VehiculosYPF">
               <MappingFragment StoreEntitySet="VehiculosYPF">
+                <ScalarProperty Name="TitularPin4" ColumnName="TitularPin4" />
+                <ScalarProperty Name="PIN4" ColumnName="PIN4" />
+                <ScalarProperty Name="TitularPin3" ColumnName="TitularPin3" />
+                <ScalarProperty Name="PIN3" ColumnName="PIN3" />
+                <ScalarProperty Name="TitularPin2" ColumnName="TitularPin2" />
+                <ScalarProperty Name="PIN2" ColumnName="PIN2" />
+                <ScalarProperty Name="TitularPin1" ColumnName="TitularPin1" />
+                <ScalarProperty Name="PIN1" ColumnName="PIN1" />
                 <ScalarProperty Name="Responsable" ColumnName="Responsable" />
                 <ScalarProperty Name="TitularPin" ColumnName="TitularPin" />
                 <ScalarProperty Name="PIN" ColumnName="PIN" />

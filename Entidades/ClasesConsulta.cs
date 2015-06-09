@@ -32,6 +32,14 @@ namespace Entidades
         public string LimiteCredito { get; set; }
         public string PIN { get; set; }
         public string TitularPin { get; set; }
+        public string PIN1 { get; set; }
+        public string TitularPin1 { get; set; }
+        public string PIN2 { get; set; }
+        public string TitularPin2 { get; set; }
+        public string PIN3 { get; set; }
+        public string TitularPin3 { get; set; }
+        public string PIN4 { get; set; }
+        public string TitularPin4 { get; set; }
         public string Observacion { get; set; }
 
     }

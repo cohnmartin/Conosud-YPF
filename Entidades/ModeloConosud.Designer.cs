@@ -11742,6 +11742,198 @@ namespace Entidades
         private global::System.String _Responsable;
         partial void OnResponsableChanging(global::System.String value);
         partial void OnResponsableChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PIN1
+        {
+            get
+            {
+                return _PIN1;
+            }
+            set
+            {
+                OnPIN1Changing(value);
+                ReportPropertyChanging("PIN1");
+                _PIN1 = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PIN1");
+                OnPIN1Changed();
+            }
+        }
+        private Nullable<global::System.Int32> _PIN1;
+        partial void OnPIN1Changing(Nullable<global::System.Int32> value);
+        partial void OnPIN1Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String TitularPin1
+        {
+            get
+            {
+                return _TitularPin1;
+            }
+            set
+            {
+                OnTitularPin1Changing(value);
+                ReportPropertyChanging("TitularPin1");
+                _TitularPin1 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("TitularPin1");
+                OnTitularPin1Changed();
+            }
+        }
+        private global::System.String _TitularPin1;
+        partial void OnTitularPin1Changing(global::System.String value);
+        partial void OnTitularPin1Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PIN2
+        {
+            get
+            {
+                return _PIN2;
+            }
+            set
+            {
+                OnPIN2Changing(value);
+                ReportPropertyChanging("PIN2");
+                _PIN2 = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PIN2");
+                OnPIN2Changed();
+            }
+        }
+        private Nullable<global::System.Int32> _PIN2;
+        partial void OnPIN2Changing(Nullable<global::System.Int32> value);
+        partial void OnPIN2Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String TitularPin2
+        {
+            get
+            {
+                return _TitularPin2;
+            }
+            set
+            {
+                OnTitularPin2Changing(value);
+                ReportPropertyChanging("TitularPin2");
+                _TitularPin2 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("TitularPin2");
+                OnTitularPin2Changed();
+            }
+        }
+        private global::System.String _TitularPin2;
+        partial void OnTitularPin2Changing(global::System.String value);
+        partial void OnTitularPin2Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PIN3
+        {
+            get
+            {
+                return _PIN3;
+            }
+            set
+            {
+                OnPIN3Changing(value);
+                ReportPropertyChanging("PIN3");
+                _PIN3 = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PIN3");
+                OnPIN3Changed();
+            }
+        }
+        private Nullable<global::System.Int32> _PIN3;
+        partial void OnPIN3Changing(Nullable<global::System.Int32> value);
+        partial void OnPIN3Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String TitularPin3
+        {
+            get
+            {
+                return _TitularPin3;
+            }
+            set
+            {
+                OnTitularPin3Changing(value);
+                ReportPropertyChanging("TitularPin3");
+                _TitularPin3 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("TitularPin3");
+                OnTitularPin3Changed();
+            }
+        }
+        private global::System.String _TitularPin3;
+        partial void OnTitularPin3Changing(global::System.String value);
+        partial void OnTitularPin3Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PIN4
+        {
+            get
+            {
+                return _PIN4;
+            }
+            set
+            {
+                OnPIN4Changing(value);
+                ReportPropertyChanging("PIN4");
+                _PIN4 = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PIN4");
+                OnPIN4Changed();
+            }
+        }
+        private Nullable<global::System.Int32> _PIN4;
+        partial void OnPIN4Changing(Nullable<global::System.Int32> value);
+        partial void OnPIN4Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String TitularPin4
+        {
+            get
+            {
+                return _TitularPin4;
+            }
+            set
+            {
+                OnTitularPin4Changing(value);
+                ReportPropertyChanging("TitularPin4");
+                _TitularPin4 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("TitularPin4");
+                OnTitularPin4Changed();
+            }
+        }
+        private global::System.String _TitularPin4;
+        partial void OnTitularPin4Changing(global::System.String value);
+        partial void OnTitularPin4Changed();
 
         #endregion
     
