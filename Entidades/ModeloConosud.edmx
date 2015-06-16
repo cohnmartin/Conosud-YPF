@@ -1,27 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ModeloConosud.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns="http://schemas.microsoft.com/ado/2006/04/edm/ssdl">
+    <Schema Namespace="ModeloConosud.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="ModeloConosudStoreContainer">
-          <EntitySet Name="ArchivosAdjuntos" EntityType="ModeloConosud.Store.ArchivosAdjuntos" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="ArchivosSueldos" EntityType="ModeloConosud.Store.ArchivosSueldos" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="CabeceraHojasDeRuta" EntityType="ModeloConosud.Store.CabeceraHojasDeRuta" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="CabeceraRutasTransportes" EntityType="ModeloConosud.Store.CabeceraRutasTransportes" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="CategoriasItems" EntityType="ModeloConosud.Store.CategoriasItems" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="Clasificacion" EntityType="ModeloConosud.Store.Clasificacion" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="ComentariosGral" EntityType="ModeloConosud.Store.ComentariosGral" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="ContEmpLegajos" EntityType="ModeloConosud.Store.ContEmpLegajos" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="Contrato" EntityType="ModeloConosud.Store.Contrato" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="ContratoEmpresas" EntityType="ModeloConosud.Store.ContratoEmpresas" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="ContratoEmpresasImp" EntityType="ModeloConosud.Store.ContratoEmpresasImp" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="ContratosImp" EntityType="ModeloConosud.Store.ContratosImp" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="DatosDeSueldos" EntityType="ModeloConosud.Store.DatosDeSueldos" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="DomiciliosPersonal" EntityType="ModeloConosud.Store.DomiciliosPersonal" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="Empresa" EntityType="ModeloConosud.Store.Empresa" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="EmpresasImp" EntityType="ModeloConosud.Store.EmpresasImp" store:Type="Tables" store:Schema="dbo" store:Name="EmpresasImp" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+          <EntitySet Name="ArchivosAdjuntos" EntityType="ModeloConosud.Store.ArchivosAdjuntos" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ArchivosSueldos" EntityType="ModeloConosud.Store.ArchivosSueldos" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CabeceraHojasDeRuta" EntityType="ModeloConosud.Store.CabeceraHojasDeRuta" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CabeceraRutasTransportes" EntityType="ModeloConosud.Store.CabeceraRutasTransportes" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CategoriasItems" EntityType="ModeloConosud.Store.CategoriasItems" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Clasificacion" EntityType="ModeloConosud.Store.Clasificacion" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ComentariosGral" EntityType="ModeloConosud.Store.ComentariosGral" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ContEmpLegajos" EntityType="ModeloConosud.Store.ContEmpLegajos" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Contrato" EntityType="ModeloConosud.Store.Contrato" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ContratoEmpresas" EntityType="ModeloConosud.Store.ContratoEmpresas" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ContratoEmpresasImp" EntityType="ModeloConosud.Store.ContratoEmpresasImp" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ContratosImp" EntityType="ModeloConosud.Store.ContratosImp" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DatosDeSueldos" EntityType="ModeloConosud.Store.DatosDeSueldos" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DomiciliosPersonal" EntityType="ModeloConosud.Store.DomiciliosPersonal" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Empresa" EntityType="ModeloConosud.Store.Empresa" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="EmpresasImp" EntityType="ModeloConosud.Store.EmpresasImp" store:Type="Tables" store:Schema="dbo" store:Name="EmpresasImp">
             <DefiningQuery>SELECT 
       [EmpresasImp].[Id] AS [Id], 
       [EmpresasImp].[RazonSocial] AS [RazonSocial], 
@@ -36,25 +36,25 @@
       [EmpresasImp].[ART] AS [ART]
       FROM [dbo].[EmpresasImp] AS [EmpresasImp]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="HojasDeRuta" EntityType="ModeloConosud.Store.HojasDeRuta" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="InformacionPlanTrabajo" EntityType="ModeloConosud.Store.InformacionPlanTrabajo" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="IngresosEventuales" EntityType="ModeloConosud.Store.IngresosEventuales" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="Instructivos" EntityType="ModeloConosud.Store.Instructivos" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="Legajos" EntityType="ModeloConosud.Store.Legajos" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="LegajosContratosImp" EntityType="ModeloConosud.Store.LegajosContratosImp" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="ModificacionVehiculos" EntityType="ModeloConosud.Store.ModificacionVehiculos" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="Plantilla" EntityType="ModeloConosud.Store.Plantilla" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="RolesPlanilla" EntityType="ModeloConosud.Store.RolesPlanilla" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="RutasTransportes" EntityType="ModeloConosud.Store.RutasTransportes" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="SegMenu" EntityType="ModeloConosud.Store.SegMenu" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="SegRol" EntityType="ModeloConosud.Store.SegRol" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="SegRolMenu" EntityType="ModeloConosud.Store.SegRolMenu" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="SegUsuario" EntityType="ModeloConosud.Store.SegUsuario" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="SegUsuarioRol" EntityType="ModeloConosud.Store.SegUsuarioRol" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="VahiculosyEquipos" EntityType="ModeloConosud.Store.VahiculosyEquipos" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="VehiculosEquiposImp" EntityType="ModeloConosud.Store.VehiculosEquiposImp" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="VehiculosYPF" EntityType="ModeloConosud.Store.VehiculosYPF" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="View_EmpresasContratos" EntityType="ModeloConosud.Store.View_EmpresasContratos" store:Type="Views" store:Schema="dbo" store:Name="View_EmpresasContratos" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+          <EntitySet Name="HojasDeRuta" EntityType="ModeloConosud.Store.HojasDeRuta" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="InformacionPlanTrabajo" EntityType="ModeloConosud.Store.InformacionPlanTrabajo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="IngresosEventuales" EntityType="ModeloConosud.Store.IngresosEventuales" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Instructivos" EntityType="ModeloConosud.Store.Instructivos" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Legajos" EntityType="ModeloConosud.Store.Legajos" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LegajosContratosImp" EntityType="ModeloConosud.Store.LegajosContratosImp" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ModificacionVehiculos" EntityType="ModeloConosud.Store.ModificacionVehiculos" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Plantilla" EntityType="ModeloConosud.Store.Plantilla" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RolesPlanilla" EntityType="ModeloConosud.Store.RolesPlanilla" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RutasTransportes" EntityType="ModeloConosud.Store.RutasTransportes" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SegMenu" EntityType="ModeloConosud.Store.SegMenu" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SegRol" EntityType="ModeloConosud.Store.SegRol" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SegRolMenu" EntityType="ModeloConosud.Store.SegRolMenu" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SegUsuario" EntityType="ModeloConosud.Store.SegUsuario" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SegUsuarioRol" EntityType="ModeloConosud.Store.SegUsuarioRol" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="VahiculosyEquipos" EntityType="ModeloConosud.Store.VahiculosyEquipos" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="VehiculosEquiposImp" EntityType="ModeloConosud.Store.VehiculosEquiposImp" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="VehiculosYPF" EntityType="ModeloConosud.Store.VehiculosYPF" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="View_EmpresasContratos" EntityType="ModeloConosud.Store.View_EmpresasContratos" store:Type="Views" store:Schema="dbo" store:Name="View_EmpresasContratos">
             <DefiningQuery>SELECT 
       [View_EmpresasContratos].[RazonSocial] AS [RazonSocial], 
       [View_EmpresasContratos].[CodigoContrato] AS [CodigoContrato], 
@@ -1334,7 +1334,7 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="ModeloConosud" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
+      <Schema Namespace="ModeloConosud" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="EntidadesConosud" a:LazyLoadingEnabled="true" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
           <EntitySet Name="ArchivosAdjuntos" EntityType="ModeloConosud.ArchivosAdjuntos" />
           <EntitySet Name="CabeceraHojasDeRuta" EntityType="ModeloConosud.CabeceraHojasDeRuta" />
@@ -2361,7 +2361,7 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="urn:schemas-microsoft-com:windows:storage:mapping:CS">
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ModeloConosudStoreContainer" CdmEntityContainer="EntidadesConosud">
           <EntitySetMapping Name="ArchivosAdjuntos">
             <EntityTypeMapping TypeName="IsTypeOf(ModeloConosud.ArchivosAdjuntos)">
@@ -3136,12 +3136,12 @@
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <edmx:Designer>
     <edmx:Connection>
-      <DesignerInfoPropertySet xmlns="http://schemas.microsoft.com/ado/2007/06/edmx">
+      <DesignerInfoPropertySet xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
         <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
       </DesignerInfoPropertySet>
     </edmx:Connection>
     <edmx:Options>
-      <DesignerInfoPropertySet xmlns="http://schemas.microsoft.com/ado/2007/06/edmx">
+      <DesignerInfoPropertySet xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
@@ -3149,7 +3149,7 @@
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram Name="ModeloConosud" ZoomLevel="79" xmlns="http://schemas.microsoft.com/ado/2007/06/edmx">
+      <Diagram Name="ModeloConosud" ZoomLevel="79" xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
         <EntityTypeShape EntityType="ModeloConosud.ArchivosAdjuntos" Width="1.5" PointX="7.25" PointY="0.5" Height="1.5923063151041674" IsExpanded="true" />
         <EntityTypeShape EntityType="ModeloConosud.CabeceraHojasDeRuta" Width="1.5" PointX="8.125" PointY="4" Height="3.9033007812499996" IsExpanded="true" />
         <EntityTypeShape EntityType="ModeloConosud.CategoriasItems" Width="1.5" PointX="8.625" PointY="13.75" Height="1.75665364583333" IsExpanded="true" />
@@ -3439,7 +3439,7 @@
           <ConnectorPoint PointX="2.5833333333333335" PointY="5.4479865480143239" />
           <ConnectorPoint PointX="2.875" PointY="5.4479865480143239" /></AssociationConnector>
         <EntityTypeShape EntityType="ModeloConosud.VahiculosyEquipos" Width="1.5" PointX="10.125" PointY="0.75" Height="7.5570279947916674" />
-        <AssociationConnector Association="ModeloConosud.FK_VahiculosyEquipos_Clasificacion">
+        <AssociationConnector Association="ModeloConosud.FK_VahiculosyEquipos_Clasificacion" >
           <ConnectorPoint PointX="2.25" PointY="8.2665511067708337" />
           <ConnectorPoint PointX="2.9791666666666665" PointY="8.2665511067708337" />
           <ConnectorPoint PointX="3.1458333333333335" PointY="8.2665511067708337" />
@@ -3453,7 +3453,7 @@
           <ConnectorPoint PointX="9.2630227083333327" PointY="8.2665511067708337" />
           <ConnectorPoint PointX="10.125" PointY="8.2665511067708337" />
         </AssociationConnector>
-        <AssociationConnector Association="ModeloConosud.FK_VahiculosyEquipos_CompañiaSeguro">
+        <AssociationConnector Association="ModeloConosud.FK_VahiculosyEquipos_CompañiaSeguro" >
           <ConnectorPoint PointX="2.25" PointY="8.90625" />
           <ConnectorPoint PointX="2.9791666666666665" PointY="8.90625" />
           <ConnectorPoint PointX="3.1458333333333335" PointY="8.90625" />
@@ -3467,7 +3467,7 @@
           <ConnectorPoint PointX="9.9583333333333339" PointY="8.90625" />
           <ConnectorPoint PointX="10.125" PointY="8.90625" />
         </AssociationConnector>
-        <AssociationConnector Association="ModeloConosud.FK_VahiculosyEquipos_Contrato">
+        <AssociationConnector Association="ModeloConosud.FK_VahiculosyEquipos_Contrato" >
           <ConnectorPoint PointX="4.375" PointY="3.59375" />
           <ConnectorPoint PointX="5.76720896262614" PointY="3.5937499999999996" />
           <ConnectorPoint PointX="5.9338756292928059" PointY="3.59375" />
@@ -3477,7 +3477,7 @@
           <ConnectorPoint PointX="9.2708338333333327" PointY="3.59375" />
           <ConnectorPoint PointX="10.125" PointY="3.59375" />
         </AssociationConnector>
-        <AssociationConnector Association="ModeloConosud.FK_VahiculosyEquipos_Empresa">
+        <AssociationConnector Association="ModeloConosud.FK_VahiculosyEquipos_Empresa" >
           <ConnectorPoint PointX="2.125" PointY="2.5726184597877442" />
           <ConnectorPoint PointX="2.5416666666666665" PointY="2.5726184597877437" />
           <ConnectorPoint PointX="2.7083333333333335" PointY="2.5726184597877442" />
@@ -3498,11 +3498,11 @@
         <EntityTypeShape EntityType="ModeloConosud.InformacionPlanTrabajo" Width="1.5" PointX="21.25" PointY="5.625" Height="2.3648893229166656" />
         <EntityTypeShape EntityType="ModeloConosud.CabeceraRutasTransportes" Width="1.5" PointX="18.375" PointY="8" Height="2.5571907552083317" />
         <EntityTypeShape EntityType="ModeloConosud.RutasTransportes" Width="1.5" PointX="20.625" PointY="8.125" Height="2.172587890624996" />
-        <AssociationConnector Association="ModeloConosud.FK_RutasTransportes_CabeceraRutasTransportes">
+        <AssociationConnector Association="ModeloConosud.FK_RutasTransportes_CabeceraRutasTransportes" >
           <ConnectorPoint PointX="19.875" PointY="9.211293945312498" />
           <ConnectorPoint PointX="20.625" PointY="9.211293945312498" />
         </AssociationConnector>
-        <AssociationConnector Association="ModeloConosud.FK_VehiculosYPF_Combustible">
+        <AssociationConnector Association="ModeloConosud.FK_VehiculosYPF_Combustible" >
           <ConnectorPoint PointX="0.88964675" PointY="6.5" />
           <ConnectorPoint PointX="0.88964675" PointY="5.40330078125" />
           <ConnectorPoint PointX="1.3307301041666666" PointY="5.4033007812499987" />
@@ -3523,7 +3523,7 @@
           <ConnectorPoint PointX="18.875" PointY="2.9616000359434889" />
           <ConnectorPoint PointX="19.375" PointY="2.9616000359434889" />
         </AssociationConnector>
-        <AssociationConnector Association="ModeloConosud.FK_VehiculosYPF_Departamento">
+        <AssociationConnector Association="ModeloConosud.FK_VehiculosYPF_Departamento" >
           <ConnectorPoint PointX="1.57519640625" PointY="6.5" />
           <ConnectorPoint PointX="1.57519640625" PointY="5.41892578125" />
           <ConnectorPoint PointX="2.2916666666666665" PointY="5.4189257812499987" />
@@ -3542,7 +3542,7 @@
           <ConnectorPoint PointX="18.75" PointY="3.9843171592239459" />
           <ConnectorPoint PointX="19.375" PointY="3.9843171592239459" />
         </AssociationConnector>
-        <AssociationConnector Association="ModeloConosud.FK_VehiculosYPF_Sectores">
+        <AssociationConnector Association="ModeloConosud.FK_VehiculosYPF_Sectores" >
           <ConnectorPoint PointX="1.2529304687499998" PointY="6.5" />
           <ConnectorPoint PointX="1.2529304687499998" PointY="5.46580078125" />
           <ConnectorPoint PointX="1.3307301041666666" PointY="5.4658007812499987" />
@@ -3565,7 +3565,7 @@
           <ConnectorPoint PointX="19" PointY="1.6995480179717446" />
           <ConnectorPoint PointX="19.375" PointY="1.6995480179717446" />
         </AssociationConnector>
-        <AssociationConnector Association="ModeloConosud.FK_VehiculosYPF_TipoAsignacion">
+        <AssociationConnector Association="ModeloConosud.FK_VehiculosYPF_TipoAsignacion" >
           <ConnectorPoint PointX="2.1684603437499996" PointY="6.5" />
           <ConnectorPoint PointX="2.1684603437499996" PointY="5.34080078125" />
           <ConnectorPoint PointX="2.2916666666666665" PointY="5.3408007812499987" />
@@ -3587,7 +3587,7 @@
           <ConnectorPoint PointX="19.375" PointY="4.8981159832578056" />
         </AssociationConnector>
         <EntityTypeShape EntityType="ModeloConosud.DomiciliosPersonal" Width="2.5" PointX="17.375" PointY="18.75" Height="3.518697916666671" />
-        <AssociationConnector Association="ModeloConosud.FK_DomiciliosPersonal_CabeceraRutasTransportes">
+        <AssociationConnector Association="ModeloConosud.FK_DomiciliosPersonal_CabeceraRutasTransportes" >
           <ConnectorPoint PointX="19.40625" PointY="11.134095052083334" />
           <ConnectorPoint PointX="19.40625" PointY="18.75" />
         </AssociationConnector>
