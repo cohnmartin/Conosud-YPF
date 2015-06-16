@@ -60,6 +60,12 @@
     </style>
     <asp:Button ID="btnExportar" runat="server" Text="Exportar" OnClick="btnBuscar_Click"
         CausesValidation="false" Style="display: none" />
+
+<asp:Button ID="btnExportarRutas" runat="server" Text="Exportar" OnClick="btnExportarRutas_Click"
+        CausesValidation="false" Style="display: none" />
+
+        
+
     <cc1:ServerControlWindow ID="ServerControlVehiculos" runat="server" BackColor="WhiteSmoke"
         WindowColor="Gray">
         <ContentControls>
@@ -486,7 +492,7 @@
                 height: 210,
                 width: 430,
                 modal: true,
-                buttons: { "Abrir": AbrirRuta, Cancelar: function () { dialogAbrir.dialog("close"); } }
+                buttons: { "Abrir": AbrirRuta, Cancelar: function () { dialogAbrir.dialog("close"); } , "Exportar Rutas":ExportarRutas}
             });
 
         dialogDirPer = $("#dialog-DirPersonal").dialog(
@@ -529,6 +535,10 @@
 
             PageMethods.GrabarRuta($('#cboEmpresa').val(), $('#txtHorarioSalida').val(), $('#txtHorarioLlegada').val(), $('#cboTipoUnidad').val(), $('#txtTurno').val(), $('#txtLinea').val(), $('#cboTipoRecorrido').val(), $('#cboTipoTurno').val(), flightPlanCoordinates, idRecorrido, distance.toFixed(2), $('#txtDetalle').val(), function () { idRecorrido = 0; window.location.reload(); }, function () { alert("Error de Grabación, por favor tome contacto con el administrador."); });
 
+        }
+        function ExportarRutas() {
+
+            document.getElementById("<%= btnExportarRutas.ClientID %>").click();
         }
 
         function AbrirRuta() {

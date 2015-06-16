@@ -179,4 +179,32 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
     }
 
 
+    [WebMethod]
+    public List<dynamic> getRutasExport()
+    {
+
+        using (EntidadesConosud dc = new EntidadesConosud())
+        {
+
+            List<dynamic> domicilios = (from d in dc.CabeceraRutasTransportes
+                                        where d.TipoTurno != "Temporal "
+                                        orderby d.Empresa
+                                        select new
+                                        {
+                                            d.Empresa,
+                                            d.Linea,
+                                            d.Turno,
+                                            d.HorariosSalida,
+                                            d.HorariosLlegada,
+                                            d.TipoUnidad,
+                                            d.TipoRecorrido,
+                                            d.TipoTurno,
+                                            d.Km,
+                                            d.DetalleRuta
+                                        }).ToList<dynamic>();
+            return domicilios;
+
+        }
+
+    }
 }

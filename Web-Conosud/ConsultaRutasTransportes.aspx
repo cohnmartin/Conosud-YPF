@@ -127,7 +127,7 @@
                 //$('#search').live('click', function () {
                 $("#DivDescripcionPto").css("display", "none");
                 // Obtenemos la dirección y la asignamos a una variable
-                var address = $('#nro').val() + ' ' + $('#calle').val() + ',' + $('#cboDepartamentos').val() + ',Mendoza,Argentina';
+                var address = $('#nro').val() + ' ' + $('#calle').val() + ',' + $('#localidad').val() + ',' + $('#cboDepartamentos').val() + ',Mendoza,Argentina';
                 // Creamos el Objeto Geocoder
                 var geocoder = new google.maps.Geocoder();
                 // Hacemos la petición indicando la dirección e invocamos la función
@@ -618,7 +618,7 @@
     <div id="divPaso1">
         <div style="text-align: center; margin-top: 5px;">
             <center>
-                <table border="0" cellpadding="0" cellspacing="0" width="80%" style="text-align: left;">
+                <table border="0" cellpadding="0" cellspacing="0" width="90%" style="text-align: left;">
                     <tr>
                         <td>
                             <asp:Label ID="Label2" runat="server" SkinID="lblConosud" Text="Calle Nro:"></asp:Label>
@@ -627,6 +627,10 @@
                         <td>
                             <asp:Label ID="Label1" runat="server" SkinID="lblConosud" Text="Nombre Calle:"></asp:Label>
                             <input type="text" maxlength="100" style="width: 220px" id="calle" value="Espejo" />
+                        </td>
+                        <td>
+                            <asp:Label ID="Label17" runat="server" SkinID="lblConosud" Text="Localidad:"></asp:Label>
+                            <input type="text" maxlength="100" style="width: 220px" id="localidad" value="" />
                         </td>
                         <td>
                             <asp:Label ID="Label3" runat="server" SkinID="lblConosud" Text="Departamento:"></asp:Label>

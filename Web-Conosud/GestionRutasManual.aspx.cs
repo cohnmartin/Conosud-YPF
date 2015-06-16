@@ -83,6 +83,44 @@ public partial class GestionRutasManual : System.Web.UI.Page
         HttpContext.Current.Response.End();
     }
 
+    public void btnExportarRutas_Click(object sender, EventArgs e)
+    {
+        ws_DomiciliosPersonalYPF ws = new ws_DomiciliosPersonalYPF();
+
+        // object datosExportar1 = ws.getDomiciliosExport();
+        List<dynamic> datosExportar = ws.getRutasExport();
+
+
+        List<string> camposExcluir = new List<string>(); ;
+        Dictionary<string, string> alias = new Dictionary<string, string>();
+
+        //camposExcluir.Add("Id");
+        //camposExcluir.Add("Latitud");
+        //camposExcluir.Add("LatitudReposicion");
+        //camposExcluir.Add("Longitud");
+        //camposExcluir.Add("LongitudReposicion");
+
+
+        List<string> DatosReporte = new List<string>();
+        DatosReporte.Add("Rutas Transporte");
+        DatosReporte.Add("Fecha y Hora emisi&oacute;n:" + DateTime.Now.ToString());
+        DatosReporte.Add("Rutas definitivas del sistema de transporte.");
+        DatosReporte.Add("Incluye todos las rutas tanto de ida como de vuelta para todas las empresas transportistas.");
+
+
+        GridView gv = Helpers.GenerarExportExcel(datosExportar.ToList<dynamic>(), alias, camposExcluir, DatosReporte);
+
+        System.IO.StringWriter stringWrite = new System.IO.StringWriter();
+        System.Web.UI.HtmlTextWriter htmlWrite = new HtmlTextWriter(stringWrite);
+        gv.RenderControl(htmlWrite);
+
+        HttpContext.Current.Response.ClearContent();
+        HttpContext.Current.Response.AddHeader("content-disposition", "attachment;filename=RutasTransporte" + "_" + DateTime.Now.ToString("M_dd_yyyy_H_M_s") + ".xls");
+        HttpContext.Current.Response.ContentType = "application/xls";
+        HttpContext.Current.Response.Write(stringWrite.ToString());
+        HttpContext.Current.Response.End();
+    }
+    
 
     [WebMethod(EnableSession = true)]
     public static object GrabarRuta(string Empresa, string HorarioS, string HorarioL, string TipoUnidad, string Turno, string Linea, string TIpoRecorrido, string TipoTurno, List<IDictionary<string, object>> datos, long id, decimal distanciaRuta, string detalle)
