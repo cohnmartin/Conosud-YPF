@@ -65,6 +65,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("ModeloConosud", "FK_VehiculosYPF_Sectores", "Clasificacion", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Entidades.Clasificacion), "VehiculosYPF", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Entidades.VehiculosYPF), true)]
 [assembly: EdmRelationshipAttribute("ModeloConosud", "FK_VehiculosYPF_TipoAsignacion", "Clasificacion", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Entidades.Clasificacion), "VehiculosYPF", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Entidades.VehiculosYPF), true)]
 [assembly: EdmRelationshipAttribute("ModeloConosud", "FK_DomiciliosPersonal_CabeceraRutasTransportes", "CabeceraRutasTransportes", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Entidades.CabeceraRutasTransportes), "DomiciliosPersonal", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Entidades.DomiciliosPersonal), true)]
+[assembly: EdmRelationshipAttribute("ModeloConosud", "FK_DomiciliosPersonal_Empresa", "Empresa", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Entidades.Empresa), "DomiciliosPersonal", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Entidades.DomiciliosPersonal), true)]
 
 #endregion
 
@@ -5019,6 +5020,30 @@ namespace Entidades
         private Nullable<global::System.Int64> _LineaAsignada;
         partial void OnLineaAsignadaChanging(Nullable<global::System.Int64> value);
         partial void OnLineaAsignadaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Empresa
+        {
+            get
+            {
+                return _Empresa;
+            }
+            set
+            {
+                OnEmpresaChanging(value);
+                ReportPropertyChanging("Empresa");
+                _Empresa = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Empresa");
+                OnEmpresaChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Empresa;
+        partial void OnEmpresaChanging(Nullable<global::System.Int64> value);
+        partial void OnEmpresaChanged();
 
         #endregion
     
@@ -5058,6 +5083,44 @@ namespace Entidades
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CabeceraRutasTransportes>("ModeloConosud.FK_DomiciliosPersonal_CabeceraRutasTransportes", "CabeceraRutasTransportes", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ModeloConosud", "FK_DomiciliosPersonal_Empresa", "Empresa")]
+        public Empresa objEmpresa
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Empresa>("ModeloConosud.FK_DomiciliosPersonal_Empresa", "Empresa").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Empresa>("ModeloConosud.FK_DomiciliosPersonal_Empresa", "Empresa").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Empresa> objEmpresaReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Empresa>("ModeloConosud.FK_DomiciliosPersonal_Empresa", "Empresa");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Empresa>("ModeloConosud.FK_DomiciliosPersonal_Empresa", "Empresa", value);
                 }
             }
         }
@@ -5458,6 +5521,28 @@ namespace Entidades
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<VahiculosyEquipos>("ModeloConosud.FK_VahiculosyEquipos_Empresa", "VahiculosyEquipos", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ModeloConosud", "FK_DomiciliosPersonal_Empresa", "DomiciliosPersonal")]
+        public EntityCollection<DomiciliosPersonal> DomiciliosPersonal
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DomiciliosPersonal>("ModeloConosud.FK_DomiciliosPersonal_Empresa", "DomiciliosPersonal");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DomiciliosPersonal>("ModeloConosud.FK_DomiciliosPersonal_Empresa", "DomiciliosPersonal", value);
                 }
             }
         }
