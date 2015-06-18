@@ -47,8 +47,10 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
                                   d.NombreLegajo,
                                   d.Poblacion,
                                   d.TipoTurno,
-                                  descLineaAsignada = d.objLineaAsignada.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignada.Linea + "-" + d.objLineaAsignada.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignada.TipoRecorrido
-                                  
+                                  descLineaAsignada = d.objLineaAsignada.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignada.Linea + "-" + d.objLineaAsignada.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignada.TipoRecorrido,
+                                  descEmpresa = d.objEmpresa != null ? d.objEmpresa.RazonSocial : "",
+                                  Empresa = d.objEmpresa != null ? d.objEmpresa.IdEmpresa:0
+
                               }).ToList();
 
             var poblacion = (from p in domicilios
@@ -65,33 +67,43 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool GrabarDomicilio(IDictionary<string, object> domicilio)
+    public object GrabarDomicilio(IDictionary<string, object> domicilio)
     {
 
         using (EntidadesConosud dc = new EntidadesConosud())
         {
             DomiciliosPersonal current = null;
 
+            if (domicilio.ContainsKey("Id"))
+            {
+                long id = long.Parse(domicilio["Id"].ToString());
 
-            long id = long.Parse(domicilio["Id"].ToString());
+                current = (from v in dc.DomiciliosPersonal
+                           where v.Id == id
+                           select v).FirstOrDefault();
+            }
+            else
+            {
+                current = new DomiciliosPersonal();
+                dc.AddToDomiciliosPersonal(current);
+            }
 
-            current = (from v in dc.DomiciliosPersonal
-                       where v.Id == id
-                       select v).FirstOrDefault();
-
-
+            current.NombreLegajo = domicilio["NombreLegajo"].ToString();
             current.Domicilio = domicilio["Domicilio"].ToString();
             current.Poblacion = domicilio["Poblacion"].ToString();
             current.Distrito = domicilio["Distrito"].ToString();
-            current.TipoTurno = domicilio["TipoTurno"] != null ? domicilio["TipoTurno"].ToString() : null; 
-            current.Latitud = domicilio["Latitud"] != null ? domicilio["Latitud"].ToString() : null;
-            current.Longitud = domicilio["Longitud"] != null ? domicilio["Longitud"].ToString() : null;
-            if(domicilio["LineaAsignada"] != null){current.LineaAsignada = long.Parse(domicilio["LineaAsignada"].ToString());}
+            current.TipoTurno = domicilio.ContainsKey("TipoTurno") ? domicilio["TipoTurno"].ToString() : null;
+            current.Latitud = domicilio.ContainsKey("Latitud") && domicilio["Latitud"] != null ? domicilio["Latitud"].ToString() : null;
+            current.Longitud = domicilio.ContainsKey("Longitud") && domicilio["Longitud"] != null ? domicilio["Longitud"].ToString() : null;
+            if (domicilio.ContainsKey("LineaAsignada")) { current.LineaAsignada = long.Parse(domicilio["LineaAsignada"].ToString()); }
+            if (domicilio["Empresa"] != null) { current.Empresa= long.Parse(domicilio["Empresa"].ToString()); }
 
 
             dc.SaveChanges();
+
+            return null;
         }
-        return true;
+
     }
 
 
@@ -154,23 +166,23 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
         {
 
             List<dynamic> domicilios = (from d in dc.DomiciliosPersonal.Include("CabeceraRutas")
-                              orderby d.NombreLegajo
-                              select new
-                              {
-                                  d.Legajo,
-                                  d.NombreLegajo,
-                                  d.Domicilio,
-                                  d.Distrito,
-                                  d.Poblacion,
-                                  d.Id,
-                                  d.Latitud,
-                                  d.LatitudReposicion,
-                                  d.Longitud,
-                                  d.LongitudReposicion,
-                                  d.TipoTurno,
-                                  LineaAsignada = d.objLineaAsignada.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignada.Linea + "-" + d.objLineaAsignada.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignada.TipoRecorrido
+                                        orderby d.NombreLegajo
+                                        select new
+                                        {
+                                            d.Legajo,
+                                            d.NombreLegajo,
+                                            d.Domicilio,
+                                            d.Distrito,
+                                            d.Poblacion,
+                                            d.Id,
+                                            d.Latitud,
+                                            d.LatitudReposicion,
+                                            d.Longitud,
+                                            d.LongitudReposicion,
+                                            d.TipoTurno,
+                                            LineaAsignada = d.objLineaAsignada.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignada.Linea + "-" + d.objLineaAsignada.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignada.TipoRecorrido
 
-                              }).ToList<dynamic>();
+                                        }).ToList<dynamic>();
 
             return domicilios;
 

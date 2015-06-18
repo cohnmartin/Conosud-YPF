@@ -51,18 +51,26 @@ myAppModule.service('PageMethodsDomicilios', function ($http) {
 
 myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDomicilios) {
     $scope.Domicilios;
-    $scope.Current;
+    $scope.Current = null;
     $scope.textSearch;
     $scope.textSearchTipo;
     $scope.searchDomicilio = null;
     $scope.Poblaciones;
     $scope.filteredDom;
     $scope.recorridos;
+    $scope.empresas;
+    $scope.TipoAccion = "Nuevo Legajo";
 
 
     $scope.setRecorridos = function (r) {
         $scope.recorridos = r
     };
+
+    $scope.setEmpresas = function (r) {
+        $scope.empresas = r
+    };
+
+
 
     $scope.Filtrar = function () {
         //alert($scope.textSearch);
@@ -89,56 +97,6 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
 
     };
 
-    //    $scope.TransformarFecha = function (fecha) {
-
-    //        if (fecha != "") {
-    //            dia = fecha.substr(0, 2);
-    //            mes = parseInt(fecha.substr(3, 2)) - 1 + '';
-    //            año = fecha.substr(6);
-    //            return new Date(año, mes, dia);
-    //        }
-    //        else
-    //            null
-
-    //    };
-
-    //    $scope.getContextoClasificaciones = function () {
-
-    //        PageMethods.getContextoClasificaciones()
-    //                    .then(function (response) {
-    //                        $scope.Clasificaciones = response.data.d;
-    //                    });
-
-    //    };
-
-    //    $scope.GrabarVehiculo = function () {
-    //        if (Page_ClientValidate()) {
-    //            /// Codigo necesario para el control fecha de telerik, ya que no funciona el ng-model.
-    //            $scope.Current.VtoTarjVerde = $find(Constants.controltxtVtoTarjVerde).get_selectedDate();
-    //            $scope.Current.VtoRevTecnica = $find(Constants.controltxtVtoRevTecnica).get_selectedDate();
-    //            $scope.Current.VelocimetroFecha = $find(Constants.controltxtVelocimetroFecha).get_selectedDate();
-
-    //            PageMethods.GrabarVehiculo($scope.Current)
-    //                    .then(function (response) {
-    //                        if (response.data.d == true) {
-    //                            $scope.BuscarVehiculos();
-    //                            $find(Constants.controlPopUp).CloseWindows();
-    //                        }
-    //                    });
-    //        }
-
-    //    };
-
-    //    $scope.BajaVehiculo = function (vehiculo) {
-
-
-    //        PageMethods.BajaVehiculo(vehiculo.Id)
-    //                    .then(function (response) {
-    //                        if (response.data.d == true) {
-    //                            $scope.BuscarVehiculos();
-    //                        }
-    //                    });
-    //    };
 
     $scope.CargarTodos = function () {
 
@@ -232,10 +190,24 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
 
     }
 
+    $scope.GrabarPersonal = function () {
+
+        PageMethodsDomicilios.GrabarDomicilio($scope.Current)
+                    .then(function (response) {
+                        $scope.BuscarDomicilios();
+                        $scope.hideEdicion();
+                    });
+
+
+    }
+
+
+
+
     $scope.hideEdicion = function () {
 
         $scope.Current = null;
-
+        angular.element("#tblAlta").css('display', 'none');
         angular.element("#tblEdicion").css('display', 'none');
         $("#txtNombre").parentsUntil("tr").parent().find("span").css("display", "inline");
 
@@ -254,32 +226,46 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
         $scope.Current.LineaAsignada = null;
         $scope.hideEdicion();
     }
+
+    $scope.ShowAlta = function () {
+        $scope.TipoAccion = "Nuevo Legajo";
+        angular.element("#tblAlta").css('display', 'inline');
+        angular.element("#tblAlta").css('top', angular.element(event.srcElement).position().top - 300 + 'px');
+        angular.element("#tblAlta").css('left', '35px');
+    }
+
     $scope.Editar = function ($event, domicilio) {
+        $scope.TipoAccion = "Edición de Legajo";
+        angular.element("#tblAlta").css('display', 'inline');
+        angular.element("#tblAlta").css('top', angular.element($event.target).position().top + 10 + 'px');
+        angular.element("#tblAlta").css('left', '35px');
 
-        $("#" + Constants.controlImgCancelar).css("display", "inline");
-        $("#txtNombre").css("display", "inline");
-        $("#txtDomicilio").css("display", "inline");
-        $("#txtPoblacion").css("display", "inline");
-        $("#txtDistrito").css("display", "inline");
-        $("#txtTipo").css("display", "inline");
-        $("#cboRecorridosAsignacion").css("display", "inline");
-        $("#" + Constants.controlImgGrabar).css("display", "inline");
 
-        if ($("#txtNombre").val() != "") {
-            $("#txtNombre").parentsUntil("tr").parent().find("span").css("display", "inline");
-        }
+
+        //$("#" + Constants.controlImgCancelar).css("display", "inline");
+        //        $("#txtNombre").css("display", "inline");
+        //        $("#txtDomicilio").css("display", "inline");
+        //        $("#txtPoblacion").css("display", "inline");
+        //        $("#txtDistrito").css("display", "inline");
+        //        $("#txtTipo").css("display", "inline");
+        //        $("#cboRecorridosAsignacion").css("display", "inline");
+        //        $("#" + Constants.controlImgGrabar).css("display", "inline");
+
+        //        if ($("#txtNombre").val() != "") {
+        //            $("#txtNombre").parentsUntil("tr").parent().find("span").css("display", "inline");
+        //        }
 
         angular.element($event.target).parentsUntil("tr").parent().find("span").css("display", "none");
 
 
-        $("#" + Constants.controlImgCancelar).appendTo(angular.element($event.target).parent().parent().parent().parent().children()[0]);
-        $("#txtNombre").appendTo(angular.element($event.target).parent().parent().parent().parent().children()[1]);
-        $("#txtDomicilio").appendTo(angular.element($event.target).parent().parent().parent().parent().children()[2]);
-        $("#txtPoblacion").appendTo(angular.element($event.target).parent().parent().parent().parent().children()[3]);
-        $("#txtDistrito").appendTo(angular.element($event.target).parent().parent().parent().parent().children()[4]);
-        $("#txtTipo").appendTo(angular.element($event.target).parent().parent().parent().parent().children()[5]);
-        $("#cboRecorridosAsignacion").appendTo(angular.element($event.target).parent().parent().parent().parent().children()[6]);
-        $("#" + Constants.controlImgGrabar).appendTo(angular.element($event.target).parent().parent().parent().parent().children()[7]);
+        //$("#" + Constants.controlImgCancelar).appendTo(angular.element($event.target).parent().parent().parent().parent().children()[0]);
+        //        $("#txtNombre").appendTo(angular.element($event.target).parent().parent().parent().parent().children()[1]);
+        //        $("#txtDomicilio").appendTo(angular.element($event.target).parent().parent().parent().parent().children()[2]);
+        //        $("#txtPoblacion").appendTo(angular.element($event.target).parent().parent().parent().parent().children()[3]);
+        //        $("#txtDistrito").appendTo(angular.element($event.target).parent().parent().parent().parent().children()[4]);
+        //        $("#txtTipo").appendTo(angular.element($event.target).parent().parent().parent().parent().children()[5]);
+        //        $("#cboRecorridosAsignacion").appendTo(angular.element($event.target).parent().parent().parent().parent().children()[6]);
+        //        $("#" + Constants.controlImgGrabar).appendTo(angular.element($event.target).parent().parent().parent().parent().children()[7]);
 
         $scope.Current = domicilio;
 

@@ -37,7 +37,14 @@ public partial class GestionRutasManual : System.Web.UI.Page
                              //where r.TipoTurno == "Temporal"
                              select r).ToList().OrderBy(r => r.Empresa);
 
+                var empresas = (from r in dc.Empresa
+                                select new { 
+                                    Id = r.IdEmpresa,
+                                    RazonSocial = r.RazonSocial
+                                }).ToList().OrderBy(r => r.RazonSocial);
+
                 Session.Add("Recorridos", datos.ToList());
+                Session.Add("Empresas", empresas.ToList());
 
             }
 
@@ -247,5 +254,14 @@ public partial class GestionRutasManual : System.Web.UI.Page
 
             return resultado;
         }
+    }
+
+    [WebMethod(EnableSession = true)]
+    public static object getEmpresas()
+    {
+        return HttpContext.Current.Session["Empresas"];
+                
+
+
     }
 }

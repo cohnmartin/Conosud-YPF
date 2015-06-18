@@ -60,12 +60,8 @@
     </style>
     <asp:Button ID="btnExportar" runat="server" Text="Exportar" OnClick="btnBuscar_Click"
         CausesValidation="false" Style="display: none" />
-
-<asp:Button ID="btnExportarRutas" runat="server" Text="Exportar" OnClick="btnExportarRutas_Click"
+    <asp:Button ID="btnExportarRutas" runat="server" Text="Exportar" OnClick="btnExportarRutas_Click"
         CausesValidation="false" Style="display: none" />
-
-        
-
     <cc1:ServerControlWindow ID="ServerControlVehiculos" runat="server" BackColor="WhiteSmoke"
         WindowColor="Gray">
         <ContentControls>
@@ -211,6 +207,81 @@
         display: none; overflow: hidden">
         <textarea id="txtDirPer" rows="5" cols="18" style="width: 95%; display: none"></textarea>
         <div id="ng-app" ng-app="myApp" ng-controller="controller_domicilios">
+            <div id="tblAlta" style="position: absolute; top: 480px; display: none">
+                <table width="90%" class="TVista" border="0" style="border: 2px solid blue; background-color: White"
+                    cellpadding="5" cellspacing="0">
+                    <tbody>
+                        <tr>
+                            <td colspan="4" style="background-color: #006699;font-size:17px;color:White;font-weight:bold;padding:3px">
+                                {{TipoAccion}}
+                            </td>
+                        </tr>
+                        <tr class="trDatos">
+                            <td class="tdSimple" align="left" style="width: 240px;">
+                                Apellido y Nombre:
+                            </td>
+                            <td class="tdSimple" align="left" style="width: 310px;">
+                                <input id="Text1" type="text" ng-model="Current.NombreLegajo" style="width: 96%" />
+                            </td>
+                            <td class="tdSimple" align="left" style="width: 240px;">
+                                Dirección:
+                            </td>
+                            <td class="tdSimple" align="left" style="width: 365px;">
+                                <input id="Text2" type="text" ng-model="Current.Domicilio" style="width: 96%" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdSimple" align="left" style="width: 240px;">
+                                Localidad
+                            </td>
+                            <td class="tdSimple" align="left" style="width: 115px;">
+                                <input id="Text3" type="text" ng-model="Current.Poblacion" style="width: 96%" />
+                            </td>
+                            <td class="tdSimple" align="left" style="width: 240px;">
+                                Departamento:
+                            </td>
+                            <td class="tdSimple" align="left" style="width: 115px;">
+                                <input id="Text4" type="text" ng-model="Current.Distrito" style="width: 96%" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdSimple" align="left" style="width: 240px;">
+                                Tipo Turno:
+                            </td>
+                            <td class="tdSimple"  align="left" style="width: 65px;">
+                                <select id="Select3" ng-model="Current.TipoTurno">
+                                    <option value="TURNO" selected="selected">TURNO</option>
+                                    <option value="DIURNO">DIURNO</option>
+                                </select>
+                            </td>
+                            <td class="tdSimple" align="left" style="width: 240px;">
+                                Línea Asignada:
+                            </td>
+                            <td class="tdSimple" align="left" style="width: 220px;">
+                                <select id="cboRecorridosAlta" ng-model="Current.LineaAsignada" ng-options="clasif.Id as clasif.NombreAbreviado for clasif in recorridos">
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdSimple" align="left" style="width: 240px;">
+                                Empresa
+                            </td>
+                            <td class="tdSimple" align="left" style="width: 250px;" colspan="3">
+                                <select id="cboEmpresas" ng-model="Current.Empresa" ng-options="clasif.Id as clasif.RazonSocial for clasif in empresas">
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" colspan="4" style="padding: 5px">
+                                <button type="button" id="btnCancelar" style="width: 150px; height: 35px;font-size:15px" ng-click="CancelarEdicion()">
+                                    Cancelar</button>
+                                <button type="button" id="btnAlta" style="width: 150px; height: 35px;font-size:15px" ng-click="GrabarPersonal()">
+                                    Grabar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <div id="tblEdicion" style="position: absolute; top: 480px; display: none">
                 <table width="95.3%" class="TVista" border="0" cellpadding="0" cellspacing="0">
                     <tbody>
@@ -248,14 +319,14 @@
                     </tbody>
                 </table>
             </div>
-            <div style="overflow: scroll; height: 550px;">
+            <div style="overflow: scroll; height: 490px;">
                 <table id="tblDirecciones" width="97%" class="TVista" border="0" cellpadding="0"
                     cellspacing="0">
                     <thead>
                         <tr style="background-color: #006699; height: 28px">
-                            <th colspan="8">
-                               <center>
-                                    <div style="cursor: hand;width:100%" ng-click="exportarExcel()">
+                            <th colspan="9">
+                                <center>
+                                    <div style="cursor: hand; width: 100%" ng-click="exportarExcel()">
                                         <table id="Table1" width="10%" class="" border="0" cellpadding="0" cellspacing="0">
                                             <tr>
                                                 <td style="width: 30px; background-color: #006699">
@@ -268,7 +339,7 @@
                                             </tr>
                                         </table>
                                     </div>
-                               </center>
+                                </center>
                             </th>
                         </tr>
                         <tr>
@@ -301,6 +372,9 @@
                                 Linea Asignada
                             </th>
                             <th class="Theader">
+                                Empresa
+                            </th>
+                            <th class="Theader">
                                 &nbsp;
                             </th>
                         </tr>
@@ -318,7 +392,7 @@
                             <td class="tdSimple" align="left">
                                 <span>{{item.NombreLegajo}}</span>
                             </td>
-                            <td class="tdSimple" align="left" style="width: 350px">
+                            <td class="tdSimple" align="left" style="width: 250px">
                                 <span>{{item.Domicilio}}</span>
                             </td>
                             <td class="tdSimple" align="left" style="width: 110px">
@@ -333,6 +407,9 @@
                             <td class="tdSimple" align="left" style="width: 220px">
                                 <span ng-show="Current==null || Current.Id != item.Id" id="spanLineaAsignada" ng-repeat="val in recorridos | filter:{Id: item.LineaAsignada}:true">
                                     {{val.NombreAbreviado}}</span>
+                            </td>
+                            <td class="tdSimple" align="left" style="width: 160px">
+                                <span>{{item.descEmpresa}}</span>
                             </td>
                             <td style="width: 35px" class="tdSimple">
                                 <center>
@@ -456,16 +533,37 @@
                     options.append($("<option />").val(result[i].Id).text(result[i].Nombre)).css("color", "Black");
                 }
 
-                //                var options = $("#cboRecorridosAsignacion");
-                //                for (var i = 0; i < result.length; i++) {
-                //                    options.append($("<option />").val(result[i].Id).text(result[i].NombreAbreviado)).css("color", "Black");
-                //                }
+                var options = $("#cboRecorridosAlta");
+                for (var i = 0; i < result.length; i++) {
+                    options.append($("<option />").val(result[i].Id).text(result[i].Nombre)).css("color", "Black");
+                }
 
                 angular.element(document.getElementById('ng-app')).scope().setRecorridos(result);
 
             }, function () { alert("Error al buscar datos de recorrido"); });
 
+
+            PageMethods.getEmpresas(function (result) {
+
+                var options = $("#cboEmpresas");
+                for (var i = 0; i < result.length; i++) {
+                    options.append($("<option />").val(result[i].Id).text(result[i].RazonSocial)).css("color", "Black");
+                }
+
+
+                angular.element(document.getElementById('ng-app')).scope().setEmpresas(result);
+
+            }, function () { alert("Error al buscar datos de empresas"); });
+
+            $("#btnAlta").button();
+            $("#btnCancelar").button();
+
         });
+
+        function GrabarNuevoPesonal() {
+            angular.element(document.getElementById('ng-app')).scope().GrabarPersonal();
+
+        }
 
         dialogEliminar = $("#dialog-DivEliminar").dialog(
             {
@@ -492,17 +590,27 @@
                 height: 210,
                 width: 430,
                 modal: true,
-                buttons: { "Abrir": AbrirRuta, Cancelar: function () { dialogAbrir.dialog("close"); } , "Exportar Rutas":ExportarRutas}
+                buttons: { "Abrir": AbrirRuta, Cancelar: function () { dialogAbrir.dialog("close"); }, "Exportar Rutas": ExportarRutas }
             });
 
         dialogDirPer = $("#dialog-DirPersonal").dialog(
             {
                 autoOpen: false,
-                height: 650,
-                width: 1220,
+                height: 600,
+                width: 1120,
                 modal: true,
-                buttons: { "Cargar Todos": function () { CargarTodos() }, Cancelar: function () { dialogDirPer.dialog("close"); } }
+                buttons: { "Nuevo Legajo": function () { angular.element(document.getElementById('ng-app')).scope().ShowAlta() }, "Cargar Todos": function () { CargarTodos() }, Cancelar: function () { dialogDirPer.dialog("close"); } }
             });
+
+        dialogAltaPer = $("#dialog-AltaPersona").dialog(
+            {
+                autoOpen: false,
+                height: 260,
+                width: 820,
+                modal: true,
+                buttons: { "Grabar": function () { GrabarNuevoPesonal() }, Cancelar: function () { dialogDirPer.dialog("close"); } }
+            });
+
 
 
         dialogReposicion = $("#dialog-formReposicion").dialog(
