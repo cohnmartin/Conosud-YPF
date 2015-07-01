@@ -320,11 +320,17 @@
                 </table>
             </div>
             <div style="overflow: scroll; height: 490px;">
+                <div  style="padding-top:15px;background-color:#006699;position:absolute;height:50px;top:50%;width:250px;left:40%;vertical-align:middle;color:White;font-size:medium" ng-show="EliminarActivo">
+                        Elimnado Legajo..
+                </div>
+                <div  style="padding-top:15px;background-color:#006699;position:absolute;height:50px;top:50%;width:250px;left:40%;vertical-align:middle;color:White;font-size:medium" ng-show="GrabacionActiva">
+                        Grabando Legajo..
+                </div>
                 <table id="tblDirecciones" width="97%" class="TVista" border="0" cellpadding="0"
                     cellspacing="0">
                     <thead>
                         <tr style="background-color: #006699; height: 28px">
-                            <th colspan="9">
+                            <th colspan="10">
                                 <center>
                                     <div style="cursor: hand; width: 100%" ng-click="exportarExcel()">
                                         <table id="Table1" width="10%" class="" border="0" cellpadding="0" cellspacing="0">
@@ -377,6 +383,9 @@
                             <th class="Theader">
                                 &nbsp;
                             </th>
+                            <th class="Theader">
+                                &nbsp;
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -423,6 +432,14 @@
                                     </span>
                                 </center>
                             </td>
+                            <td style="width: 35px" class="tdSimple">
+                                <center>
+                                    <span>
+                                        <asp:Image ng-click="EliminarPersonal(item);"
+                                            ImageUrl="~/images/delete.gif" ID="Image4" runat="server" Style="cursor: hand;" />
+                                    </span>
+                                </center>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -432,6 +449,7 @@
     <div class="divRecorrido">
         Recorrido: <span style="font-weight: bold" id="lblRecorrido"></span>
     </div>
+    
     <div id="dialog-DivEliminar" title="Ruta" style="font-size: 62.5%; display: none;
         overflow: hidden">
         <p>
@@ -565,6 +583,8 @@
 
         }
 
+       
+
         dialogEliminar = $("#dialog-DivEliminar").dialog(
             {
                 autoOpen: false,
@@ -608,8 +628,9 @@
                 height: 260,
                 width: 820,
                 modal: true,
-                buttons: { "Grabar": function () { GrabarNuevoPesonal() }, Cancelar: function () { dialogDirPer.dialog("close"); } }
+                buttons: { "Grabar": function () { GrabarNuevoPesonal() }, Cancelar: function () { dialogAltaPer.dialog("close"); } }
             });
+
 
 
 
@@ -1073,6 +1094,7 @@
         function EliminarRuta() {
             dialogEliminar.dialog("open");
         }
+
 
         function EliminarRutaConfirmada() {
             if ($("#lblEliminar").css("display") != "none") {
