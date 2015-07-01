@@ -25,7 +25,6 @@
 
         function DibujarKML(datos, abordaje) {
 
-
             var mapOptions = {
                 zoom: 13,
                 center: abordaje, //new google.maps.LatLng(datos["Ruta"][posMed].Key, datos["Ruta"][posMed].Value),
@@ -33,64 +32,41 @@
             };
 
             map = new google.maps.Map($("#map_canvas").get(0), mapOptions);
-            var rutasColor = ['#00ff00', '#FF6600', '#6699FF', '#CC9900'];
 
-            for (var j = 0; j < datos.length; j++) {
+            var flightPlanCoordinates = [];
 
-                var flightPlanCoordinates = [];
+            for (var i = 0; i < datos["Ruta"].length; i++) {
+                flightPlanCoordinates.push(new google.maps.LatLng(datos["Ruta"][i].Key, datos["Ruta"][i].Value));
+            }
 
-                for (var i = 0; i < datos[j]["Ruta"].length; i++) {
-                    flightPlanCoordinates.push(new google.maps.LatLng(datos[j]["Ruta"][i].Key, datos[j]["Ruta"][i].Value));
+            var flightPath = new google.maps.Polyline({
+                path: flightPlanCoordinates,
+                geodesic: true,
+                strokeColor: '#00ff00',
+                strokeOpacity: 1.0,
+                strokeWeight: 4
+            });
+
+            flightPath.setMap(map);
+
+            if (datos["RutaAlt"] != undefined) {
+                var flightPlanCoordinatesAlt = [];
+
+                for (var i = 0; i < datos["RutaAlt"].length; i++) {
+                    flightPlanCoordinatesAlt.push(new google.maps.LatLng(datos["RutaAlt"][i].Key, datos["RutaAlt"][i].Value));
                 }
 
-                var flightPath = new google.maps.Polyline({
-                    path: flightPlanCoordinates,
+                var flightPathAlt = new google.maps.Polyline({
+                    path: flightPlanCoordinatesAlt,
                     geodesic: true,
-                    strokeColor: rutasColor[j],
+                    strokeColor: '#6699FF',
                     strokeOpacity: 1.0,
                     strokeWeight: 4
                 });
 
-                flightPath.setMap(map);
-
+                flightPathAlt.setMap(map);
 
             }
-
-
-//                        var flightPlanCoordinates = [];
-
-//                        for (var i = 0; i < datos[0]["Ruta"].length; i++) {
-//                            flightPlanCoordinates.push(new google.maps.LatLng(datos[0]["Ruta"][i].Key, datos[0]["Ruta"][i].Value));
-//                        }
-
-//                        var flightPath = new google.maps.Polyline({
-//                            path: flightPlanCoordinates,
-//                            geodesic: true,
-//                            strokeColor: '#00ff00',
-//                            strokeOpacity: 1.0,
-//                            strokeWeight: 4
-//                        });
-
-//                        flightPath.setMap(map);
-
-//                        if (datos[2] != undefined) {
-//                            var flightPlanCoordinatesAlt = [];
-
-//                            for (var i = 0; i < datos[2]["Ruta"].length; i++) {
-//                                flightPlanCoordinatesAlt.push(new google.maps.LatLng(datos[2]["Ruta"][i].Key, datos[2]["Ruta"][i].Value));
-//                            }
-
-//                            var flightPathAlt = new google.maps.Polyline({
-//                                path: flightPlanCoordinatesAlt,
-//                                geodesic: true,
-//                                strokeColor: '#6699FF',
-//                                strokeOpacity: 1.0,
-//                                strokeWeight: 4
-//                            });
-
-//                            flightPathAlt.setMap(map);
-
-//                        }
 
 
             $(".processMessageTooltip").css("display", "none");
@@ -192,30 +168,18 @@
         }
 
         function CargarDatosCabecera(datos) {
-            $("#<%= lblLinea.ClientID %>").text(datos[0]["Empresa"] + ' LINEA ' + datos[0]["Linea"] + ' ' + datos[0]["TipoTurno"] + ' ' + datos[0]["TipoRecorrido"] + ' ' + datos[0]["TipoUnidad"]);
-            $("#<%= lblTurno.ClientID %>").text(datos[0]["Turno"]);
-            $("#<%= lblHorarios.ClientID %>").text(datos[0]["Horarios"]);
+            $("#<%= lblLinea.ClientID %>").text(datos["Empresa"] + ' LINEA ' + datos["Linea"] + ' ' + datos["TipoTurno"] + ' ' + datos["TipoRecorrido"] + ' ' + datos["TipoUnidad"]);
+            $("#<%= lblTurno.ClientID %>").text(datos["Turno"]);
+            $("#<%= lblHorarios.ClientID %>").text(datos["Horarios"]);
 
 
-            $("#<%= lblLinea1.ClientID %>").text(datos[1]["Empresa"] + ' LINEA ' + datos[1]["Linea"] + ' ' + datos[1]["TipoTurno"] + ' ' + datos[1]["TipoRecorrido"] + ' ' + datos[1]["TipoUnidad"]);
-            $("#<%= lblTurno1.ClientID %>").text(datos[1]["Turno"]);
-            $("#<%= lblHorarios1.ClientID %>").text(datos[1]["Horarios"]);
-
-
-            if (datos[2] != undefined) {
-                $("#<%= lblLineaAlt.ClientID %>").text(datos[2]["Empresa"] + ' LINEA ' + datos[2]["Linea"] + ' ' + datos[2]["TipoTurno"] + ' ' + datos[2]["TipoRecorrido"] + ' ' + datos[2]["TipoUnidad"]);
-                $("#<%= lblTurnoAlt.ClientID %>").text(datos[2]["Turno"]);
-                $("#<%= lblHorariosAlt.ClientID %>").text(datos[2]["Horarios"]);
-
-                $("#<%= lblLineaAlt1.ClientID %>").text(datos[3]["Empresa"] + ' LINEA ' + datos[3]["Linea"] + ' ' + datos[3]["TipoTurno"] + ' ' + datos[3]["TipoRecorrido"] + ' ' + datos[3]["TipoUnidad"]);
-                $("#<%= lblTurnoAlt1.ClientID %>").text(datos[3]["Turno"]);
-                $("#<%= lblHorariosAlt1.ClientID %>").text(datos[3]["Horarios"]);
-
-
+            if (datos["RutaAlt"] != undefined) {
+                $("#<%= lblLineaAlt.ClientID %>").text(datos["EmpresaAlt"] + ' LINEA ' + datos["LineaAlt"] + ' ' + datos["TipoTurnoAlt"] + ' ' + datos["TipoRecorridoAlt"] + ' ' + datos["TipoUnidadAlt"]);
+                $("#<%= lblTurnoAlt.ClientID %>").text(datos["TurnoAlt"]);
+                $("#<%= lblHorariosAlt.ClientID %>").text(datos["HorariosAlt"]);
             }
             else {
                 $('#tdTableAlt').css("display", "none");
-                $('#tdTableAlt1').css("display", "none");
 
 
 
@@ -695,15 +659,16 @@
                                     <asp:Label ID="lblTurno" runat="server" SkinID="lblConosudNormal" Text="1 y 2"></asp:Label>
                                 </td>
                             </tr>
-                            <tr style="display: none">
+                            <tr style="display:none">
                                 <td>
                                     <asp:Label ID="Label14" runat="server" SkinID="lblConosud" Text="Pto Mas Cercano:"></asp:Label>
                                 </td>
                                 <td colspan="3">
                                     <asp:Label ID="lblPtoCercano" runat="server" SkinID="lblConosudNormal" Text=""></asp:Label>
                                 </td>
+                                
                             </tr>
-                            <tr style="display: none">
+                            <tr style="display:none">
                                 <td>
                                     <asp:Label ID="Label5" runat="server" SkinID="lblConosud" Text="Distnacia:"></asp:Label>
                                 </td>
@@ -741,15 +706,17 @@
                                     <asp:Label ID="lblTurnoAlt" runat="server" SkinID="lblConosudNormal" Text="1 y 2"></asp:Label>
                                 </td>
                             </tr>
-                            <tr style="display: none">
+                           
+                            <tr style="display:none">
                                 <td>
                                     <asp:Label ID="Label24" runat="server" SkinID="lblConosud" Text="Pto Mas Cercano:"></asp:Label>
                                 </td>
                                 <td colspan="3">
                                     <asp:Label ID="lblPtoCercanoAlt" runat="server" SkinID="lblConosudNormal" Text=""></asp:Label>
                                 </td>
+                                
                             </tr>
-                            <tr style="display: none">
+                            <tr style="display:none">
                                 <td>
                                     <asp:Label ID="Label28" runat="server" SkinID="lblConosud" Text="Distnacia:"></asp:Label>
                                 </td>
@@ -761,101 +728,6 @@
                                 </td>
                                 <td>
                                     <asp:Label ID="lblDuracionAlt" runat="server" SkinID="lblConosudNormal" Text="Minibus"></asp:Label>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                    
-                </tr>
-                <tr>
-                <td>
-                        <table border="0" cellpadding="0" cellspacing="0" style="text-align: left; padding: 5px;
-                            width: 100%; background-color: #FF6600; border: 2px solid #FFCC99;" id="Table1">
-                            <tr>
-                                <td colspan="4" align="center">
-                                    <asp:Label ID="lblLinea1" runat="server" SkinID="lblConosud" Text="Nro 2 (SAN JOSE - DORREGO)"></asp:Label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <asp:Label ID="Label16" runat="server" SkinID="lblConosud" Text="Salida/Llegada:"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="lblHorarios1" runat="server" SkinID="lblConosudNormal" Text="6.1/7.45 - 18.05/19.15"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="Label19" runat="server" SkinID="lblConosud" Text="Turno:"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="lblTurno1" runat="server" SkinID="lblConosudNormal" Text="1 y 2"></asp:Label>
-                                </td>
-                            </tr>
-                            <tr style="display: none">
-                                <td>
-                                    <asp:Label ID="Label21" runat="server" SkinID="lblConosud" Text="Pto Mas Cercano:"></asp:Label>
-                                </td>
-                                <td colspan="3">
-                                    <asp:Label ID="lblPtoCercano1" runat="server" SkinID="lblConosudNormal" Text=""></asp:Label>
-                                </td>
-                            </tr>
-                            <tr style="display: none">
-                                <td>
-                                    <asp:Label ID="Label22" runat="server" SkinID="lblConosud" Text="Distnacia:"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="lblDistancia1" runat="server" SkinID="lblConosudNormal" Text=""></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="Label23" runat="server" SkinID="lblConosud" Text="Duración:"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="lblDuracion1" runat="server" SkinID="lblConosudNormal" Text="Minibus"></asp:Label>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                <td id="tdTableAlt1">
-                        <table border="0" cellpadding="0" cellspacing="0" style="text-align: left; padding: 5px;
-                            width: 100%; background-color: #CC9900; border: 2px solid #993300;">
-                            <tr>
-                                <td colspan="4" align="center">
-                                    <asp:Label ID="lblLineaAlt1" runat="server" SkinID="lblConosud" Text="Nro 2 (SAN JOSE - DORREGO)"></asp:Label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <asp:Label ID="Label10" runat="server" SkinID="lblConosud" Text="Horario Salida/Llegada:"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="lblHorariosAlt1" runat="server" SkinID="lblConosudNormal" Text="6.1/7.45 - 18.05/19.15"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="Label11" runat="server" SkinID="lblConosud" Text="Turno:"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="lblTurnoAlt1" runat="server" SkinID="lblConosudNormal" Text="1 y 2"></asp:Label>
-                                </td>
-                            </tr>
-                            <tr style="display: none">
-                                <td>
-                                    <asp:Label ID="Label12" runat="server" SkinID="lblConosud" Text="Pto Mas Cercano:"></asp:Label>
-                                </td>
-                                <td colspan="3">
-                                    <asp:Label ID="lblPtoCercanoAlt1" runat="server" SkinID="lblConosudNormal" Text=""></asp:Label>
-                                </td>
-                            </tr>
-                            <tr style="display: none">
-                                <td>
-                                    <asp:Label ID="Label13" runat="server" SkinID="lblConosud" Text="Distnacia:"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="lblDistanciaAlt1" runat="server" SkinID="lblConosudNormal" Text=""></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="Label15" runat="server" SkinID="lblConosud" Text="Duración:"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="lblDuracionAlt1" runat="server" SkinID="lblConosudNormal" Text="Minibus"></asp:Label>
                                 </td>
                             </tr>
                         </table>
