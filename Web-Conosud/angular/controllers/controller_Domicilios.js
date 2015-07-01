@@ -16,6 +16,16 @@ myAppModule.service('PageMethodsDomicilios', function ($http) {
     };
 
 
+    this.EliminarPersonal = function (id) {
+
+        return $http({
+            method: 'POST',
+            url: 'ws_DomiciliosPersonalYPF.asmx/EliminarPersonal',
+            data: { idPersonal: id },
+            contentType: 'application/json; charset=utf-8'
+        });
+    };
+
 
     this.EliminarRuta = function (id) {
 
@@ -60,7 +70,9 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
     $scope.recorridos;
     $scope.empresas;
     $scope.TipoAccion = "Nuevo Legajo";
-
+    $scope.EliminarActivo = false;
+    $scope.GrabacionActiva = false;
+    
 
     $scope.setRecorridos = function (r) {
         $scope.recorridos = r
@@ -71,6 +83,18 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
     };
 
 
+    $scope.EliminarPersonal = function (legajo) {
+
+        if (confirm("Esta seguro de eliminar al Legajo: " + legajo.NombreLegajo)) {
+
+            $scope.EliminarActivo = true;
+            PageMethodsDomicilios.EliminarPersonal(legajo.Id)
+                    .then(function (response) {
+                        $scope.BuscarDomicilios();
+                    });
+        }
+
+    }
 
     $scope.Filtrar = function () {
         //alert($scope.textSearch);
@@ -91,6 +115,13 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
 
         PageMethodsDomicilios.getDomicilios()
                     .then(function (response) {
+                        
+                        if ($scope.EliminarActivo)
+                            $scope.EliminarActivo = false;
+
+                        if ($scope.GrabacionActiva)
+                            $scope.GrabacionActiva = false;
+
                         $scope.Domicilios = response.data.d.Dom;
                         $scope.Poblaciones = response.data.d.Pob;
                     });
@@ -192,6 +223,7 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
 
     $scope.GrabarPersonal = function () {
 
+        $scope.GrabacionActiva = true;
         PageMethodsDomicilios.GrabarDomicilio($scope.Current)
                     .then(function (response) {
                         $scope.BuscarDomicilios();
@@ -223,14 +255,23 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
     }
 
     $scope.CancelarEdicion = function () {
-        $scope.Current.LineaAsignada = null;
+        if ($scope.Current != null)
+            $scope.Current.LineaAsignada = null;
+
         $scope.hideEdicion();
     }
 
     $scope.ShowAlta = function () {
+        var top = $(event.srcElement).position().top;
+        if (top == 0)
+            top = top + 300;
+        else
+            top = top - 300;
+
+
         $scope.TipoAccion = "Nuevo Legajo";
         angular.element("#tblAlta").css('display', 'inline');
-        angular.element("#tblAlta").css('top', angular.element(event.srcElement).position().top - 300 + 'px');
+        angular.element("#tblAlta").css('top', top + 'px');
         angular.element("#tblAlta").css('left', '35px');
     }
 
