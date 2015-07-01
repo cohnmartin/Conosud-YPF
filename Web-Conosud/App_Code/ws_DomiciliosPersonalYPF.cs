@@ -49,7 +49,7 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
                                   d.TipoTurno,
                                   descLineaAsignada = d.objLineaAsignada.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignada.Linea + "-" + d.objLineaAsignada.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignada.TipoRecorrido,
                                   descEmpresa = d.objEmpresa != null ? d.objEmpresa.RazonSocial : "",
-                                  Empresa = d.objEmpresa != null ? d.objEmpresa.IdEmpresa:0
+                                  Empresa = d.objEmpresa != null ? d.objEmpresa.IdEmpresa : 0
 
                               }).ToList();
 
@@ -95,8 +95,8 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
             current.TipoTurno = domicilio.ContainsKey("TipoTurno") ? domicilio["TipoTurno"].ToString() : null;
             current.Latitud = domicilio.ContainsKey("Latitud") && domicilio["Latitud"] != null ? domicilio["Latitud"].ToString() : null;
             current.Longitud = domicilio.ContainsKey("Longitud") && domicilio["Longitud"] != null ? domicilio["Longitud"].ToString() : null;
-            if (domicilio.ContainsKey("LineaAsignada")) { current.LineaAsignada = long.Parse(domicilio["LineaAsignada"].ToString()); }
-            if (domicilio["Empresa"] != null) { current.Empresa= long.Parse(domicilio["Empresa"].ToString()); }
+            if (domicilio.ContainsKey("LineaAsignada") && domicilio["LineaAsignada"] != null && long.Parse(domicilio["LineaAsignada"].ToString()) > 0) { current.LineaAsignada = long.Parse(domicilio["LineaAsignada"].ToString()); }
+            if (domicilio.ContainsKey("Empresa") && domicilio["Empresa"] != null && long.Parse(domicilio["Empresa"].ToString()) > 0) { current.Empresa = long.Parse(domicilio["Empresa"].ToString()); }
 
 
             dc.SaveChanges();
@@ -106,6 +106,25 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
 
     }
 
+
+
+
+    [WebMethod]
+    public bool EliminarPersonal(long idPersonal)
+    {
+
+        using (EntidadesConosud dc = new EntidadesConosud())
+        {
+            var current = (from v in dc.DomiciliosPersonal
+                           where v.Id == idPersonal
+                           select v).FirstOrDefault();
+
+            dc.DeleteObject(current);
+            dc.SaveChanges();
+        }
+
+        return true;
+    }
 
     [WebMethod]
     public bool EliminarRuta(long idRecorrido)
