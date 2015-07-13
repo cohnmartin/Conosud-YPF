@@ -77,9 +77,13 @@ public partial class ABMVehiculosEquipos : System.Web.UI.Page
                 {
                     Session["TipoAlta"] = "Vehículo";
                 }
-                else
+                else if (Request.QueryString["Tipo"] == "E")
                 {
                     Session["TipoAlta"] = "Equipo";
+                }
+                else 
+                {
+                    Session["TipoAlta"] = "Eventuales";
                 }
 
                 return Session["TipoAlta"].ToString();
@@ -115,21 +119,30 @@ public partial class ABMVehiculosEquipos : System.Web.UI.Page
 
             if (TipoAlta == "Vehículo")
             {
-                lblTipoGestion.Text = "GESTION DE VEHICULOS";
+                lblTipoGestion.Text = "VEHICULOS CONTRATISTAS";
                 lblTituloCaractesticas.Text = "CARACTERISTICAS DEL VEHICULO";
                 lblPropio.Text = "Vehículo Propio?:";
                 lblTiuloSeguro.Text = "SEGURO DEL VEHICULO";
                 GridVehiculos.FunctionsGral[0].Text = "Nuevo Vehículo";
                 CargarCombos("V");
             }
-            else
+            else if (TipoAlta == "Equipo")
             {
-                lblTipoGestion.Text = "GESTION DE EQUIPOS";
+                lblTipoGestion.Text = "EQUIPOS CONTRATISTAS";
                 lblTituloCaractesticas.Text = "CARACTERISTICAS DEL EQUIPO";
                 lblPropio.Text = "Equipo Propio?:";
                 lblTiuloSeguro.Text = "SEGURO DEL EQUIPO";
                 GridVehiculos.FunctionsGral[0].Text = "Nuevo Equipo";
                 CargarCombos("E");
+            }
+            else
+            {
+                lblTipoGestion.Text = "VEHICULOS EVENTUALES";
+                lblTituloCaractesticas.Text = "CARACTERISTICAS DEL VEHICULO";
+                lblPropio.Text = "Vehículo Propio?:";
+                lblTiuloSeguro.Text = "SEGURO DEL VEHICULO";
+                GridVehiculos.FunctionsGral[0].Text = "Nuevo Vehículo";
+                CargarCombos("VE");
             }
 
             IDictionary<string, object> datosiniciales = GetData("", 0, GridVehiculos.PageSize);
@@ -303,7 +316,7 @@ public partial class ABMVehiculosEquipos : System.Web.UI.Page
         // cboTipoUnidad,cboSeguro, cboEmpresa
         cboTipoUnidad.DataTextField = "Descripcion";
         cboTipoUnidad.DataValueField = "IdClasificacion";
-        if (Tipo == "V")
+        if (Tipo == "V" || Tipo == "VE")
         {
             cboTipoUnidad.DataSource = (from c in Contexto.Clasificacion
                                         where c.Tipo == "Tipo Vehiculos"
