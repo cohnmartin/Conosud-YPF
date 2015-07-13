@@ -88,6 +88,12 @@
     <Compile Include="ClasesAuxiliares.cs" />
     <Compile Include="ClasesConsulta.cs" />
     <Compile Include="ContratoEmpresas.cs" />
+    <Compile Include="CredencialVehiculosEventuales.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CredencialVehiculosEventuales.Designer.cs">
+      <DependentUpon>CredencialVehiculosEventuales.cs</DependentUpon>
+    </Compile>
     <Compile Include="CredencialVisita.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -165,8 +171,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <None Include="Properties\DataSources\EntidadesConosud.datasource" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CredencialVehiculosEventuales.resx">
+      <DependentUpon>CredencialVehiculosEventuales.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CredencialVisita.resx">
       <DependentUpon>CredencialVisita.cs</DependentUpon>
     </EmbeddedResource>
