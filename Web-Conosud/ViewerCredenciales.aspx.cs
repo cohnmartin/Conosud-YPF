@@ -36,18 +36,32 @@ public partial class ViewerCredenciales : System.Web.UI.Page
                     long id = long.Parse(Request.QueryString["IdVehiculoEquipo"].ToString());
                     List<VahiculosyEquipos> VahiyEqui = (from U in Contexto.VahiculosyEquipos where U.IdVehiculoEquipo == id select U).ToList();
 
-                    
-                    CredencialVehiculos rep = new CredencialVehiculos();
-                    string Tipo = VahiyEqui.First().objEmpresa.RazonSocial.Contains("YPF") ? "OFICIAL" : "CONTRATISTA";
-                    string PuestoIngrso = VahiyEqui.First().PuestoIngreso == null ? "" : VahiyEqui.First().PuestoIngreso;
-                    string modelo = VahiyEqui.First().Modelo == null ? "" : VahiyEqui.First().Modelo;
-                    string tipoUnidad = VahiyEqui.First().TipoUnidad == null ? "" : VahiyEqui.First().objTipoUnidad.Descripcion;
-                    rep.InitReport(Tipo, VahiyEqui.First().Marca, modelo,
-                        VahiyEqui.First().Patente, string.Format("{0:dd/MM/yy}", VahiyEqui.First().VencimientoCredencial),
-                        VahiyEqui.First().IdVehiculoEquipo.ToString().PadLeft(8, '0'), PuestoIngrso, tipoUnidad);
 
-                    rep.DataSource = null;
-                    this.ReportViewer1.Report = rep;
+                    if (VahiyEqui.First().Tipo != "Eventuales")
+                    {
+                        CredencialVehiculos rep = new CredencialVehiculos();
+                        string Tipo = VahiyEqui.First().objEmpresa.RazonSocial.Contains("YPF") ? "OFICIAL" : "CONTRATISTA";
+                        string PuestoIngrso = VahiyEqui.First().PuestoIngreso == null ? "" : VahiyEqui.First().PuestoIngreso;
+                        string modelo = VahiyEqui.First().Modelo == null ? "" : VahiyEqui.First().Modelo;
+                        string tipoUnidad = VahiyEqui.First().TipoUnidad == null ? "" : VahiyEqui.First().objTipoUnidad.Descripcion;
+                        rep.InitReport(Tipo, VahiyEqui.First().Marca, modelo,
+                            VahiyEqui.First().Patente, string.Format("{0:dd/MM/yy}", VahiyEqui.First().VencimientoCredencial),
+                            VahiyEqui.First().IdVehiculoEquipo.ToString().PadLeft(8, '0'), PuestoIngrso, tipoUnidad);
+
+                        rep.DataSource = null;
+                        this.ReportViewer1.Report = rep;
+                    }
+                    else
+                    {
+
+                        CredencialVehiculosEventuales rep = new CredencialVehiculosEventuales();
+                        string PuestoIngrso = VahiyEqui.First().PuestoIngreso == null ? "" : VahiyEqui.First().PuestoIngreso;
+                        string Empresa = VahiyEqui.First().objEmpresa.RazonSocial;
+                        rep.InitReport(VahiyEqui.First().Patente, string.Format("{0:dd/MM/yy}", VahiyEqui.First().VencimientoCredencial),PuestoIngrso, Empresa);
+
+                        rep.DataSource = null;
+                        this.ReportViewer1.Report = rep;
+                    }
                 }
                 else
                 {
