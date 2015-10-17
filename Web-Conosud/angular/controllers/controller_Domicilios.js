@@ -240,17 +240,17 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
 
         $scope.Current = null;
         angular.element("#tblAlta").css('display', 'none');
-        angular.element("#tblEdicion").css('display', 'none');
-        $("#txtNombre").parentsUntil("tr").parent().find("span").css("display", "inline");
+//        angular.element("#tblEdicion").css('display', 'none');
+//        $("#txtNombre").parentsUntil("tr").parent().find("span").css("display", "inline");
 
-        $("#" + Constants.controlImgCancelar).css("display", "none");
-        $("#txtNombre").css("display", "none");
-        $("#txtDomicilio").css("display", "none");
-        $("#txtPoblacion").css("display", "none");
-        $("#txtDistrito").css("display", "none");
-        $("#txtTipo").css("display", "none");
-        $("#cboRecorridosAsignacion").css("display", "none");
-        $("#" + Constants.controlImgGrabar).css("display", "none");
+//        $("#" + Constants.controlImgCancelar).css("display", "none");
+//        $("#txtNombre").css("display", "none");
+//        $("#txtDomicilio").css("display", "none");
+//        $("#txtPoblacion").css("display", "none");
+//        $("#txtDistrito").css("display", "none");
+//        $("#txtTipo").css("display", "none");
+//        $("#cboRecorridosAsignacion").css("display", "none");
+//        $("#" + Constants.controlImgGrabar).css("display", "none");
 
     }
 
