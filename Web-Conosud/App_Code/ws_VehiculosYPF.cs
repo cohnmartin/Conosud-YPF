@@ -137,6 +137,26 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                 current.TitularPin4 = vehiculo["TitularPin4"].ToString();
 
 
+            if (vehiculo.ContainsKey("PIN5") && vehiculo["PIN5"] != null)
+                current.PIN5 = int.Parse(vehiculo["PIN5"].ToString());
+
+            if (vehiculo.ContainsKey("TitularPin5") && vehiculo["TitularPin5"] != null)
+                current.TitularPin5 = vehiculo["TitularPin5"].ToString();
+
+
+            if (vehiculo.ContainsKey("PIN6") && vehiculo["PIN6"] != null)
+                current.PIN6 = int.Parse(vehiculo["PIN6"].ToString());
+
+            if (vehiculo.ContainsKey("TitularPin6") && vehiculo["TitularPin6"] != null)
+                current.TitularPin6 = vehiculo["TitularPin6"].ToString();
+
+            if (vehiculo.ContainsKey("PIN7") && vehiculo["PIN7"] != null)
+                current.PIN7 = int.Parse(vehiculo["PIN7"].ToString());
+
+            if (vehiculo.ContainsKey("TitularPin7") && vehiculo["TitularPin7"] != null)
+                current.TitularPin7 = vehiculo["TitularPin7"].ToString();
+
+
             dc.SaveChanges();
         }
         return true;
@@ -300,7 +320,13 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                              v.PIN3,
                              v.TitularPin3,
                              v.PIN4,
-                             v.TitularPin4
+                             v.TitularPin4,
+                             v.PIN5,
+                             v.TitularPin5,
+                             v.PIN6,
+                             v.TitularPin6,
+                             v.PIN7,
+                             v.TitularPin7
 
 
                          }).Take(10).ToList();
@@ -350,7 +376,13 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                         v.PIN3,
                         v.TitularPin3,
                         v.PIN4,
-                        v.TitularPin4
+                        v.TitularPin4,
+                        v.PIN5,
+                        v.TitularPin5,
+                        v.PIN6,
+                        v.TitularPin6,
+                        v.PIN7,
+                        v.TitularPin7
 
                     }).ToList();
 
@@ -420,7 +452,13 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                              v.PIN3,
                              v.TitularPin3,
                              v.PIN4,
-                             v.TitularPin4
+                             v.TitularPin4,
+                             v.PIN5,
+                             v.TitularPin5,
+                             v.PIN6,
+                             v.TitularPin6,
+                             v.PIN7,
+                             v.TitularPin7
 
 
                          }).ToList();
@@ -460,6 +498,12 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                                                         TitularPin3 = v.TitularPin3,
                                                         PIN4 = v.PIN4.ToString(),
                                                         TitularPin4 = v.TitularPin4,
+                                                        PIN5 = v.PIN5.ToString(),
+                                                        TitularPin5 = v.TitularPin5,
+                                                        PIN6 = v.PIN6.ToString(),
+                                                        TitularPin6 = v.TitularPin6,
+                                                        PIN7 = v.PIN7.ToString(),
+                                                        TitularPin7 = v.TitularPin7,
                                                         Observacion = v.Observacion
 
                                                     }).ToList<vehiculosYpfTemp>();
