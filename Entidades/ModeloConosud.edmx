@@ -758,6 +758,12 @@
           <Property Name="TitularPin3" Type="varchar" MaxLength="150" />
           <Property Name="PIN4" Type="int" />
           <Property Name="TitularPin4" Type="varchar" MaxLength="150" />
+          <Property Name="PIN5" Type="int" />
+          <Property Name="TitularPin5" Type="varchar" MaxLength="150" />
+          <Property Name="PIN6" Type="int" />
+          <Property Name="TitularPin6" Type="varchar" MaxLength="150" />
+          <Property Name="PIN7" Type="int" />
+          <Property Name="TitularPin7" Type="varchar" MaxLength="150" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'Conosud.dbo.View_EmpresasContratos' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -2247,6 +2253,12 @@
           <Property Type="String" Name="TitularPin3" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="PIN4" />
           <Property Type="String" Name="TitularPin4" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="PIN5" />
+          <Property Type="String" Name="TitularPin5" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="PIN6" />
+          <Property Type="String" Name="TitularPin6" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="PIN7" />
+          <Property Type="String" Name="TitularPin7" MaxLength="150" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="InformacionPlanTrabajo">
           <Key>
@@ -3071,6 +3083,12 @@
           <EntitySetMapping Name="VehiculosYPF">
             <EntityTypeMapping TypeName="ModeloConosud.VehiculosYPF">
               <MappingFragment StoreEntitySet="VehiculosYPF">
+                <ScalarProperty Name="TitularPin7" ColumnName="TitularPin7" />
+                <ScalarProperty Name="PIN7" ColumnName="PIN7" />
+                <ScalarProperty Name="TitularPin6" ColumnName="TitularPin6" />
+                <ScalarProperty Name="PIN6" ColumnName="PIN6" />
+                <ScalarProperty Name="TitularPin5" ColumnName="TitularPin5" />
+                <ScalarProperty Name="PIN5" ColumnName="PIN5" />
                 <ScalarProperty Name="TitularPin4" ColumnName="TitularPin4" />
                 <ScalarProperty Name="PIN4" ColumnName="PIN4" />
                 <ScalarProperty Name="TitularPin3" ColumnName="TitularPin3" />

@@ -16,7 +16,7 @@ namespace Entidades
         public string Sector { get; set; }
         public string Responsable { get; set; }
         public string Titular { get; set; }
-        
+
         public string VtoTarjVerde { get; set; }
         public string VtoRevTecnica { get; set; }
         public string VelocimetroFecha { get; set; }
@@ -40,6 +40,12 @@ namespace Entidades
         public string TitularPin3 { get; set; }
         public string PIN4 { get; set; }
         public string TitularPin4 { get; set; }
+        public string PIN5 { get; set; }
+        public string TitularPin5 { get; set; }
+        public string PIN6 { get; set; }
+        public string TitularPin6 { get; set; }
+        public string PIN7 { get; set; }
+        public string TitularPin7 { get; set; }
         public string Observacion { get; set; }
 
     }
