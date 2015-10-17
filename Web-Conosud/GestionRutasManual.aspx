@@ -70,26 +70,19 @@
     <div id="main">
         <ul id="navigationMenu">
             <li onclick="Borrar();"><a class="home" href="#"><span>Borrar Todos</span> </a></li>
-            <li onclick="BorrarSeleccionados();"><a class="eliminarSel" href="#"><span>Eliminar
-                Seleccionados</span> </a></li>
-            <li onclick="GrabarRuta();"><a class="grabar" href="#"><span>Guadar Cambios</span> </a>
-            </li>
-            <li onclick="calcularDistancia();"><a class="CalcularKm" href="#"><span>Calcular Km
-                Ruta</span> </a></li>
-            <li onclick="CargarRuta();"><a class="CargarRecorrido" href="#"><span>Cargar Ruta</span>
-            </a></li>
-            <li onclick="UbicarPuntos(0);"><a class="DirPersonal" href="#"><span>Direcciones del
-                Personal</span> </a></li>
-            <li onclick="ReemplazarRuta();" id="divRR"><a class="contact" href="#"><span>Reemplazar
-                Ruta</span> </a></li>
-            <li onclick="EliminarRuta();"><a class="eliminarRuta" href="#"><span>Eliminar Ruta</span>
-            </a></li>
+            <li onclick="BorrarSeleccionados();"><a class="eliminarSel" href="#"><span>Eliminar Seleccionados</span> </a></li>
+            <li onclick="GrabarRuta();"><a class="grabar" href="#"><span>Guadar Cambios</span> </a></li>
+            <li onclick="calcularDistancia();"><a class="CalcularKm" href="#"><span>Calcular Km Recorrido</span> </a></li>
+            <li onclick="CargarRuta();"><a class="CargarRecorrido" href="#"><span>Cargar Recorrido</span></a></li>
+            <li onclick="UbicarPuntos(0);"><a class="DirPersonal" href="#"><span>Listado de Pasajeros</span> </a></li>
+            <li onclick="ReemplazarRuta();" id="divRR"><a class="contact" href="#"><span>Reemplazar Recorrido</span> </a></li>
+            <li onclick="EliminarRuta();"><a class="eliminarRuta" href="#"><span>Eliminar Recorrido</span></a></li>
         </ul>
     </div>
     <div id="map" style="height: 650px; width: 100%; margin-top: 5px; margin-left: 0px;
         z-index: 1;">
     </div>
-    <div id="dialog-form" title="Guardar Ruta" style="font-size: 65.5%; display: none">
+    <div id="dialog-form" title="Guardar Recorrido" style="font-size: 65.5%; display: none">
         <table border="0" cellpadding="0" cellspacing="4" style="text-align: left; width: 100%;
             margin-top: 5px; border: 0px solid black;">
             <tr>
@@ -190,7 +183,7 @@
             </tr>
         </table>
     </div>
-    <div id="dialog-formAbrir" title="Abrir Ruta" style="font-size: 62.5%; display: none">
+    <div id="dialog-formAbrir" title="Abrir Recorrido" style="font-size: 62.5%; display: none">
         <p>
             Selecione el recorrido que desea cargar</p>
         <label style="text-align: left">
@@ -203,7 +196,7 @@
         <p>
             Desea reposicionar la ubicación en el mapa del agente seleccionado?</p>
     </div>
-    <div id="dialog-DirPersonal" title="Listado de Direcciones" style="font-size: 52.5%;
+    <div id="dialog-DirPersonal" title="Listado de Pasajeros" style="font-size: 52.5%;
         display: none; overflow: hidden">
         <textarea id="txtDirPer" rows="5" cols="18" style="width: 95%; display: none"></textarea>
         <div id="ng-app" ng-app="myApp" ng-controller="controller_domicilios">
@@ -277,43 +270,6 @@
                                     Cancelar</button>
                                 <button type="button" id="btnAlta" style="width: 150px; height: 35px;font-size:15px" ng-click="GrabarPersonal()">
                                     Grabar</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div id="tblEdicion" style="position: absolute; top: 480px; display: none">
-                <table width="95.3%" class="TVista" border="0" cellpadding="0" cellspacing="0">
-                    <tbody>
-                        <tr class="trDatos">
-                            <td style="width: 35px; background-color: Gray" class="tdSimple">
-                                <img id="imgCancelar" ng-click="CancelarEdicion();" src="~/images/delete_16x16.gif"
-                                    alt="a" runat="server" style="cursor: hand;" />
-                            </td>
-                            <td class="tdSimple" align="left" style="width: 240px; background-color: Gray">
-                                <input id="txtNombre" type="text" ng-model="Current.NombreLegajo" style="width: 96%" />
-                            </td>
-                            <td class="tdSimple" align="left" style="width: 365px; background-color: Gray">
-                                <input id="txtDomicilio" type="text" ng-model="Current.Domicilio" style="width: 96%" />
-                            </td>
-                            <td class="tdSimple" align="left" style="width: 115px; background-color: Gray">
-                                <input id="txtPoblacion" type="text" ng-model="Current.Poblacion" style="width: 96%" />
-                            </td>
-                            <td class="tdSimple" align="left" style="width: 115px; background-color: Gray">
-                                <input id="txtDistrito" type="text" ng-model="Current.Distrito" style="width: 96%" />
-                            </td>
-                            <td class="tdSimple" align="left" style="width: 65px; background-color: Gray">
-                                <input id="txtTipo" type="text" ng-model="Current.TipoTurno" style="width: 96%" />
-                            </td>
-                            <td class="tdSimple" align="left" style="width: 220px; background-color: Gray">
-                                <select id="cboRecorridosAsignacion" ng-model="Current.LineaAsignada" ng-options="clasif.Id as clasif.NombreAbreviado for clasif in recorridos">
-                                </select>
-                            </td>
-                            <td style="width: 35px; background-color: Gray" class="tdSimple">
-                                <center>
-                                    <img ng-click="GrabarDomicilio();" src="~/images/grabar.png" width="16" alt="grabar"
-                                        id="imgGrabar" runat="server" style="cursor: hand;" />
-                                </center>
                             </td>
                         </tr>
                     </tbody>
@@ -449,14 +405,13 @@
     <div class="divRecorrido">
         Recorrido: <span style="font-weight: bold" id="lblRecorrido"></span>
     </div>
-    
-    <div id="dialog-DivEliminar" title="Ruta" style="font-size: 62.5%; display: none;
+    <div id="dialog-DivEliminar" title="Recorrido" style="font-size: 62.5%; display: none;
         overflow: hidden">
         <p>
             Selecione el recorrido que desea ELIMINAR</p>
         <br />
         <p id="lblEliminar" style="color: Red; display: none">
-            ESTA SEGURO DE ELIMINAR LA RUTA SELECCIONADA?</p>
+            ESTA SEGURO DE ELIMINAR EL RECORRIDO SELECCIONADO?</p>
         <br />
         <select id="cboRecorridosEliminar" style="width: 95%">
         </select>
@@ -481,8 +436,6 @@
         var markersNewPoints = [];
 
         var Constants = {
-            controlImgCancelar: '<%= imgCancelar.ClientID %>',
-            controlImgGrabar: '<%= imgGrabar.ClientID %>',
             controlbtnExportar: '<%= btnExportar.ClientID %>'
         };
 
@@ -563,10 +516,10 @@
 
             PageMethods.getEmpresas(function (result) {
 
-                var options = $("#cboEmpresas");
-                for (var i = 0; i < result.length; i++) {
-                    options.append($("<option />").val(result[i].Id).text(result[i].RazonSocial)).css("color", "Black");
-                }
+//                var options = $("#cboEmpresas");
+//                for (var i = 0; i < result.length; i++) {
+//                    options.append($("<option />").val(result[i].Id).text(result[i].RazonSocial)).css("color", "Black");
+//                }
 
 
                 angular.element(document.getElementById('ng-app')).scope().setEmpresas(result);
@@ -575,6 +528,12 @@
 
             $("#btnAlta").button();
             $("#btnCancelar").button();
+
+            var width = screen.width - 30;
+            var height = screen.height -150;
+
+            $("#master_contentplaceholder").css("width", width + 'px');
+            $("#master_contentplaceholder").css("height", height + 'px');
 
         });
 
@@ -610,7 +569,7 @@
                 height: 210,
                 width: 430,
                 modal: true,
-                buttons: { "Abrir": AbrirRuta, Cancelar: function () { dialogAbrir.dialog("close"); }, "Exportar Rutas": ExportarRutas }
+                buttons: { "Abrir": AbrirRuta, Cancelar: function () { dialogAbrir.dialog("close"); }, "Exportar Recorridos": ExportarRutas }
             });
 
         dialogDirPer = $("#dialog-DirPersonal").dialog(

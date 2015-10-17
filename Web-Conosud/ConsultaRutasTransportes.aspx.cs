@@ -20,7 +20,28 @@ public partial class ConsultaRutasTransportes : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
 
+            using (EntidadesConosud dc = new EntidadesConosud())
+            {
+                Dictionary<string, object> datos = new Dictionary<string, object>();
+
+                var localidades = (from d in dc.DomiciliosPersonal
+                                   orderby d.Poblacion
+                                  select new
+                                  {
+                                      Id = d.Poblacion,
+                                      d.Poblacion
+                                  }).Distinct().ToList();
+
+                cboLocalidades.DataTextField = "Poblacion";
+                cboLocalidades.DataValueField = "Id";
+                cboLocalidades.DataSource = localidades;
+                cboLocalidades.DataBind();
+            }
+        
+        }
     }
 
 

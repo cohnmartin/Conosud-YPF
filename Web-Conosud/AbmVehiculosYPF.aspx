@@ -25,7 +25,7 @@
         <cc1:ServerControlWindow ID="ServerControlVehiculos" runat="server" BackColor="WhiteSmoke"
             WindowColor="Rojo">
             <ContentControls>
-                <div id="divPrincipal" style="height: 540px; width: 1100px">
+                <div id="divPrincipal" style="height: 610px; width: 1100px">
                     <table cellpadding="2" cellspacing="2" style="width: 100%;">
                         <tr>
                             <td colspan="6" style="background-color: #CACACA; padding-left: 10px; height: 28px;">
@@ -278,6 +278,57 @@
                                         </td>
                                         <td align="left">
                                             <input type="text" ng-model="Current.TitularPin4" style="width: 95%" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    <td align="left">
+                                            <asp:Label ID="Label40" runat="server" SkinID="lblConosud" Text="6:"></asp:Label>
+                                        </td>
+                                        <td align="left">
+                                            <asp:Label ID="Label41" runat="server" SkinID="lblConosud" Text="PIN:"></asp:Label>
+                                        </td>
+                                        <td align="left">
+                                            <input type="text" ng-model="Current.PIN5" style="width: 95%" />
+                                        </td>
+                                        <td align="left">
+                                            <asp:Label ID="Label42" runat="server" SkinID="lblConosud" Text="Titula PIN:"></asp:Label>
+                                        </td>
+                                        <td align="left">
+                                            <input type="text" ng-model="Current.TitularPin5" style="width: 95%" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    <td align="left">
+                                            <asp:Label ID="Label43" runat="server" SkinID="lblConosud" Text="7:"></asp:Label>
+                                        </td>
+                                        <td align="left">
+                                            <asp:Label ID="Label44" runat="server" SkinID="lblConosud" Text="PIN:"></asp:Label>
+                                        </td>
+                                        <td align="left">
+                                            <input type="text" ng-model="Current.PIN6" style="width: 95%" />
+                                        </td>
+                                        <td align="left">
+                                            <asp:Label ID="Label45" runat="server" SkinID="lblConosud" Text="Titula PIN:"></asp:Label>
+                                        </td>
+                                        <td align="left">
+                                            <input type="text" ng-model="Current.TitularPin6" style="width: 95%" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    <td align="left">
+                                            <asp:Label ID="Label46" runat="server" SkinID="lblConosud" Text="8:"></asp:Label>
+                                        </td>
+                                        <td align="left">
+                                            <asp:Label ID="Label47" runat="server" SkinID="lblConosud" Text="PIN:"></asp:Label>
+                                        </td>
+                                        <td align="left">
+                                            <input type="text" ng-model="Current.PIN7" style="width: 95%" />
+                                        </td>
+                                        <td align="left">
+                                            <asp:Label ID="Label48" runat="server" SkinID="lblConosud" Text="Titula PIN:"></asp:Label>
+                                        </td>
+                                        <td align="left">
+                                            <input type="text" ng-model="Current.TitularPin7" style="width: 95%" />
                                         </td>
                                     </tr>
                                 </table>

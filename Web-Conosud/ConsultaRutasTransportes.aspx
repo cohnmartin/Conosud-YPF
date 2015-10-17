@@ -103,7 +103,13 @@
                 //$('#search').live('click', function () {
                 $("#DivDescripcionPto").css("display", "none");
                 // Obtenemos la dirección y la asignamos a una variable
-                var address = $('#nro').val() + ' ' + $('#calle').val() + ',' + $('#localidad').val() + ',' + $('#cboDepartamentos').val() + ',Mendoza,Argentina';
+
+                var localidad ="";
+                if ($find("<%= cboLocalidades.ClientID%>").get_selectedItem() != null)
+                    localidad = $find("<%= cboLocalidades.ClientID%>").get_selectedItem().get_text();
+
+
+                var address = $('#nro').val() + ' ' + $('#calle').val() + ',' + localidad + ',' + $('#cboDepartamentos').val() + ',Mendoza,Argentina';
                 // Creamos el Objeto Geocoder
                 var geocoder = new google.maps.Geocoder();
                 // Hacemos la petición indicando la dirección e invocamos la función
@@ -190,7 +196,7 @@
         function BuscarPuntoMasCercano(datos) {
 
             /// Cargo los datos iniciales del resultado
-           CargarDatosCabecera(datos);
+            CargarDatosCabecera(datos);
 
 
             var datosIda;
@@ -198,10 +204,10 @@
             var destinosPosibles;
 
             // Caclulos para el recorrido de Ida
-//            destinosPosibles = new Array();
-//            for (var i = 0; i < datos["RutaIda1"]["Ruta"].length; i++) {
-//                destinosPosibles.push(new google.maps.LatLng(datos["RutaIda1"]["Ruta"][i].Key, datos["RutaIda1"]["Ruta"][i].Value));
-//            }
+            //            destinosPosibles = new Array();
+            //            for (var i = 0; i < datos["RutaIda1"]["Ruta"].length; i++) {
+            //                destinosPosibles.push(new google.maps.LatLng(datos["RutaIda1"]["Ruta"][i].Key, datos["RutaIda1"]["Ruta"][i].Value));
+            //            }
 
             DibujarKML(datos, ubicacionOrigen);
             createMarker(map, ubicacionOrigen, "Ubicación Pasajero", "Ubicación Pasajero", "star");
@@ -594,7 +600,9 @@
                         </td>
                         <td>
                             <asp:Label ID="Label17" runat="server" SkinID="lblConosud" Text="Localidad:"></asp:Label>
-                            <input type="text" maxlength="100" style="width: 220px" id="localidad" value="" />
+                            <!--input type="text" maxlength="100" style="width: 220px" id="localidad" value="" /-->
+                            <telerik:RadComboBox ID="cboLocalidades" runat="server" Skin="Sunset" Width="220px"
+                                AllowCustomText="true" MarkFirstMatch="true" AutoPostBack="false" Mensaje="Buscando Contratos..." />
                         </td>
                         <td>
                             <asp:Label ID="Label3" runat="server" SkinID="lblConosud" Text="Departamento:"></asp:Label>
@@ -659,16 +667,15 @@
                                     <asp:Label ID="lblTurno" runat="server" SkinID="lblConosudNormal" Text="1 y 2"></asp:Label>
                                 </td>
                             </tr>
-                            <tr style="display:none">
+                            <tr style="display: none">
                                 <td>
                                     <asp:Label ID="Label14" runat="server" SkinID="lblConosud" Text="Pto Mas Cercano:"></asp:Label>
                                 </td>
                                 <td colspan="3">
                                     <asp:Label ID="lblPtoCercano" runat="server" SkinID="lblConosudNormal" Text=""></asp:Label>
                                 </td>
-                                
                             </tr>
-                            <tr style="display:none">
+                            <tr style="display: none">
                                 <td>
                                     <asp:Label ID="Label5" runat="server" SkinID="lblConosud" Text="Distnacia:"></asp:Label>
                                 </td>
@@ -706,17 +713,15 @@
                                     <asp:Label ID="lblTurnoAlt" runat="server" SkinID="lblConosudNormal" Text="1 y 2"></asp:Label>
                                 </td>
                             </tr>
-                           
-                            <tr style="display:none">
+                            <tr style="display: none">
                                 <td>
                                     <asp:Label ID="Label24" runat="server" SkinID="lblConosud" Text="Pto Mas Cercano:"></asp:Label>
                                 </td>
                                 <td colspan="3">
                                     <asp:Label ID="lblPtoCercanoAlt" runat="server" SkinID="lblConosudNormal" Text=""></asp:Label>
                                 </td>
-                                
                             </tr>
-                            <tr style="display:none">
+                            <tr style="display: none">
                                 <td>
                                     <asp:Label ID="Label28" runat="server" SkinID="lblConosud" Text="Distnacia:"></asp:Label>
                                 </td>

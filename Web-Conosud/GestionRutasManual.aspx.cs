@@ -48,6 +48,11 @@ public partial class GestionRutasManual : System.Web.UI.Page
 
             }
 
+            if (Request.QueryString["Exportar"] == "R")
+                btnExportarRutas_Click(null,null);
+            else if (Request.QueryString["Exportar"] == "L")
+                btnBuscar_Click(null, null);
+
 
         }
     }
