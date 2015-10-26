@@ -1,5 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/DefaultMasterPage.master" AutoEventWireup="true"
-    Theme="MiTema" CodeFile="GestionRutasManual.aspx.cs" Inherits="GestionRutasManual" %>
+﻿<%@ Page Title="" Theme="MiTema" Language="C#" MasterPageFile="~/DefaultMasterPage.master"
+    AutoEventWireup="true" CodeFile="GestionListadoPersonal.aspx.cs" Inherits="GestionListadoPersonal" %>
 
 <%@ Register Assembly="ControlsAjaxNotti" Namespace="ControlsAjaxNotti" TagPrefix="cc1" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
@@ -83,157 +83,20 @@
             z-index: 999999999;
         }
     </style>
-    <asp:Button ID="btnExportar" runat="server" Text="Exportar" OnClick="btnBuscar_Click"
-        CausesValidation="false" Style="display: none" />
-    <asp:Button ID="btnExportarRutas" runat="server" Text="Exportar" OnClick="btnExportarRutas_Click"
-        CausesValidation="false" Style="display: none" />
     <cc1:ServerControlWindow ID="ServerControlVehiculos" runat="server" BackColor="WhiteSmoke"
         WindowColor="Gray">
         <ContentControls>
         </ContentControls>
     </cc1:ServerControlWindow>
-    <telerik:RadMenu ID="RadMenu1" runat="server" Skin="Default" Width="100%">
-        <CollapseAnimation Type="OutQuint" Duration="200"></CollapseAnimation>
-        <Items>
-            <telerik:RadMenuItem Text="Nuevo Recorrido" onclick="NuevoRecorrido();">
-            </telerik:RadMenuItem>
-            <telerik:RadMenuItem Text="Cargar Recorrido" onclick="CargarRuta('Edicion');">
-            </telerik:RadMenuItem>
-            <telerik:RadMenuItem Text="Reemplazar Recorrido" onclick="CargarRuta('Reemplazo');">
-            </telerik:RadMenuItem>
-                        <telerik:RadMenuItem Text="Eliminar Recorrido" onclick="EliminarRuta();">
-            </telerik:RadMenuItem>
-            <telerik:RadMenuItem Text="Salir" NavigateUrl="Default.aspx">
-            </telerik:RadMenuItem>
-        </Items>
-    </telerik:RadMenu>
     <div id="main">
         <ul id="navigationMenu">
-            <li id="Opc_BorrarTodos" onclick="Borrar();"><a class="home" href="#"><span>Borrar Todos</span>
-            </a></li>
-            <li id="Opc_BorrarSeleccionados" onclick="BorrarSeleccionados();"><a class="eliminarSel"
-                href="#"><span>Eliminar Seleccionados</span> </a></li>
-            <li id="Opc_GrabarCambios" onclick="GrabarRuta();"><a class="grabar" href="#"><span>
-                Guadar Cambios</span> </a></li>
-            <li id="Opc_CargarRuta" onclick="CargarRuta();"><a class="CargarRecorrido" href="#">
-                <span>Cargar Recorrido</span></a></li>
             <li id="Opc_ListadoPasajeros" onclick="UbicarPuntos(0);"><a class="DirPersonal" href="#">
                 <span>Listado de Pasajeros</span> </a></li>
-            <li id="Opc_Reemplazar" onclick="ReemplazarRuta();" id="divRR"><a class="contact"
-                href="#"><span>Reemplazar Recorrido</span> </a></li>
+            <li id="Opc_salir" onclick="Salir();"><a class="eliminarSel" href="#"><span>Salir</span> </a></li>
         </ul>
     </div>
     <div id="map" style="height: 650px; width: 100%; margin-top: 5px; margin-left: 0px;
         z-index: 1;">
-    </div>
-    <div id="dialog-form" title="Guardar Recorrido" style="font-size: 65.5%; display: none">
-        <table border="0" cellpadding="0" cellspacing="4" style="text-align: left; width: 100%;
-            margin-top: 5px; border: 0px solid black;">
-            <tr>
-                <td rowspan="6" align="center" style="padding: 5px; width: 80px" valign="middle">
-                    <img src="images/autobus.jpg" alt="" width="65px" />
-                </td>
-            </tr>
-            <tr>
-                <td style="width: 100px">
-                    <asp:Label ID="Label6" runat="server" Style="font-size: x-small; font-weight: bold"
-                        Text="Empresa:"></asp:Label>
-                </td>
-                <td style="width: 220px">
-                    <select id="cboEmpresa">
-                        <option value="ANDESMAR" selected="selected">ANDESMAR</option>
-                        <option value="MARPI">MARPI</option>
-                    </select>
-                </td>
-                <td style="width: 100px">
-                    <asp:Label ID="Label8" runat="server" Style="font-size: x-small; font-weight: bold"
-                        Text="Recorrido:"></asp:Label>
-                </td>
-                <td>
-                    <select id="cboTipoRecorrido">
-                        <option value="IDA" selected="selected">IDA</option>
-                        <option value="REGRESO">REGRESO</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <asp:Label ID="Label4" runat="server" Style="font-size: x-small; font-weight: bold"
-                        Text="Línea:"></asp:Label>
-                </td>
-                <td>
-                    <input id="txtLinea" type="text" style="width: 95%" title="Formato de Información: Nro 1 (SAN JOSE - DORREGO)"
-                        class="text ui-widget-content ui-corner-all" />
-                </td>
-                <td>
-                    <asp:Label ID="Label5" runat="server" Style="font-size: x-small; font-weight: bold"
-                        Text="Turno:"></asp:Label>
-                </td>
-                <td>
-                    <input id="txtTurno" type="text" style="width: 94%" title="Formato de información: 1 Y 2 o 1 "
-                        class="text ui-widget-content ui-corner-all" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <asp:Label ID="Label10" runat="server" Style="font-size: x-small; font-weight: bold"
-                        Text="Salida:"></asp:Label>
-                </td>
-                <td>
-                    <input id="txtHorarioSalida" type="text" style="width: 95%" class="text ui-widget-content ui-corner-all" />
-                </td>
-                <td>
-                    <asp:Label ID="Label9" runat="server" Style="font-size: x-small; font-weight: bold"
-                        Text="LLegada:"></asp:Label>
-                </td>
-                <td>
-                    <input id="txtHorarioLlegada" type="text" style="width: 94%" class="text ui-widget-content ui-corner-all" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <asp:Label ID="Label12" runat="server" Style="font-size: x-small; font-weight: bold"
-                        Text="Tipo Unidad:"></asp:Label>
-                </td>
-                <td>
-                    <select id="cboTipoUnidad">
-                        <option value="MINIBUS" selected="selected">MINIBUS</option>
-                        <option value="OMNIBUS">OMNIBUS</option>
-                    </select>
-                </td>
-                <td>
-                    <asp:Label ID="Label1" runat="server" Style="font-size: x-small; font-weight: bold"
-                        Text="Tipo:"></asp:Label>
-                </td>
-                <td>
-                    <select id="cboTipoTurno">
-                        <option value="TURNO" selected="selected">TURNO</option>
-                        <option value="DIURNO">DIURNO</option>
-                        <option value="TEMPORAL">TEMPORAL</option>
-                    </select>
-                    <asp:Label ID="Label2" runat="server" Style="font-size: x-small; font-weight: bold;
-                        padding-right: 5px; padding-left: 10px" Text="Total Km:"></asp:Label>
-                    <asp:Label ID="lblKm" runat="server" Style="font-size: x-small;" Text="Km:"></asp:Label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <asp:Label ID="Label11" runat="server" Style="font-size: x-small; font-weight: bold"
-                        Text="Detalle:"></asp:Label>
-                </td>
-                <td colspan="3" style="padding-top: 5px">
-                    <textarea rows="4" id="txtDetalle" style="width: 95%" class="text ui-widget-content ui-corner-all"></textarea>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div id="dialog-formAbrir" title="Abrir Recorrido" style="font-size: 62.5%; display: none">
-        <p>
-            Selecione el recorrido que desea cargar</p>
-        <label style="text-align: left">
-            Recorridos:</label>
-        <select id="cboRecorridos" style="width: 85%">
-        </select>
     </div>
     <div id="dialog-formReposicion" title="Reposicionar Dirección" style="font-size: 62.5%;
         display: none">
@@ -453,24 +316,6 @@
             </div>
         </div>
     </div>
-    <div class="divRecorrido">
-        <span style="font-weight: bold" id="lblTipoAccion">Edición:</span> <span style="font-weight: bold"
-            id="lblRecorrido"></span>
-    </div>
-    <div class="divCaluloKm">
-        Total Km: <span style="font-weight: bold" id="totalKm">0</span>
-    </div>
-    <div id="dialog-DivEliminar" title="Recorrido" style="font-size: 62.5%; display: none;
-        overflow: hidden">
-        <p>
-            Selecione el recorrido que desea ELIMINAR</p>
-        <br />
-        <p id="lblEliminar" style="color: Red; display: none">
-            ESTA SEGURO DE ELIMINAR EL RECORRIDO SELECCIONADO?</p>
-        <br />
-        <select id="cboRecorridosEliminar" style="width: 95%">
-        </select>
-    </div>
     <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
     </script>
     <script type="text/javascript">
@@ -492,7 +337,7 @@
         var AccionEnCurso = "";
 
         var Constants = {
-            controlbtnExportar: '<%= btnExportar.ClientID %>'
+            controlbtnExportar: ''
         };
 
         var objCorreccion = new Object;
@@ -534,10 +379,6 @@
             map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
 
-            //google.maps.event.addListener(map, 'click', clickOnMap);
-            //google.maps.event.addListener(map, 'rightclick', clickOnMap1);
-
-
             flightPath = new google.maps.Polyline({
                 path: flightPlanCoordinates,
                 strokeColor: '#3399FF',
@@ -574,18 +415,9 @@
 
             PageMethods.getEmpresas(function (result) {
 
-                //                var options = $("#cboEmpresas");
-                //                for (var i = 0; i < result.length; i++) {
-                //                    options.append($("<option />").val(result[i].Id).text(result[i].RazonSocial)).css("color", "Black");
-                //                }
-
-
                 angular.element(document.getElementById('ng-app')).scope().setEmpresas(result);
 
             }, function () { alert("Error al buscar datos de empresas"); });
-
-            $("#btnAlta").button();
-            $("#btnCancelar").button();
 
             var width = screen.width - 30;
             var height = screen.height - 150;
@@ -594,18 +426,11 @@
             $("#master_contentplaceholder").css("height", height + 'px');
 
             OcultarMenu();
+            UbicarPuntos(0);
 
         });
 
         function OcultarMenu() {
-
-            $("#Opc_BorrarTodos").css("display", "none");
-            $("#Opc_BorrarSeleccionados").css("display", "none");
-            $("#Opc_GrabarCambios").css("display", "none");
-            $("#Opc_CargarRuta").css("display", "none");
-            $("#Opc_ListadoPasajeros").css("display", "none");
-            $("#Opc_Reemplazar").css("display", "none");
-
 
         }
 
@@ -633,15 +458,6 @@
                 width: 800,
                 modal: true,
                 buttons: { "Guardar": Grabar, Cancelar: function () { dialog.dialog("close"); } }
-            });
-
-        dialogAbrir = $("#dialog-formAbrir").dialog(
-            {
-                autoOpen: false,
-                height: 210,
-                width: 430,
-                modal: true,
-                buttons: { "Abrir": AbrirRuta, Cancelar: function () { dialogAbrir.dialog("close"); }, "Exportar Recorridos": ExportarRutas }
             });
 
         dialogDirPer = $("#dialog-DirPersonal").dialog(
@@ -684,7 +500,7 @@
             var path = flightPath.getPath();
             var distance = google.maps.geometry.spherical.computeLength(path.getArray()) / 1000;
 
-            $('#<%= lblKm.ClientID %>').text(distance.toFixed(2));
+            //$('').text(distance.toFixed(2));
 
             dialog.dialog("open");
         }
@@ -706,10 +522,7 @@
             PageMethods.GrabarRuta($('#cboEmpresa').val(), $('#txtHorarioSalida').val(), $('#txtHorarioLlegada').val(), $('#cboTipoUnidad').val(), $('#txtTurno').val(), $('#txtLinea').val(), $('#cboTipoRecorrido').val(), $('#cboTipoTurno').val(), newPoints, idRecorrido, distance.toFixed(2), $('#txtDetalle').val(), function () { idRecorrido = 0; window.location.reload(); }, function () { alert("Error de Grabación, por favor tome contacto con el administrador."); });
 
         }
-        function ExportarRutas() {
 
-            document.getElementById("<%= btnExportarRutas.ClientID %>").click();
-        }
 
         function AbrirRuta() {
             PageMethods.getPuntosRecorridos($("#cboRecorridos option:selected").val(), function (result) {
@@ -736,7 +549,7 @@
                 $('#cboTipoRecorrido').val(result["cabecera"].TipoRecorrido);
                 $('#cboTipoTurno').val(result["cabecera"].TipoTurno);
                 $('#txtDetalle').val(result["cabecera"].DetalleRuta);
-                $('#<%= lblKm.ClientID %>').text(result["cabecera"].Km);
+                //$('').text(result["cabecera"].Km);
 
 
                 for (var i = 0; i < flightPlanCoordinates.length; i++) {
@@ -1298,5 +1111,10 @@
                 $("#lblEliminar").css("display", "block");
             }
         }
+
+        function Salir() {
+            location.href = "Default.aspx";
+        }
+
     </script>
 </asp:Content>

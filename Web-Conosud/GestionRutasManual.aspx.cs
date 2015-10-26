@@ -28,6 +28,8 @@ public partial class GestionRutasManual : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
+            Session.Timeout = 20;
+            (Page.Master as DefaultMasterPage).OcultarMenu(); 
             (Page.Master as DefaultMasterPage).OcultarSoloEncabezado();
 
             using (EntidadesConosud dc = new EntidadesConosud())

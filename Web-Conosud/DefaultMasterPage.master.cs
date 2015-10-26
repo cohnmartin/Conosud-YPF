@@ -45,6 +45,8 @@ public partial class DefaultMasterPage : System.Web.UI.MasterPage
 
             if (!this.IsPostBack)
             {
+                Session.Timeout = 30;
+
                 this.lblNombreUsu.Text = Convert.ToString(this.Session["nombreusu"]);
 
                 Entidades.EntidadesConosud dcAux = new Entidades.EntidadesConosud();
