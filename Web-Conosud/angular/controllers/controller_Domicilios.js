@@ -2,12 +2,12 @@
 var myAppModule = angular.module('myApp', []);
 
 // slice: 35:100
-myAppModule.filter('empiezaDesde', function() {
+myAppModule.filter('empiezaDesde', function () {
 
-	return function(input, start) {
-       start = +start; //parse to int
-       return input.slice(start);
-   }
+    return function (input, start) {
+        start = +start; //parse to int
+        return input.slice(start);
+    }
 });
 
 
@@ -87,9 +87,12 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
     $scope.paginaActual = 0;
 
     $scope.totalPaginas = function (numero) {
+
+        numero = $scope.filteredDom != undefined && $scope.filteredDom.length != 35 ? $scope.filteredDom.length : numero;
         $scope.condicionSiguiente = numero / $scope.cantidadRegistros - 1;
         $scope.numeroDePaginas = Math.ceil(numero / $scope.cantidadRegistros);
-        $scope.$digest();
+
+
         return $scope.numeroDePaginas;
     };
 
@@ -122,7 +125,7 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
     };
 
     $scope.limpiarUbicaciones = function () {
-        
+
         for (var i = 0; i < $scope.Domicilios.length; i++) {
             $scope.Domicilios[i].Seleccion = false;
         }
