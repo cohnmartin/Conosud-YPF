@@ -91,8 +91,12 @@
     <div id="main">
         <ul id="navigationMenu">
             <li id="Opc_ListadoPasajeros" onclick="UbicarPuntos(0);"><a class="DirPersonal" href="#">
-                <span>Listado de Pasajeros</span> </a></li>
-            <li id="Opc_salir" onclick="Salir();"><a class="eliminarSel" href="#"><span>Salir</span> </a></li>
+                <span>Editar Listado de Pasajeros</span> </a></li>
+            <li id="Opc_ListadoPasajerosSel" onclick="UbicarPuntos(1);"><a class="DirPersonal"
+                href="#"><span>Carga Pasajeros Seleccionados</span> </a></li>
+            <li id="Opc_Limpiar" onclick="LimpiarUbicaciones();"><a class="eliminarRuta" href="#">
+                <span>Limpiar Ubicaciones</span></a></li>
+            <li id="Opc_salir" onclick="Salir();"><a class="eliminarSel" href="#"><span>Salir</span></a></li>
         </ul>
     </div>
     <div id="map" style="height: 650px; width: 100%; margin-top: 5px; margin-left: 0px;
@@ -210,7 +214,7 @@
                                                         Style="cursor: hand; padding-right: 1px;" />
                                                 </td>
                                                 <td style="width: 130px; background-color: #006699; text-align: left">
-                                                    <span style="color: White;">Exportar Excel</span>
+                                                    <span style="color: White;">Exportar Excel </span>
                                                 </td>
                                             </tr>
                                         </table>
@@ -223,7 +227,7 @@
                                 &nbsp;
                             </th>
                             <th class="Theader">
-                                Nombre
+                                <input type="text" ng-model="nameSearch" />
                             </th>
                             <th class="Theader">
                                 Direccion
@@ -253,25 +257,33 @@
                             <th class="Theader">
                                 &nbsp;
                             </th>
-                            <th class="Theader">
+                            <th ng-show="FuncionActiva!='Seleccion'" class="Theader">
                                 &nbsp;
                             </th>
                         </tr>
+                        <tr>
+                            <td colspan="10" style="font-size:15px;color:red">
+                                Solo se muestran los primero 35 legajos según el filtro seleccionado.
+                            </td>
+                        </tr>
                     </thead>
                     <tbody>
-                        <tr class="trDatos" ng-repeat="item in (filteredDom = (Domicilios  | filter: { Poblacion: textSearch , TipoTurno: textSearchTipo}))  ">
+                        
+                        <tr class="trDatos" ng-repeat="item in (filteredDom = (Domicilios  | filter: { Poblacion: textSearch , TipoTurno: textSearchTipo,NombreLegajo:nameSearch} | limitTo:35 ))  ">
                             <td style="width: 35px" class="tdSimple" align="center">
                                 <center>
                                     <span>
-                                        <asp:Image ng-click="Editar($event,item)" ImageUrl="~/images/edit.gif" ID="btnEditar"
-                                            runat="server" Style="cursor: hand;" />
+                                        <asp:Image ng-show="FuncionActiva!='Seleccion'" ng-click="Editar($event,item)" ImageUrl="~/images/edit.gif"
+                                            ID="btnEditar" runat="server" Style="cursor: hand;" />
+                                        <input ng-show="FuncionActiva=='Seleccion' && (item.Latitud != null || item.LongitudReposicion != null)"
+                                            type="checkbox" name="chkSeleccion" ng-model="item.Seleccion" />
                                     </span>
                                 </center>
                             </td>
-                            <td class="tdSimple" align="left">
+                            <td class="tdSimple" align="left" style="width: 150px">
                                 <span>{{item.NombreLegajo}}</span>
                             </td>
-                            <td class="tdSimple" align="left" style="width: 250px">
+                            <td class="tdSimple" align="left" style="width: 200px">
                                 <span>{{item.Domicilio}}</span>
                             </td>
                             <td class="tdSimple" align="left" style="width: 110px">
@@ -302,7 +314,7 @@
                                     </span>
                                 </center>
                             </td>
-                            <td style="width: 35px" class="tdSimple">
+                            <td ng-show="FuncionActiva!='Seleccion'" style="width: 35px" class="tdSimple">
                                 <center>
                                     <span>
                                         <asp:Image ng-click="EliminarPersonal(item);" ImageUrl="~/images/delete.gif" ID="Image4"
@@ -335,6 +347,7 @@
         var nuevaPosicionDireccion;
         var markersNewPoints = [];
         var AccionEnCurso = "";
+        var funcionActiva = "";
 
         var Constants = {
             controlbtnExportar: ''
@@ -468,6 +481,7 @@
                 modal: true,
                 buttons: { "Nuevo Legajo": function () { angular.element(document.getElementById('ng-app')).scope().ShowAlta() }, "Cargar Todos": function () { CargarTodos() }, Cancelar: function () { dialogDirPer.dialog("close"); } }
             });
+
 
         dialogAltaPer = $("#dialog-AltaPersona").dialog(
             {
@@ -946,8 +960,70 @@
         var pospto = 0;
         var address = Array();
 
-        function UbicarPuntos() {
+        function LimpiarUbicaciones() {
+
+            var mapOptions = {
+                zoom: 13,
+                center: new google.maps.LatLng(-32.9223417, -68.8017413),
+                mapTypeId: google.maps.MapTypeId.te,
+                draggableCursor: 'crosshair',
+                disableDefaultUI: true
+            };
+
+
+            flightPath.setMap(null);
+
+
+            flightPath = new google.maps.Polyline({
+                path: flightPlanCoordinates,
+                strokeColor: '#3399FF',
+                strokeOpacity: 1.0,
+                strokeWeight: 3,
+                clickable: true
+            });
+
+
+            flightPath.setMap(map);
+
+
+            for (var i = markersDomicilios.length - 1; i >= 0; i--) {
+                markersDomicilios[i].setMap(null);
+            }
+
+            markersDomicilios = new Array();
+            angular.element(document.getElementById('ng-app')).scope().limpiarUbicaciones();
+
+        }
+
+        function UbicarPuntos(opc) {
+
+            if (opc == 0) {
+                angular.element(document.getElementById('ng-app')).scope().setFuncionActiva('Edicion');
+                dialogDirPer = $("#dialog-DirPersonal").dialog(
+                {
+                    autoOpen: false,
+                    height: 600,
+                    width: 1120,
+                    modal: true,
+                    buttons: { "Nuevo Legajo": function () { angular.element(document.getElementById('ng-app')).scope().ShowAlta() }, "Cargar Todos": function () { CargarTodos() }, Cancelar: function () { dialogDirPer.dialog("close"); } }
+                });
+            }
+            else {
+                angular.element(document.getElementById('ng-app')).scope().setFuncionActiva('Seleccion');
+                dialogDirPer = $("#dialog-DirPersonal").dialog(
+                {
+                    autoOpen: false,
+                    height: 600,
+                    width: 1120,
+                    modal: true,
+                    buttons: { "Cargar Seleccionados": function () { angular.element(document.getElementById('ng-app')).scope().CargarSeleccion(); }, Cancelar: function () { dialogDirPer.dialog("close"); } }
+                });
+            }
+
+
             dialogDirPer.dialog("open");
+
+
         }
 
         // Solo ubica un solo punto
@@ -979,6 +1055,7 @@
             }
 
         }
+
 
         function CargarTodos() {
             // Llamo al controlador para que se carguen todos los puntos.
