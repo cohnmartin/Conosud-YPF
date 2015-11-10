@@ -1,6 +1,12 @@
 ﻿
 var myAppModule = angular.module('myApp', []);
 
+// slice: 35:100
+myAppModule.filter('slice', function () {
+    return function (arr, start, end) {
+        return (arr || []).slice(start, end);
+    };
+});
 
 
 myAppModule.service('PageMethodsDomicilios', function ($http) {
@@ -72,7 +78,12 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
     $scope.TipoAccion = "Nuevo Legajo";
     $scope.EliminarActivo = false;
     $scope.GrabacionActiva = false;
-    
+    $scope.FuncionActiva = "aaa";
+
+    $scope.setFuncionActiva = function (r) {
+        $scope.FuncionActiva = r
+        $scope.$digest();
+    };
 
     $scope.setRecorridos = function (r) {
         $scope.recorridos = r
@@ -82,6 +93,13 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
         $scope.empresas = r
     };
 
+    $scope.limpiarUbicaciones = function () {
+        
+        for (var i = 0; i < $scope.Domicilios.length; i++) {
+            $scope.Domicilios[i].Seleccion = false;
+        }
+        $scope.$digest();
+    };
 
     $scope.EliminarPersonal = function (legajo) {
 
@@ -115,7 +133,7 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
 
         PageMethodsDomicilios.getDomicilios()
                     .then(function (response) {
-                        
+
                         if ($scope.EliminarActivo)
                             $scope.EliminarActivo = false;
 
@@ -128,6 +146,22 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
 
     };
 
+    $scope.CargarSeleccion = function () {
+
+        for (var i = 0; i < $scope.filteredDom.length; i++) {
+            if ($scope.filteredDom[i].Seleccion) {
+                if ($scope.filteredDom[i].Latitud != null) {
+                    if ($scope.filteredDom[i].LatitudReposicion == null) {
+                        MostrarUbicacionMapa($scope.filteredDom[i].Latitud + '', $scope.filteredDom[i].Longitud + '', $scope.filteredDom[i].Domicilio + ' ' + $scope.filteredDom[i].Distrito + ' ' + $scope.filteredDom[i].Poblacion);
+                    }
+                    else {
+                        MostrarUbicacionMapa($scope.filteredDom[i].LatitudReposicion + '', $scope.filteredDom[i].LongitudReposicion + '', $scope.filteredDom[i].Domicilio + ' ' + $scope.filteredDom[i].Distrito + ' ' + $scope.filteredDom[i].Poblacion);
+                    }
+                }
+            }
+        }
+
+    }
 
     $scope.CargarTodos = function () {
 
@@ -240,17 +274,17 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
 
         $scope.Current = null;
         angular.element("#tblAlta").css('display', 'none');
-//        angular.element("#tblEdicion").css('display', 'none');
-//        $("#txtNombre").parentsUntil("tr").parent().find("span").css("display", "inline");
+        //        angular.element("#tblEdicion").css('display', 'none');
+        //        $("#txtNombre").parentsUntil("tr").parent().find("span").css("display", "inline");
 
-//        $("#" + Constants.controlImgCancelar).css("display", "none");
-//        $("#txtNombre").css("display", "none");
-//        $("#txtDomicilio").css("display", "none");
-//        $("#txtPoblacion").css("display", "none");
-//        $("#txtDistrito").css("display", "none");
-//        $("#txtTipo").css("display", "none");
-//        $("#cboRecorridosAsignacion").css("display", "none");
-//        $("#" + Constants.controlImgGrabar).css("display", "none");
+        //        $("#" + Constants.controlImgCancelar).css("display", "none");
+        //        $("#txtNombre").css("display", "none");
+        //        $("#txtDomicilio").css("display", "none");
+        //        $("#txtPoblacion").css("display", "none");
+        //        $("#txtDistrito").css("display", "none");
+        //        $("#txtTipo").css("display", "none");
+        //        $("#cboRecorridosAsignacion").css("display", "none");
+        //        $("#" + Constants.controlImgGrabar).css("display", "none");
 
     }
 

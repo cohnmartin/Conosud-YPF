@@ -49,8 +49,8 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
                                   d.TipoTurno,
                                   descLineaAsignada = d.objLineaAsignada.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignada.Linea + "-" + d.objLineaAsignada.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignada.TipoRecorrido,
                                   descEmpresa = d.objEmpresa != null ? d.objEmpresa.RazonSocial : "",
-                                  Empresa = d.objEmpresa != null ? d.objEmpresa.IdEmpresa : 0
-
+                                  Empresa = d.objEmpresa != null ? d.objEmpresa.IdEmpresa : 0,
+                                  Seleccion = false
                               }).ToList();
 
             var poblacion = (from p in domicilios
