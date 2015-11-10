@@ -99,7 +99,7 @@
             </telerik:RadMenuItem>
             <telerik:RadMenuItem Text="Cargar Recorrido" onclick="CargarRuta('Edicion');">
             </telerik:RadMenuItem>
-            <telerik:RadMenuItem Text="Reemplazar Recorrido" onclick="CargarRuta('Reemplazo');">
+            <telerik:RadMenuItem Text="Reemplazar Tramo" onclick="CargarRuta('Reemplazo');">
             </telerik:RadMenuItem>
                         <telerik:RadMenuItem Text="Eliminar Recorrido" onclick="EliminarRuta();">
             </telerik:RadMenuItem>
@@ -120,7 +120,7 @@
             <li id="Opc_ListadoPasajeros" onclick="UbicarPuntos(0);"><a class="DirPersonal" href="#">
                 <span>Listado de Pasajeros</span> </a></li>
             <li id="Opc_Reemplazar" onclick="ReemplazarRuta();" id="divRR"><a class="contact"
-                href="#"><span>Reemplazar Recorrido</span> </a></li>
+                href="#"><span>Reemplazar Tramo</span> </a></li>
         </ul>
     </div>
     <div id="map" style="height: 650px; width: 100%; margin-top: 5px; margin-left: 0px;
@@ -227,7 +227,7 @@
             </tr>
         </table>
     </div>
-    <div id="dialog-formAbrir" title="Abrir Recorrido" style="font-size: 62.5%; display: none">
+    <div id="dialog-formAbrir" title="Cargar Recorrido" style="font-size: 62.5%; display: none">
         <p>
             Selecione el recorrido que desea cargar</p>
         <label style="text-align: left">
@@ -641,7 +641,7 @@
                 height: 210,
                 width: 430,
                 modal: true,
-                buttons: { "Abrir": AbrirRuta, Cancelar: function () { dialogAbrir.dialog("close"); }, "Exportar Recorridos": ExportarRutas }
+                buttons: { "Abrir": AbrirRuta, Cancelar: function () { dialogAbrir.dialog("close"); }}
             });
 
         dialogDirPer = $("#dialog-DirPersonal").dialog(

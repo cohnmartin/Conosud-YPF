@@ -93,7 +93,7 @@
             <li id="Opc_ListadoPasajeros" onclick="UbicarPuntos(0);"><a class="DirPersonal" href="#">
                 <span>Editar Listado de Pasajeros</span> </a></li>
             <li id="Opc_ListadoPasajerosSel" onclick="UbicarPuntos(1);"><a class="DirPersonal"
-                href="#"><span>Carga Pasajeros Seleccionados</span> </a></li>
+                href="#"><span>Carga Listado Pasajeros</span> </a></li>
             <li id="Opc_Limpiar" onclick="LimpiarUbicaciones();"><a class="eliminarRuta" href="#">
                 <span>Limpiar Ubicaciones</span></a></li>
             <li id="Opc_salir" onclick="Salir();"><a class="eliminarSel" href="#"><span>Salir</span></a></li>
@@ -189,7 +189,7 @@
                     </tbody>
                 </table>
             </div>
-            <div style="overflow: scroll; height: 490px;">
+            <div style="overflow: scroll; height: 450px;">
                 <div style="padding-top: 15px; background-color: #006699; position: absolute; height: 50px;
                     top: 50%; width: 250px; left: 40%; vertical-align: middle; color: White; font-size: medium"
                     ng-show="EliminarActivo">
@@ -203,25 +203,6 @@
                 <table id="tblDirecciones" width="97%" class="TVista" border="0" cellpadding="0"
                     cellspacing="0">
                     <thead>
-                        <tr style="background-color: #006699; height: 28px">
-                            <th colspan="10">
-                                <center>
-                                    <div style="cursor: hand; width: 100%" ng-click="exportarExcel()">
-                                        <table id="Table1" width="10%" class="" border="0" cellpadding="0" cellspacing="0">
-                                            <tr>
-                                                <td style="width: 30px; background-color: #006699">
-                                                    <asp:ImageButton ID="imgExportar" ImageUrl="~/images/excel_16x16.gif" runat="server"
-                                                        Style="cursor: hand; padding-right: 1px;" />
-                                                </td>
-                                                <td style="width: 130px; background-color: #006699; text-align: left">
-                                                    <span style="color: White;">Exportar Excel </span>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </center>
-                            </th>
-                        </tr>
                         <tr>
                             <th class="Theader">
                                 &nbsp;
@@ -261,15 +242,9 @@
                                 &nbsp;
                             </th>
                         </tr>
-                        <tr>
-                            <td colspan="10" style="font-size:15px;color:red">
-                                Solo se muestran los primero 35 legajos según el filtro seleccionado.
-                            </td>
-                        </tr>
                     </thead>
                     <tbody>
-                        
-                        <tr class="trDatos" ng-repeat="item in (filteredDom = (Domicilios  | filter: { Poblacion: textSearch , TipoTurno: textSearchTipo,NombreLegajo:nameSearch} | limitTo:35 ))  ">
+                        <tr class="trDatos" ng-repeat="item in (filteredDom = (Domicilios  | filter: { Poblacion: textSearch , TipoTurno: textSearchTipo,NombreLegajo:nameSearch} | empiezaDesde:paginaActual*cantidadRegistros | limitTo:cantidadRegistros ))  ">
                             <td style="width: 35px" class="tdSimple" align="center">
                                 <center>
                                     <span>
@@ -326,6 +301,29 @@
                     </tbody>
                 </table>
             </div>
+            <center>
+                <table border="0" cellpadding="0" cellspacing="0" style="font-size:small;padding-top:5px">
+                    <tr>
+                        <td colspan="6">
+                            <center>
+                                <button class="btn-info"  ng-click="calcularPagina('0')">
+                                    << 
+                                </button>
+                                <button class="btn-info"  ng-click="calcularPagina('-1')">
+                                    <
+                                </button>
+                                <span ng-bind="paginaActual+1"></span>/<span ng-bind="totalPaginas((Domicilios).length)"></span>
+                                <button class="btn-info"  ng-click="calcularPagina('1')">
+                                    >
+                                </button>
+                                <button class="btn-info" ng-click="calcularPagina()">
+                                    >>
+                                </button>
+                            </center>
+                        </td>
+                    </tr>
+                </table>
+            </center>
         </div>
     </div>
     <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
@@ -379,7 +377,7 @@
                 );
 
 
-
+            $(".btn-info").button();
 
             var mapOptions = {
                 zoom: 13,
@@ -999,6 +997,8 @@
 
             if (opc == 0) {
                 angular.element(document.getElementById('ng-app')).scope().setFuncionActiva('Edicion');
+
+
                 dialogDirPer = $("#dialog-DirPersonal").dialog(
                 {
                     autoOpen: false,
@@ -1016,7 +1016,8 @@
                     height: 600,
                     width: 1120,
                     modal: true,
-                    buttons: { "Cargar Seleccionados": function () { angular.element(document.getElementById('ng-app')).scope().CargarSeleccion(); }, Cancelar: function () { dialogDirPer.dialog("close"); } }
+                    title: "Cargar Pasajeros Seleccionados",
+                    buttons: { "Carga Pasajeros Seleccionados": function () { angular.element(document.getElementById('ng-app')).scope().CargarSeleccion(); }, Cancelar: function () { dialogDirPer.dialog("close"); } }
                 });
             }
 

@@ -2,10 +2,12 @@
 var myAppModule = angular.module('myApp', []);
 
 // slice: 35:100
-myAppModule.filter('slice', function () {
-    return function (arr, start, end) {
-        return (arr || []).slice(start, end);
-    };
+myAppModule.filter('empiezaDesde', function() {
+
+	return function(input, start) {
+       start = +start; //parse to int
+       return input.slice(start);
+   }
 });
 
 
@@ -79,6 +81,32 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
     $scope.EliminarActivo = false;
     $scope.GrabacionActiva = false;
     $scope.FuncionActiva = "aaa";
+
+    $scope.arregloCantidad = [5, 10, 15];
+    $scope.cantidadRegistros = 35;
+    $scope.paginaActual = 0;
+
+    $scope.totalPaginas = function (numero) {
+        $scope.condicionSiguiente = numero / $scope.cantidadRegistros - 1;
+        $scope.numeroDePaginas = Math.ceil(numero / $scope.cantidadRegistros);
+        $scope.$digest();
+        return $scope.numeroDePaginas;
+    };
+
+
+    $scope.calcularPagina = function (numero) {
+        if (numero == 0) {
+            $scope.paginaActual = 0;
+            return $scope.paginaActual;
+        } else if (numero == null) {
+            $scope.paginaActual = $scope.numeroDePaginas - 1;
+            return $scope.paginaActual;
+        };
+        $scope.paginaActual = parseInt($scope.paginaActual) + parseInt(numero);
+        $scope.$digest();
+        return $scope.paginaActual;
+    };
+
 
     $scope.setFuncionActiva = function (r) {
         $scope.FuncionActiva = r
