@@ -137,16 +137,37 @@
                         </tr>
                         <tr>
                             <td class="tdSimple" align="left" style="width: 240px;">
-                                Localidad
-                            </td>
-                            <td class="tdSimple" align="left" style="width: 115px;">
-                                <input id="Text3" type="text" ng-model="Current.Poblacion" style="width: 96%" />
-                            </td>
-                            <td class="tdSimple" align="left" style="width: 240px;">
                                 Departamento:
                             </td>
                             <td class="tdSimple" align="left" style="width: 115px;">
-                                <input id="Text4" type="text" ng-model="Current.Distrito" style="width: 96%" />
+                                <select id="cboDepartamentos" ng-model="Current.Distrito">
+                                    <option value="Mendoza" selected="selected">Capital</option>
+                                    <option value="General Alvear">General Alvear</option>
+                                    <option value="Godoy Cruz">Godoy Cruz</option>
+                                    <option value="Guaymallén">Guaymallén</option>
+                                    <option value="Junín">Junín</option>
+                                    <option value="La Paz">La Paz</option>
+                                    <option value="Las Heras">Las Heras</option>
+                                    <option value="Lavalle">Lavalle</option>
+                                    <option value="Luján de Cuyo">Luján de Cuyo</option>
+                                    <option value="Maipú">Maipú</option>
+                                    <option value="Malargüe">Malargüe</option>
+                                    <option value="Rivadavia">Rivadavia</option>
+                                    <option value="San Carlos">San Carlos</option>
+                                    <option value="San Martín">San Martín</option>
+                                    <option value="San Rafael">San Rafael</option>
+                                    <option value="Santa Rosa">Santa Rosa</option>
+                                    <option value="Tunuyán">Tunuyán</option>
+                                    <option value="Tupungato">Tupungato</option>
+                                </select>
+                            </td>
+                            <td class="tdSimple" align="left" style="width: 240px;">
+                                Localidad
+                            </td>
+                            <td class="tdSimple" align="left" style="width: 115px;">
+                                <select id="Select4" style="width: 95%" ng-model="Current.Poblacion">
+                                    <option ng-repeat="p in Poblaciones" value="{{p}}">{{p}}</option>
+                                </select>
                             </td>
                         </tr>
                         <tr>
@@ -302,18 +323,18 @@
                 </table>
             </div>
             <center>
-                <table border="0" cellpadding="0" cellspacing="0" style="font-size:small;padding-top:5px">
+                <table border="0" cellpadding="0" cellspacing="0" style="font-size: small; padding-top: 5px">
                     <tr>
                         <td colspan="6">
                             <center>
-                                <button class="btn-info"  ng-click="calcularPagina('0')">
-                                    << 
+                                <button class="btn-info" ng-click="calcularPagina('0')">
+                                    <<
                                 </button>
-                                <button class="btn-info"  ng-click="calcularPagina('-1')">
+                                <button class="btn-info" ng-click="calcularPagina('-1')">
                                     <
                                 </button>
                                 <span ng-bind="paginaActual+1"></span>/<span ng-bind="totalPaginas((Domicilios).length)"></span>
-                                <button class="btn-info"  ng-click="calcularPagina('1')">
+                                <button class="btn-info" ng-click="calcularPagina('1')">
                                     >
                                 </button>
                                 <button class="btn-info" ng-click="calcularPagina()">
