@@ -17,7 +17,7 @@
         {
             padding-top: 3px;
             position: fixed;
-            bottom: 0px;
+            bottom: 5px;
             color: White;
             display: none;
             width: 170px;
@@ -37,6 +37,7 @@
             opacity: 0.6;
             filter: progid:DXImageTransform.Microsoft.Alpha(opacity=60);
             z-index: 99999999;
+            left:12px;
         }
         .divRecorrido
         {
@@ -97,7 +98,7 @@
         <Items>
             <telerik:RadMenuItem Text="Nuevo Recorrido" onclick="NuevoRecorrido();">
             </telerik:RadMenuItem>
-            <telerik:RadMenuItem Text="Cargar Recorrido" onclick="CargarRuta('Edicion');">
+            <telerik:RadMenuItem Text="Editar Recorrido" onclick="CargarRuta('Edicion');">
             </telerik:RadMenuItem>
             <telerik:RadMenuItem Text="Reemplazar Tramo" onclick="CargarRuta('Reemplazo');">
             </telerik:RadMenuItem>
@@ -114,7 +115,7 @@
             <li id="Opc_BorrarSeleccionados" onclick="BorrarSeleccionados();"><a class="eliminarSel"
                 href="#"><span>Eliminar Seleccionados</span> </a></li>
             <li id="Opc_GrabarCambios" onclick="GrabarRuta();"><a class="grabar" href="#"><span>
-                Guadar Cambios</span> </a></li>
+                Guadar Recorrido</span> </a></li>
             <li id="Opc_CargarRuta" onclick="CargarRuta();"><a class="CargarRecorrido" href="#">
                 <span>Cargar Recorrido</span></a></li>
             <li id="Opc_ListadoPasajeros" onclick="UbicarPuntos(0);"><a class="DirPersonal" href="#">

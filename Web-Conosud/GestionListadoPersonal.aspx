@@ -93,7 +93,7 @@
             <li id="Opc_ListadoPasajeros" onclick="UbicarPuntos(0);"><a class="DirPersonal" href="#">
                 <span>Editar Listado de Pasajeros</span> </a></li>
             <li id="Opc_ListadoPasajerosSel" onclick="UbicarPuntos(1);"><a class="DirPersonal"
-                href="#"><span>Carga Listado Pasajeros</span> </a></li>
+                href="#"><span>Carga Pasajeros Seleccionados</span> </a></li>
             <li id="Opc_Limpiar" onclick="LimpiarUbicaciones();"><a class="eliminarRuta" href="#">
                 <span>Limpiar Ubicaciones</span></a></li>
             <li id="Opc_salir" onclick="Salir();"><a class="eliminarSel" href="#"><span>Salir</span></a></li>
@@ -112,7 +112,7 @@
         <textarea id="txtDirPer" rows="5" cols="18" style="width: 95%; display: none"></textarea>
         <div id="ng-app" ng-app="myApp" ng-controller="controller_domicilios">
             <div id="tblAlta" style="position: absolute; top: 480px; display: none">
-                <table width="90%" class="TSunset" border="0" style="border: 2px solid blue; background-color: White"
+                <table width="90%" class="TVista" border="0" style="border: 2px solid blue; background-color: White"
                     cellpadding="5" cellspacing="0">
                     <tbody>
                         <tr>
@@ -221,7 +221,7 @@
                     ng-show="GrabacionActiva">
                     Grabando Legajo..
                 </div>
-                <table id="tblDirecciones" width="97%" class="TSunset" border="0" cellpadding="0"
+                <table id="tblDirecciones" width="97%" class="TVista" border="0" cellpadding="0"
                     cellspacing="0">
                     <thead>
                         <tr>
@@ -459,7 +459,7 @@
             $("#master_contentplaceholder").css("height", height + 'px');
 
             OcultarMenu();
-            UbicarPuntos(0);
+            //UbicarPuntos(0);
 
         });
 
@@ -1027,7 +1027,7 @@
                     height: 600,
                     width: 1120,
                     modal: true,
-                    buttons: { "Nuevo Legajo": function () { angular.element(document.getElementById('ng-app')).scope().ShowAlta() }, "Cargar Todos": function () { CargarTodos() }, Cancelar: function () { dialogDirPer.dialog("close"); } }
+                    buttons: { "Nuevo Legajo": function () { angular.element(document.getElementById('ng-app')).scope().ShowAlta() }, Cancelar: function () { dialogDirPer.dialog("close"); } }
                 });
             }
             else {
@@ -1039,7 +1039,7 @@
                     width: 1120,
                     modal: true,
                     title: "Cargar Pasajeros Seleccionados",
-                    buttons: { "Carga Pasajeros Seleccionados": function () { angular.element(document.getElementById('ng-app')).scope().CargarSeleccion(); }, Cancelar: function () { dialogDirPer.dialog("close"); } }
+                    buttons: { "Cargar Pasajeros Seleccionados": function () { angular.element(document.getElementById('ng-app')).scope().CargarSeleccion(); }, "Cargar Todos": function () { CargarTodos() }, Cancelar: function () { dialogDirPer.dialog("close"); } }
                 });
             }
 
