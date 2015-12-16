@@ -112,7 +112,7 @@
         <textarea id="txtDirPer" rows="5" cols="18" style="width: 95%; display: none"></textarea>
         <div id="ng-app" ng-app="myApp" ng-controller="controller_domicilios">
             <div id="tblAlta" style="position: absolute; top: 480px; display: none">
-                <table width="90%" class="TVista" border="0" style="border: 2px solid blue; background-color: White"
+                <table width="90%" class="TSunset" border="0" style="border: 2px solid blue; background-color: White"
                     cellpadding="5" cellspacing="0">
                     <tbody>
                         <tr>
@@ -221,7 +221,7 @@
                     ng-show="GrabacionActiva">
                     Grabando Legajo..
                 </div>
-                <table id="tblDirecciones" width="97%" class="TVista" border="0" cellpadding="0"
+                <table id="tblDirecciones" width="97%" class="TSunset" border="0" cellpadding="0"
                     cellspacing="0">
                     <thead>
                         <tr>
@@ -323,6 +323,7 @@
                 </table>
             </div>
             <center>
+
                 <table border="0" cellpadding="0" cellspacing="0" style="font-size: small; padding-top: 5px">
                     <tr>
                         <td colspan="6">
