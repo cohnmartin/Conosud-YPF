@@ -2032,6 +2032,30 @@ namespace Entidades
         private global::System.String _DetalleRuta;
         partial void OnDetalleRutaChanging(global::System.String value);
         partial void OnDetalleRutaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Capacidad
+        {
+            get
+            {
+                return _Capacidad;
+            }
+            set
+            {
+                OnCapacidadChanging(value);
+                ReportPropertyChanging("Capacidad");
+                _Capacidad = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Capacidad");
+                OnCapacidadChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Capacidad;
+        partial void OnCapacidadChanging(Nullable<global::System.Int32> value);
+        partial void OnCapacidadChanged();
 
         #endregion
     

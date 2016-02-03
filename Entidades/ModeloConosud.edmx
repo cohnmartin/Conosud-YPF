@@ -302,6 +302,7 @@
           <Property Name="TipoTurno" Type="varchar" MaxLength="50" />
           <Property Name="Km" Type="decimal" Scale="2" />
           <Property Name="DetalleRuta" Type="varchar" MaxLength="1500" />
+          <Property Name="Capacidad" Type="int" />
         </EntityType>
         <EntityType Name="CategoriasItems">
           <Key>
@@ -2289,6 +2290,7 @@
           <NavigationProperty Name="DomiciliosPersonal" Relationship="ModeloConosud.FK_DomiciliosPersonal_CabeceraRutasTransportes" FromRole="CabeceraRutasTransportes" ToRole="DomiciliosPersonal" />
           <Property Type="Decimal" Name="Km" Precision="18" Scale="2" />
           <Property Type="String" Name="DetalleRuta" />
+          <Property Type="Int32" Name="Capacidad" />
         </EntityType>
         <EntityType Name="RutasTransportes">
           <Key>
@@ -3140,6 +3142,7 @@
           <EntitySetMapping Name="CabeceraRutasTransportes">
             <EntityTypeMapping TypeName="ModeloConosud.CabeceraRutasTransportes">
               <MappingFragment StoreEntitySet="CabeceraRutasTransportes">
+                <ScalarProperty Name="Capacidad" ColumnName="Capacidad" />
                 <ScalarProperty Name="DetalleRuta" ColumnName="DetalleRuta" />
                 <ScalarProperty Name="Km" ColumnName="Km" />
                 <ScalarProperty Name="TipoTurno" ColumnName="TipoTurno" />
