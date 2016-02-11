@@ -42,12 +42,14 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
                                   d.LatitudReposicion,
                                   d.Legajo,
                                   d.LineaAsignada,
+                                  d.LineaAsignadaVuelta,
                                   d.Longitud,
                                   d.LongitudReposicion,
                                   d.NombreLegajo,
                                   d.Poblacion,
                                   d.TipoTurno,
                                   descLineaAsignada = d.objLineaAsignada.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignada.Linea + "-" + d.objLineaAsignada.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignada.TipoRecorrido,
+                                  descLineaAsignadaVuelta = d.objLineaAsignadaVuelta.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignadaVuelta.Linea + "-" + d.objLineaAsignadaVuelta.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignadaVuelta.TipoRecorrido,
                                   descEmpresa = d.objEmpresa != null ? d.objEmpresa.RazonSocial : "",
                                   Empresa = d.objEmpresa != null ? d.objEmpresa.IdEmpresa : 0,
                                   Seleccion = false
@@ -73,6 +75,8 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
         using (EntidadesConosud dc = new EntidadesConosud())
         {
             DomiciliosPersonal current = null;
+            
+
 
             if (domicilio.ContainsKey("Id"))
             {
@@ -81,9 +85,55 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
                 current = (from v in dc.DomiciliosPersonal
                            where v.Id == id
                            select v).FirstOrDefault();
+
+                if (domicilio.ContainsKey("LineaAsignada") && domicilio["LineaAsignada"] != null && long.Parse(domicilio["LineaAsignada"].ToString()) > 0
+                    && (current.LineaAsignada == null || current.LineaAsignada.Value != long.Parse(domicilio["LineaAsignada"].ToString())))
+                {
+                    long LineaAsignada = long.Parse(domicilio["LineaAsignada"].ToString());
+
+                    int? capacidadMaxima = (from r in dc.CabeceraRutasTransportes
+                                            where r.Id == LineaAsignada
+                                            select r.Capacidad).FirstOrDefault();
+
+                    if (capacidadMaxima != null)
+                    {
+
+                        int legajosAsignados = (from r in dc.DomiciliosPersonal
+                                                where r.LineaAsignada == LineaAsignada
+                                                select r).Count();
+
+                        if (legajosAsignados + 1 > capacidadMaxima)
+                            return "No se puede asiganar este legajo al recorrido seleccionado ya que supera la capacidad máxima del recorrido (cap. max.: " + capacidadMaxima.ToString() + ")";
+
+                    }
+
+                }
+
             }
             else
             {
+                if (domicilio.ContainsKey("LineaAsignada") && domicilio["LineaAsignada"] != null && long.Parse(domicilio["LineaAsignada"].ToString()) > 0)
+                {
+                    long LineaAsignada = long.Parse(domicilio["LineaAsignada"].ToString());
+
+                    int? capacidadMaxima = (from r in dc.CabeceraRutasTransportes
+                                            where r.Id == LineaAsignada
+                                            select r.Capacidad).FirstOrDefault();
+
+                    if (capacidadMaxima != null)
+                    {
+
+                        int legajosAsignados = (from r in dc.DomiciliosPersonal
+                                                where r.LineaAsignada == LineaAsignada
+                                                select r).Count();
+
+                        if (legajosAsignados + 1 > capacidadMaxima)
+                            return "No se puede asiganar este legajo ya que supera la capacidad máxima de la línea (cap. max.: " + capacidadMaxima.ToString() + ")";
+
+                    }
+
+                }
+
                 current = new DomiciliosPersonal();
                 dc.AddToDomiciliosPersonal(current);
             }
@@ -97,6 +147,11 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
             current.Longitud = domicilio.ContainsKey("Longitud") && domicilio["Longitud"] != null ? domicilio["Longitud"].ToString() : null;
             if (domicilio.ContainsKey("LineaAsignada") && domicilio["LineaAsignada"] != null && long.Parse(domicilio["LineaAsignada"].ToString()) > 0) { current.LineaAsignada = long.Parse(domicilio["LineaAsignada"].ToString()); }
             if (domicilio.ContainsKey("Empresa") && domicilio["Empresa"] != null && long.Parse(domicilio["Empresa"].ToString()) > 0) { current.Empresa = long.Parse(domicilio["Empresa"].ToString()); }
+
+            if (current.TipoTurno == "TURNO")
+                current.LineaAsignadaVuelta = null;
+            else
+                if (domicilio.ContainsKey("LineaAsignadaVuelta") && domicilio["LineaAsignadaVuelta"] != null && long.Parse(domicilio["LineaAsignadaVuelta"].ToString()) > 0) { current.LineaAsignadaVuelta = long.Parse(domicilio["LineaAsignadaVuelta"].ToString()); }
 
 
             dc.SaveChanges();
@@ -190,6 +245,7 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
                                         {
                                             d.Legajo,
                                             d.NombreLegajo,
+                                            d.objEmpresa.RazonSocial,
                                             d.Domicilio,
                                             d.Distrito,
                                             d.Poblacion,
@@ -199,8 +255,8 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
                                             d.Longitud,
                                             d.LongitudReposicion,
                                             d.TipoTurno,
-                                            LineaAsignada = d.objLineaAsignada.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignada.Linea + "-" + d.objLineaAsignada.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignada.TipoRecorrido
-
+                                            LineaAsignada = d.objLineaAsignada.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignada.Linea + "-" + d.objLineaAsignada.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignada.TipoRecorrido,
+                                            LineaAsignadaVuelta = d.objLineaAsignadaVuelta.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignadaVuelta.Linea + "-" + d.objLineaAsignadaVuelta.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignadaVuelta.TipoRecorrido
                                         }).ToList<dynamic>();
 
             return domicilios;
@@ -222,15 +278,16 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
                                         orderby d.Empresa
                                         select new
                                         {
-                                            d.Empresa,
                                             d.Linea,
+                                            d.TipoTurno,
+                                            d.TipoRecorrido,
                                             d.Turno,
                                             d.HorariosSalida,
                                             d.HorariosLlegada,
-                                            d.TipoUnidad,
-                                            d.TipoRecorrido,
-                                            d.TipoTurno,
                                             d.Km,
+                                            d.TipoUnidad,
+                                            d.Capacidad,
+                                            d.Empresa,
                                             d.DetalleRuta
                                         }).ToList<dynamic>();
             return domicilios;

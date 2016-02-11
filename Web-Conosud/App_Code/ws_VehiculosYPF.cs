@@ -20,16 +20,9 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
     public ws_VehiculosYPF()
     {
 
-        //Uncomment the following line if using designed components 
-        //InitializeComponent(); 
     }
 
-    [WebMethod]
-    public string HelloWorld()
-    {
-        return "Hello World";
-    }
-
+ 
     [WebMethod]
     public bool GrabarVehiculo(IDictionary<string, object> vehiculo)
     {
@@ -63,7 +56,10 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
 
 
             current.Titular = vehiculo["Titular"].ToString();
-            current.Responsable = vehiculo["Responsable"].ToString();
+
+            if (vehiculo.ContainsKey("Responsable") && vehiculo["Responsable"] != null)
+                current.Responsable = vehiculo["Responsable"].ToString();
+            
             current.Combustible = long.Parse(vehiculo["IdTipoCombustible"].ToString());
 
             if (vehiculo.ContainsKey("IdTipoAsignacion") && vehiculo["IdTipoAsignacion"] != null)
@@ -100,58 +96,79 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
             if (vehiculo.ContainsKey("LimiteCredito") && vehiculo["LimiteCredito"] != null)
                 current.LimiteCredito = int.Parse(vehiculo["LimiteCredito"].ToString());
 
-            if (vehiculo.ContainsKey("PIN") && vehiculo["PIN"] != null)
+            if (vehiculo.ContainsKey("PIN") && vehiculo["PIN"] != null && vehiculo["PIN"].ToString() != "")
                 current.PIN = int.Parse(vehiculo["PIN"].ToString());
+            else
+                current.PIN = null;
+
 
             if (vehiculo.ContainsKey("TitularPin") && vehiculo["TitularPin"] != null)
                 current.TitularPin = vehiculo["TitularPin"].ToString();
 
 
-            if (vehiculo.ContainsKey("PIN1") && vehiculo["PIN1"] != null)
+            if (vehiculo.ContainsKey("PIN1") && vehiculo["PIN1"] != null && vehiculo["PIN1"].ToString() != "")
                 current.PIN1 = int.Parse(vehiculo["PIN1"].ToString());
+            else
+                current.PIN1 = null;
 
             if (vehiculo.ContainsKey("TitularPin1") && vehiculo["TitularPin1"] != null)
                 current.TitularPin1 = vehiculo["TitularPin1"].ToString();
 
 
-            if (vehiculo.ContainsKey("PIN2") && vehiculo["PIN2"] != null)
+            if (vehiculo.ContainsKey("PIN2") && vehiculo["PIN2"] != null && vehiculo["PIN2"].ToString() != "")
                 current.PIN2 = int.Parse(vehiculo["PIN2"].ToString());
+            else
+                current.PIN2 = null;
 
             if (vehiculo.ContainsKey("TitularPin2") && vehiculo["TitularPin2"] != null)
                 current.TitularPin2 = vehiculo["TitularPin2"].ToString();
 
 
 
-            if (vehiculo.ContainsKey("PIN3") && vehiculo["PIN3"] != null)
+            if (vehiculo.ContainsKey("PIN3") && vehiculo["PIN3"] != null && vehiculo["PIN3"].ToString() != "")
                 current.PIN3 = int.Parse(vehiculo["PIN3"].ToString());
+            else
+                current.PIN3 = null;
 
             if (vehiculo.ContainsKey("TitularPin3") && vehiculo["TitularPin3"] != null)
                 current.TitularPin3 = vehiculo["TitularPin3"].ToString();
 
 
 
-            if (vehiculo.ContainsKey("PIN4") && vehiculo["PIN4"] != null)
+            if (vehiculo.ContainsKey("PIN4") && vehiculo["PIN4"] != null && vehiculo["PIN4"].ToString() != "")
                 current.PIN4 = int.Parse(vehiculo["PIN4"].ToString());
+            else
+                current.PIN4 = null;
+
 
             if (vehiculo.ContainsKey("TitularPin4") && vehiculo["TitularPin4"] != null)
                 current.TitularPin4 = vehiculo["TitularPin4"].ToString();
 
 
-            if (vehiculo.ContainsKey("PIN5") && vehiculo["PIN5"] != null)
+            if (vehiculo.ContainsKey("PIN5") && vehiculo["PIN5"] != null && vehiculo["PIN5"].ToString() != "")
                 current.PIN5 = int.Parse(vehiculo["PIN5"].ToString());
+            else
+                current.PIN5 = null;
+
 
             if (vehiculo.ContainsKey("TitularPin5") && vehiculo["TitularPin5"] != null)
                 current.TitularPin5 = vehiculo["TitularPin5"].ToString();
 
 
-            if (vehiculo.ContainsKey("PIN6") && vehiculo["PIN6"] != null)
+            if (vehiculo.ContainsKey("PIN6") && vehiculo["PIN6"] != null && vehiculo["PIN6"].ToString() != "")
                 current.PIN6 = int.Parse(vehiculo["PIN6"].ToString());
+            else
+                current.PIN6 = null;
+
 
             if (vehiculo.ContainsKey("TitularPin6") && vehiculo["TitularPin6"] != null)
                 current.TitularPin6 = vehiculo["TitularPin6"].ToString();
 
-            if (vehiculo.ContainsKey("PIN7") && vehiculo["PIN7"] != null)
+            if (vehiculo.ContainsKey("PIN7") && vehiculo["PIN7"] != null && vehiculo["PIN7"].ToString() != "")
                 current.PIN7 = int.Parse(vehiculo["PIN7"].ToString());
+            else
+                current.PIN7 = null;
+
 
             if (vehiculo.ContainsKey("TitularPin7") && vehiculo["TitularPin7"] != null)
                 current.TitularPin7 = vehiculo["TitularPin7"].ToString();
@@ -210,7 +227,6 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                              Sector = v.objSector,
                              TipoCombustible = v.objTipoCombustible,
                              TipoAsignacion = v.objTipoAsignacion,
-
                              v.Titular,
                              v.FechaBaja,
                              CentroCosto = v.CentroCosto,
@@ -226,7 +242,22 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                              v.TarjetasActivas,
                              v.LimiteCredito,
                              v.PIN,
-                             v.TitularPin
+                             v.TitularPin,
+                             v.Responsable,
+                             v.PIN1,
+                             v.TitularPin1,
+                             v.PIN2,
+                             v.TitularPin2,
+                             v.PIN3,
+                             v.TitularPin3,
+                             v.PIN4,
+                             v.TitularPin4,
+                             v.PIN5,
+                             v.TitularPin5,
+                             v.PIN6,
+                             v.TitularPin6,
+                             v.PIN7,
+                             v.TitularPin7
 
                          }).Take(25).ToList();
 
@@ -266,7 +297,22 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                         v.TarjetasActivas,
                         v.LimiteCredito,
                         v.PIN,
-                        v.TitularPin
+                        v.TitularPin,
+                        v.Responsable,
+                        v.PIN1,
+                        v.TitularPin1,
+                        v.PIN2,
+                        v.TitularPin2,
+                        v.PIN3,
+                        v.TitularPin3,
+                        v.PIN4,
+                        v.TitularPin4,
+                        v.PIN5,
+                        v.TitularPin5,
+                        v.PIN6,
+                        v.TitularPin6,
+                        v.PIN7,
+                        v.TitularPin7
 
 
                     }).ToList();
@@ -295,7 +341,6 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                              Sector = v.objSector,
                              TipoCombustible = v.objTipoCombustible,
                              TipoAsignacion = v.objTipoAsignacion,
-
                              v.Titular,
                              v.Responsable,
                              v.FechaBaja,
@@ -327,8 +372,6 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                              v.TitularPin6,
                              v.PIN7,
                              v.TitularPin7
-
-
                          }).Take(10).ToList();
 
 
@@ -427,7 +470,6 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                              Sector = v.objSector,
                              TipoCombustible = v.objTipoCombustible,
                              TipoAsignacion = v.objTipoAsignacion,
-
                              v.Titular,
                              v.Responsable,
                              v.FechaBaja,
