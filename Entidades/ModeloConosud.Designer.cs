@@ -66,6 +66,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("ModeloConosud", "FK_VehiculosYPF_TipoAsignacion", "Clasificacion", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Entidades.Clasificacion), "VehiculosYPF", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Entidades.VehiculosYPF), true)]
 [assembly: EdmRelationshipAttribute("ModeloConosud", "FK_DomiciliosPersonal_CabeceraRutasTransportes", "CabeceraRutasTransportes", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Entidades.CabeceraRutasTransportes), "DomiciliosPersonal", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Entidades.DomiciliosPersonal), true)]
 [assembly: EdmRelationshipAttribute("ModeloConosud", "FK_DomiciliosPersonal_Empresa", "Empresa", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Entidades.Empresa), "DomiciliosPersonal", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Entidades.DomiciliosPersonal), true)]
+[assembly: EdmRelationshipAttribute("ModeloConosud", "FK_DomiciliosPersonal_CabeceraRutasTransportes1", "CabeceraRutasTransportes", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Entidades.CabeceraRutasTransportes), "DomiciliosPersonal", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Entidades.DomiciliosPersonal), true)]
 
 #endregion
 
@@ -2101,6 +2102,28 @@ namespace Entidades
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DomiciliosPersonal>("ModeloConosud.FK_DomiciliosPersonal_CabeceraRutasTransportes", "DomiciliosPersonal", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ModeloConosud", "FK_DomiciliosPersonal_CabeceraRutasTransportes1", "DomiciliosPersonal")]
+        public EntityCollection<DomiciliosPersonal> DomiciliosPersonal1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DomiciliosPersonal>("ModeloConosud.FK_DomiciliosPersonal_CabeceraRutasTransportes1", "DomiciliosPersonal");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DomiciliosPersonal>("ModeloConosud.FK_DomiciliosPersonal_CabeceraRutasTransportes1", "DomiciliosPersonal", value);
                 }
             }
         }
@@ -5068,6 +5091,30 @@ namespace Entidades
         private Nullable<global::System.Int64> _Empresa;
         partial void OnEmpresaChanging(Nullable<global::System.Int64> value);
         partial void OnEmpresaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> LineaAsignadaVuelta
+        {
+            get
+            {
+                return _LineaAsignadaVuelta;
+            }
+            set
+            {
+                OnLineaAsignadaVueltaChanging(value);
+                ReportPropertyChanging("LineaAsignadaVuelta");
+                _LineaAsignadaVuelta = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LineaAsignadaVuelta");
+                OnLineaAsignadaVueltaChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _LineaAsignadaVuelta;
+        partial void OnLineaAsignadaVueltaChanging(Nullable<global::System.Int64> value);
+        partial void OnLineaAsignadaVueltaChanged();
 
         #endregion
     
@@ -5145,6 +5192,44 @@ namespace Entidades
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Empresa>("ModeloConosud.FK_DomiciliosPersonal_Empresa", "Empresa", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ModeloConosud", "FK_DomiciliosPersonal_CabeceraRutasTransportes1", "CabeceraRutasTransportes")]
+        public CabeceraRutasTransportes objLineaAsignadaVuelta
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CabeceraRutasTransportes>("ModeloConosud.FK_DomiciliosPersonal_CabeceraRutasTransportes1", "CabeceraRutasTransportes").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CabeceraRutasTransportes>("ModeloConosud.FK_DomiciliosPersonal_CabeceraRutasTransportes1", "CabeceraRutasTransportes").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CabeceraRutasTransportes> objLineaAsignadaVueltaReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CabeceraRutasTransportes>("ModeloConosud.FK_DomiciliosPersonal_CabeceraRutasTransportes1", "CabeceraRutasTransportes");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CabeceraRutasTransportes>("ModeloConosud.FK_DomiciliosPersonal_CabeceraRutasTransportes1", "CabeceraRutasTransportes", value);
                 }
             }
         }
