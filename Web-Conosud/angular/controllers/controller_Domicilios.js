@@ -86,6 +86,14 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
     $scope.cantidadRegistros = 35;
     $scope.paginaActual = 0;
 
+    $scope.checkLineaRetorno = function () {
+        if ($scope.Current.TipoTurno == "DIURNO")
+            document.getElementById("cboRecorridoVuelta").disabled = false;
+        else
+            document.getElementById("cboRecorridoVuelta").disabled = true;
+    };
+
+
     $scope.totalPaginas = function (numero) {
 
         numero = $scope.filteredDom != undefined && $scope.filteredDom.length != 35 ? $scope.filteredDom.length : numero;
@@ -129,6 +137,7 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
         for (var i = 0; i < $scope.Domicilios.length; i++) {
             $scope.Domicilios[i].Seleccion = false;
         }
+        $scope.searchDomicilio = null;
         $scope.$digest();
     };
 
@@ -291,8 +300,15 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
         $scope.GrabacionActiva = true;
         PageMethodsDomicilios.GrabarDomicilio($scope.Current)
                     .then(function (response) {
-                        $scope.BuscarDomicilios();
-                        $scope.hideEdicion();
+                        if (response.data.d == null) {
+                            $scope.BuscarDomicilios();
+                            $scope.hideEdicion();
+                        }
+                        else {
+                            $scope.GrabacionActiva = false;
+                            alert(response.data.d);
+
+                        }
                     });
 
 
@@ -345,7 +361,7 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
         angular.element("#tblAlta").css('display', 'inline');
         angular.element("#tblAlta").css('top', angular.element($event.target).position().top + 10 + 'px');
         angular.element("#tblAlta").css('left', '35px');
-
+       
 
 
         //$("#" + Constants.controlImgCancelar).css("display", "inline");
@@ -374,7 +390,7 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
         //        $("#" + Constants.controlImgGrabar).appendTo(angular.element($event.target).parent().parent().parent().parent().children()[7]);
 
         $scope.Current = domicilio;
-
+        $scope.checkLineaRetorno();
 
 
     };

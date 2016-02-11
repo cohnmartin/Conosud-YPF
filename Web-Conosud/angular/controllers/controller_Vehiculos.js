@@ -67,14 +67,60 @@ myAppModule.service('PageMethods', function ($http) {
 });
 
 
+myAppModule.directive('numbersOnly', function () {
+    return {
+        require: 'ngModel', 
+        link: function (scope, element, attrs, modelCtrl) {
+            modelCtrl.$parsers.push(function (inputValue) {
 
+                if (inputValue == undefined) {
+                    return ''; //If value is required
+                }
+
+                // Regular expression for everything but [.] and [1 - 10] (Replace all)
+                var transformedInput = inputValue.replace(/[^0-9]/g, '');
+
+                // Now to prevent duplicates of decimal point
+                var arr = transformedInput.split('');
+
+                count = 0; //decimal counter
+                for (var i = 0; i < arr.length; i++) {
+                    if (arr[i] == '.') {
+                        count++; //  how many do we have? increment
+                    }
+                }
+
+                // if we have more than 1 decimal point, delete and leave only one at the end
+                while (count > 1) {
+                    for (var i = 0; i < arr.length; i++) {
+                        if (arr[i] == '.') {
+                            arr[i] = '';
+                            count = 0;
+                            break;
+                        }
+                    }
+                }
+
+                // convert the array back to string by relacing the commas
+                transformedInput = arr.toString().replace(/,/g, '');
+
+                if (transformedInput != inputValue) {
+                    modelCtrl.$setViewValue(transformedInput);
+                    modelCtrl.$render();
+                }
+
+                return transformedInput;
+            });
+        }
+    };
+});
 
 myAppModule.controller('controller_vehiculos', function ($scope, PageMethods) {
     $scope.Vehiculos;
     $scope.Current;
     $scope.Clasificaciones;
     $scope.textSearch;
-
+    $scope.onlyNumbers = /^\d+$/;
 
     $scope.exportarExcel = function () {
 
