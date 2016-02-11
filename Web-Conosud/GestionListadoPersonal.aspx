@@ -13,6 +13,10 @@
     <script src="angular/js/angular.js" type="text/javascript"></script>
     <script src="angular/controllers/controller_Domicilios.js" type="text/javascript"></script>
     <style type="text/css">
+        .selectDisabled:disabled
+        {
+            
+        }
         .divCaluloKm
         {
             padding-top: 3px;
@@ -175,7 +179,7 @@
                                 Tipo Turno:
                             </td>
                             <td class="tdSimple" align="left" style="width: 65px;">
-                                <select id="Select3" ng-model="Current.TipoTurno">
+                                <select id="Select3" ng-model="Current.TipoTurno" ng-change="checkLineaRetorno()">
                                     <option value="TURNO" selected="selected">TURNO</option>
                                     <option value="DIURNO">DIURNO</option>
                                 </select>
@@ -184,15 +188,22 @@
                                 Línea Asignada:
                             </td>
                             <td class="tdSimple" align="left" style="width: 220px;">
-                                <select id="cboRecorridosAlta" ng-model="Current.LineaAsignada" ng-options="clasif.Id as clasif.NombreAbreviado for clasif in recorridos">
+                                <select  id="cboRecorridosAlta" ng-model="Current.LineaAsignada" ng-options="clasif.Id as clasif.NombreAbreviado for clasif in recorridos">
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td class="tdSimple" align="left" style="width: 240px;">
+                                Línea Asignada Ret:
+                            </td>
+                            <td class="tdSimple" align="left" style="width: 220px;">
+                                <select id="cboRecorridoVuelta" ng-model="Current.LineaAsignadaVuelta" ng-options="clasif.Id as clasif.NombreAbreviado for clasif in recorridos">
+                                </select>
+                            </td>
+                            <td class="tdSimple" align="left" style="width: 240px;">
                                 Empresa
                             </td>
-                            <td class="tdSimple" align="left" style="width: 250px;" colspan="3">
+                            <td class="tdSimple" align="left" style="width: 250px;">
                                 <select id="cboEmpresas" ng-model="Current.Empresa" ng-options="clasif.Id as clasif.RazonSocial for clasif in empresas">
                                 </select>
                             </td>
@@ -323,7 +334,6 @@
                 </table>
             </div>
             <center>
-
                 <table border="0" cellpadding="0" cellspacing="0" style="font-size: small; padding-top: 5px">
                     <tr>
                         <td colspan="6">
@@ -370,7 +380,7 @@
         var funcionActiva = "";
 
         var Constants = {
-            controlbtnExportar: ''
+            controlcboRecorridoVuelta: ''
         };
 
         var objCorreccion = new Object;
@@ -426,21 +436,6 @@
 
             PageMethods.getRecorridos(function (result) {
 
-                var options = $("#cboRecorridos");
-                for (var i = 0; i < result.length; i++) {
-                    options.append($("<option />").val(result[i].Id).text(result[i].Nombre)).css("color", "Black");
-                }
-
-                var options = $("#cboRecorridosEliminar");
-                for (var i = 0; i < result.length; i++) {
-                    options.append($("<option />").val(result[i].Id).text(result[i].Nombre)).css("color", "Black");
-                }
-
-                var options = $("#cboRecorridosAlta");
-                for (var i = 0; i < result.length; i++) {
-                    options.append($("<option />").val(result[i].Id).text(result[i].Nombre)).css("color", "Black");
-                }
-
                 angular.element(document.getElementById('ng-app')).scope().setRecorridos(result);
 
             }, function () { alert("Error al buscar datos de recorrido"); });
@@ -459,7 +454,11 @@
             $("#master_contentplaceholder").css("height", height + 'px');
 
             OcultarMenu();
-            //UbicarPuntos(0);
+
+            google.maps.event.addListener(map, 'click', clickOnMap);
+            google.maps.event.addListener(map, 'rightclick', clickOnMap1);
+
+
 
         });
 

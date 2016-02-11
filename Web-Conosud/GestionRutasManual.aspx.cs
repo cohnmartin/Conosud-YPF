@@ -29,7 +29,7 @@ public partial class GestionRutasManual : System.Web.UI.Page
         if (!IsPostBack)
         {
             Session.Timeout = 20;
-            (Page.Master as DefaultMasterPage).OcultarMenu(); 
+            (Page.Master as DefaultMasterPage).OcultarMenu();
             (Page.Master as DefaultMasterPage).OcultarSoloEncabezado();
 
             using (EntidadesConosud dc = new EntidadesConosud())
@@ -40,7 +40,8 @@ public partial class GestionRutasManual : System.Web.UI.Page
                              select r).ToList().OrderBy(r => r.Empresa);
 
                 var empresas = (from r in dc.Empresa
-                                select new { 
+                                select new
+                                {
                                     Id = r.IdEmpresa,
                                     RazonSocial = r.RazonSocial
                                 }).ToList().OrderBy(r => r.RazonSocial);
@@ -51,7 +52,7 @@ public partial class GestionRutasManual : System.Web.UI.Page
             }
 
             if (Request.QueryString["Exportar"] == "R")
-                btnExportarRutas_Click(null,null);
+                btnExportarRutas_Click(null, null);
             else if (Request.QueryString["Exportar"] == "L")
                 btnBuscar_Click(null, null);
 
@@ -75,6 +76,15 @@ public partial class GestionRutasManual : System.Web.UI.Page
         camposExcluir.Add("LatitudReposicion");
         camposExcluir.Add("Longitud");
         camposExcluir.Add("LongitudReposicion");
+
+
+        alias.Add("Legajo", "LEGAJO - DNI");
+        alias.Add("NombreLegajo", "APELLIDO NOMBRE");
+        alias.Add("RazonSocial", "EMPRESA");
+        alias.Add("Domicilio", "DOMICILIO");
+        alias.Add("Distrito", "LOCALIDAD");
+        alias.Add("Poblacion", "DEPARTAMENTO");
+        alias.Add("TipoTurno", "REGIMEN TRABAJO");
 
 
         List<string> DatosReporte = new List<string>();
@@ -108,6 +118,8 @@ public partial class GestionRutasManual : System.Web.UI.Page
         List<string> camposExcluir = new List<string>(); ;
         Dictionary<string, string> alias = new Dictionary<string, string>();
 
+        alias.Add("TipoTurno","Regimen Trabajo");
+
         //camposExcluir.Add("Id");
         //camposExcluir.Add("Latitud");
         //camposExcluir.Add("LatitudReposicion");
@@ -134,10 +146,10 @@ public partial class GestionRutasManual : System.Web.UI.Page
         HttpContext.Current.Response.Write(stringWrite.ToString());
         HttpContext.Current.Response.End();
     }
-    
+
 
     [WebMethod(EnableSession = true)]
-    public static object GrabarRuta(string Empresa, string HorarioS, string HorarioL, string TipoUnidad, string Turno, string Linea, string TIpoRecorrido, string TipoTurno, List<IDictionary<string, object>> datos, long id, decimal distanciaRuta, string detalle)
+    public static object GrabarRuta(string Empresa, string HorarioS, string HorarioL, string TipoUnidad, string Turno, string Linea, string TIpoRecorrido, string TipoTurno, List<IDictionary<string, object>> datos, long id, decimal distanciaRuta, string detalle, int capacidad)
     {
 
         using (EntidadesConosud dc = new EntidadesConosud())
@@ -161,6 +173,7 @@ public partial class GestionRutasManual : System.Web.UI.Page
                 cab.TipoTurno = TipoTurno;
                 cab.Km = distanciaRuta;
                 cab.DetalleRuta = detalle;
+                cab.Capacidad = capacidad;
 
                 foreach (var item in detalles)
                 {
@@ -181,6 +194,7 @@ public partial class GestionRutasManual : System.Web.UI.Page
                 cab.Linea = Linea;
                 cab.TipoRecorrido = TIpoRecorrido;
                 cab.TipoTurno = TipoTurno;
+                cab.Capacidad = capacidad;
                 dc.AddToCabeceraRutasTransportes(cab);
             }
 
@@ -257,7 +271,7 @@ public partial class GestionRutasManual : System.Web.UI.Page
             }).ToList());
 
             var cab = datos.First().objCabecera;
-            resultado.Add("cabecera", new { cab.Empresa, cab.HorariosLlegada, cab.HorariosSalida, cab.Linea, cab.TipoRecorrido, cab.TipoTurno, cab.TipoUnidad, cab.Turno, cab.Id, cab.Km, cab.DetalleRuta });
+            resultado.Add("cabecera", new { cab.Empresa, cab.HorariosLlegada, cab.HorariosSalida, cab.Linea, cab.TipoRecorrido, cab.TipoTurno, cab.TipoUnidad, cab.Turno, cab.Id, cab.Km, cab.DetalleRuta, cab.Capacidad });
 
             return resultado;
         }
@@ -267,7 +281,7 @@ public partial class GestionRutasManual : System.Web.UI.Page
     public static object getEmpresas()
     {
         return HttpContext.Current.Session["Empresas"];
-                
+
 
 
     }

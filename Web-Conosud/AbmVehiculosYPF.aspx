@@ -65,24 +65,32 @@
                                 <asp:Label ID="Label4" runat="server" SkinID="lblConosud" Text="Combustible:"></asp:Label>
                             </td>
                             <td align="left">
-                                <select runat="server" ng-model="Current.IdTipoCombustible" style="width: 170px"
+                                <select runat="server" ng-model="Current.IdTipoCombustible" style="width: 170px" id="cboTipoCombustible"
                                     ng-options="clasif.Id as clasif.Descripcion for clasif in Clasificaciones | filter:Tipo='Tipo Combustible'">
-                                    <option value="" ng-if="false"></option>
+                                    <option value="" disabled selected></option>
                                 </select>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator16" runat="server" ControlToValidate="cboTipoCombustible" 
+                                    ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
                             <td align="left">
                                 <asp:Label ID="Label5" runat="server" SkinID="lblConosud" Text="Departamento:"></asp:Label>
                             </td>
                             <td>
-                                <select ng-model="Current.IdDepartamento" style="width: 170px" ng-options="clasif.Id as clasif.Descripcion for clasif in Clasificaciones | filter:Tipo='Departamentos'">
+                                <select id="cboDepartamento" runat="server" ng-model="Current.IdDepartamento" style="width: 170px" ng-options="clasif.Id as clasif.Descripcion for clasif in Clasificaciones | filter:Tipo='Departamentos'">
+                                    <option value="" disabled selected></option>
                                 </select>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="cboDepartamento" 
+                                    ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
                             <td align="left">
                                 <asp:Label ID="Label6" runat="server" SkinID="lblConosud" Text="Sector:"></asp:Label>
                             </td>
                             <td>
-                                <select ng-model="Current.IdSector" style="width: 170px" ng-options="clasif.Id as clasif.Descripcion for clasif in Clasificaciones | filter:Tipo='Sectores'">
+                                <select id="cboSector" runat="server" ng-model="Current.IdSector" style="width: 170px" ng-options="clasif.Id as clasif.Descripcion for clasif in Clasificaciones | filter:Tipo='Sectores'">
+                                 <option value="" disabled selected></option>
                                 </select>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator14" runat="server" ControlToValidate="cboSector" 
+                                    ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
                         </tr>
                         <tr>
@@ -90,13 +98,17 @@
                                 <asp:Label ID="Label7" runat="server" SkinID="lblConosud" Text="Titular:"></asp:Label>
                             </td>
                             <td align="left">
-                                <input type="text" ng-model="Current.Titular" style="width: 130px" />
+                                <input type="text" ng-model="Current.Titular" style="width: 130px" id="txtTitular" runat="server" />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtTitular"
+                                    ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
                             <td align="left">
                                 <asp:Label ID="Label25" runat="server" SkinID="lblConosud" Text="Responsable:"></asp:Label>
                             </td>
                             <td align="left">
-                                <input type="text" ng-model="Current.Responsable" style="width: 130px" />
+                                <input type="text" ng-model="Current.Responsable" style="width: 130px" id="txtReponsable" runat="server" />
+                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtReponsable"
+                                    ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
                             <td align="left">
                                 <asp:Label ID="Label8" runat="server" SkinID="lblConosud" Text="Vto. Tarj. Verde:"></asp:Label>
@@ -143,20 +155,27 @@
                                 <asp:Label ID="Label11" runat="server" SkinID="lblConosud" Text="Contrato:"></asp:Label>
                             </td>
                             <td align="left">
-                                <input type="text" ng-model="Current.Contrato" style="width: 95%" />
+                                <input type="text" ng-model="Current.Contrato" style="width: 92%" id="txtContrato" runat="server" />
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="txtContrato"
+                                    ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
                             <td align="left">
                                 <asp:Label ID="Label12" runat="server" SkinID="lblConosud" Text="Nro Tarjeta:"></asp:Label>
                             </td>
                             <td align="left">
-                                <input type="text" ng-model="Current.NroTarjeta" style="width: 95%" />
+                                <input type="text" ng-model="Current.NroTarjeta" style="width: 92%" id="txtNroTarjetas" runat="server" />
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ControlToValidate="txtNroTarjetas"
+                                    ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
                             <td align="left">
                                 <asp:Label ID="Label13" runat="server" SkinID="lblConosud" Text="Tipo Asignación:"></asp:Label>
                             </td>
                             <td align="left">
-                                <select style="width: 95%" ng-model="Current.IdTipoAsignacion" ng-options="clasif.Id as clasif.Descripcion for clasif in Clasificaciones | filter:Tipo='Tipo Asignacion'">
+                                <select id="cboTipoAsignacion" runat="server" style="width: 92%" ng-model="Current.IdTipoAsignacion" ng-options="clasif.Id as clasif.Descripcion for clasif in Clasificaciones | filter:Tipo='Tipo Asignacion'">
+                                <option value="" disabled selected></option>
                                 </select>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator15" runat="server" ControlToValidate="cboTipoAsignacion" 
+                                    ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
                         </tr>
                         <tr>
@@ -164,19 +183,25 @@
                                 <asp:Label ID="Label14" runat="server" SkinID="lblConosud" Text="Razon Social:"></asp:Label>
                             </td>
                             <td align="left">
-                                <input type="text" ng-model="Current.RazonSocial" style="width: 95%" />
+                                <input type="text" ng-model="Current.RazonSocial" style="width: 92%" id="txtRazonSocial" runat="server" />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ControlToValidate="txtRazonSocial"
+                                    ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
                             <td align="left">
                                 <asp:Label ID="Label20" runat="server" SkinID="lblConosud" Text="Tarjeta Activas:"></asp:Label>
                             </td>
                             <td align="left">
-                                <input type="text" ng-model="Current.TarjetasActivas" style="width: 95%" />
+                                <input type="text" ng-model="Current.TarjetasActivas" style="width: 92%" id="txtTarjetasActivas" runat="server" />
+                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ControlToValidate="txtTarjetasActivas"
+                                    ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
                             <td align="left">
                                 <asp:Label ID="Label21" runat="server" SkinID="lblConosud" Text="Limite Credito:"></asp:Label>
                             </td>
                             <td align="left">
-                                <input type="text" ng-model="Current.LimiteCredito" style="width: 95%" />
+                                <input type="text" ng-model="Current.LimiteCredito" style="width: 92%" id="txtLimiteCredito" runat="server" />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator12" runat="server" ControlToValidate="txtLimiteCredito"
+                                    ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
                         </tr>
                         <tr>
@@ -184,7 +209,9 @@
                                 <asp:Label ID="Label18" runat="server" SkinID="lblConosud" Text="Centro Costo:"></asp:Label>
                             </td>
                             <td align="left" colspan="4">
-                                <input type="text" ng-model="Current.CentroCosto" style="width: 95%" />
+                                <input type="text" ng-model="Current.CentroCosto" style="width: 92%" id="txtCentroCosto" runat="server" />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator13" runat="server" ControlToValidate="txtCentroCosto"
+                                    ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
                         </tr>
                         <tr>
@@ -203,7 +230,7 @@
                                             <asp:Label ID="Label23" runat="server" SkinID="lblConosud" Text="PIN:"></asp:Label>
                                         </td>
                                         <td align="left">
-                                            <input type="text" ng-model="Current.PIN" style="width: 95%" />
+                                            <input type="text" ng-model="Current.PIN" style="width: 95%" numbers-only="numbers-only" />
                                         </td>
                                         <td align="left" style="width:80px">
                                             <asp:Label ID="Label24" runat="server" SkinID="lblConosud" Text="Titula PIN:"></asp:Label>
@@ -220,7 +247,7 @@
                                             <asp:Label ID="Label27" runat="server" SkinID="lblConosud" Text="PIN:"></asp:Label>
                                         </td>
                                         <td align="left">
-                                            <input type="text" ng-model="Current.PIN1" style="width: 95%" />
+                                            <input type="text" ng-model="Current.PIN1" style="width: 95%" numbers-only="numbers-only" />
                                         </td>
                                         <td align="left">
                                             <asp:Label ID="Label28" runat="server" SkinID="lblConosud" Text="Titula PIN:"></asp:Label>
@@ -237,7 +264,7 @@
                                             <asp:Label ID="Label29" runat="server" SkinID="lblConosud" Text="PIN:"></asp:Label>
                                         </td>
                                         <td align="left">
-                                            <input type="text" ng-model="Current.PIN2" style="width: 95%" />
+                                            <input type="text" ng-model="Current.PIN2" style="width: 95%" numbers-only="numbers-only" />
                                         </td>
                                         <td align="left">
                                             <asp:Label ID="Label30" runat="server" SkinID="lblConosud" Text="Titula PIN:"></asp:Label>
@@ -254,7 +281,7 @@
                                             <asp:Label ID="Label31" runat="server" SkinID="lblConosud" Text="PIN:"></asp:Label>
                                         </td>
                                         <td align="left">
-                                            <input type="text" ng-model="Current.PIN3" style="width: 95%" />
+                                            <input type="text" ng-model="Current.PIN3" style="width: 95%" numbers-only="numbers-only" />
                                         </td>
                                         <td align="left">
                                             <asp:Label ID="Label32" runat="server" SkinID="lblConosud" Text="Titula PIN:"></asp:Label>
@@ -271,7 +298,7 @@
                                             <asp:Label ID="Label33" runat="server" SkinID="lblConosud" Text="PIN:"></asp:Label>
                                         </td>
                                         <td align="left">
-                                            <input type="text" ng-model="Current.PIN4" style="width: 95%" />
+                                            <input type="text" ng-model="Current.PIN4" style="width: 95%" numbers-only="numbers-only" />
                                         </td>
                                         <td align="left">
                                             <asp:Label ID="Label34" runat="server" SkinID="lblConosud" Text="Titula PIN:"></asp:Label>
@@ -288,7 +315,7 @@
                                             <asp:Label ID="Label41" runat="server" SkinID="lblConosud" Text="PIN:"></asp:Label>
                                         </td>
                                         <td align="left">
-                                            <input type="text" ng-model="Current.PIN5" style="width: 95%" />
+                                            <input type="text" ng-model="Current.PIN5" style="width: 95%" numbers-only="numbers-only" />
                                         </td>
                                         <td align="left">
                                             <asp:Label ID="Label42" runat="server" SkinID="lblConosud" Text="Titula PIN:"></asp:Label>
@@ -305,7 +332,7 @@
                                             <asp:Label ID="Label44" runat="server" SkinID="lblConosud" Text="PIN:"></asp:Label>
                                         </td>
                                         <td align="left">
-                                            <input type="text" ng-model="Current.PIN6" style="width: 95%" />
+                                            <input type="text" ng-model="Current.PIN6" style="width: 95%" numbers-only="numbers-only" />
                                         </td>
                                         <td align="left">
                                             <asp:Label ID="Label45" runat="server" SkinID="lblConosud" Text="Titula PIN:"></asp:Label>
@@ -322,13 +349,13 @@
                                             <asp:Label ID="Label47" runat="server" SkinID="lblConosud" Text="PIN:"></asp:Label>
                                         </td>
                                         <td align="left">
-                                            <input type="text" ng-model="Current.PIN7" style="width: 95%" />
+                                            <input type="text" ng-model="Current.PIN7" style="width: 95%" numbers-only="numbers-only" />
                                         </td>
                                         <td align="left">
                                             <asp:Label ID="Label48" runat="server" SkinID="lblConosud" Text="Titula PIN:"></asp:Label>
                                         </td>
                                         <td align="left">
-                                            <input type="text" ng-model="Current.TitularPin7" style="width: 95%" />
+                                            <input type="text" ng-model="Current.TitularPin7" style="width: 95%" numbers-only="numbers-only" />
                                         </td>
                                     </tr>
                                 </table>

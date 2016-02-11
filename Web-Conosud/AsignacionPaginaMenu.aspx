@@ -134,8 +134,8 @@
                                         <ItemTemplate>
                                             <asp:CheckBox runat="server" ID="chkSeleccion" onClick="ClickSeleccion(this);" />
                                         </ItemTemplate>
-                                        <ItemStyle Wrap="false" HorizontalAlign="Center" Width="15px" />
-                                        <HeaderStyle HorizontalAlign="Center" Width="15px" />
+                                        <ItemStyle Wrap="false" HorizontalAlign="Center" Width="25px" />
+                                        <HeaderStyle HorizontalAlign="Center" Width="25px" />
                                     </telerik:GridTemplateColumn>
                                     
                                     
@@ -149,24 +149,24 @@
                                         <ItemTemplate>
                                             <asp:CheckBox runat="server" ID="chkCreacion"  onClick="ClickCreacion(this);" />
                                         </ItemTemplate>
-                                        <ItemStyle Wrap="false" HorizontalAlign="Center" Width="15px" />
-                                        <HeaderStyle HorizontalAlign="Center" Width="15px" />
+                                        <ItemStyle Wrap="false" HorizontalAlign="Center" Width="25px" />
+                                        <HeaderStyle HorizontalAlign="Center" Width="25px" />
                                     </telerik:GridTemplateColumn>
                                     
                                     <telerik:GridTemplateColumn DataField="Modificion"  HeaderText="M" >
                                         <ItemTemplate>
                                             <asp:CheckBox runat="server" ID="chkModificacion" onClick="ClickModificacion(this);"  />
                                         </ItemTemplate>
-                                        <ItemStyle Wrap="false" HorizontalAlign="Center" Width="15px" />
-                                        <HeaderStyle HorizontalAlign="Center" Width="15px" />
+                                        <ItemStyle Wrap="false" HorizontalAlign="Center" Width="25px" />
+                                        <HeaderStyle HorizontalAlign="Center" Width="25px" />
                                     </telerik:GridTemplateColumn>
                                     
                                     <telerik:GridTemplateColumn DataField="Lectura" HeaderText="L" >
                                         <ItemTemplate>
                                             <asp:CheckBox runat="server" ID="chkLectura" />
                                         </ItemTemplate>
-                                        <ItemStyle Wrap="false" HorizontalAlign="Center" Width="15px" />
-                                        <HeaderStyle HorizontalAlign="Center" Width="15px" />
+                                        <ItemStyle Wrap="false" HorizontalAlign="Center" Width="25px" />
+                                        <HeaderStyle HorizontalAlign="Center" Width="25px" />
                                     </telerik:GridTemplateColumn>
                                     
                                    

@@ -17,7 +17,7 @@
         {
             padding-top: 3px;
             position: fixed;
-            bottom: 5px;
+            bottom:25px;
             color: White;
             display: none;
             width: 170px;
@@ -115,7 +115,7 @@
             <li id="Opc_BorrarSeleccionados" onclick="BorrarSeleccionados();"><a class="eliminarSel"
                 href="#"><span>Eliminar Seleccionados</span> </a></li>
             <li id="Opc_GrabarCambios" onclick="GrabarRuta();"><a class="grabar" href="#"><span>
-                Guadar Recorrido</span> </a></li>
+                Guardar Recorrido</span> </a></li>
             <li id="Opc_CargarRuta" onclick="CargarRuta();"><a class="CargarRecorrido" href="#">
                 <span>Cargar Recorrido</span></a></li>
             <li id="Opc_ListadoPasajeros" onclick="UbicarPuntos(0);"><a class="DirPersonal" href="#">
@@ -131,7 +131,7 @@
         <table border="0" cellpadding="0" cellspacing="4" style="text-align: left; width: 100%;
             margin-top: 5px; border: 0px solid black;">
             <tr>
-                <td rowspan="6" align="center" style="padding: 5px; width: 80px" valign="middle">
+                <td rowspan="7" align="center" style="padding: 5px; width: 80px" valign="middle">
                     <img src="images/autobus.jpg" alt="" width="65px" />
                 </td>
             </tr>
@@ -212,9 +212,24 @@
                         <option value="DIURNO">DIURNO</option>
                         <option value="TEMPORAL">TEMPORAL</option>
                     </select>
-                    <asp:Label ID="Label2" runat="server" Style="font-size: x-small; font-weight: bold;
-                        padding-right: 5px; padding-left: 10px" Text="Total Km:"></asp:Label>
-                    <asp:Label ID="lblKm" runat="server" Style="font-size: x-small;" Text="Km:"></asp:Label>
+                   
+                    
+                </td>
+            </tr>
+            <tr>
+                <td>
+                     <asp:Label ID="Label2" runat="server" Style="font-size: x-small; font-weight: bold;
+                        padding-right: 5px; padding-left: 0px" Text="Total Km:"></asp:Label>
+                </td>
+                <td>
+                   <asp:Label ID="lblKm" runat="server" Style="font-size: x-small;" Text="Km:"></asp:Label>
+                </td>
+                <td>
+                    <asp:Label ID="Label7" runat="server" Style="font-size: x-small; font-weight: bold"
+                        Text="Capacidad:"></asp:Label>
+                </td>
+                <td>
+                    <input id="txtCapacidad" type="text" style="width: 50%" class="text ui-widget-content ui-corner-all" />
                 </td>
             </tr>
             <tr>
@@ -288,7 +303,7 @@
                                 Tipo Turno:
                             </td>
                             <td class="tdSimple" align="left" style="width: 65px;">
-                                <select id="Select3" ng-model="Current.TipoTurno">
+                                <select id="Select3" ng-model="Current.TipoTurno"  >
                                     <option value="TURNO" selected="selected">TURNO</option>
                                     <option value="DIURNO">DIURNO</option>
                                 </select>
@@ -630,7 +645,7 @@
         dialog = $("#dialog-form").dialog(
             {
                 autoOpen: false,
-                height: 345,
+                height: 380,
                 width: 800,
                 modal: true,
                 buttons: { "Guardar": Grabar, Cancelar: function () { dialog.dialog("close"); } }
@@ -704,7 +719,7 @@
             }
 
 
-            PageMethods.GrabarRuta($('#cboEmpresa').val(), $('#txtHorarioSalida').val(), $('#txtHorarioLlegada').val(), $('#cboTipoUnidad').val(), $('#txtTurno').val(), $('#txtLinea').val(), $('#cboTipoRecorrido').val(), $('#cboTipoTurno').val(), newPoints, idRecorrido, distance.toFixed(2), $('#txtDetalle').val(), function () { idRecorrido = 0; window.location.reload(); }, function () { alert("Error de Grabación, por favor tome contacto con el administrador."); });
+            PageMethods.GrabarRuta($('#cboEmpresa').val(), $('#txtHorarioSalida').val(), $('#txtHorarioLlegada').val(), $('#cboTipoUnidad').val(), $('#txtTurno').val(), $('#txtLinea').val(), $('#cboTipoRecorrido').val(), $('#cboTipoTurno').val(), newPoints, idRecorrido, distance.toFixed(2), $('#txtDetalle').val(), $('#txtCapacidad').val(), function () { idRecorrido = 0; window.location.reload(); }, function () { alert("Error de Grabación, por favor tome contacto con el administrador."); });
 
         }
         function ExportarRutas() {
@@ -737,6 +752,7 @@
                 $('#cboTipoRecorrido').val(result["cabecera"].TipoRecorrido);
                 $('#cboTipoTurno').val(result["cabecera"].TipoTurno);
                 $('#txtDetalle').val(result["cabecera"].DetalleRuta);
+                $('#txtCapacidad').val(result["cabecera"].Capacidad);
                 $('#<%= lblKm.ClientID %>').text(result["cabecera"].Km);
 
 
