@@ -82,8 +82,8 @@ public partial class GestionRutasManual : System.Web.UI.Page
         alias.Add("NombreLegajo", "APELLIDO NOMBRE");
         alias.Add("RazonSocial", "EMPRESA");
         alias.Add("Domicilio", "DOMICILIO");
-        alias.Add("Distrito", "LOCALIDAD");
-        alias.Add("Poblacion", "DEPARTAMENTO");
+        alias.Add("Distrito", "DEPARTAMENTO");
+        alias.Add("Poblacion", "LOCALIDAD");
         alias.Add("TipoTurno", "REGIMEN TRABAJO");
 
 

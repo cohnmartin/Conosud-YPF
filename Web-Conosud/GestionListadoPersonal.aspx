@@ -1065,7 +1065,7 @@
                 // En caso de no haber resultados o que haya ocurrido un error
                 // lanzamos un mensaje con el error
                 alert("No se ha encontrado ninguna direcciòn con los datos ingresados, por favor vuelva a intentar o corriga los datos.");
-                UbicarPuntos();
+                UbicarPuntos(0);
             }
 
         }

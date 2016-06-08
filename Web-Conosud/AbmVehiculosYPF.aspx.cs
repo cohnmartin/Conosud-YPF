@@ -36,7 +36,7 @@ public partial class AbmVehiculosYPF : System.Web.UI.Page
         alias.Add("Patente", "Dominio");
         alias.Add("Modelo", "Vehiculo");
         alias.Add("Año", "Modelo Año");
-        alias.Add("TipoCombustible", "Combustiblre");
+        alias.Add("TipoCombustible", "Combustible");
         alias.Add("VtoTarjVerde", "Vencimiento T. Verde");
         alias.Add("VtoRevTecnica", "Vencimiento Rev. Tec.");
         alias.Add("VelocimetroFecha", "Fecha Odom.");

@@ -182,6 +182,7 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
 
                         $scope.Domicilios = response.data.d.Dom;
                         $scope.Poblaciones = response.data.d.Pob;
+                    
                     });
 
     };
@@ -272,10 +273,16 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
 
         PageMethodsDomicilios.EliminarRuta(idRecorrido)
                     .then(function (response) {
-                        $scope.$digest();
+                        if (response.data.d) {
+                            $scope.$digest();
+                        }
+                        else {
+                            alert("El recorrido no se puede eliminar, posiblemente exista personal asignado al mismo.");
+                            dialogEliminar.dialog("open");
+                        }
                     });
 
-        $scope.hideEdicion();
+
 
     }
 
@@ -359,9 +366,9 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
     $scope.Editar = function ($event, domicilio) {
         $scope.TipoAccion = "Edición de Legajo";
         angular.element("#tblAlta").css('display', 'inline');
-        angular.element("#tblAlta").css('top', angular.element($event.target).position().top + 10 + 'px');
+        angular.element("#tblAlta").css('top', 120 + 'px'); //angular.element($event.target).position().top + 10
         angular.element("#tblAlta").css('left', '35px');
-       
+
 
 
         //$("#" + Constants.controlImgCancelar).css("display", "inline");
@@ -377,7 +384,7 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
         //            $("#txtNombre").parentsUntil("tr").parent().find("span").css("display", "inline");
         //        }
 
-        angular.element($event.target).parentsUntil("tr").parent().find("span").css("display", "none");
+        // angular.element($event.target).parentsUntil("tr").parent().find("span").css("display", "none");
 
 
         //$("#" + Constants.controlImgCancelar).appendTo(angular.element($event.target).parent().parent().parent().parent().children()[0]);

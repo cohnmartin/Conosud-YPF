@@ -55,9 +55,11 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
                                   Seleccion = false
                               }).ToList();
 
-            var poblacion = (from p in domicilios
-                             orderby p.Poblacion
-                             select p.Poblacion.ToUpper()).Distinct().ToList();
+
+            var poblacion = (from d in dc.DomiciliosPersonal
+                              orderby d.Poblacion
+                              select d.Poblacion).Select(w=>w.Trim().ToUpper()).ToList().Distinct();
+
 
             datos.Add("Dom", domicilios);
             datos.Add("Pob", poblacion);
@@ -138,13 +140,25 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
                 dc.AddToDomiciliosPersonal(current);
             }
 
+            
+
+            if (current.Domicilio != domicilio["Domicilio"].ToString() || current.Poblacion != domicilio["Poblacion"].ToString() || current.Distrito != domicilio["Distrito"].ToString())
+            {
+                current.Latitud = null;
+                current.Longitud = null;
+            }
+            else
+            {
+                current.Latitud = domicilio.ContainsKey("Latitud") && domicilio["Latitud"] != null ? domicilio["Latitud"].ToString() : null;
+                current.Longitud = domicilio.ContainsKey("Longitud") && domicilio["Longitud"] != null ? domicilio["Longitud"].ToString() : null;
+            }
+
             current.NombreLegajo = domicilio["NombreLegajo"].ToString();
             current.Domicilio = domicilio["Domicilio"].ToString();
             current.Poblacion = domicilio["Poblacion"].ToString();
             current.Distrito = domicilio["Distrito"].ToString();
             current.TipoTurno = domicilio.ContainsKey("TipoTurno") ? domicilio["TipoTurno"].ToString() : null;
-            current.Latitud = domicilio.ContainsKey("Latitud") && domicilio["Latitud"] != null ? domicilio["Latitud"].ToString() : null;
-            current.Longitud = domicilio.ContainsKey("Longitud") && domicilio["Longitud"] != null ? domicilio["Longitud"].ToString() : null;
+            
             if (domicilio.ContainsKey("LineaAsignada") && domicilio["LineaAsignada"] != null && long.Parse(domicilio["LineaAsignada"].ToString()) > 0) { current.LineaAsignada = long.Parse(domicilio["LineaAsignada"].ToString()); }
             if (domicilio.ContainsKey("Empresa") && domicilio["Empresa"] != null && long.Parse(domicilio["Empresa"].ToString()) > 0) { current.Empresa = long.Parse(domicilio["Empresa"].ToString()); }
 
@@ -187,22 +201,29 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
 
         using (EntidadesConosud dc = new EntidadesConosud())
         {
-            var current = (from v in dc.CabeceraRutasTransportes.Include("RutasTransportes")
-                           where v.Id == idRecorrido
-                           select v).FirstOrDefault();
-
-
-            int j3 = current.RutasTransportes.Count();
-            while (j3 > 0)
+            try
             {
-                RutasTransportes ruta = current.RutasTransportes.Take(1).First();
-                dc.DeleteObject(ruta);
-                j3--;
+                var current = (from v in dc.CabeceraRutasTransportes.Include("RutasTransportes")
+                               where v.Id == idRecorrido
+                               select v).FirstOrDefault();
+
+
+                int j3 = current.RutasTransportes.Count();
+                while (j3 > 0)
+                {
+                    RutasTransportes ruta = current.RutasTransportes.Take(1).First();
+                    dc.DeleteObject(ruta);
+                    j3--;
+                }
+
+
+                dc.DeleteObject(current);
+                dc.SaveChanges();
             }
-
-
-            dc.DeleteObject(current);
-            dc.SaveChanges();
+            catch
+            {
+                return false;
+            }
         }
 
         return true;
