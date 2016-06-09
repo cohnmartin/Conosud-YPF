@@ -164,12 +164,12 @@ public partial class ConsultDocumentacion : System.Web.UI.Page
         EntidadesConosud _dc = new EntidadesConosud();
         Dictionary<string, object> datos = new Dictionary<string, object>();
 
-        
+
         var cabecera = (from C in _dc.CabeceraHojasDeRuta
                         where C.IdCabeceraHojasDeRuta == Id
                         select C).FirstOrDefault();
 
-       
+
         var ItemsHoja = (from H in _dc.HojasDeRuta
                          where H.CabeceraHojasDeRuta.IdCabeceraHojasDeRuta == Id
                          orderby H.Plantilla.Codigo
@@ -200,11 +200,10 @@ public partial class ConsultDocumentacion : System.Web.UI.Page
     {
 
         long idcabecera = 0;
+        Entidades.CabeceraHojasDeRuta cabecera =null;
         EntidadesConosud _dc = new EntidadesConosud();
         foreach (IDictionary<string, object> item in datos)
         {
-
-
             if (bool.Parse(item["Presento"].ToString()))
             {
                 long id = long.Parse(item["IdHoja"].ToString());
@@ -222,29 +221,15 @@ public partial class ConsultDocumentacion : System.Web.UI.Page
                 itemsHoja.CabeceraHojasDeRuta.Publicar = false;
                 itemsHoja.CabeceraHojasDeRuta.EsFueraTermino = fueraTermino;
                 idcabecera = itemsHoja.CabeceraHojasDeRuta.IdCabeceraHojasDeRuta;
+                cabecera = itemsHoja.CabeceraHojasDeRuta;
             }
 
+        }
 
-
-
-            //if ((item.FindControl("chkPresento") as CheckBox).Checked)
-            //{
-            //    long id = long.Parse(gvItemHoja.Items[item.DataSetIndex].GetDataKeyValue("IdHojaDeRuta").ToString());
-
-            //    Entidades.HojasDeRuta itemsHoja = (from H in _dc.HojasDeRuta
-            //                                       where H.IdHojaDeRuta == id
-            //                                       select H).First<Entidades.HojasDeRuta>();
-
-            //    itemsHoja.DocFechaEntrega = DateTime.Now;
-            //    itemsHoja.DocComentario = "Sin Comentarios";
-            //    (item.FindControl("chkPresento") as CheckBox).Checked = false;
-
-            //    /// al presnetar documentación para una hoja de ruta que esta publicada
-            //    /// se des-publica automaticamente.
-            //    itemsHoja.CabeceraHojasDeRutaReference.Load();
-            //    itemsHoja.CabeceraHojasDeRuta.Publicar = false;
-            //    itemsHoja.CabeceraHojasDeRuta.EsFueraTermino = chkFueraTermino.Checked;
-            //}
+        if (cabecera != null)
+        {
+            string estado = UpdateSeguimientoAuditoria(idcabecera, cabecera.Periodo);
+            cabecera.EstadoAlCierre = estado != "" ? estado : cabecera.EstadoAlCierre;
         }
 
         _dc.SaveChanges();
@@ -306,4 +291,99 @@ public partial class ConsultDocumentacion : System.Web.UI.Page
 
     }
 
+    public static string UpdateSeguimientoAuditoria(long idCabecera, DateTime PeriodoPresentacion)
+    {
+
+        using (EntidadesConosud dc = new EntidadesConosud())
+        {
+            string estado = "";
+            List<Entidades.SeguimientoAuditoria> seguimientosHoja = (from H in dc.SeguimientoAuditoria
+                                                              where H.Cabcera == idCabecera
+                                                              select H).ToList<Entidades.SeguimientoAuditoria>();
+
+
+            // Si la documentacion presentada pertenece al periodo actual ( mes actual menos uno) entonces evaluo el dia para 
+            // saber si es en termino o no, si es posterior a esto se marca como no presento documentacion.
+            DateTime periodoActual = DateTime.Now.AddMonths(-1);
+            if (PeriodoPresentacion.Month == periodoActual.Month && PeriodoPresentacion.Year == periodoActual.Year)
+            {
+                if (periodoActual.Day >= 1 && periodoActual.Day <= 20)
+                {
+                    estado = "EN TERMINO";
+                }
+                else
+                {
+                    estado = "FUERA DE TERMINO";
+                }
+
+            }
+            else
+            {
+                // Si no hay otras presentaciones y dado a que el periodo de presentacion no es el actual
+                // entonces indico que el estado de la cabecera deber ser NO PRESETNO
+                if (seguimientosHoja.Count == 0)
+                    estado = "NO PRESENTO";
+                else
+                    //Como existen otros seguimientos previos el estado de la cabecera ya fue seteado.
+                    estado = "";
+            }
+
+
+            // Busco para determinar si ya hay un registro de seguimiento para el mismo mes de la recepcion 
+            // si no lo hay debo crearlo.
+            SeguimientoAuditoria segActual = seguimientosHoja.Where(w => w.FechaRecepcion.Month == DateTime.Now.Month && w.FechaRecepcion.Year == DateTime.Now.Year).FirstOrDefault();
+            if (segActual == null)
+            {
+                segActual = new SeguimientoAuditoria();
+                segActual.FechaRecepcion = DateTime.Now;
+                segActual.Cabcera= idCabecera; 
+                //(from H in dc.CabeceraHojasDeRuta
+                //                                     where H.IdCabeceraHojasDeRuta == idCabecera
+                //                                     select H).FirstOrDefault<Entidades.CabeceraHojasDeRuta>();
+                dc.AddToSeguimientoAuditoria(segActual);
+                dc.SaveChanges();
+            }
+
+
+            return estado;
+
+
+        }
+
+        //long idcabecera = 0;
+        //EntidadesConosud _dc = new EntidadesConosud();
+
+        //Entidades.HojasDeRuta itemsHoja = (from H in _dc.HojasDeRuta
+        //                                   where H.IdHojaDeRuta == id
+        //                                   select H).First<Entidades.HojasDeRuta>();
+
+        //if (item["FechaEntrega"] != null)
+        //    itemsHoja.DocFechaEntrega = DateTime.Parse(item["FechaEntrega"].ToString());
+        //else
+        //    itemsHoja.DocFechaEntrega = null;
+
+        //itemsHoja.DocComentario = item["Comentario"].ToString();
+
+        ///// al presnetar documentación para una hoja de ruta que esta publicada
+        ///// se des-publica automaticamente.
+        //itemsHoja.CabeceraHojasDeRuta.Publicar = false;
+        //idcabecera = itemsHoja.CabeceraHojasDeRuta.IdCabeceraHojasDeRuta;
+
+        //_dc.SaveChanges();
+
+        //return (from H in _dc.HojasDeRuta
+        //        where H.CabeceraHojasDeRuta.IdCabeceraHojasDeRuta == idcabecera
+        //        orderby H.Plantilla.Codigo
+        //        select new
+        //        {
+        //            IdHoja = H.IdHojaDeRuta,
+        //            Titulo = H.Plantilla.Descripcion,
+        //            FechaEntrega = H.DocFechaEntrega,
+        //            FechaEntregaOriginal = H.DocFechaEntrega,
+        //            Comentario = H.DocComentario,
+        //            Presento = false
+
+        //        }).ToList();
+
+    }
 }
