@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ModeloConosud.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="ModeloConosud.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="ModeloConosudStoreContainer">
           <EntitySet Name="ArchivosAdjuntos" EntityType="ModeloConosud.Store.ArchivosAdjuntos" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ArchivosSueldos" EntityType="ModeloConosud.Store.ArchivosSueldos" store:Type="Tables" Schema="dbo" />
@@ -49,6 +49,7 @@
           <EntitySet Name="SegMenu" EntityType="ModeloConosud.Store.SegMenu" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SegRol" EntityType="ModeloConosud.Store.SegRol" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SegRolMenu" EntityType="ModeloConosud.Store.SegRolMenu" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SeguimientoAuditoria" EntityType="ModeloConosud.Store.SeguimientoAuditoria" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SegUsuario" EntityType="ModeloConosud.Store.SegUsuario" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SegUsuarioRol" EntityType="ModeloConosud.Store.SegUsuarioRol" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="VahiculosyEquipos" EntityType="ModeloConosud.Store.VahiculosyEquipos" store:Type="Tables" Schema="dbo" />
@@ -209,6 +210,22 @@
             <End Role="SegRol" EntitySet="SegRol" />
             <End Role="SegRolMenu" EntitySet="SegRolMenu" />
           </AssociationSet>
+          <AssociationSet Name="FK_SeguimientoAuditoria_Cabecera" Association="ModeloConosud.Store.FK_SeguimientoAuditoria_Cabecera">
+            <End Role="CabeceraHojasDeRuta" EntitySet="CabeceraHojasDeRuta" />
+            <End Role="SeguimientoAuditoria" EntitySet="SeguimientoAuditoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SeguimientoAuditoria_Clasificacion" Association="ModeloConosud.Store.FK_SeguimientoAuditoria_Clasificacion">
+            <End Role="Clasificacion" EntitySet="Clasificacion" />
+            <End Role="SeguimientoAuditoria" EntitySet="SeguimientoAuditoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SeguimientoAuditoria_SeguimientoAuditoria" Association="ModeloConosud.Store.FK_SeguimientoAuditoria_SeguimientoAuditoria">
+            <End Role="SegUsuario" EntitySet="SegUsuario" />
+            <End Role="SeguimientoAuditoria" EntitySet="SeguimientoAuditoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SeguimientoAuditoria_SegUsuario" Association="ModeloConosud.Store.FK_SeguimientoAuditoria_SegUsuario">
+            <End Role="SegUsuario" EntitySet="SegUsuario" />
+            <End Role="SeguimientoAuditoria" EntitySet="SeguimientoAuditoria" />
+          </AssociationSet>
           <AssociationSet Name="FK_SegUsuario_Empresa" Association="ModeloConosud.Store.FK_SegUsuario_Empresa">
             <End Role="Empresa" EntitySet="Empresa" />
             <End Role="SegUsuario" EntitySet="SegUsuario" />
@@ -290,6 +307,7 @@
           <Property Name="EsFueraTermino" Type="bit" />
           <Property Name="UsuarioAprobador" Type="bigint" />
           <Property Name="FechaUltimaPubicacion" Type="datetime" />
+          <Property Name="EstadoAlCierre" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="CabeceraRutasTransportes">
           <Key>
@@ -453,8 +471,8 @@
           <Property Name="ART" Type="bigint" />
           <Property Name="Emergencia" Type="varchar" MaxLength="5000" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'Conosud.dbo.EmpresasImp' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+        <!--Se encontraron errores durante la generación:
+      advertencia 6002: La tabla o vista 'Conosud.dbo.EmpresasImp' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
       -->
         <EntityType Name="EmpresasImp">
           <Key>
@@ -652,6 +670,22 @@
           <Property Name="Modificacion" Type="bit" Nullable="false" />
           <Property Name="Creacion" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="SeguimientoAuditoria">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Cabcera" Type="bigint" Nullable="false" />
+          <Property Name="FechaRecepcion" Type="date" Nullable="false" />
+          <Property Name="FechaAsignacion" Type="date" />
+          <Property Name="AuditorAsignado" Type="bigint" />
+          <Property Name="FechaResultado" Type="date" />
+          <Property Name="Resultado" Type="bigint" />
+          <Property Name="FechaRetencion" Type="date" />
+          <Property Name="Retencion" Type="decimal" Scale="2" />
+          <Property Name="FechaAsignacionInterino" Type="date" />
+          <Property Name="AudtorInterino" Type="bigint" />
+        </EntityType>
         <EntityType Name="SegUsuario">
           <Key>
             <PropertyRef Name="IdSegUsuario" />
@@ -771,8 +805,8 @@
           <Property Name="PIN7" Type="int" />
           <Property Name="TitularPin7" Type="varchar" MaxLength="150" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'Conosud.dbo.View_EmpresasContratos' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+        <!--Se encontraron errores durante la generación:
+      advertencia 6002: La tabla o vista 'Conosud.dbo.View_EmpresasContratos' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
       -->
         <EntityType Name="View_EmpresasContratos">
           <Key>
@@ -1238,6 +1272,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SeguimientoAuditoria_Cabecera">
+          <End Role="CabeceraHojasDeRuta" Type="ModeloConosud.Store.CabeceraHojasDeRuta" Multiplicity="1" />
+          <End Role="SeguimientoAuditoria" Type="ModeloConosud.Store.SeguimientoAuditoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CabeceraHojasDeRuta">
+              <PropertyRef Name="IdCabeceraHojasDeRuta" />
+            </Principal>
+            <Dependent Role="SeguimientoAuditoria">
+              <PropertyRef Name="Cabcera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SeguimientoAuditoria_Clasificacion">
+          <End Role="Clasificacion" Type="ModeloConosud.Store.Clasificacion" Multiplicity="0..1" />
+          <End Role="SeguimientoAuditoria" Type="ModeloConosud.Store.SeguimientoAuditoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clasificacion">
+              <PropertyRef Name="IdClasificacion" />
+            </Principal>
+            <Dependent Role="SeguimientoAuditoria">
+              <PropertyRef Name="Resultado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SeguimientoAuditoria_SeguimientoAuditoria">
+          <End Role="SegUsuario" Type="ModeloConosud.Store.SegUsuario" Multiplicity="0..1" />
+          <End Role="SeguimientoAuditoria" Type="ModeloConosud.Store.SeguimientoAuditoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SegUsuario">
+              <PropertyRef Name="IdSegUsuario" />
+            </Principal>
+            <Dependent Role="SeguimientoAuditoria">
+              <PropertyRef Name="AuditorAsignado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SeguimientoAuditoria_SegUsuario">
+          <End Role="SegUsuario" Type="ModeloConosud.Store.SegUsuario" Multiplicity="0..1" />
+          <End Role="SeguimientoAuditoria" Type="ModeloConosud.Store.SeguimientoAuditoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SegUsuario">
+              <PropertyRef Name="IdSegUsuario" />
+            </Principal>
+            <Dependent Role="SeguimientoAuditoria">
+              <PropertyRef Name="AudtorInterino" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SegUsuario_Empresa">
           <End Role="Empresa" Type="ModeloConosud.Store.Empresa" Multiplicity="0..1" />
           <End Role="SegUsuario" Type="ModeloConosud.Store.SegUsuario" Multiplicity="*" />
@@ -1593,6 +1675,23 @@
             <End Role="CabeceraRutasTransportes" EntitySet="CabeceraRutasTransportes" />
             <End Role="DomiciliosPersonal" EntitySet="DomiciliosPersonal" />
           </AssociationSet>
+          <EntitySet Name="SeguimientoAuditoria" EntityType="ModeloConosud.SeguimientoAuditoria" />
+          <AssociationSet Name="FK_SeguimientoAuditoria_Cabecera" Association="ModeloConosud.FK_SeguimientoAuditoria_Cabecera">
+            <End Role="CabeceraHojasDeRuta" EntitySet="CabeceraHojasDeRuta" />
+            <End Role="SeguimientoAuditoria" EntitySet="SeguimientoAuditoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SeguimientoAuditoria_Clasificacion" Association="ModeloConosud.FK_SeguimientoAuditoria_Clasificacion">
+            <End Role="Clasificacion" EntitySet="Clasificacion" />
+            <End Role="SeguimientoAuditoria" EntitySet="SeguimientoAuditoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SeguimientoAuditoria_SeguimientoAuditoria" Association="ModeloConosud.FK_SeguimientoAuditoria_SeguimientoAuditoria">
+            <End Role="SegUsuario" EntitySet="SegUsuario" />
+            <End Role="SeguimientoAuditoria" EntitySet="SeguimientoAuditoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SeguimientoAuditoria_SegUsuario" Association="ModeloConosud.FK_SeguimientoAuditoria_SegUsuario">
+            <End Role="SegUsuario" EntitySet="SegUsuario" />
+            <End Role="SeguimientoAuditoria" EntitySet="SeguimientoAuditoria" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="ArchivosAdjuntos">
           <Key>
@@ -1622,7 +1721,9 @@
           <Property Name="PresentoSueldo" Type="Boolean" Nullable="true" />
           <Property Name="EsFueraTermino" Type="Boolean" Nullable="true" />
           <NavigationProperty Name="SegUsuario" Relationship="ModeloConosud.FK_CabeceraHojasDeRuta_SegUsuario" FromRole="CabeceraHojasDeRuta" ToRole="SegUsuario" />
-          <Property Name="FechaUltimaPubicacion" Type="DateTime" Nullable="true" /></EntityType>
+          <Property Name="FechaUltimaPubicacion" Type="DateTime" Nullable="true" />
+          <Property Type="String" Name="EstadoAlCierre" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SeguimientoAuditoria" Relationship="ModeloConosud.FK_SeguimientoAuditoria_Cabecera" FromRole="CabeceraHojasDeRuta" ToRole="SeguimientoAuditoria" /></EntityType>
         <EntityType Name="CategoriasItems">
           <Key>
             <PropertyRef Name="IdCategoria" />
@@ -1658,7 +1759,8 @@
           <NavigationProperty Name="VehiculosYPF" Relationship="ModeloConosud.FK_VehiculosYPF_Combustible" FromRole="Clasificacion" ToRole="VehiculosYPF" />
           <NavigationProperty Name="VehiculosYPF1" Relationship="ModeloConosud.FK_VehiculosYPF_Departamento" FromRole="Clasificacion" ToRole="VehiculosYPF" />
           <NavigationProperty Name="VehiculosYPF2" Relationship="ModeloConosud.FK_VehiculosYPF_Sectores" FromRole="Clasificacion" ToRole="VehiculosYPF" />
-          <NavigationProperty Name="VehiculosYPF3" Relationship="ModeloConosud.FK_VehiculosYPF_TipoAsignacion" FromRole="Clasificacion" ToRole="VehiculosYPF" /></EntityType>
+          <NavigationProperty Name="VehiculosYPF3" Relationship="ModeloConosud.FK_VehiculosYPF_TipoAsignacion" FromRole="Clasificacion" ToRole="VehiculosYPF" />
+          <NavigationProperty Name="SeguimientoAuditoria" Relationship="ModeloConosud.FK_SeguimientoAuditoria_Clasificacion" FromRole="Clasificacion" ToRole="SeguimientoAuditoria" /></EntityType>
         <EntityType Name="ContEmpLegajos">
           <Key>
             <PropertyRef Name="IdContEmpLegajos" />
@@ -1825,7 +1927,9 @@
           <NavigationProperty Name="Empresa" Relationship="ModeloConosud.FK_SegUsuario_Empresa" FromRole="SegUsuario" ToRole="Empresa" />
           <NavigationProperty Name="SegUsuarioRol" Relationship="ModeloConosud.FK_SegUsuarioRol_SegUsuario" FromRole="SegUsuario" ToRole="SegUsuarioRol" />
           <NavigationProperty Name="ArchivosSueldos" Relationship="ModeloConosud.FK_ArchivosSueldos_SegUsuario" FromRole="SegUsuario" ToRole="ArchivosSueldos" />
-          <NavigationProperty Name="CabeceraHojasDeRuta" Relationship="ModeloConosud.FK_CabeceraHojasDeRuta_SegUsuario" FromRole="SegUsuario" ToRole="CabeceraHojasDeRuta" /></EntityType>
+          <NavigationProperty Name="CabeceraHojasDeRuta" Relationship="ModeloConosud.FK_CabeceraHojasDeRuta_SegUsuario" FromRole="SegUsuario" ToRole="CabeceraHojasDeRuta" />
+          <NavigationProperty Name="SeguimientoAuditoria" Relationship="ModeloConosud.FK_SeguimientoAuditoria_SeguimientoAuditoria" FromRole="SegUsuario" ToRole="SeguimientoAuditoria" />
+          <NavigationProperty Name="SeguimientoAuditoria1" Relationship="ModeloConosud.FK_SeguimientoAuditoria_SegUsuario" FromRole="SegUsuario" ToRole="SeguimientoAuditoria" /></EntityType>
         <EntityType Name="SegUsuarioRol">
           <Key>
             <PropertyRef Name="IdSegUsuarioRol" />
@@ -2443,6 +2547,74 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SeguimientoAuditoria">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int64" Name="Cabcera" Nullable="false" />
+          <Property Type="DateTime" Name="FechaRecepcion" Nullable="false" />
+          <Property Type="DateTime" Name="FechaAsignacion" />
+          <Property Type="Int64" Name="AuditorAsignado" />
+          <Property Type="DateTime" Name="FechaResultado" />
+          <Property Type="Int64" Name="Resultado" />
+          <Property Type="DateTime" Name="FechaRetencion" />
+          <Property Type="Decimal" Name="Retencion" Precision="18" Scale="2" />
+          <Property Type="DateTime" Name="FechaAsignacionInterino" />
+          <Property Type="Int64" Name="AudtorInterino" />
+          <NavigationProperty Name="objCabecera" Relationship="ModeloConosud.FK_SeguimientoAuditoria_Cabecera" FromRole="SeguimientoAuditoria" ToRole="CabeceraHojasDeRuta" />
+          <NavigationProperty Name="objResultado" Relationship="ModeloConosud.FK_SeguimientoAuditoria_Clasificacion" FromRole="SeguimientoAuditoria" ToRole="Clasificacion" />
+          <NavigationProperty Name="objAuditorAsignado" Relationship="ModeloConosud.FK_SeguimientoAuditoria_SeguimientoAuditoria" FromRole="SeguimientoAuditoria" ToRole="SegUsuario" />
+          <NavigationProperty Name="objAuditorInterino" Relationship="ModeloConosud.FK_SeguimientoAuditoria_SegUsuario" FromRole="SeguimientoAuditoria" ToRole="SegUsuario" />
+        </EntityType>
+        <Association Name="FK_SeguimientoAuditoria_Cabecera">
+          <End Type="ModeloConosud.CabeceraHojasDeRuta" Role="CabeceraHojasDeRuta" Multiplicity="1" />
+          <End Type="ModeloConosud.SeguimientoAuditoria" Role="SeguimientoAuditoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CabeceraHojasDeRuta">
+              <PropertyRef Name="IdCabeceraHojasDeRuta" />
+            </Principal>
+            <Dependent Role="SeguimientoAuditoria">
+              <PropertyRef Name="Cabcera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SeguimientoAuditoria_Clasificacion">
+          <End Type="ModeloConosud.Clasificacion" Role="Clasificacion" Multiplicity="0..1" />
+          <End Type="ModeloConosud.SeguimientoAuditoria" Role="SeguimientoAuditoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clasificacion">
+              <PropertyRef Name="IdClasificacion" />
+            </Principal>
+            <Dependent Role="SeguimientoAuditoria">
+              <PropertyRef Name="Resultado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SeguimientoAuditoria_SeguimientoAuditoria">
+          <End Type="ModeloConosud.SegUsuario" Role="SegUsuario" Multiplicity="0..1" />
+          <End Type="ModeloConosud.SeguimientoAuditoria" Role="SeguimientoAuditoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SegUsuario">
+              <PropertyRef Name="IdSegUsuario" />
+            </Principal>
+            <Dependent Role="SeguimientoAuditoria">
+              <PropertyRef Name="AuditorAsignado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SeguimientoAuditoria_SegUsuario">
+          <End Type="ModeloConosud.SegUsuario" Role="SegUsuario" Multiplicity="0..1" />
+          <End Type="ModeloConosud.SeguimientoAuditoria" Role="SeguimientoAuditoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SegUsuario">
+              <PropertyRef Name="IdSegUsuario" />
+            </Principal>
+            <Dependent Role="SeguimientoAuditoria">
+              <PropertyRef Name="AudtorInterino" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2461,6 +2633,7 @@
           <EntitySetMapping Name="CabeceraHojasDeRuta">
             <EntityTypeMapping TypeName="IsTypeOf(ModeloConosud.CabeceraHojasDeRuta)">
               <MappingFragment StoreEntitySet="CabeceraHojasDeRuta">
+                <ScalarProperty Name="EstadoAlCierre" ColumnName="EstadoAlCierre" />
                 <ScalarProperty Name="FechaUltimaPubicacion" ColumnName="FechaUltimaPubicacion" />
                 <ScalarProperty Name="EsFueraTermino" ColumnName="EsFueraTermino" />
                 <ScalarProperty Name="PresentoSueldo" ColumnName="PresentoSueldo" />
@@ -3224,6 +3397,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="SeguimientoAuditoria">
+            <EntityTypeMapping TypeName="ModeloConosud.SeguimientoAuditoria">
+              <MappingFragment StoreEntitySet="SeguimientoAuditoria">
+                <ScalarProperty Name="AudtorInterino" ColumnName="AudtorInterino" />
+                <ScalarProperty Name="FechaAsignacionInterino" ColumnName="FechaAsignacionInterino" />
+                <ScalarProperty Name="Retencion" ColumnName="Retencion" />
+                <ScalarProperty Name="FechaRetencion" ColumnName="FechaRetencion" />
+                <ScalarProperty Name="Resultado" ColumnName="Resultado" />
+                <ScalarProperty Name="FechaResultado" ColumnName="FechaResultado" />
+                <ScalarProperty Name="AuditorAsignado" ColumnName="AuditorAsignado" />
+                <ScalarProperty Name="FechaAsignacion" ColumnName="FechaAsignacion" />
+                <ScalarProperty Name="FechaRecepcion" ColumnName="FechaRecepcion" />
+                <ScalarProperty Name="Cabcera" ColumnName="Cabcera" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -3263,126 +3453,133 @@
         <EntityTypeShape EntityType="ModeloConosud.SegUsuario" Width="1.5" PointX="11.75" PointY="1.375" Height="1.7566536458333337" IsExpanded="true" />
         <EntityTypeShape EntityType="ModeloConosud.SegUsuarioRol" Width="1.5" PointX="14" PointY="1.25" Height="1.427958984375" IsExpanded="true" />
         <AssociationConnector Association="ModeloConosud.FK_ArchivosAdjuntos_ContratoEmpresas" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.187505" PointY="1.3939925130208333" />
-          <ConnectorPoint PointX="6.187505" PointY="1.3939925130208333" />
-          <ConnectorPoint PointX="7.250005" PointY="1.3939925130208333" /></AssociationConnector>
+          <ConnectorPoint PointX="6.1875" PointY="5.125" />
+          <ConnectorPoint PointX="6.1875" PointY="1.3939925130208333" />
+          <ConnectorPoint PointX="7.25" PointY="1.3939925130208333" /></AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_CabeceraHojasDeRuta_Clasificacion" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="8.0162972005208317" />
-          <ConnectorPoint PointX="2.9791666666666665" PointY="8.0162972005208317" />
-          <ConnectorPoint PointX="3.1458333333333335" PointY="8.0162972005208317" />
-          <ConnectorPoint PointX="6.104166666666667" PointY="8.0162972005208317" />
-          <ConnectorPoint PointX="6.270833333333333" PointY="8.0162972005208317" />
-          <ConnectorPoint PointX="6.6041686666666672" PointY="8.0162972005208317" />
-          <ConnectorPoint PointX="6.7708353333333333" PointY="8.0162972005208317" />
-          <ConnectorPoint PointX="8.125" PointY="8.0162972005208317" />
+          <ConnectorPoint PointX="2.25" PointY="8.0392716471354149" />
+          <ConnectorPoint PointX="2.9791666666666665" PointY="8.0392716471354149" />
+          <ConnectorPoint PointX="3.1458333333333335" PointY="8.0392716471354149" />
+          <ConnectorPoint PointX="5.791666666666667" PointY="8.0392716471354149" />
+          <ConnectorPoint PointX="5.958333333333333" PointY="8.0392716471354149" />
+          <ConnectorPoint PointX="6.104166666666667" PointY="8.0392716471354149" />
+          <ConnectorPoint PointX="6.270833333333333" PointY="8.0392716471354149" />
+          <ConnectorPoint PointX="6.6041686666666672" PointY="8.0392716471354149" />
+          <ConnectorPoint PointX="6.7708353333333333" PointY="8.0392716471354149" />
+          <ConnectorPoint PointX="8.125" PointY="8.0392716471354149" />
           </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_CabeceraHojasDeRuta_ContratoEmpresas" ManuallyRouted="false">
           <ConnectorPoint PointX="7.125" PointY="6.49974609375" />
           <ConnectorPoint PointX="8.125" PointY="6.49974609375" />
           </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_ContEmpLegajos_CabeceraHojasDeRuta" ManuallyRouted="false">
-          <ConnectorPoint PointX="9.1796893749999988" PointY="8.0956022135416656" />
-          <ConnectorPoint PointX="9.1796893749999988" PointY="9.8491687937660721" />
-          <ConnectorPoint PointX="10.375" PointY="9.8491687937660721" />
+          <ConnectorPoint PointX="9.0854483984375" PointY="8.480205078125" />
+          <ConnectorPoint PointX="9.0854483984375" PointY="9.9456498179808435" />
+          <ConnectorPoint PointX="9.2916666666666661" PointY="9.9456498179808417" />
+          <ConnectorPoint PointX="9.5833333333333339" PointY="9.9456498179808435" />
+          <ConnectorPoint PointX="9.6041666666666661" PointY="9.9456498179808417" />
+          <ConnectorPoint PointX="9.8958333333333339" PointY="9.9456498179808435" />
+          <ConnectorPoint PointX="10.375" PointY="9.9456498179808435" />
           </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_HojasDeRuta_CabeceraHojasDeRuta" ManuallyRouted="false">
-          <ConnectorPoint PointX="8.6210921875" PointY="8.0956022135416656" />
-          <ConnectorPoint PointX="8.6210921875" PointY="11.479957628940866" />
-          <ConnectorPoint PointX="7.958333333333333" PointY="11.479957628940866" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="11.479957628940866" />
-          <ConnectorPoint PointX="7.625" PointY="11.479957628940866" />
+          <ConnectorPoint PointX="8.125" PointY="8.480205078125" />
+          <ConnectorPoint PointX="7.932770897006705" PointY="8.6800445012700038" />
+          <ConnectorPoint PointX="7.817229102993295" PointY="8.800160576855" />
+          <ConnectorPoint PointX="7.625" PointY="9" />
           </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_Plantilla_CategoriasItems" ManuallyRouted="false">
           <ConnectorPoint PointX="10.125" PointY="14.740143229166666" />
+          <ConnectorPoint PointX="11.416666666666666" PointY="14.740143229166666" />
+          <ConnectorPoint PointX="11.583333333333334" PointY="14.740143229166666" />
           <ConnectorPoint PointX="11.75" PointY="14.740143229166666" />
           </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_Contrato_Clasificacion" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.7363293749999997" PointY="6.5" />
-          <ConnectorPoint PointX="1.7363293749999997" PointY="6.1250000000000018" />
-          <ConnectorPoint PointX="1.9410833541666663" PointY="6.1250000000000009" />
-          <ConnectorPoint PointX="2.2517936770833331" PointY="6.1250000000000018" />
-          <ConnectorPoint PointX="2.5" PointY="6.1250000000000018" />
-          <ConnectorPoint PointX="2.5" PointY="4.7084680960286454" />
-          <ConnectorPoint PointX="2.5104166666666665" PointY="4.7084680960286445" />
-          <ConnectorPoint PointX="2.7395833333333335" PointY="4.7084680960286454" />
-          <ConnectorPoint PointX="2.875" PointY="4.7084680960286454" /></AssociationConnector>
+          <ConnectorPoint PointX="1.6870453208007812" PointY="6.5" />
+          <ConnectorPoint PointX="1.6870453208007812" PointY="6.125" />
+          <ConnectorPoint PointX="1.9164413270670573" PointY="6.1249999999999991" />
+          <ConnectorPoint PointX="2.0831079937337238" PointY="6.125" />
+          <ConnectorPoint PointX="2.5" PointY="6.125" />
+          <ConnectorPoint PointX="2.5" PointY="4.6583656263326008" />
+          <ConnectorPoint PointX="2.875" PointY="4.6583656263326008" />
+          </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_Contrato_Clasificacion1" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.08203221875" PointY="6.5" />
-          <ConnectorPoint PointX="1.08203221875" PointY="6" />
-          <ConnectorPoint PointX="1.2533383971354166" PointY="5.9999999999999991" />
-          <ConnectorPoint PointX="1.4200050638020831" PointY="6" />
-          <ConnectorPoint PointX="1.5079779088541665" PointY="5.9999999999999991" />
-          <ConnectorPoint PointX="1.674644575520833" PointY="6" />
-          <ConnectorPoint PointX="1.9728219401041665" PointY="5.9999999999999991" />
-          <ConnectorPoint PointX="2.1394886067708332" PointY="6" />
-          <ConnectorPoint PointX="2.5625" PointY="6" />
-          <ConnectorPoint PointX="2.5625" PointY="3.9354749573160794" />
-          <ConnectorPoint PointX="2.5729166666666665" PointY="3.935474957316079" />
-          <ConnectorPoint PointX="2.7395833333333335" PointY="3.9354749573160794" />
-          <ConnectorPoint PointX="2.875" PointY="3.9354749573160794" /></AssociationConnector>
+          <ConnectorPoint PointX="1.0247181435546875" PointY="6.5" />
+          <ConnectorPoint PointX="1.0247181435546875" PointY="6" />
+          <ConnectorPoint PointX="1.2725483988444011" PointY="5.9999999999999991" />
+          <ConnectorPoint PointX="1.6047968598225908" PointY="6" />
+          <ConnectorPoint PointX="1.9164413270670573" PointY="5.9999999999999991" />
+          <ConnectorPoint PointX="2.0831079937337238" PointY="6" />
+          <ConnectorPoint PointX="2.25" PointY="6" />
+          <ConnectorPoint PointX="2.25" PointY="3.9229308131663068" />
+          <ConnectorPoint PointX="2.875" PointY="3.9229308131663068" />
+          </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_Legajos_Clasificacion" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="11.343715202549385" />
-          <ConnectorPoint PointX="2.9791666666666665" PointY="11.343715202549385" />
-          <ConnectorPoint PointX="3.1458333333333335" PointY="11.343715202549385" />
-          <ConnectorPoint PointX="3.25" PointY="11.343715202549385" />
+          <ConnectorPoint PointX="2.25" PointY="11.284965403618955" />
+          <ConnectorPoint PointX="2.9791666666666665" PointY="11.284965403618955" />
+          <ConnectorPoint PointX="3.1458333333333335" PointY="11.284965403618955" />
+          <ConnectorPoint PointX="3.25" PointY="11.284965403618955" />
           </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_Legajos_Clasificacion1" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="11.609063004920525" />
-          <ConnectorPoint PointX="2.9791666666666665" PointY="11.609063004920525" />
-          <ConnectorPoint PointX="3.1458333333333335" PointY="11.609063004920525" />
-          <ConnectorPoint PointX="3.25" PointY="11.609063004920525" />
+          <ConnectorPoint PointX="2.25" PointY="11.675838821601143" />
+          <ConnectorPoint PointX="2.9791666666666665" PointY="11.675838821601143" />
+          <ConnectorPoint PointX="3.1458333333333335" PointY="11.675838821601143" />
+          <ConnectorPoint PointX="3.25" PointY="11.675838821601143" />
           </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_Legajos_Clasificacion2" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="11.011783301450489" />
-          <ConnectorPoint PointX="2.9791666666666665" PointY="11.011783301450489" />
-          <ConnectorPoint PointX="3.1458333333333335" PointY="11.011783301450489" />
-          <ConnectorPoint PointX="3.25" PointY="11.011783301450489" />
+          <ConnectorPoint PointX="2.25" PointY="10.969747024726145" />
+          <ConnectorPoint PointX="2.9791666666666665" PointY="10.969747024726145" />
+          <ConnectorPoint PointX="3.1458333333333335" PointY="10.969747024726145" />
+          <ConnectorPoint PointX="3.25" PointY="10.969747024726145" />
           </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_Legajos_Clasificacion3" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="10.277425700175796" />
-          <ConnectorPoint PointX="2.9791666666666665" PointY="10.277425700175796" />
-          <ConnectorPoint PointX="3.1458333333333335" PointY="10.277425700175796" />
-          <ConnectorPoint PointX="3.25" PointY="10.277425700175796" />
+          <ConnectorPoint PointX="2.25" PointY="10.176668731253738" />
+          <ConnectorPoint PointX="2.9791666666666665" PointY="10.176668731253738" />
+          <ConnectorPoint PointX="3.1458333333333335" PointY="10.176668731253738" />
+          <ConnectorPoint PointX="3.25" PointY="10.176668731253738" />
           </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_ContEmpLegajos_Legajos" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.75" PointY="12.442047526041666" />
-          <ConnectorPoint PointX="11.03125" PointY="12.442047526041666" />
+          <ConnectorPoint PointX="4.75" PointY="12.578717506510412" />
+          <ConnectorPoint PointX="11.03125" PointY="12.578717506510412" />
           <ConnectorPoint PointX="11.03125" PointY="10.172587890625" />
           </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_ContratoEmpresas_Contrato" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.375" PointY="5.8506982421875" />
-          <ConnectorPoint PointX="5.25" PointY="5.8506982421875" /></AssociationConnector>
+          <ConnectorPoint PointX="4.375" PointY="5.8506982421875007" />
+          <ConnectorPoint PointX="4.854166666666667" PointY="5.8506982421875" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="5.8506982421875007" />
+          <ConnectorPoint PointX="5.25" PointY="5.8506982421875007" /></AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_ContratoEmpresas_Empresa" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.125" PointY="2.7835968934193236" />
-          <ConnectorPoint PointX="2.7916666666666665" PointY="2.7835968934193231" />
-          <ConnectorPoint PointX="2.9583333333333335" PointY="2.7835968934193236" />
-          <ConnectorPoint PointX="5.6874975" PointY="2.7835968934193236" />
+          <ConnectorPoint PointX="2.125" PointY="2.8496285518840949" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="2.8496285518840945" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="2.8496285518840949" />
+          <ConnectorPoint PointX="5.6874975" PointY="2.8496285518840949" />
           <ConnectorPoint PointX="5.6874975" PointY="5.125" />
           </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_SegUsuario_Empresa" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.125" PointY="1.8617162088171653" />
-          <ConnectorPoint PointX="2.875" PointY="1.8617162088171653" />
-          <ConnectorPoint PointX="2.875" PointY="3.0625" />
-          <ConnectorPoint PointX="5.6041641666666671" PointY="3.0624999999999996" />
-          <ConnectorPoint PointX="5.7708308333333331" PointY="3.0625" />
-          <ConnectorPoint PointX="6.1041716666666668" PointY="3.0624999999999996" />
-          <ConnectorPoint PointX="6.2708383333333328" PointY="3.0625" />
-          <ConnectorPoint PointX="9.1041671666666648" PointY="3.0624999999999996" />
-          <ConnectorPoint PointX="9.2708338333333327" PointY="3.0625" />
-          <ConnectorPoint PointX="9.875" PointY="3.0625" />
-          <ConnectorPoint PointX="9.875" PointY="0.5" />
-          <ConnectorPoint PointX="12.5" PointY="0.5" />
+          <ConnectorPoint PointX="2.125" PointY="1.8769510364085327" />
+          <ConnectorPoint PointX="2.625" PointY="1.8769510364085327" />
+          <ConnectorPoint PointX="2.625" PointY="3" />
+          <ConnectorPoint PointX="5.6041641666666671" PointY="2.9999999999999996" />
+          <ConnectorPoint PointX="5.7708308333333331" PointY="3" />
+          <ConnectorPoint PointX="6.104166666666667" PointY="2.9999999999999996" />
+          <ConnectorPoint PointX="6.270833333333333" PointY="3" />
+          <ConnectorPoint PointX="9.1041671666666648" PointY="2.9999999999999996" />
+          <ConnectorPoint PointX="9.2708338333333327" PointY="3" />
+          <ConnectorPoint PointX="9.875" PointY="3" />
+          <ConnectorPoint PointX="9.875" PointY="0.25" />
+          <ConnectorPoint PointX="12.5" PointY="0.25" />
           <ConnectorPoint PointX="12.5" PointY="1.375" />
           </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_RolesPlanilla_Plantilla" ManuallyRouted="false">
           <ConnectorPoint PointX="13.25" PointY="13" />
           <ConnectorPoint PointX="13.625" PointY="12.625" />
-          <ConnectorPoint PointX="13.625" PointY="5.28411533935547" />
-          <ConnectorPoint PointX="14" PointY="5.28411533935547" />
+          <ConnectorPoint PointX="13.625" PointY="5.1950861699218747" />
+          <ConnectorPoint PointX="14" PointY="5.1950861699218747" />
           </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_RolesPlanilla_SegRol" ManuallyRouted="false">
-          <ConnectorPoint PointX="13.25" PointY="4.54448974609375" />
-          <ConnectorPoint PointX="14" PointY="4.54448974609375" />
+          <ConnectorPoint PointX="13.25" PointY="4.6600430849609378" />
+          <ConnectorPoint PointX="13.416666666666666" PointY="4.6600430849609369" />
+          <ConnectorPoint PointX="13.583333333333334" PointY="4.6600430849609378" />
+          <ConnectorPoint PointX="14" PointY="4.6600430849609378" />
           </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_SegRolMenu_SegMenu" ManuallyRouted="false">
           <ConnectorPoint PointX="15.1875" PointY="12.375" />
@@ -3390,63 +3587,62 @@
           </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_SegRolMenu_SegRol" ManuallyRouted="false">
           <ConnectorPoint PointX="12.84375" PointY="5.9802864583333326" />
-          <ConnectorPoint PointX="12.84375" PointY="7.46875" />
-          <ConnectorPoint PointX="13.541666666666666" PointY="7.4687499999999991" />
-          <ConnectorPoint PointX="13.708333333333334" PointY="7.46875" />
-          <ConnectorPoint PointX="14" PointY="7.46875" /></AssociationConnector>
+          <ConnectorPoint PointX="12.84375" PointY="7.4687499999999991" />
+          <ConnectorPoint PointX="13.416666666666666" PointY="7.4687499999999982" />
+          <ConnectorPoint PointX="13.708333333333334" PointY="7.4687499999999991" />
+          <ConnectorPoint PointX="14" PointY="7.4687499999999991" /></AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_SegUsuarioRol_SegRol" ManuallyRouted="false">
-          <ConnectorPoint PointX="13.25" PointY="5.5876858141276031" />
-          <ConnectorPoint PointX="13.6875" PointY="5.5876858141276031" />
-          <ConnectorPoint PointX="13.6875" PointY="1.8167351191406247" />
-          <ConnectorPoint PointX="14" PointY="1.8167351191406247" /></AssociationConnector>
+          <ConnectorPoint PointX="13.25" PointY="4" />
+          <ConnectorPoint PointX="13.44107443490112" PointY="3.8089255650988787" />
+          <ConnectorPoint PointX="13.558925565098878" PointY="3.6910744349011209" />
+          <ConnectorPoint PointX="13.625" PointY="3.625" />
+          <ConnectorPoint PointX="13.625" PointY="1.821855178222656" />
+          <ConnectorPoint PointX="14" PointY="1.821855178222656" /></AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_SegUsuarioRol_SegUsuario" ManuallyRouted="false">
-          <ConnectorPoint PointX="13.25" PointY="2.3937093564453122" />
-          <ConnectorPoint PointX="13.604166666666666" PointY="2.3937093564453118" />
-          <ConnectorPoint PointX="13.770833333333334" PointY="2.3937093564453122" />
-          <ConnectorPoint PointX="14" PointY="2.3937093564453122" /></AssociationConnector>
+          <ConnectorPoint PointX="13.25" PointY="2.3962693859863275" />
+          <ConnectorPoint PointX="13.541666666666666" PointY="2.3962693859863271" />
+          <ConnectorPoint PointX="13.708333333333334" PointY="2.3962693859863275" />
+          <ConnectorPoint PointX="14" PointY="2.3962693859863275" /></AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_Clasificacion_Clasificacion">
-          <ConnectorPoint PointX="0.75" PointY="8.3009544270833331" />
-          <ConnectorPoint PointX="0.73958333333333337" PointY="8.3009544270833331" />
-          <ConnectorPoint PointX="0.57291666666666663" PointY="8.3009544270833331" />
-          <ConnectorPoint PointX="0.5" PointY="8.3009544270833331" />
-          <ConnectorPoint PointX="0.5" PointY="9.9876826171875" />
-          <ConnectorPoint PointX="0.57291666666666663" PointY="9.9876826171875" />
-          <ConnectorPoint PointX="0.73958333333333337" PointY="9.9876826171875" />
-          <ConnectorPoint PointX="0.75" PointY="9.9876826171875" /></AssociationConnector>
+          <ConnectorPoint PointX="1.2819230769230767" PointY="11.941712239583334" />
+          <ConnectorPoint PointX="1.2819230769230767" PointY="12.191712239583332" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="12.191712239583332" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="11.941712239583334" />
+          </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_HojasDeRuta_Plantilla">
           <ConnectorPoint PointX="12.8124975" PointY="13" />
-          <ConnectorPoint PointX="12.8124975" PointY="10.744624924300728" />
-          <ConnectorPoint PointX="12.473958333333334" PointY="10.744624924300728" />
-          <ConnectorPoint PointX="12.307291666666666" PointY="10.744624924300728" />
-          <ConnectorPoint PointX="11.114583333333334" PointY="10.744624924300728" />
-          <ConnectorPoint PointX="10.947916666666666" PointY="10.744624924300728" />
-          <ConnectorPoint PointX="8.6917301302083327" PointY="10.744624924300728" />
-          <ConnectorPoint PointX="8.5250634635416649" PointY="10.744624924300728" />
-          <ConnectorPoint PointX="7.958333333333333" PointY="10.744624924300728" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="10.744624924300728" />
-          <ConnectorPoint PointX="7.625" PointY="10.744624924300728" />
+          <ConnectorPoint PointX="12.8124975" PointY="10.74462492430073" />
+          <ConnectorPoint PointX="11.114583333333334" PointY="10.74462492430073" />
+          <ConnectorPoint PointX="10.947916666666666" PointY="10.74462492430073" />
+          <ConnectorPoint PointX="9.7708333333333339" PointY="10.74462492430073" />
+          <ConnectorPoint PointX="9.6041666666666661" PointY="10.74462492430073" />
+          <ConnectorPoint PointX="8.4583358333333347" PointY="10.74462492430073" />
+          <ConnectorPoint PointX="8.2916691666666669" PointY="10.74462492430073" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="10.74462492430073" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="10.74462492430073" />
+          <ConnectorPoint PointX="7.625" PointY="10.74462492430073" />
           </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_Empresa_Clasificacion">
-          <ConnectorPoint PointX="1.3366717304687499" PointY="6.5" />
-          <ConnectorPoint PointX="1.3366717304687499" PointY="5.3456022135416656" /></AssociationConnector>
+          <ConnectorPoint PointX="1.3558817321777343" PointY="6.5" />
+          <ConnectorPoint PointX="1.3558817321777343" PointY="5.3456022135416656" /></AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_Legajos_Clasificacion4">
-          <ConnectorPoint PointX="2.25" PointY="10.644604500813141" />
-          <ConnectorPoint PointX="2.9791666666666665" PointY="10.644604500813141" />
-          <ConnectorPoint PointX="3.1458333333333335" PointY="10.644604500813141" />
-          <ConnectorPoint PointX="3.25" PointY="10.644604500813141" />
+          <ConnectorPoint PointX="2.25" PointY="10.415598688543536" />
+          <ConnectorPoint PointX="2.9791666666666665" PointY="10.415598688543536" />
+          <ConnectorPoint PointX="3.1458333333333335" PointY="10.415598688543536" />
+          <ConnectorPoint PointX="3.25" PointY="10.415598688543536" />
           </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_ContEmpLegajos_ContratoEmpresas">
           <ConnectorPoint PointX="6.1875" PointY="7.8744921875" />
           <ConnectorPoint PointX="6.1875" PointY="8.75" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="8.75" />
+          <ConnectorPoint PointX="7.7821461225818984" PointY="8.75" />
           <ConnectorPoint PointX="7.958333333333333" PointY="8.75" />
-          <ConnectorPoint PointX="8.5377588541666665" PointY="8.75" />
-          <ConnectorPoint PointX="8.7044255208333343" PointY="8.75" />
-          <ConnectorPoint PointX="9.0963560416666649" PointY="8.75" />
-          <ConnectorPoint PointX="9.2630227083333327" PointY="8.75" />
+          <ConnectorPoint PointX="8.2916691666666669" PointY="8.75" />
+          <ConnectorPoint PointX="8.4583358333333347" PointY="8.75" />
+          <ConnectorPoint PointX="9.0021150651041655" PointY="8.75" />
+          <ConnectorPoint PointX="9.1687817317708333" PointY="8.75" />
           <ConnectorPoint PointX="9.875" PointY="8.75" />
-          <ConnectorPoint PointX="9.875" PointY="9.6562067453366076" />
-          <ConnectorPoint PointX="10.375" PointY="9.6562067453366076" /></AssociationConnector>
+          <ConnectorPoint PointX="9.875" PointY="9.6562067453367" />
+          <ConnectorPoint PointX="10.375" PointY="9.6562067453367" /></AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_SegMenu_SegMenu">
           <ConnectorPoint PointX="15.406923076923077" PointY="14.78904296875" />
           <ConnectorPoint PointX="15.406923076923077" PointY="15.03904296875" />
@@ -3460,31 +3656,32 @@
           <ConnectorPoint PointX="6.687502" PointY="7.8744921875" />
           <ConnectorPoint PointX="6.687502" PointY="8.5" />
           <ConnectorPoint PointX="7.875" PointY="8.5" />
-          <ConnectorPoint PointX="7.875" PointY="11.821470827491268" />
-          <ConnectorPoint PointX="10.947916666666666" PointY="11.821470827491268" />
-          <ConnectorPoint PointX="11.114583333333334" PointY="11.821470827491268" />
-          <ConnectorPoint PointX="12.166662916666665" PointY="11.821470827491266" />
-          <ConnectorPoint PointX="12.473958333333334" PointY="11.821470827491268" />
-          <ConnectorPoint PointX="12.729164166666665" PointY="11.821470827491268" />
-          <ConnectorPoint PointX="12.895830833333333" PointY="11.821470827491268" />
-          <ConnectorPoint PointX="13.541666666666666" PointY="11.821470827491268" />
-          <ConnectorPoint PointX="13.708333333333334" PointY="11.821470827491268" />
-          <ConnectorPoint PointX="15.104166666666666" PointY="11.821470827491268" />
-          <ConnectorPoint PointX="15.270833333333334" PointY="11.821470827491268" />
-          <ConnectorPoint PointX="16.375" PointY="11.821470827491268" />
+          <ConnectorPoint PointX="7.875" PointY="11.821271574696333" />
+          <ConnectorPoint PointX="8.2916691666666669" PointY="11.821271574696333" />
+          <ConnectorPoint PointX="8.4583358333333347" PointY="11.821271574696333" />
+          <ConnectorPoint PointX="10.947916666666666" PointY="11.821271574696333" />
+          <ConnectorPoint PointX="11.114583333333334" PointY="11.821271574696333" />
+          <ConnectorPoint PointX="12.166662916666665" PointY="11.821271574696333" />
+          <ConnectorPoint PointX="12.333329583333333" PointY="11.821271574696333" />
+          <ConnectorPoint PointX="12.729164166666665" PointY="11.821271574696333" />
+          <ConnectorPoint PointX="12.895830833333333" PointY="11.821271574696333" />
+          <ConnectorPoint PointX="13.416666666666666" PointY="11.821271574696331" />
+          <ConnectorPoint PointX="13.708333333333334" PointY="11.821271574696333" />
+          <ConnectorPoint PointX="15.104166666666666" PointY="11.821271574696333" />
+          <ConnectorPoint PointX="15.270833333333334" PointY="11.821271574696333" />
+          <ConnectorPoint PointX="16.375" PointY="11.821271574696333" />
           </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_ComentariosGral_Plantilla">
-          <ConnectorPoint PointX="12.0703125" PointY="13" />
-          <ConnectorPoint PointX="12.0703125" PointY="11.254161957976457" />
-          <ConnectorPoint PointX="12.307291666666666" PointY="11.254161957976457" />
-          <ConnectorPoint PointX="12.473958333333334" PointY="11.254161957976457" />
-          <ConnectorPoint PointX="12.729164166666665" PointY="11.254161957976457" />
-          <ConnectorPoint PointX="12.895830833333333" PointY="11.254161957976457" />
-          <ConnectorPoint PointX="13.541666666666666" PointY="11.254161957976457" />
-          <ConnectorPoint PointX="13.708333333333334" PointY="11.254161957976457" />
-          <ConnectorPoint PointX="15.104166666666666" PointY="11.254161957976457" />
-          <ConnectorPoint PointX="15.270833333333334" PointY="11.254161957976457" />
-          <ConnectorPoint PointX="16.375" PointY="11.254161957976457" /></AssociationConnector>
+          <ConnectorPoint PointX="12.249996249999999" PointY="13" />
+          <ConnectorPoint PointX="12.249996249999999" PointY="11.251695749498538" />
+          <ConnectorPoint PointX="12.729164166666665" PointY="11.251695749498538" />
+          <ConnectorPoint PointX="12.895830833333333" PointY="11.251695749498538" />
+          <ConnectorPoint PointX="13.416666666666666" PointY="11.251695749498536" />
+          <ConnectorPoint PointX="13.708333333333334" PointY="11.251695749498538" />
+          <ConnectorPoint PointX="15.104166666666666" PointY="11.251695749498538" />
+          <ConnectorPoint PointX="15.270833333333334" PointY="11.251695749498538" />
+          <ConnectorPoint PointX="16.375" PointY="11.251695749498538" />
+          </AssociationConnector>
         <EntityTypeShape EntityType="ModeloConosud.ArchivosSueldos" Width="1.5" PointX="10.25" PointY="16.5" Height="1.7566536458333353" />
         <EntityTypeShape EntityType="ModeloConosud.DatosDeSueldos" Width="1.5" PointX="7.25" PointY="16.5" Height="3.7288216145833353" />
         <AssociationConnector Association="ModeloConosud.FK_DatosDeSueldos_Legajos">
@@ -3496,24 +3693,25 @@
           <ConnectorPoint PointX="8.75" PointY="17.378326822916669" />
           </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_ArchivosSueldos_SegUsuario">
-          <ConnectorPoint PointX="12.5" PointY="3.739889322916667" />
-          <ConnectorPoint PointX="12.5" PointY="3.9843749999999991" />
-          <ConnectorPoint PointX="11.734375" PointY="3.9843749999999991" />
-          <ConnectorPoint PointX="11.734375" PointY="7.984375" />
-          <ConnectorPoint PointX="12.390625" PointY="7.984375" />
-          <ConnectorPoint PointX="12.390625" PointY="12.984375" />
-          <ConnectorPoint PointX="11.734375" PointY="12.984375" />
-          <ConnectorPoint PointX="11.734375" PointY="16.484375" />
-          <ConnectorPoint PointX="11.765625" PointY="16.484375" />
-          <ConnectorPoint PointX="11.765625" PointY="17.490143229166669" />
+          <ConnectorPoint PointX="13.25" PointY="3.1981346929931638" />
+          <ConnectorPoint PointX="13.5" PointY="3.1981346929931638" />
+          <ConnectorPoint PointX="13.5" PointY="12.75" />
+          <ConnectorPoint PointX="12.895830833333333" PointY="12.75" />
+          <ConnectorPoint PointX="12.729164166666665" PointY="12.75" />
+          <ConnectorPoint PointX="12.333329583333333" PointY="12.75" />
+          <ConnectorPoint PointX="12.166662916666665" PointY="12.75" />
+          <ConnectorPoint PointX="11.5" PointY="12.75" />
+          <ConnectorPoint PointX="11.5" PointY="16.25" />
+          <ConnectorPoint PointX="12" PointY="16.25" />
+          <ConnectorPoint PointX="12" PointY="17.490143229166669" />
           <ConnectorPoint PointX="11.75" PointY="17.490143229166669" />
           </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_DatosDeSueldos_Contrato">
           <ConnectorPoint PointX="3.0625" PointY="6.576396484375" />
-          <ConnectorPoint PointX="3.0625" PointY="19.562593481961333" />
-          <ConnectorPoint PointX="3.1979166666666665" PointY="19.562593481961333" />
-          <ConnectorPoint PointX="3.3645833333333335" PointY="19.562593481961333" />
-          <ConnectorPoint PointX="7.25" PointY="19.562593481961333" />
+          <ConnectorPoint PointX="3.0625" PointY="19.592254867936475" />
+          <ConnectorPoint PointX="3.1979166666666665" PointY="19.592254867936475" />
+          <ConnectorPoint PointX="3.3645833333333335" PointY="19.592254867936475" />
+          <ConnectorPoint PointX="7.25" PointY="19.592254867936475" />
           </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_DatosDeSueldos_Empresa">
           <ConnectorPoint PointX="0.65625" PointY="5.3456022135416656" />
@@ -3522,71 +3720,89 @@
           </AssociationConnector>
         <EntityTypeShape EntityType="ModeloConosud.ContratoEmpresasImp" Width="1.5" PointX="5.375" PointY="12.75" Height="1.7879850260416674" />
         <AssociationConnector Association="ModeloConosud.FK_CabeceraHojasDeRuta_SegUsuario">
-          <ConnectorPoint PointX="11.75" PointY="2.5574446614583337" />
-          <ConnectorPoint PointX="11.6875" PointY="2.5574446614583337" />
+          <ConnectorPoint PointX="11.75" PointY="2.74974609375" />
+          <ConnectorPoint PointX="11.6875" PointY="2.74974609375" />
           <ConnectorPoint PointX="11.6875" PointY="0.6875" />
-          <ConnectorPoint PointX="9.9583333333333339" PointY="0.68749999999999789" />
-          <ConnectorPoint PointX="9.3541666666666661" PointY="0.6875" />
+          <ConnectorPoint PointX="9.9583333333333339" PointY="0.68749999999999944" />
+          <ConnectorPoint PointX="9.7916666666666661" PointY="0.6875" />
           <ConnectorPoint PointX="9.1875004999999987" PointY="0.6875" />
           <ConnectorPoint PointX="9.1875004999999987" PointY="4" /></AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_Contrato_Clasificacion2">
-          <ConnectorPoint PointX="2.0244166874999996" PointY="6.5" />
-          <ConnectorPoint PointX="2.0244166874999996" PointY="5.8750000000000018" />
-          <ConnectorPoint PointX="2.25" PointY="5.8750000000000018" />
-          <ConnectorPoint PointX="2.25" PointY="5.4479865480143239" />
-          <ConnectorPoint PointX="2.2916666666666665" PointY="5.447986548014323" />
-          <ConnectorPoint PointX="2.5833333333333335" PointY="5.4479865480143239" />
-          <ConnectorPoint PointX="2.875" PointY="5.4479865480143239" /></AssociationConnector>
+          <ConnectorPoint PointX="1.9997746604003905" PointY="6.5" />
+          <ConnectorPoint PointX="1.9997746604003905" PointY="5.875" />
+          <ConnectorPoint PointX="2.1666666666666665" PointY="5.8749999999999991" />
+          <ConnectorPoint PointX="2.3333333333333335" PointY="5.875" />
+          <ConnectorPoint PointX="2.375" PointY="5.875" />
+          <ConnectorPoint PointX="2.375" PointY="5.4229353131662936" />
+          <ConnectorPoint PointX="2.4166666666666665" PointY="5.4229353131662927" />
+          <ConnectorPoint PointX="2.5833333333333335" PointY="5.4229353131662936" />
+          <ConnectorPoint PointX="2.875" PointY="5.4229353131662936" /></AssociationConnector>
         <EntityTypeShape EntityType="ModeloConosud.VahiculosyEquipos" Width="1.5" PointX="10.125" PointY="0.75" Height="7.5570279947916674" />
         <AssociationConnector Association="ModeloConosud.FK_VahiculosyEquipos_Clasificacion" >
-          <ConnectorPoint PointX="2.25" PointY="8.2665511067708337" />
-          <ConnectorPoint PointX="2.9791666666666665" PointY="8.2665511067708337" />
-          <ConnectorPoint PointX="3.1458333333333335" PointY="8.2665511067708337" />
-          <ConnectorPoint PointX="6.104166666666667" PointY="8.2665511067708337" />
-          <ConnectorPoint PointX="6.270833333333333" PointY="8.2665511067708337" />
-          <ConnectorPoint PointX="6.6041686666666672" PointY="8.2665511067708337" />
-          <ConnectorPoint PointX="6.7708353333333333" PointY="8.2665511067708337" />
-          <ConnectorPoint PointX="8.5377588541666665" PointY="8.2665511067708337" />
-          <ConnectorPoint PointX="8.7044255208333343" PointY="8.2665511067708337" />
-          <ConnectorPoint PointX="9.0963560416666649" PointY="8.2665511067708337" />
-          <ConnectorPoint PointX="9.2630227083333327" PointY="8.2665511067708337" />
-          <ConnectorPoint PointX="10.125" PointY="8.2665511067708337" />
+          <ConnectorPoint PointX="0.8561070717773438" PointY="6.5" />
+          <ConnectorPoint PointX="0.8561070717773438" PointY="5.5956022135416656" />
+          <ConnectorPoint PointX="1.2725483988444011" PointY="5.5956022135416648" />
+          <ConnectorPoint PointX="1.4392150655110676" PointY="5.5956022135416656" />
+          <ConnectorPoint PointX="2.1666666666666665" PointY="5.5956022135416639" />
+          <ConnectorPoint PointX="2.5833333333333335" PointY="5.5956022135416656" />
+          <ConnectorPoint PointX="2.625" PointY="5.5956022135416656" />
+          <ConnectorPoint PointX="2.625" PointY="6.826396484375" />
+          <ConnectorPoint PointX="2.9791666666666665" PointY="6.8263964843749987" />
+          <ConnectorPoint PointX="3.1458333333333335" PointY="6.826396484375" />
+          <ConnectorPoint PointX="5" PointY="6.826396484375" />
+          <ConnectorPoint PointX="5" PointY="3.75" />
+          <ConnectorPoint PointX="5.6041641666666671" PointY="3.7499999999999996" />
+          <ConnectorPoint PointX="5.7708308333333331" PointY="3.75" />
+          <ConnectorPoint PointX="6.104166666666667" PointY="3.7499999999999996" />
+          <ConnectorPoint PointX="6.270833333333333" PointY="3.75" />
+          <ConnectorPoint PointX="9.1041671666666648" PointY="3.7499999999999996" />
+          <ConnectorPoint PointX="9.2708338333333327" PointY="3.75" />
+          <ConnectorPoint PointX="9.75" PointY="3.75" />
+          <ConnectorPoint PointX="9.75" PointY="6.0468775000000505" />
+          <ConnectorPoint PointX="10.125" PointY="6.0468775000000505" />
         </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_VahiculosyEquipos_CompañiaSeguro" >
-          <ConnectorPoint PointX="2.25" PointY="8.90625" />
-          <ConnectorPoint PointX="2.9791666666666665" PointY="8.90625" />
-          <ConnectorPoint PointX="3.1458333333333335" PointY="8.90625" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="8.90625" />
-          <ConnectorPoint PointX="7.958333333333333" PointY="8.90625" />
-          <ConnectorPoint PointX="8.5377588541666665" PointY="8.90625" />
-          <ConnectorPoint PointX="8.7044255208333343" PointY="8.90625" />
-          <ConnectorPoint PointX="9.0963560416666649" PointY="8.90625" />
-          <ConnectorPoint PointX="9.2630227083333327" PointY="8.90625" />
-          <ConnectorPoint PointX="9.7916666666666661" PointY="8.90625" />
-          <ConnectorPoint PointX="9.9583333333333339" PointY="8.90625" />
-          <ConnectorPoint PointX="10.125" PointY="8.90625" />
+          <ConnectorPoint PointX="1.5214635264892578" PointY="6.5" />
+          <ConnectorPoint PointX="1.5214635264892578" PointY="5.5956022135416656" />
+          <ConnectorPoint PointX="2.1666666666666665" PointY="5.5956022135416648" />
+          <ConnectorPoint PointX="2.4583333333333335" PointY="5.5956022135416656" />
+          <ConnectorPoint PointX="2.5625" PointY="5.5956022135416656" />
+          <ConnectorPoint PointX="2.5625" PointY="6.842021484375" />
+          <ConnectorPoint PointX="2.9791666666666665" PointY="6.8420214843749987" />
+          <ConnectorPoint PointX="3.1458333333333335" PointY="6.842021484375" />
+          <ConnectorPoint PointX="4.9375" PointY="6.842021484375" />
+          <ConnectorPoint PointX="4.9375" PointY="3.75" />
+          <ConnectorPoint PointX="5.6041641666666671" PointY="3.7499999999999996" />
+          <ConnectorPoint PointX="5.7708308333333331" PointY="3.75" />
+          <ConnectorPoint PointX="6.104166666666667" PointY="3.7499999999999996" />
+          <ConnectorPoint PointX="6.270833333333333" PointY="3.75" />
+          <ConnectorPoint PointX="9.1041671666666648" PointY="3.7499999999999996" />
+          <ConnectorPoint PointX="9.2708338333333327" PointY="3.75" />
+          <ConnectorPoint PointX="9.8125" PointY="3.75" />
+          <ConnectorPoint PointX="9.8125" PointY="7.2734412500000758" />
+          <ConnectorPoint PointX="10.125" PointY="7.2734412500000758" />
         </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_VahiculosyEquipos_Contrato" >
           <ConnectorPoint PointX="4.375" PointY="3.59375" />
           <ConnectorPoint PointX="5.6041641666666671" PointY="3.5937499999999996" />
           <ConnectorPoint PointX="5.7708308333333331" PointY="3.59375" />
-          <ConnectorPoint PointX="6.1041716666666668" PointY="3.5937499999999996" />
-          <ConnectorPoint PointX="6.2708383333333328" PointY="3.59375" />
+          <ConnectorPoint PointX="6.104166666666667" PointY="3.5937499999999996" />
+          <ConnectorPoint PointX="6.270833333333333" PointY="3.59375" />
           <ConnectorPoint PointX="9.1041671666666648" PointY="3.5937499999999996" />
           <ConnectorPoint PointX="9.2708338333333327" PointY="3.59375" />
           <ConnectorPoint PointX="10.125" PointY="3.59375" />
         </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_VahiculosyEquipos_Empresa" >
-          <ConnectorPoint PointX="2.125" PointY="2.5333902435846669" />
-          <ConnectorPoint PointX="2.7916666666666665" PointY="2.5333902435846665" />
-          <ConnectorPoint PointX="2.9583333333333335" PointY="2.5333902435846669" />
-          <ConnectorPoint PointX="6.1041716666666668" PointY="2.5333902435846665" />
-          <ConnectorPoint PointX="6.2708383333333328" PointY="2.5333902435846669" />
-          <ConnectorPoint PointX="9.1041671666666648" PointY="2.5333902435846665" />
-          <ConnectorPoint PointX="9.2708338333333327" PointY="2.5333902435846669" />
-          <ConnectorPoint PointX="9.3541666666666661" PointY="2.5333902435846647" />
-          <ConnectorPoint PointX="9.9583333333333339" PointY="2.5333902435846669" />
-          <ConnectorPoint PointX="10.125" PointY="2.5333902435846669" />
+          <ConnectorPoint PointX="2.125" PointY="2.5664060728170526" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="2.5664060728170521" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="2.5664060728170526" />
+          <ConnectorPoint PointX="6.104166666666667" PointY="2.5664060728170521" />
+          <ConnectorPoint PointX="6.270833333333333" PointY="2.5664060728170526" />
+          <ConnectorPoint PointX="9.1041671666666648" PointY="2.5664060728170521" />
+          <ConnectorPoint PointX="9.2708338333333327" PointY="2.5664060728170526" />
+          <ConnectorPoint PointX="9.7916666666666661" PointY="2.5664060728170521" />
+          <ConnectorPoint PointX="9.9583333333333339" PointY="2.5664060728170526" />
+          <ConnectorPoint PointX="10.125" PointY="2.5664060728170526" />
         </AssociationConnector>
         <EntityTypeShape EntityType="ModeloConosud.IngresosEventuales" Width="1.5" PointX="16.375" PointY="0.75" Height="3.5186979166666674" />
         <EntityTypeShape EntityType="ModeloConosud.View_EmpresasContratos" Width="1.5" PointX="3.375" PointY="0.75" Height="1.5956835937500102" />
@@ -3599,170 +3815,172 @@
         <EntityTypeShape EntityType="ModeloConosud.RutasTransportes" Width="1.5" PointX="20.625" PointY="8.125" Height="2.172587890624996" />
         <AssociationConnector Association="ModeloConosud.FK_RutasTransportes_CabeceraRutasTransportes" >
           <ConnectorPoint PointX="19.875" PointY="9.977763671875" />
+          <ConnectorPoint PointX="19.979164166666667" PointY="9.977763671875" />
+          <ConnectorPoint PointX="20.145830833333331" PointY="9.977763671875" />
           <ConnectorPoint PointX="20.166666666666668" PointY="9.977763671875" />
           <ConnectorPoint PointX="20.333333333333332" PointY="9.977763671875" />
           <ConnectorPoint PointX="20.625" PointY="9.977763671875" />
         </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_VehiculosYPF_Combustible" >
-          <ConnectorPoint PointX="2.25" PointY="10.772207356770835" />
-          <ConnectorPoint PointX="2.9791666666666665" PointY="10.772207356770835" />
-          <ConnectorPoint PointX="3.1458333333333335" PointY="10.772207356770835" />
-          <ConnectorPoint PointX="5.125" PointY="10.772207356770835" />
-          <ConnectorPoint PointX="5.125" PointY="8.4375" />
-          <ConnectorPoint PointX="5.791666666666667" PointY="8.4375" />
-          <ConnectorPoint PointX="5.958333333333333" PointY="8.4375" />
-          <ConnectorPoint PointX="6.104166666666667" PointY="8.4375" />
-          <ConnectorPoint PointX="6.270833333333333" PointY="8.4375" />
-          <ConnectorPoint PointX="8.5250634635416649" PointY="8.4375" />
-          <ConnectorPoint PointX="8.6917301302083327" PointY="8.4375" />
-          <ConnectorPoint PointX="9.0709652604166653" PointY="8.4375" />
-          <ConnectorPoint PointX="9.2376319270833331" PointY="8.4375" />
-          <ConnectorPoint PointX="9.75" PointY="8.4375" />
-          <ConnectorPoint PointX="9.75" PointY="10.985087890625" />
-          <ConnectorPoint PointX="10.947916666666666" PointY="10.985087890625" />
-          <ConnectorPoint PointX="11.114583333333334" PointY="10.985087890625" />
-          <ConnectorPoint PointX="12.307291666666666" PointY="10.985087890625" />
-          <ConnectorPoint PointX="12.473958333333334" PointY="10.985087890625" />
-          <ConnectorPoint PointX="12.729164166666665" PointY="10.985087890625" />
-          <ConnectorPoint PointX="12.895830833333333" PointY="10.985087890625" />
-          <ConnectorPoint PointX="13.541666666666666" PointY="10.985087890625" />
-          <ConnectorPoint PointX="13.708333333333334" PointY="10.985087890625" />
-          <ConnectorPoint PointX="15.104166666666666" PointY="10.985087890625" />
-          <ConnectorPoint PointX="15.270833333333334" PointY="10.985087890625" />
-          <ConnectorPoint PointX="15.75" PointY="10.985087890625" />
-          <ConnectorPoint PointX="15.75" PointY="10.3125" />
-          <ConnectorPoint PointX="16.041666666666668" PointY="10.3125" />
-          <ConnectorPoint PointX="16.208333333333332" PointY="10.3125" />
-          <ConnectorPoint PointX="18.0625" PointY="10.3125" />
-          <ConnectorPoint PointX="18.0625" PointY="12.710999348958332" />
-          <ConnectorPoint PointX="19.026041666666668" PointY="12.710999348958332" />
-          <ConnectorPoint PointX="19.192708333333332" PointY="12.710999348958332" />
-          <ConnectorPoint PointX="19.322916666666668" PointY="12.710999348958332" />
-          <ConnectorPoint PointX="19.489583333333332" PointY="12.710999348958332" />
-          <ConnectorPoint PointX="20.25" PointY="12.710999348958332" />
-          <ConnectorPoint PointX="20.25" PointY="9.5954394531250014" />
+          <ConnectorPoint PointX="2.25" PointY="9.18015064102564" />
+          <ConnectorPoint PointX="2.9791666666666665" PointY="9.18015064102564" />
+          <ConnectorPoint PointX="3.1458333333333335" PointY="9.18015064102564" />
+          <ConnectorPoint PointX="5.666666666666667" PointY="9.18015064102564" />
+          <ConnectorPoint PointX="5.833333333333333" PointY="9.18015064102564" />
+          <ConnectorPoint PointX="6" PointY="9.18015064102564" />
+          <ConnectorPoint PointX="6" PointY="8.875" />
+          <ConnectorPoint PointX="7.6619063946242836" PointY="8.8749999999999982" />
+          <ConnectorPoint PointX="7.9583333333333339" PointY="8.875" />
+          <ConnectorPoint PointX="8.2916691666666669" PointY="8.875" />
+          <ConnectorPoint PointX="8.4583358333333347" PointY="8.875" />
+          <ConnectorPoint PointX="9.0021150651041655" PointY="8.875" />
+          <ConnectorPoint PointX="9.1687817317708333" PointY="8.875" />
+          <ConnectorPoint PointX="9.375" PointY="8.875" />
+          <ConnectorPoint PointX="9.375" PointY="10.438212890625001" />
+          <ConnectorPoint PointX="9.4166666666666661" PointY="10.438212890625001" />
+          <ConnectorPoint PointX="9.5833333333333339" PointY="10.438212890625001" />
+          <ConnectorPoint PointX="9.6041666666666661" PointY="10.438212890625001" />
+          <ConnectorPoint PointX="9.7708333333333339" PointY="10.438212890625001" />
+          <ConnectorPoint PointX="10.947916666666666" PointY="10.438212890625001" />
+          <ConnectorPoint PointX="11.114583333333334" PointY="10.438212890625001" />
+          <ConnectorPoint PointX="13.416666666666666" PointY="10.438212890625" />
+          <ConnectorPoint PointX="13.708333333333334" PointY="10.438212890625001" />
+          <ConnectorPoint PointX="15.104166666666666" PointY="10.438212890625001" />
+          <ConnectorPoint PointX="15.270833333333334" PointY="10.438212890625001" />
+          <ConnectorPoint PointX="15.791666666666666" PointY="10.438212890625" />
+          <ConnectorPoint PointX="16.083333333333332" PointY="10.438212890625001" />
+          <ConnectorPoint PointX="16.25" PointY="10.438212890625001" />
+          <ConnectorPoint PointX="16.25" PointY="9.875" />
+          <ConnectorPoint PointX="17.979166666666668" PointY="9.875" />
+          <ConnectorPoint PointX="18.145833333333332" PointY="9.875" />
+          <ConnectorPoint PointX="18.1875" PointY="9.875" />
+          <ConnectorPoint PointX="18.1875" PointY="12.95017578125" />
+          <ConnectorPoint PointX="19.100260416666668" PointY="12.95017578125" />
+          <ConnectorPoint PointX="19.266927083333332" PointY="12.95017578125" />
+          <ConnectorPoint PointX="19.471354166666668" PointY="12.95017578125" />
+          <ConnectorPoint PointX="19.638020833333332" PointY="12.95017578125" />
+          <ConnectorPoint PointX="20.0624975" PointY="12.95017578125" />
+          <ConnectorPoint PointX="20.0624975" PointY="9.5954394531250014" />
         </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_VehiculosYPF_Departamento" >
-          <ConnectorPoint PointX="2.25" PointY="9.556194010416668" />
-          <ConnectorPoint PointX="2.9791666666666665" PointY="9.556194010416668" />
-          <ConnectorPoint PointX="3.1458333333333335" PointY="9.556194010416668" />
-          <ConnectorPoint PointX="5.041666666666667" PointY="9.556194010416668" />
-          <ConnectorPoint PointX="5.208333333333333" PointY="9.556194010416668" />
-          <ConnectorPoint PointX="5.375" PointY="9.556194010416668" />
-          <ConnectorPoint PointX="5.375" PointY="8.8125" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="8.8125" />
-          <ConnectorPoint PointX="7.958333333333333" PointY="8.8125" />
-          <ConnectorPoint PointX="8.5250634635416649" PointY="8.8125" />
-          <ConnectorPoint PointX="8.6917301302083327" PointY="8.8125" />
-          <ConnectorPoint PointX="9.0709652604166653" PointY="8.8125" />
-          <ConnectorPoint PointX="9.2376319270833331" PointY="8.8125" />
-          <ConnectorPoint PointX="9.4791666666666661" PointY="8.8125" />
-          <ConnectorPoint PointX="9.6458333333333339" PointY="8.8125" />
-          <ConnectorPoint PointX="9.6875" PointY="8.8125" />
-          <ConnectorPoint PointX="9.6875" PointY="10.610087890625" />
-          <ConnectorPoint PointX="10.947916666666666" PointY="10.610087890625" />
-          <ConnectorPoint PointX="11.114583333333334" PointY="10.610087890625" />
-          <ConnectorPoint PointX="12.307291666666666" PointY="10.610087890625" />
-          <ConnectorPoint PointX="12.473958333333334" PointY="10.610087890625" />
-          <ConnectorPoint PointX="13.541666666666666" PointY="10.610087890625" />
-          <ConnectorPoint PointX="13.708333333333334" PointY="10.610087890625" />
-          <ConnectorPoint PointX="15.104166666666666" PointY="10.610087890625" />
-          <ConnectorPoint PointX="15.270833333333334" PointY="10.610087890625" />
-          <ConnectorPoint PointX="15.625" PointY="10.610087890625" />
-          <ConnectorPoint PointX="15.625" PointY="10.25" />
-          <ConnectorPoint PointX="16.041666666666668" PointY="10.25" />
-          <ConnectorPoint PointX="16.208333333333332" PointY="10.25" />
-          <ConnectorPoint PointX="18" PointY="10.25" />
-          <ConnectorPoint PointX="18" PointY="12.460999348958332" />
-          <ConnectorPoint PointX="19.026041666666668" PointY="12.460999348958332" />
-          <ConnectorPoint PointX="19.192708333333332" PointY="12.460999348958332" />
-          <ConnectorPoint PointX="19.322916666666668" PointY="12.460999348958332" />
-          <ConnectorPoint PointX="19.489583333333332" PointY="12.460999348958332" />
-          <ConnectorPoint PointX="20.25" PointY="12.460999348958332" />
-          <ConnectorPoint PointX="20.25" PointY="9.5954394531250014" />
+          <ConnectorPoint PointX="2.25" PointY="10.034965695112179" />
+          <ConnectorPoint PointX="2.9791666666666665" PointY="10.034965695112179" />
+          <ConnectorPoint PointX="3.1458333333333335" PointY="10.034965695112179" />
+          <ConnectorPoint PointX="5.75" PointY="10.034965695112179" />
+          <ConnectorPoint PointX="5.75" PointY="8.6875" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="8.6875" />
+          <ConnectorPoint PointX="8.0089326532273741" PointY="8.6875" />
+          <ConnectorPoint PointX="8.2916691666666669" PointY="8.6875" />
+          <ConnectorPoint PointX="8.4583358333333347" PointY="8.6875" />
+          <ConnectorPoint PointX="9.0021150651041655" PointY="8.6875" />
+          <ConnectorPoint PointX="9.1687817317708333" PointY="8.6875" />
+          <ConnectorPoint PointX="9.6875" PointY="8.6875" />
+          <ConnectorPoint PointX="9.6875" PointY="10.985087890625001" />
+          <ConnectorPoint PointX="10.947916666666666" PointY="10.985087890625001" />
+          <ConnectorPoint PointX="11.114583333333334" PointY="10.985087890625001" />
+          <ConnectorPoint PointX="12.729164166666665" PointY="10.985087890625001" />
+          <ConnectorPoint PointX="12.895830833333333" PointY="10.985087890625001" />
+          <ConnectorPoint PointX="13.416666666666666" PointY="10.985087890625" />
+          <ConnectorPoint PointX="13.708333333333334" PointY="10.985087890625001" />
+          <ConnectorPoint PointX="15.104166666666666" PointY="10.985087890625001" />
+          <ConnectorPoint PointX="15.270833333333334" PointY="10.985087890625001" />
+          <ConnectorPoint PointX="16" PointY="10.985087890625001" />
+          <ConnectorPoint PointX="16" PointY="10" />
+          <ConnectorPoint PointX="16.166666666666668" PointY="10" />
+          <ConnectorPoint PointX="16.333333333333332" PointY="10" />
+          <ConnectorPoint PointX="18" PointY="10" />
+          <ConnectorPoint PointX="18" PointY="13.27830078125" />
+          <ConnectorPoint PointX="19.100260416666668" PointY="13.27830078125" />
+          <ConnectorPoint PointX="19.266927083333332" PointY="13.27830078125" />
+          <ConnectorPoint PointX="19.471354166666668" PointY="13.27830078125" />
+          <ConnectorPoint PointX="19.638020833333332" PointY="13.27830078125" />
+          <ConnectorPoint PointX="20.0624975" PointY="13.27830078125" />
+          <ConnectorPoint PointX="20.0624975" PointY="9.5954394531250014" />
         </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_VehiculosYPF_Sectores" >
-          <ConnectorPoint PointX="2.25" PointY="8.5755380859375" />
-          <ConnectorPoint PointX="2.9791666666666665" PointY="8.5755380859375" />
-          <ConnectorPoint PointX="3.1458333333333335" PointY="8.5755380859375" />
-          <ConnectorPoint PointX="5.041666666666667" PointY="8.5755380859375" />
-          <ConnectorPoint PointX="5.208333333333333" PointY="8.5755380859375" />
-          <ConnectorPoint PointX="5.625" PointY="8.5755380859375" />
-          <ConnectorPoint PointX="5.625" PointY="8.6875" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="8.6875" />
-          <ConnectorPoint PointX="7.958333333333333" PointY="8.6875" />
-          <ConnectorPoint PointX="8.5250634635416649" PointY="8.6875" />
-          <ConnectorPoint PointX="8.6917301302083327" PointY="8.6875" />
-          <ConnectorPoint PointX="9.0709652604166653" PointY="8.6875" />
-          <ConnectorPoint PointX="9.2376319270833331" PointY="8.6875" />
-          <ConnectorPoint PointX="9.5625" PointY="8.6875" />
-          <ConnectorPoint PointX="9.5625" PointY="10.547587890625" />
-          <ConnectorPoint PointX="9.6666666666666661" PointY="10.547587890625" />
-          <ConnectorPoint PointX="9.8333333333333339" PointY="10.547587890625" />
-          <ConnectorPoint PointX="10.947916666666666" PointY="10.547587890625" />
-          <ConnectorPoint PointX="11.114583333333334" PointY="10.547587890625" />
-          <ConnectorPoint PointX="12.307291666666666" PointY="10.547587890625" />
-          <ConnectorPoint PointX="12.473958333333334" PointY="10.547587890625" />
-          <ConnectorPoint PointX="13.541666666666666" PointY="10.547587890625" />
-          <ConnectorPoint PointX="13.708333333333334" PointY="10.547587890625" />
-          <ConnectorPoint PointX="15.104166666666666" PointY="10.547587890625" />
-          <ConnectorPoint PointX="15.270833333333334" PointY="10.547587890625" />
-          <ConnectorPoint PointX="15.666666666666666" PointY="10.547587890625" />
-          <ConnectorPoint PointX="15.833333333333334" PointY="10.547587890625" />
-          <ConnectorPoint PointX="15.875" PointY="10.547587890625" />
-          <ConnectorPoint PointX="15.875" PointY="10.25" />
-          <ConnectorPoint PointX="16.041666666666668" PointY="10.25" />
-          <ConnectorPoint PointX="16.208333333333332" PointY="10.25" />
-          <ConnectorPoint PointX="18.041666666666668" PointY="10.25" />
-          <ConnectorPoint PointX="18.208333333333332" PointY="10.25" />
-          <ConnectorPoint PointX="18.25" PointY="10.25" />
-          <ConnectorPoint PointX="18.25" PointY="12.210999348958332" />
-          <ConnectorPoint PointX="19.026041666666668" PointY="12.210999348958332" />
-          <ConnectorPoint PointX="19.192708333333332" PointY="12.210999348958332" />
-          <ConnectorPoint PointX="19.322916666666668" PointY="12.210999348958332" />
-          <ConnectorPoint PointX="19.489583333333332" PointY="12.210999348958332" />
-          <ConnectorPoint PointX="20.25" PointY="12.210999348958332" />
-          <ConnectorPoint PointX="20.25" PointY="9.5954394531250014" />
+          <ConnectorPoint PointX="2.25" PointY="8.3253355869391026" />
+          <ConnectorPoint PointX="2.9791666666666665" PointY="8.3253355869391026" />
+          <ConnectorPoint PointX="3.1458333333333335" PointY="8.3253355869391026" />
+          <ConnectorPoint PointX="5.625" PointY="8.3253355869391026" />
+          <ConnectorPoint PointX="5.625" PointY="8.8125" />
+          <ConnectorPoint PointX="5.666666666666667" PointY="8.8125" />
+          <ConnectorPoint PointX="5.833333333333333" PointY="8.8125" />
+          <ConnectorPoint PointX="7.7220262586030906" PointY="8.8125" />
+          <ConnectorPoint PointX="7.9583333333333321" PointY="8.8125" />
+          <ConnectorPoint PointX="8.2916691666666669" PointY="8.8125" />
+          <ConnectorPoint PointX="8.4583358333333347" PointY="8.8125" />
+          <ConnectorPoint PointX="9.0021150651041655" PointY="8.8125" />
+          <ConnectorPoint PointX="9.1687817317708333" PointY="8.8125" />
+          <ConnectorPoint PointX="9.5" PointY="8.8125" />
+          <ConnectorPoint PointX="9.5" PointY="10.563212890625001" />
+          <ConnectorPoint PointX="9.6041666666666661" PointY="10.563212890625001" />
+          <ConnectorPoint PointX="9.7708333333333339" PointY="10.563212890625001" />
+          <ConnectorPoint PointX="10.947916666666666" PointY="10.563212890625001" />
+          <ConnectorPoint PointX="11.114583333333334" PointY="10.563212890625001" />
+          <ConnectorPoint PointX="13.416666666666666" PointY="10.563212890625" />
+          <ConnectorPoint PointX="13.708333333333334" PointY="10.563212890625001" />
+          <ConnectorPoint PointX="15.104166666666666" PointY="10.563212890625001" />
+          <ConnectorPoint PointX="15.270833333333334" PointY="10.563212890625001" />
+          <ConnectorPoint PointX="15.875" PointY="10.563212890625001" />
+          <ConnectorPoint PointX="15.875" PointY="9.875" />
+          <ConnectorPoint PointX="17.979166666666668" PointY="9.875" />
+          <ConnectorPoint PointX="18.145833333333332" PointY="9.875" />
+          <ConnectorPoint PointX="18.25" PointY="9.875" />
+          <ConnectorPoint PointX="18.25" PointY="12.66892578125" />
+          <ConnectorPoint PointX="19.100260416666668" PointY="12.66892578125" />
+          <ConnectorPoint PointX="19.266927083333332" PointY="12.66892578125" />
+          <ConnectorPoint PointX="19.471354166666668" PointY="12.66892578125" />
+          <ConnectorPoint PointX="19.638020833333332" PointY="12.66892578125" />
+          <ConnectorPoint PointX="20.0624975" PointY="12.66892578125" />
+          <ConnectorPoint PointX="20.0624975" PointY="9.5954394531250014" />
         </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_VehiculosYPF_TipoAsignacion" >
-          <ConnectorPoint PointX="2.25" PointY="7.5948821614583339" />
-          <ConnectorPoint PointX="2.9791666666666665" PointY="7.5948821614583331" />
-          <ConnectorPoint PointX="3.1458333333333335" PointY="7.5948821614583339" />
-          <ConnectorPoint PointX="5.875" PointY="7.5948821614583339" />
+          <ConnectorPoint PointX="2.25" PointY="7.4705205328525643" />
+          <ConnectorPoint PointX="2.9791666666666665" PointY="7.4705205328525635" />
+          <ConnectorPoint PointX="3.1458333333333335" PointY="7.4705205328525643" />
+          <ConnectorPoint PointX="5.875" PointY="7.4705205328525643" />
           <ConnectorPoint PointX="5.875" PointY="8.625" />
           <ConnectorPoint PointX="6.104166666666667" PointY="8.625" />
           <ConnectorPoint PointX="6.270833333333333" PointY="8.625" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="8.625" />
-          <ConnectorPoint PointX="7.958333333333333" PointY="8.625" />
-          <ConnectorPoint PointX="8.5250634635416649" PointY="8.625" />
-          <ConnectorPoint PointX="8.6917301302083327" PointY="8.625" />
-          <ConnectorPoint PointX="9.0709652604166653" PointY="8.625" />
-          <ConnectorPoint PointX="9.2376319270833331" PointY="8.625" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="8.6249999999999982" />
+          <ConnectorPoint PointX="8.0690525172061811" PointY="8.625" />
+          <ConnectorPoint PointX="8.2916691666666669" PointY="8.625" />
+          <ConnectorPoint PointX="8.4583358333333347" PointY="8.625" />
+          <ConnectorPoint PointX="9.0021150651041655" PointY="8.625" />
+          <ConnectorPoint PointX="9.1687817317708333" PointY="8.625" />
           <ConnectorPoint PointX="9.8125" PointY="8.625" />
-          <ConnectorPoint PointX="9.8125" PointY="10.422587890625" />
-          <ConnectorPoint PointX="10.947916666666666" PointY="10.422587890625" />
-          <ConnectorPoint PointX="11.114583333333334" PointY="10.422587890625" />
-          <ConnectorPoint PointX="12.307291666666666" PointY="10.422587890625" />
-          <ConnectorPoint PointX="12.473958333333334" PointY="10.422587890625" />
-          <ConnectorPoint PointX="13.541666666666666" PointY="10.422587890625" />
-          <ConnectorPoint PointX="13.708333333333334" PointY="10.422587890625" />
-          <ConnectorPoint PointX="15.104166666666666" PointY="10.422587890625" />
-          <ConnectorPoint PointX="15.270833333333334" PointY="10.422587890625" />
-          <ConnectorPoint PointX="15.541666666666666" PointY="10.422587890624998" />
-          <ConnectorPoint PointX="15.958333333333334" PointY="10.422587890625" />
-          <ConnectorPoint PointX="16.125" PointY="10.422587890625" />
+          <ConnectorPoint PointX="9.8125" PointY="10.422587890625001" />
+          <ConnectorPoint PointX="10.947916666666666" PointY="10.422587890625001" />
+          <ConnectorPoint PointX="11.114583333333334" PointY="10.422587890625001" />
+          <ConnectorPoint PointX="13.416666666666666" PointY="10.422587890625" />
+          <ConnectorPoint PointX="13.708333333333334" PointY="10.422587890625001" />
+          <ConnectorPoint PointX="15.104166666666666" PointY="10.422587890625001" />
+          <ConnectorPoint PointX="15.270833333333334" PointY="10.422587890625001" />
+          <ConnectorPoint PointX="15.791666666666666" PointY="10.422587890625" />
+          <ConnectorPoint PointX="16.083333333333332" PointY="10.422587890625001" />
+          <ConnectorPoint PointX="16.125" PointY="10.422587890625001" />
           <ConnectorPoint PointX="16.125" PointY="10.125" />
+          <ConnectorPoint PointX="16.166666666666668" PointY="10.125" />
+          <ConnectorPoint PointX="16.333333333333332" PointY="10.125" />
+          <ConnectorPoint PointX="17.916666666666668" PointY="10.125" />
+          <ConnectorPoint PointX="18.083333333333332" PointY="10.125" />
           <ConnectorPoint PointX="18.125" PointY="10.125" />
-          <ConnectorPoint PointX="18.125" PointY="11.960999348958332" />
-          <ConnectorPoint PointX="18.166666666666668" PointY="11.960999348958332" />
-          <ConnectorPoint PointX="18.333333333333332" PointY="11.960999348958332" />
-          <ConnectorPoint PointX="20.25" PointY="11.960999348958332" />
+          <ConnectorPoint PointX="18.125" PointY="12.15330078125" />
+          <ConnectorPoint PointX="18.166666666666668" PointY="12.15330078125" />
+          <ConnectorPoint PointX="18.333333333333332" PointY="12.15330078125" />
+          <ConnectorPoint PointX="19.100260416666668" PointY="12.15330078125" />
+          <ConnectorPoint PointX="19.266927083333332" PointY="12.15330078125" />
+          <ConnectorPoint PointX="19.471354166666668" PointY="12.15330078125" />
+          <ConnectorPoint PointX="19.638020833333332" PointY="12.15330078125" />
+          <ConnectorPoint PointX="19.979164166666667" PointY="12.15330078125" />
+          <ConnectorPoint PointX="20.145830833333331" PointY="12.15330078125" />
+          <ConnectorPoint PointX="20.25" PointY="12.15330078125" />
           <ConnectorPoint PointX="20.25" PointY="9.5954394531250014" />
         </AssociationConnector>
         <EntityTypeShape EntityType="ModeloConosud.DomiciliosPersonal" Width="2.5" PointX="17.375" PointY="18.75" Height="3.518697916666671" />
         <AssociationConnector Association="ModeloConosud.FK_DomiciliosPersonal_CabeceraRutasTransportes" >
-          <ConnectorPoint PointX="19.40625" PointY="11.90330078125" />
-          <ConnectorPoint PointX="19.40625" PointY="18.75" />
+          <ConnectorPoint PointX="19.5546875" PointY="11.90330078125" />
+          <ConnectorPoint PointX="19.5546875" PointY="18.75" />
         </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_DomiciliosPersonal_Empresa" >
           <ConnectorPoint PointX="0.671875" PointY="5.3456022135416656" />
@@ -3770,8 +3988,109 @@
           <ConnectorPoint PointX="17.375" PointY="22.136455078125003" />
         </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_DomiciliosPersonal_CabeceraRutasTransportes1" >
-          <ConnectorPoint PointX="19.109375" PointY="11.90330078125" />
-          <ConnectorPoint PointX="19.109375" PointY="18.75" />
+          <ConnectorPoint PointX="19.18359375" PointY="11.90330078125" />
+          <ConnectorPoint PointX="19.18359375" PointY="18.75" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="ModeloConosud.SeguimientoAuditoria" Width="1.5" PointX="21" PointY="11.75" Height="3.9033007812499818" />
+        <AssociationConnector Association="ModeloConosud.FK_SeguimientoAuditoria_Cabecera" >
+          <ConnectorPoint PointX="8.3750025" PointY="8.480205078125" />
+          <ConnectorPoint PointX="8.3750025" PointY="12.268992513020834" />
+          <ConnectorPoint PointX="10.947916666666666" PointY="12.268992513020834" />
+          <ConnectorPoint PointX="11.114583333333334" PointY="12.268992513020834" />
+          <ConnectorPoint PointX="12.166662916666665" PointY="12.268992513020834" />
+          <ConnectorPoint PointX="12.333329583333333" PointY="12.268992513020834" />
+          <ConnectorPoint PointX="12.729164166666665" PointY="12.268992513020834" />
+          <ConnectorPoint PointX="12.895830833333333" PointY="12.268992513020834" />
+          <ConnectorPoint PointX="13.416666666666666" PointY="12.268992513020832" />
+          <ConnectorPoint PointX="13.708333333333334" PointY="12.268992513020834" />
+          <ConnectorPoint PointX="15.104166666666666" PointY="12.268992513020834" />
+          <ConnectorPoint PointX="15.270833333333334" PointY="12.268992513020834" />
+          <ConnectorPoint PointX="17.916666666666668" PointY="12.268992513020834" />
+          <ConnectorPoint PointX="18.083333333333332" PointY="12.268992513020834" />
+          <ConnectorPoint PointX="18.104166666666668" PointY="12.268992513020834" />
+          <ConnectorPoint PointX="18.333333333333332" PointY="12.268992513020834" />
+          <ConnectorPoint PointX="19.100260416666668" PointY="12.268992513020834" />
+          <ConnectorPoint PointX="19.266927083333332" PointY="12.268992513020834" />
+          <ConnectorPoint PointX="19.471354166666668" PointY="12.268992513020834" />
+          <ConnectorPoint PointX="19.638020833333332" PointY="12.268992513020834" />
+          <ConnectorPoint PointX="19.979164166666667" PointY="12.268992513020834" />
+          <ConnectorPoint PointX="20.145830833333331" PointY="12.268992513020834" />
+          <ConnectorPoint PointX="20.541666666666668" PointY="12.268992513020832" />
+          <ConnectorPoint PointX="20.833333333333332" PointY="12.268992513020834" />
+          <ConnectorPoint PointX="21" PointY="12.268992513020834" />
+        </AssociationConnector>
+        <AssociationConnector Association="ModeloConosud.FK_SeguimientoAuditoria_Clasificacion" >
+          <ConnectorPoint PointX="2.25" PointY="11.134013621794871" />
+          <ConnectorPoint PointX="2.9791666666666665" PointY="11.134013621794871" />
+          <ConnectorPoint PointX="3.1458333333333335" PointY="11.134013621794871" />
+          <ConnectorPoint PointX="6.0625" PointY="11.134013621794871" />
+          <ConnectorPoint PointX="6.0625" PointY="12.196595052083332" />
+          <ConnectorPoint PointX="10.947916666666666" PointY="12.196595052083332" />
+          <ConnectorPoint PointX="11.114583333333334" PointY="12.196595052083332" />
+          <ConnectorPoint PointX="12.166662916666665" PointY="12.196595052083332" />
+          <ConnectorPoint PointX="12.333329583333333" PointY="12.196595052083332" />
+          <ConnectorPoint PointX="12.729164166666665" PointY="12.196595052083332" />
+          <ConnectorPoint PointX="12.895830833333333" PointY="12.196595052083332" />
+          <ConnectorPoint PointX="13.416666666666666" PointY="12.19659505208333" />
+          <ConnectorPoint PointX="13.708333333333334" PointY="12.196595052083332" />
+          <ConnectorPoint PointX="15.104166666666666" PointY="12.196595052083332" />
+          <ConnectorPoint PointX="15.270833333333334" PointY="12.196595052083332" />
+          <ConnectorPoint PointX="17.916666666666668" PointY="12.196595052083332" />
+          <ConnectorPoint PointX="18.083333333333332" PointY="12.196595052083332" />
+          <ConnectorPoint PointX="18.104166666666668" PointY="12.196595052083332" />
+          <ConnectorPoint PointX="18.333333333333332" PointY="12.196595052083332" />
+          <ConnectorPoint PointX="19.100260416666668" PointY="12.196595052083332" />
+          <ConnectorPoint PointX="19.266927083333332" PointY="12.196595052083332" />
+          <ConnectorPoint PointX="19.471354166666668" PointY="12.196595052083332" />
+          <ConnectorPoint PointX="19.638020833333332" PointY="12.196595052083332" />
+          <ConnectorPoint PointX="19.979164166666667" PointY="12.196595052083332" />
+          <ConnectorPoint PointX="20.145830833333331" PointY="12.196595052083332" />
+          <ConnectorPoint PointX="20.9375" PointY="12.196595052083332" />
+          <ConnectorPoint PointX="20.9375" PointY="11.6875" />
+          <ConnectorPoint PointX="21.75" PointY="11.6875" />
+          <ConnectorPoint PointX="21.75" PointY="11.75" />
+        </AssociationConnector>
+        <AssociationConnector Association="ModeloConosud.FK_SeguimientoAuditoria_SeguimientoAuditoria" >
+          <ConnectorPoint PointX="12.906252" PointY="1.375" />
+          <ConnectorPoint PointX="12.906252" PointY="1" />
+          <ConnectorPoint PointX="15.791666666666666" PointY="0.99999999999999944" />
+          <ConnectorPoint PointX="15.958333333333334" PointY="1" />
+          <ConnectorPoint PointX="16.125" PointY="1" />
+          <ConnectorPoint PointX="16.125" PointY="7.9802864583333246" />
+          <ConnectorPoint PointX="18.0625" PointY="7.9802864583333246" />
+          <ConnectorPoint PointX="18.0625" PointY="12.15330078125" />
+          <ConnectorPoint PointX="18.104166666666668" PointY="12.15330078125" />
+          <ConnectorPoint PointX="18.333333333333332" PointY="12.15330078125" />
+          <ConnectorPoint PointX="19.100260416666668" PointY="12.15330078125" />
+          <ConnectorPoint PointX="19.266927083333332" PointY="12.15330078125" />
+          <ConnectorPoint PointX="19.471354166666668" PointY="12.15330078125" />
+          <ConnectorPoint PointX="19.638020833333332" PointY="12.15330078125" />
+          <ConnectorPoint PointX="19.979164166666667" PointY="12.15330078125" />
+          <ConnectorPoint PointX="20.145830833333331" PointY="12.15330078125" />
+          <ConnectorPoint PointX="20.625" PointY="12.15330078125" />
+          <ConnectorPoint PointX="20.625" PointY="13.992398647135403" />
+          <ConnectorPoint PointX="21" PointY="13.992398647135403" />
+        </AssociationConnector>
+        <AssociationConnector Association="ModeloConosud.FK_SeguimientoAuditoria_SegUsuario" >
+          <ConnectorPoint PointX="12.093748" PointY="1.375" />
+          <ConnectorPoint PointX="12.093748" PointY="0.875" />
+          <ConnectorPoint PointX="12.416666666666666" PointY="0.87499999999999944" />
+          <ConnectorPoint PointX="12.583333333333334" PointY="0.875" />
+          <ConnectorPoint PointX="15.875" PointY="0.875" />
+          <ConnectorPoint PointX="15.875" PointY="8.2302864583333246" />
+          <ConnectorPoint PointX="17.979166666666668" PointY="8.2302864583333246" />
+          <ConnectorPoint PointX="18.145833333333332" PointY="8.2302864583333246" />
+          <ConnectorPoint PointX="18.3125" PointY="8.2302864583333246" />
+          <ConnectorPoint PointX="18.3125" PointY="12.16892578125" />
+          <ConnectorPoint PointX="19.100260416666668" PointY="12.16892578125" />
+          <ConnectorPoint PointX="19.266927083333332" PointY="12.16892578125" />
+          <ConnectorPoint PointX="19.471354166666668" PointY="12.16892578125" />
+          <ConnectorPoint PointX="19.638020833333332" PointY="12.16892578125" />
+          <ConnectorPoint PointX="19.979164166666667" PointY="12.16892578125" />
+          <ConnectorPoint PointX="20.145830833333331" PointY="12.16892578125" />
+          <ConnectorPoint PointX="20.75" PointY="12.16892578125" />
+          <ConnectorPoint PointX="20.75" PointY="13.130695580078118" />
+          <ConnectorPoint PointX="21" PointY="13.130695580078118" />
         </AssociationConnector>
         </Diagram></edmx:Diagrams>
   </edmx:Designer>
