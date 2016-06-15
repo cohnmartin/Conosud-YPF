@@ -60,8 +60,8 @@
             </td>
         </tr>
         <tr id="trMenuEnc" runat="server">
-            <td align="left" style="width:980px">
-                <telerik:RadMenu ID="RadMenu1" runat="server" Skin="Default" Width="100%" 
+            <td align="left" style="width:980px;z-index:10">
+                <telerik:RadMenu ID="RadMenu1" runat="server" Skin="Default" Width="100%"  style="z-index:100"
                     OnItemDataBound="RadMenu1_ItemDataBound" OnClientItemClicked="ShowCredencialVisita">
                     <CollapseAnimation Type="OutQuint" Duration="200"></CollapseAnimation>
                 </telerik:RadMenu>
