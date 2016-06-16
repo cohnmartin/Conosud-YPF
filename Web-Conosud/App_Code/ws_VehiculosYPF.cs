@@ -556,4 +556,42 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
 
 
     }
+
+
+    [WebMethod]
+    public object getContratistas(string nombre)
+    {
+
+        using (EntidadesConosud dc = new EntidadesConosud())
+        {
+
+            return (from c in dc.Empresa
+                    where c.RazonSocial.Contains(nombre)
+                    select new 
+                    {
+                        Id = c.IdEmpresa,
+                        Nombre = c.RazonSocial,
+                    }).ToList();
+        }
+
+    }
+
+    [WebMethod]
+    public object getContratos(long IdEmpresa)
+    {
+
+        using (EntidadesConosud dc = new EntidadesConosud())
+        {
+
+            return (from c in dc.ContratoEmpresas
+                    where c.Empresa.IdEmpresa == IdEmpresa
+                    select new
+                    {
+                        Id = c.Contrato.IdContrato,
+                        Codigo = c.Contrato.Codigo,
+                    }).ToList();
+        }
+
+    }
+
 }

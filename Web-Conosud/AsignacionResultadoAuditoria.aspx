@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/DefaultMasterPage.master" AutoEventWireup="true"
-    CodeFile="AsigancionAuditorSeguimiento.aspx.cs" Inherits="AsigancionAuditorSeguimiento" %>
+    CodeFile="AsignacionResultadoAuditoria.aspx.cs" Inherits="AsignacionResultadoAuditoria" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <script src="Scripts/js_angular/angular.js" type="text/javascript"></script>
@@ -13,7 +13,7 @@
         <tr>
             <td align="center" style="height: 35px; padding-left: 15px; padding-top: 15px; padding-bottom: 15px">
                 <asp:Label ID="lblTipoGestion" runat="server" Font-Bold="True" Font-Size="20pt" Font-Underline="false"
-                    Font-Italic="True" ForeColor="black" Text="ASIGNACION DE AUDITORES" Font-Names="Arno Pro"></asp:Label>
+                    Font-Italic="True" ForeColor="black" Text="ASIGNACION DE RESULTADOS" Font-Names="Arno Pro"></asp:Label>
             </td>
         </tr>
     </table>
@@ -23,7 +23,7 @@
 
     <uib-accordion-group  panel-class="panel-info" style="text-align:left !important;">
       <uib-accordion-heading >
-        Presentadas EN TERMINO <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+        Sin asignar resultados<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
       </uib-accordion-heading>
       
        <table id="example" class="table table-striped table-bordered datatable table-hover ">
@@ -66,12 +66,10 @@
                         <span>{{item.Modelo}}</span>
                     </td>
                     <td>
-                        <select id="cboDepartamentos">
-                            <option value="General Alvear">Daniel</option>
-                            <option value="General Alvear">Carina</option>
-                            <option value="General Alvear">Abel</option>
-                            <option value="General Alvear">Pablo</option>
-                            <option value="General Alvear">Juan Martín</option>
+                        <select id="cboDepartamentos" class="form-control" >
+                            <option value="General Alvear">Documentación Incompleta / Aplicar Retención</option>
+                            <option value="General Alvear">Documentación Incompleta / Certificar con aviso</option>
+                            <option value="General Alvear">Documentación Completa / Habilitado para Certificar</option>
                          </select>
                     </td>
                     
@@ -83,38 +81,61 @@
 
     <uib-accordion-group  panel-class="panel-info" style="text-align:left !important;">
       <uib-accordion-heading >
-        Presentadas FUERA DE TERMINO <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+        Resultado Asignados <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
       </uib-accordion-heading>
-      Datos de las otras hojas de ruta.-
-    </uib-accordion-group>
+      
+      <center>
+      <table id="Table1" cellpadding="0" cellspacing="5" style="width: 90%; padding-top: 10px">
+        <tr>
+            <td align="center" style="width:70%" >
+            Contratista:
+                      <input type="text" ng-model="asyncSelected" placeholder="Ingrese nombre contratista" uib-typeahead="clasif as clasif.Nombre for clasif in getContratistas($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control"
+       typeahead-on-select="BuscarContratos($item.Id)">
+            
+            <div ng-show="loadingLocations">
+                <i  class="glyphicon glyphicon-refresh"></i> Buscando...
+            </div>
+            <div ng-show="noResults">
+                <i class="glyphicon glyphicon-remove"></i> No se encuentran resultado
+            </div>
 
-    <uib-accordion-group  panel-class="panel-info" style="text-align:left !important;">
-      <uib-accordion-heading >
-        OTRAS <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
-      </uib-accordion-heading>
-      Datos de las otras hojas de ruta.-
+
+
+            </td>
+            <td align="center"  style="width:20%">
+                Contratos:
+                <select id="Select1" class="form-control" ng-model="contratoSelected"  ng-options="clasif.Id as clasif.Codigo for clasif in Contratos" >
+                </select>
+            </td>
+            <td style="padding-left:5px">
+            &nbsp;
+            <button type="button" class="btn btn-primary" ng-model="singleModel" >
+        <i class="glyphicon glyphicon-search"></i> Buscar
+    </button>
+            </td>
+        </tr>
+    </table>
+    </center>
+
     </uib-accordion-group>
   </uib-accordion>
         <script type="text/ng-template" id="myModalContent.html">
-            <div class="modal-header">
-                <h3 class="modal-title">Asignación Masiva Auditor</h3>
-            </div>
-            <div class="modal-body">
-            seleccione el auditor para la asignación:
+        <div class="modal-header">
+            <h3 class="modal-title">Asignación Masiva de Resultados</h3>
+        </div>
+        <div class="modal-body">
+        seleccione el resultado para la asignación:
+        </b>
+            <select id="cboDepartamentos">
+                <option value="General Alvear">Documentación Incompleta / Aplicar Retención</option>
+                <option value="General Alvear">Documentación Incompleta / Certificar con aviso</option>
+                <option value="General Alvear">Documentación Completa / Habilitado para Certificar</option>
+            </select>
             </b>
-                <select id="cboDepartamentos">
-                    <option value="General Alvear">Daniel</option>
-                    <option value="General Alvear">Carina</option>
-                    <option value="General Alvear">Abel</option>
-                    <option value="General Alvear">Pablo</option>
-                    <option value="General Alvear">Juan Martín</option>
-                </select>
-               </b>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
         </script>
-    </div>
 </asp:Content>

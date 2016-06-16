@@ -12,11 +12,19 @@ myAppModule.service('PageMethods', function ($http) {
         });
     };
 
+    this.getContratos = function (id) {
 
+        return $http({
+            method: 'POST',
+            url: 'ws_VehiculosYPF.asmx/getContratos',
+            data: { IdEmpresa: id },
+            contentType: 'application/json; charset=utf-8'
+        });
+    };
 
 });
 
-myAppModule.controller('controller_seguimiento', function ($scope, PageMethods, $uibModal, $log) {
+myAppModule.controller('controller_seguimiento', function ($scope, PageMethods, $uibModal, $log, $http,$timeout) {
     $scope.Vehiculos;
     $scope.Current;
     $scope.Clasificaciones;
@@ -24,6 +32,11 @@ myAppModule.controller('controller_seguimiento', function ($scope, PageMethods, 
     $scope.onlyNumbers = /^\d+$/;
     $scope.dtColumns = [];
     $scope.dtOptions = [];
+    $scope.asyncSelected = '';
+    $scope.asyncIdSelected = '0';
+
+    $scope.address = undefined;
+
 
     $scope.items = ['item1', 'item2', 'item3'];
     $scope.animationsEnabled = true;
@@ -39,7 +52,63 @@ myAppModule.controller('controller_seguimiento', function ($scope, PageMethods, 
         content: 'Dynamic Group Body - 2'
     }
   ];
+  
+  $scope.Contratos = undefined;
 
+  $scope.BuscarContratos = function(Id){
+             PageMethods.getContratos(Id)
+                            .then(function (response) {
+                                 $scope.Contratos = response.data.d;
+                                 $timeout($scope.openDrop, 300);
+                                
+                           });
+
+  
+  };
+
+  $scope.openDrop = function()
+  {
+  var e = document.createEvent('MouseEvents');
+	                            e.initMouseEvent("mousedown");
+	                            $("#Select1")[0].dispatchEvent(e);	
+  }
+    $scope.getContratistas = function (val) {
+        $scope.Contratos = undefined;
+        return $http({
+            method: 'POST',
+            url: 'ws_VehiculosYPF.asmx/getContratistas ',
+            data: { nombre: val },
+            contentType: 'application/json; charset=utf-8'
+            }).then(function (response) {
+                return response.data.d
+        });
+
+        //        return PageMethods.getContratistas(val)
+        //                    .then(function (response) {
+        //                        var aa = response.data.d;
+        //                        return aa.map(function (item) {
+        //                                return item.Nombre;
+        //                         });
+        //                   });
+
+    };
+
+
+    $scope.ngModelOptionsSelected = function (value) {
+        if (arguments.length) {
+            _selected = value;
+        } else {
+            return _selected;
+        }
+    };
+
+    $scope.modelOptions = {
+    debounce: {
+      default: 500,
+      blur: 250
+    },
+    getterSetter: true
+  };
 
     $scope.addItem = function () {
         var newItemNo = $scope.items.length + 1;
