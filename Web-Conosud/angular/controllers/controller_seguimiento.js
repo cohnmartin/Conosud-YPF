@@ -1,12 +1,26 @@
 ﻿var myAppModule = angular.module('myApp', ['ui.bootstrap']);
 
+// slice: 35:100
+myAppModule.filter('empiezaDesde', function () {
+
+    return function (input, start) {
+        start = +start; //parse to int
+        if (input != undefined)
+            return input.slice(start);
+        else
+            return null;
+
+    }
+});
+
+
 myAppModule.service('PageMethods', function ($http) {
 
-    this.getVehiculos = function () {
+    this.getHojasAsignacionAuditor = function () {
 
         return $http({
             method: 'POST',
-            url: 'ws_VehiculosYPF.asmx/getVehiculos',
+            url: 'ws_SeguimientoAuditoria.asmx/getHojasAsignacionAuditor',
             data: {},
             contentType: 'application/json; charset=utf-8'
         });
@@ -25,7 +39,9 @@ myAppModule.service('PageMethods', function ($http) {
 });
 
 myAppModule.controller('controller_seguimiento', function ($scope, PageMethods, $uibModal, $log, $http,$timeout) {
-    $scope.Vehiculos;
+    $scope.HojasAsignacionAuditorET;
+    $scope.HojasAsignacionAuditorFT;
+    $scope.HojasAsignacionAuditorOT;
     $scope.Current;
     $scope.Clasificaciones;
     $scope.textSearch;
@@ -34,44 +50,45 @@ myAppModule.controller('controller_seguimiento', function ($scope, PageMethods, 
     $scope.dtOptions = [];
     $scope.asyncSelected = '';
     $scope.asyncIdSelected = '0';
-
     $scope.address = undefined;
-
-
-    $scope.items = ['item1', 'item2', 'item3'];
     $scope.animationsEnabled = true;
     $scope.oneAtATime = true;
 
-    $scope.groups = [
-    {
-        title: 'Dynamic Group Header - 1',
-        content: 'Dynamic Group Body - 1'
-    },
-    {
-        title: 'Dynamic Group Header - 2',
-        content: 'Dynamic Group Body - 2'
-    }
-  ];
-  
-  $scope.Contratos = undefined;
 
-  $scope.BuscarContratos = function(Id){
-             PageMethods.getContratos(Id)
+    $scope.itemsET=0;
+    $scope.filteredET;
+    $scope.descSearch;
+    $scope.cantidadRegistros = 10;
+    $scope.paginaActual = 1;
+
+    $scope.descSearchOT;
+    $scope.filteredOT;
+    $scope.itemsOT=0;
+    $scope.paginaActualOT = 1;
+    
+       
+  
+    $scope.Contratos = undefined;
+
+    $scope.BuscarContratos = function(Id){
+                PageMethods.getContratos(Id)
                             .then(function (response) {
-                                 $scope.Contratos = response.data.d;
-                                 $timeout($scope.openDrop, 300);
+                                    $scope.Contratos = response.data.d;
+                                    $timeout($scope.openDrop, 300);
                                 
-                           });
+                            });
 
   
-  };
+    };
 
-  $scope.openDrop = function()
-  {
-  var e = document.createEvent('MouseEvents');
-	                            e.initMouseEvent("mousedown");
-	                            $("#Select1")[0].dispatchEvent(e);	
-  }
+    $scope.openDrop = function()
+    {
+        var e = document.createEvent('MouseEvents');
+        e.initMouseEvent("mousedown",true,true,window,0,0,0,0,0,false,false,false,false,0,null);
+        $("#Select1")[0].dispatchEvent(e);	
+
+    }
+
     $scope.getContratistas = function (val) {
         $scope.Contratos = undefined;
         return $http({
@@ -82,14 +99,6 @@ myAppModule.controller('controller_seguimiento', function ($scope, PageMethods, 
             }).then(function (response) {
                 return response.data.d
         });
-
-        //        return PageMethods.getContratistas(val)
-        //                    .then(function (response) {
-        //                        var aa = response.data.d;
-        //                        return aa.map(function (item) {
-        //                                return item.Nombre;
-        //                         });
-        //                   });
 
     };
 
@@ -121,23 +130,31 @@ myAppModule.controller('controller_seguimiento', function ($scope, PageMethods, 
         isFirstDisabled: false
     };
 
-    $scope.open = function (size) {
+    $scope.open = function (size , tipoDataSource) {
 
         var modalInstance = $uibModal.open({
             animation: $scope.animationsEnabled,
             templateUrl: 'myModalContent.html',
             controller: 'ModalInstanceCtrl',
             backdropClass: 'foo',
-            size: size,
-            resolve: {
-                items: function () {
-                    return $scope.items;
-                }
-            }
+            size: size
         });
 
         modalInstance.result.then(function (selectedItem) {
-            $scope.selected = selectedItem;
+            
+            var dataSource=null;
+            if (tipoDataSource=='ET') {dataSource = $scope.HojasAsignacionAuditorET}
+            if (tipoDataSource=='FT') {dataSource = $scope.HojasAsignacionAuditorFT}
+            if (tipoDataSource=='OT') {dataSource = $scope.HojasAsignacionAuditorOT}
+
+            for (var i = 0; i < dataSource.length; i++) {
+
+                dataSource[i].AuditorAsignado = selectedItem;
+                
+
+            }
+            
+            
         }, function () {
             $log.info('Modal dismissed at: ' + new Date());
         });
@@ -148,62 +165,34 @@ myAppModule.controller('controller_seguimiento', function ($scope, PageMethods, 
     };
 
 
-    /*
-    var getTableData = function () {
-    var aa = ('[{"id": 860,"firstName": "Superman","lastName": "Yoda"}, {"id": 870,"firstName": "Foo",    "lastName": "Whateveryournameis"}, {    "id": 590,    "firstName": "Toto",    "lastName": "Titi"}, {    "id": 803,    "firstName": "Luke",    "lastName": "Kyle"}]');
-    return aa.$promise;
-    };
+    $scope.BuscarHojasAsignarAuditor = function () {
 
-    $scope.dtColumns = [DTColumnBuilder.newColumn('id').withTitle('DOMINIO')];
-
-    $scope.dtOptions = DTOptionsBuilder.fromFnPromise(getTableData()).withPaginationType('full_numbers');
-
-    $scope.BuscarVehiculos = function () {
-
-    PageMethods.getVehiculos()
-    .then(function (response) {
-                   
-    $scope.Vehiculos = response.data.d;
-    //var datos = JSON.stringify(response.data.d);
-    //$scope.Vehiculos = $resource(datos).query();
-
-    $scope.dtOptions = DTOptionsBuilder.fromFnPromise(getTableData()).withPaginationType('full_numbers');
-    //$scope.dtOptions = DTOptionsBuilder.fromSource('[{"id": 860,"firstName": "Superman","lastName": "Yoda"}, {"id": 870,"firstName": "Foo",    "lastName": "Whateveryournameis"}, {    "id": 590,    "firstName": "Toto",    "lastName": "Titi"}, {    "id": 803,    "firstName": "Luke",    "lastName": "Kyle"}]');
-
-    });
-    };
-
-    $scope.BuscarVehiculos();
-
-    */
-
-
-
-    $scope.BuscarVehiculos = function () {
-
-        PageMethods.getVehiculos()
+        PageMethods.getHojasAsignacionAuditor()
                     .then(function (response) {
 
-                        $scope.Vehiculos = response.data.d;
-                    });
+                        $scope.HojasAsignacionAuditorET = response.data.d["HojasET"];
+                        $scope.HojasAsignacionAuditorFT = response.data.d["HojasFT"];
+                        $scope.HojasAsignacionAuditorOT = response.data.d["HojasOT"];
+
+                        $scope.itemsET= $scope.HojasAsignacionAuditorET.length;
+                        $scope.itemsOT= $scope.HojasAsignacionAuditorOT.length;
+
+                   });
     };
 
-    $scope.BuscarVehiculos();
+    $scope.BuscarHojasAsignarAuditor();
 
 });
 
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
 // It is not the same as the $uibModal service used above.
 
-myAppModule.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) {
+myAppModule.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance) {
 
-    $scope.items = items;
-    $scope.selected = {
-        item: $scope.items[0]
-    };
+    $scope.auditorSelected;
 
     $scope.ok = function () {
-        $uibModalInstance.close($scope.selected.item);
+        $uibModalInstance.close($scope.auditorSelected);
     };
 
     $scope.cancel = function () {

@@ -23,76 +23,187 @@
 
     <uib-accordion-group  panel-class="panel-info" style="text-align:left !important;">
       <uib-accordion-heading >
-        Presentadas EN TERMINO <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+        EN TERMINO <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
       </uib-accordion-heading>
       
-       <table id="example" class="table table-striped table-bordered datatable table-hover ">
+       <table id="example" class="table table-striped table-bordered table-hover table-condensed " style="font-size:11px !important" >
             <thead>
                 <tr>
-                   
                     <th>
+                        Contrato
                     </th>
                     <th>
-                        Id
+                        Contratista
                     </th>
                     <th>
-                        Patente
+                        Periodo
                     </th>
                     <th>
-                        Modelo
+                        Estado Al Cierre
                     </th>
                     <th>
                         <span style="padding-right:10px">Auditor</span>
-                        <button type="button" class="btn btn-primary btn-xs" ng-click="open()" >...</button>
+                        <button type="button" class="btn btn-primary btn-xs" ng-click="open('','ET')" >...</button>
                     </th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in Vehiculos  ">
-                <td align="center" style="width: 85px" >
-                        <center>
-                            <span>
-                                <asp:Image ng-click="EditAccess($event,item);" ImageUrl="~/images/edit.gif"
-                                    ID="Image4" runat="server" Style="cursor: hand;" /></span>
-                        </center>
+                <tr ng-repeat="item in (filteredET = (HojasAsignacionAuditorET  | filter: { CodigoContrato: descSearch} | empiezaDesde:(paginaActual-1)*cantidadRegistros | limitTo:cantidadRegistros ))  track by $index ">
+                    <td align="left" >
+                        <span>{{item.CodigoContrato}}</span>
                     </td>
                     <td align="left" >
-                        <span>{{item.Id}}</span>
+                        <span>{{item.Contratista}}</span>
                     </td>
                     <td align="left" >
-                        <span>{{item.Patente}}</span>
+                        <span>{{item.Periodo}}</span>
                     </td>
-                    <td align="left" >
-                        <span>{{item.Modelo}}</span>
+                     <td align="left" >
+                        <span>{{item.EstadoAlCierre}}</span>
                     </td>
-                    <td>
-                        <select id="cboDepartamentos">
-                            <option value="General Alvear">Daniel</option>
-                            <option value="General Alvear">Carina</option>
-                            <option value="General Alvear">Abel</option>
-                            <option value="General Alvear">Pablo</option>
-                            <option value="General Alvear">Juan Martín</option>
+                    <td >
+                        <select ng-model="item.AuditorAsignado" id="cboAuditores" class="form-control" style="font-size:12px !important" >
+                            <option value=""></option>
+                            <option value="1">Daniel</option>
+                            <option value="2">Carina</option>
+                            <option value="3">Abel</option>
+                            <option value="4">Pablo</option>
+                            <option value="5">Juan Martín</option>
                          </select>
                     </td>
                     
                 </tr>
             </tbody>
+            <tfoot>
+            <tr>
+            <td colspan="6">
+                <center>
+                <uib-pagination total-items="itemsET" ng-model="paginaActual" previous-text="Anterior" next-text="Siguiente" max-size="6" items-per-page="cantidadRegistros" class="pagination-sm" boundary-link-numbers="true" rotate="false"></uib-pagination>
+                </center>
+            </td>
+            </tr>
+            </tfoot>
         </table>
 
     </uib-accordion-group>
 
     <uib-accordion-group  panel-class="panel-info" style="text-align:left !important;">
       <uib-accordion-heading >
-        Presentadas FUERA DE TERMINO <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+        FUERA DE TERMINO <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
       </uib-accordion-heading>
-      Datos de las otras hojas de ruta.-
+       <table id="Table1" class="table table-striped table-bordered table-hover table-condensed " style="font-size:11px !important" >
+            <thead>
+                <tr>
+                    <th>
+                        Contrato
+                    </th>
+                    <th>
+                        Contratista
+                    </th>
+                    <th>
+                        Periodo
+                    </th>
+                    <th>
+                        Estado Al Cierre
+                    </th>
+                    <th>
+                        <span style="padding-right:10px">Auditor</span>
+                        <button type="button" class="btn btn-primary btn-xs" ng-click="open('','FT')" >...</button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in HojasAsignacionAuditorFT  ">
+                                   <td align="left" >
+                        <span>{{item.CodigoContrato}}</span>
+                    </td>
+                    <td align="left" >
+                        <span>{{item.Contratista}}</span>
+                    </td>
+                    <td align="left" >
+                        <span>{{item.Periodo}}</span>
+                    </td>
+                     <td align="left" >
+                        <span>{{item.EstadoAlCierre}}</span>
+                    </td>
+                    <td>
+                        <select ng-model="item.AuditorAsignado" id="Select1" class="form-control" style="font-size:12px !important" >
+                            <option value=""></option>
+                            <option value="1">Daniel</option>
+                            <option value="2">Carina</option>
+                            <option value="3">Abel</option>
+                            <option value="4">Pablo</option>
+                            <option value="5">Juan Martín</option>
+                         </select>
+                    </td>
+                    
+                </tr>
+            </tbody>
+        </table>
     </uib-accordion-group>
 
     <uib-accordion-group  panel-class="panel-info" style="text-align:left !important;">
       <uib-accordion-heading >
         OTRAS <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
       </uib-accordion-heading>
-      Datos de las otras hojas de ruta.-
+       <table id="Table2" class="table table-striped table-bordered table-hover table-condensed " style="font-size:11px !important" >
+            <thead>
+                <tr>
+                    <th>
+                        Contrato
+                    </th>
+                    <th>
+                        Contratista
+                    </th>
+                    <th>
+                        Periodo
+                    </th>
+                    <th>
+                        Estado Al Cierre
+                    </th>
+                    <th>
+                        <span style="padding-right:10px">Auditor</span>
+                        <button type="button" class="btn btn-primary btn-xs" ng-click="open('','OT')" >...</button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                  <tr ng-repeat="item in (filteredOT = (HojasAsignacionAuditorOT  | filter: { CodigoContrato: descSearchOT} | empiezaDesde:(paginaActualOT-1)*cantidadRegistros | limitTo:cantidadRegistros ))  track by $index ">
+                    <td align="left" >
+                        <span>{{item.CodigoContrato}}</span>
+                    </td>
+                    <td align="left" >
+                        <span>{{item.Contratista}}</span>
+                    </td>
+                    <td align="left" >
+                        <span>{{item.Periodo}}</span>
+                    </td>
+                     <td align="left" >
+                        <span>{{item.EstadoAlCierre}}</span>
+                    </td>
+                    <td>
+                        <select ng-model="item.AuditorAsignado" id="Select2" class="form-control" style="font-size:12px !important" >
+                            <option value=""></option>
+                            <option value="1">Daniel</option>
+                            <option value="2">Carina</option>
+                            <option value="3">Abel</option>
+                            <option value="4">Pablo</option>
+                            <option value="5">Juan Martín</option>
+                         </select>
+                    </td>
+                    
+                </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+            <td colspan="6">
+                <center>
+                <uib-pagination total-items="itemsOT" ng-model="paginaActualOT" previous-text="Anterior" next-text="Siguiente" max-size="6" items-per-page="cantidadRegistros" class="pagination-sm" boundary-link-numbers="true" rotate="false"></uib-pagination>
+                </center>
+            </td>
+            </tr>
+            </tfoot>
+        </table>
     </uib-accordion-group>
   </uib-accordion>
         <script type="text/ng-template" id="myModalContent.html">
@@ -102,12 +213,12 @@
             <div class="modal-body">
             seleccione el auditor para la asignación:
             </b>
-                <select id="cboDepartamentos">
-                    <option value="General Alvear">Daniel</option>
-                    <option value="General Alvear">Carina</option>
-                    <option value="General Alvear">Abel</option>
-                    <option value="General Alvear">Pablo</option>
-                    <option value="General Alvear">Juan Martín</option>
+                <select ng-model="auditorSelected" id="cboAuditores" class="form-control" >
+                    <option value="1">Daniel</option>
+                    <option value="2">Carina</option>
+                    <option value="3">Abel</option>
+                    <option value="4">Pablo</option>
+                    <option value="5">Juan Martín</option>
                 </select>
                </b>
             </div>
