@@ -26,15 +26,7 @@ myAppModule.service('PageMethods', function ($http) {
         });
     };
 
-    this.getContratos = function (id) {
-
-        return $http({
-            method: 'POST',
-            url: 'ws_VehiculosYPF.asmx/getContratos',
-            data: { IdEmpresa: id },
-            contentType: 'application/json; charset=utf-8'
-        });
-    };
+   
 
 });
 
@@ -42,15 +34,13 @@ myAppModule.controller('controller_seguimiento', function ($scope, PageMethods, 
     $scope.HojasAsignacionAuditorET;
     $scope.HojasAsignacionAuditorFT;
     $scope.HojasAsignacionAuditorOT;
+    $scope.Auditores;
     $scope.Current;
     $scope.Clasificaciones;
     $scope.textSearch;
     $scope.onlyNumbers = /^\d+$/;
-    $scope.dtColumns = [];
-    $scope.dtOptions = [];
     $scope.asyncSelected = '';
     $scope.asyncIdSelected = '0';
-    $scope.address = undefined;
     $scope.animationsEnabled = true;
     $scope.oneAtATime = true;
 
@@ -66,7 +56,6 @@ myAppModule.controller('controller_seguimiento', function ($scope, PageMethods, 
     $scope.itemsOT=0;
     $scope.paginaActualOT = 1;
     
-       
   
     $scope.Contratos = undefined;
 
@@ -103,40 +92,13 @@ myAppModule.controller('controller_seguimiento', function ($scope, PageMethods, 
     };
 
 
-    $scope.ngModelOptionsSelected = function (value) {
-        if (arguments.length) {
-            _selected = value;
-        } else {
-            return _selected;
-        }
-    };
-
-    $scope.modelOptions = {
-    debounce: {
-      default: 500,
-      blur: 250
-    },
-    getterSetter: true
-  };
-
-    $scope.addItem = function () {
-        var newItemNo = $scope.items.length + 1;
-        $scope.items.push('Item ' + newItemNo);
-    };
-
-    $scope.status = {
-        isCustomHeaderOpen: false,
-        isFirstOpen: true,
-        isFirstDisabled: false
-    };
-
     $scope.open = function (size , tipoDataSource) {
 
         var modalInstance = $uibModal.open({
             animation: $scope.animationsEnabled,
             templateUrl: 'myModalContent.html',
             controller: 'ModalInstanceCtrl',
-            backdropClass: 'foo',
+            scope: $scope,
             size: size
         });
 
@@ -148,10 +110,7 @@ myAppModule.controller('controller_seguimiento', function ($scope, PageMethods, 
             if (tipoDataSource=='OT') {dataSource = $scope.HojasAsignacionAuditorOT}
 
             for (var i = 0; i < dataSource.length; i++) {
-
                 dataSource[i].AuditorAsignado = selectedItem;
-                
-
             }
             
             
@@ -173,6 +132,7 @@ myAppModule.controller('controller_seguimiento', function ($scope, PageMethods, 
                         $scope.HojasAsignacionAuditorET = response.data.d["HojasET"];
                         $scope.HojasAsignacionAuditorFT = response.data.d["HojasFT"];
                         $scope.HojasAsignacionAuditorOT = response.data.d["HojasOT"];
+                        $scope.Auditores= response.data.d["Auditores"];
 
                         $scope.itemsET= $scope.HojasAsignacionAuditorET.length;
                         $scope.itemsOT= $scope.HojasAsignacionAuditorOT.length;
@@ -189,6 +149,7 @@ myAppModule.controller('controller_seguimiento', function ($scope, PageMethods, 
 
 myAppModule.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance) {
 
+    
     $scope.auditorSelected;
 
     $scope.ok = function () {

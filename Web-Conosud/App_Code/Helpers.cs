@@ -70,6 +70,7 @@ public class Helpers
     public abstract class Constantes
     {
         public const string ContextoVehiculosYPF = "Vehiculos YPF";
+        public const string ResultadosAuditoria = "RESULTADOS_AUDITORIA";
 
         public abstract class PaginaMenu_
         {
@@ -100,8 +101,12 @@ public class Helpers
     {
         Aprobador,
         Publicador,
-        Administrador
+        Administrador,
+        Auditor = 7,
+        AuditorProvisional = 8,
+        AuditorSueldos = 9
     }
+
 
     public Helpers()
     {

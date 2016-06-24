@@ -62,14 +62,8 @@
                         <span>{{item.EstadoAlCierre}}</span>
                     </td>
                     <td >
-                        <select ng-model="item.AuditorAsignado" id="cboAuditores" class="form-control" style="font-size:12px !important" >
-                            <option value=""></option>
-                            <option value="1">Daniel</option>
-                            <option value="2">Carina</option>
-                            <option value="3">Abel</option>
-                            <option value="4">Pablo</option>
-                            <option value="5">Juan Martín</option>
-                         </select>
+                        <select  id="cboAuditores" ng-model="item.AuditorAsignado" ng-options="clasif.Id as clasif.Nombre for clasif in Auditores"  style="font-size:12px !important" class="form-control">
+                        </select>
                     </td>
                     
                 </tr>
@@ -127,14 +121,10 @@
                         <span>{{item.EstadoAlCierre}}</span>
                     </td>
                     <td>
-                        <select ng-model="item.AuditorAsignado" id="Select1" class="form-control" style="font-size:12px !important" >
-                            <option value=""></option>
-                            <option value="1">Daniel</option>
-                            <option value="2">Carina</option>
-                            <option value="3">Abel</option>
-                            <option value="4">Pablo</option>
-                            <option value="5">Juan Martín</option>
-                         </select>
+                    <select  id="Select3" ng-model="item.AuditorAsignado" ng-options="clasif.Id as clasif.Nombre for clasif in Auditores" style="font-size:12px !important" class="form-control">
+                        </select>
+
+                        
                     </td>
                     
                 </tr>
@@ -182,14 +172,8 @@
                         <span>{{item.EstadoAlCierre}}</span>
                     </td>
                     <td>
-                        <select ng-model="item.AuditorAsignado" id="Select2" class="form-control" style="font-size:12px !important" >
-                            <option value=""></option>
-                            <option value="1">Daniel</option>
-                            <option value="2">Carina</option>
-                            <option value="3">Abel</option>
-                            <option value="4">Pablo</option>
-                            <option value="5">Juan Martín</option>
-                         </select>
+                         <select  id="Select1" ng-model="item.AuditorAsignado" ng-options="clasif.Id as clasif.Nombre for clasif in Auditores" style="font-size:12px !important" class="form-control">
+                        </select>
                     </td>
                     
                 </tr>
@@ -213,12 +197,7 @@
             <div class="modal-body">
             seleccione el auditor para la asignación:
             </b>
-                <select ng-model="auditorSelected" id="cboAuditores" class="form-control" >
-                    <option value="1">Daniel</option>
-                    <option value="2">Carina</option>
-                    <option value="3">Abel</option>
-                    <option value="4">Pablo</option>
-                    <option value="5">Juan Martín</option>
+                <select  id="cboAuditoresHabilitados" class="form-control" ng-model="auditorSelected" ng-options="clasif.Id as clasif.Nombre for clasif in Auditores"  style="font-size:12px !important" >
                 </select>
                </b>
             </div>
