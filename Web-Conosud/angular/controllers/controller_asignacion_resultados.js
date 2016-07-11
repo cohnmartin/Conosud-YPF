@@ -36,15 +36,26 @@ myAppModule.service('PageMethods', function ($http) {
         });
     };
 
-    this.getHojasConResultado = function (idContratista , idContrato) {
+    this.getHojasConResultado = function (idContratista, idContrato) {
 
         return $http({
             method: 'POST',
             url: 'ws_SeguimientoAuditoria.asmx/getHojasConResultado',
-            data: {IdContratista:idContratista , IdContrato:idContrato},
+            data: { IdContratista: idContratista, IdContrato: idContrato },
             contentType: 'application/json; charset=utf-8'
         });
     };
+
+    this.GrabarAsignacion = function (hojas) {
+
+        return $http({
+            method: 'POST',
+            url: 'ws_SeguimientoAuditoria.asmx/GrabarAsignacionResultado',
+            data: { Hojas: hojas },
+            contentType: 'application/json; charset=utf-8'
+        });
+    };
+
 
 });
 
@@ -72,7 +83,7 @@ myAppModule.controller('controller_asignacion_resultados', function ($scope, Pag
                             .then(function (response) {
                                 $scope.Contratos = response.data.d;
                                 $timeout($scope.openDrop, 300);
-                                
+
                             });
 
 
@@ -112,7 +123,7 @@ myAppModule.controller('controller_asignacion_resultados', function ($scope, Pag
         modalInstance.result.then(function (selectedItem) {
 
             var dataSource = null;
-            dataSource = $scope.HojasAsignacionAuditor;
+            dataSource = $scope.HojasAsignacionResultado;
             for (var i = 0; i < dataSource.length; i++) {
                 dataSource[i].ResultadoAsignado = selectedItem;
             }
@@ -153,6 +164,16 @@ myAppModule.controller('controller_asignacion_resultados', function ($scope, Pag
         });
     };
 
+    $scope.GuardarCambios = function () {
+
+        PageMethods.GrabarAsignacion($scope.HojasAsignacionResultado)
+                    .then(function (response) {
+                        alertify.notify("Datos Grabados Correctamente", 'success',3);
+                        //alert("Datos Grabados Correctamente");
+                    });
+
+    };
+
     $scope.BuscarHojasAsignarResultado();
 
 });
@@ -162,7 +183,7 @@ myAppModule.controller('controller_asignacion_resultados', function ($scope, Pag
 
 myAppModule.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance) {
 
-    
+
     $scope.resultadoSelected;
 
     $scope.ok = function () {

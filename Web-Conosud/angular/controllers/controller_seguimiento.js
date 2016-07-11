@@ -26,11 +26,22 @@ myAppModule.service('PageMethods', function ($http) {
         });
     };
 
-   
+
+    this.GrabarAsignacion = function (hojas) {
+
+        return $http({
+            method: 'POST',
+            url: 'ws_SeguimientoAuditoria.asmx/GrabarAsignacion',
+            data: { Hojas: hojas},
+            contentType: 'application/json; charset=utf-8'
+        });
+    };
+
+
 
 });
 
-myAppModule.controller('controller_seguimiento', function ($scope, PageMethods, $uibModal, $log, $http,$timeout) {
+myAppModule.controller('controller_seguimiento', function ($scope, PageMethods, $uibModal, $log, $http, $timeout) {
     $scope.HojasAsignacionAuditorET;
     $scope.HojasAsignacionAuditorFT;
     $scope.HojasAsignacionAuditorOT;
@@ -45,7 +56,7 @@ myAppModule.controller('controller_seguimiento', function ($scope, PageMethods, 
     $scope.oneAtATime = true;
 
 
-    $scope.itemsET=0;
+    $scope.itemsET = 0;
     $scope.filteredET;
     $scope.descSearch;
     $scope.cantidadRegistros = 10;
@@ -53,28 +64,27 @@ myAppModule.controller('controller_seguimiento', function ($scope, PageMethods, 
 
     $scope.descSearchOT;
     $scope.filteredOT;
-    $scope.itemsOT=0;
+    $scope.itemsOT = 0;
     $scope.paginaActualOT = 1;
-    
-  
+
+
     $scope.Contratos = undefined;
 
-    $scope.BuscarContratos = function(Id){
-                PageMethods.getContratos(Id)
+    $scope.BuscarContratos = function (Id) {
+        PageMethods.getContratos(Id)
                             .then(function (response) {
-                                    $scope.Contratos = response.data.d;
-                                    $timeout($scope.openDrop, 300);
-                                
+                                $scope.Contratos = response.data.d;
+                                $timeout($scope.openDrop, 300);
+
                             });
 
-  
+
     };
 
-    $scope.openDrop = function()
-    {
+    $scope.openDrop = function () {
         var e = document.createEvent('MouseEvents');
-        e.initMouseEvent("mousedown",true,true,window,0,0,0,0,0,false,false,false,false,0,null);
-        $("#Select1")[0].dispatchEvent(e);	
+        e.initMouseEvent("mousedown", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+        $("#Select1")[0].dispatchEvent(e);
 
     }
 
@@ -85,14 +95,14 @@ myAppModule.controller('controller_seguimiento', function ($scope, PageMethods, 
             url: 'ws_VehiculosYPF.asmx/getContratistas ',
             data: { nombre: val },
             contentType: 'application/json; charset=utf-8'
-            }).then(function (response) {
-                return response.data.d
+        }).then(function (response) {
+            return response.data.d
         });
 
     };
 
 
-    $scope.open = function (size , tipoDataSource) {
+    $scope.open = function (size, tipoDataSource) {
 
         var modalInstance = $uibModal.open({
             animation: $scope.animationsEnabled,
@@ -103,17 +113,17 @@ myAppModule.controller('controller_seguimiento', function ($scope, PageMethods, 
         });
 
         modalInstance.result.then(function (selectedItem) {
-            
-            var dataSource=null;
-            if (tipoDataSource=='ET') {dataSource = $scope.HojasAsignacionAuditorET}
-            if (tipoDataSource=='FT') {dataSource = $scope.HojasAsignacionAuditorFT}
-            if (tipoDataSource=='OT') {dataSource = $scope.HojasAsignacionAuditorOT}
+
+            var dataSource = null;
+            if (tipoDataSource == 'ET') { dataSource = $scope.HojasAsignacionAuditorET }
+            if (tipoDataSource == 'FT') { dataSource = $scope.HojasAsignacionAuditorFT }
+            if (tipoDataSource == 'OT') { dataSource = $scope.HojasAsignacionAuditorOT }
 
             for (var i = 0; i < dataSource.length; i++) {
                 dataSource[i].AuditorAsignado = selectedItem;
             }
-            
-            
+
+
         }, function () {
             $log.info('Modal dismissed at: ' + new Date());
         });
@@ -132,12 +142,33 @@ myAppModule.controller('controller_seguimiento', function ($scope, PageMethods, 
                         $scope.HojasAsignacionAuditorET = response.data.d["HojasET"];
                         $scope.HojasAsignacionAuditorFT = response.data.d["HojasFT"];
                         $scope.HojasAsignacionAuditorOT = response.data.d["HojasOT"];
-                        $scope.Auditores= response.data.d["Auditores"];
+                        $scope.Auditores = response.data.d["Auditores"];
 
-                        $scope.itemsET= $scope.HojasAsignacionAuditorET.length;
-                        $scope.itemsOT= $scope.HojasAsignacionAuditorOT.length;
+                        $scope.itemsET = $scope.HojasAsignacionAuditorET.length;
+                        $scope.itemsOT = $scope.HojasAsignacionAuditorOT.length;
 
-                   });
+                    });
+    };
+
+
+    $scope.GuardarCambios = function (tipo) {
+
+        datos = null;
+        if (tipo == 'ET') {
+            datos = $scope.HojasAsignacionAuditorET;
+        }
+        else if (tipo == 'FT') {
+            datos = $scope.HojasAsignacionAuditorFT;
+        }
+        else {
+            datos = $scope.HojasAsignacionAuditorOT;
+        }
+
+        PageMethods.GrabarAsignacion(datos)
+                    .then(function (response) {
+                        alertify.notify("Datos Grabados Correctamente", 'success', 3);
+                    });
+
     };
 
     $scope.BuscarHojasAsignarAuditor();
@@ -149,7 +180,7 @@ myAppModule.controller('controller_seguimiento', function ($scope, PageMethods, 
 
 myAppModule.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance) {
 
-    
+
     $scope.auditorSelected;
 
     $scope.ok = function () {

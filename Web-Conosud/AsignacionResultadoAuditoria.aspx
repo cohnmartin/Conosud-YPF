@@ -8,7 +8,12 @@
     <script src="Styles/bootstrap-dist/js/bootstrap.js" type="text/javascript"></script>
     <script src="angular/controllers/controller_asignacion_resultados.js" type="text/javascript"></script>
     <script src="Scripts/AngularUI/ui-bootstrap-tpls-1.3.3.js" type="text/javascript"></script>
+    <script src="Scripts/alertify/alertify.js" type="text/javascript"></script>
     <link href="Styles/bootstrap-dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="Scripts/alertify/css/alertify.css" rel="stylesheet" type="text/css" />
+    <link href="Scripts/alertify/css/alertify.rtl.css" rel="stylesheet" type="text/css" />
+    <link href="Scripts/alertify/css/themes/default.css" rel="stylesheet" type="text/css" />
+
 <div id="ng-app" ng-app="myApp" ng-controller="controller_asignacion_resultados">
 
     <table id="tblTitulo" cellpadding="0" cellspacing="5" style="width: 80%; padding-top: 10px">
@@ -20,16 +25,22 @@
         </tr>
     </table>
     
+ <div style="padding: 5px">
   <uib-accordion close-others="false">
    
 
-    <uib-accordion-group  panel-class="panel-info" style="text-align:left !important;">
+    <uib-accordion-group  panel-class="panel-primary" style="text-align:left !important;">
       <uib-accordion-heading >
-        Sin Resultados<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+        Para Asignar Resultados<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
       </uib-accordion-heading>
       
       <table id="Table2" class="table table-striped table-bordered table-hover table-condensed " style="font-size:11px !important" >
             <thead>
+            <tr>
+                                <th colspan="6">
+                                    <button type="button" class="btn btn-danger btn-m" ng-click="GuardarCambios()" ><i class="glyphicon glyphicon-floppy-disk"></i> Guardar Cambios</button>
+                                </th>
+                            </tr>
                 <tr>
                     <th>
                         Contrato
@@ -76,9 +87,9 @@
 
     </uib-accordion-group>
 
-    <uib-accordion-group  panel-class="panel-info" style="text-align:left !important;">
+    <uib-accordion-group  panel-class="panel-primary" style="text-align:left !important;">
       <uib-accordion-heading >
-        Resultado Asignados <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+        Buscar Resultado Asignados <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
       </uib-accordion-heading>
       
 
@@ -172,5 +183,6 @@
             <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
         </div>
         </script>
+</div>
 </div>
 </asp:Content>

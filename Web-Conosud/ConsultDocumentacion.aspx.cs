@@ -273,6 +273,14 @@ public partial class ConsultDocumentacion : System.Web.UI.Page
         itemsHoja.CabeceraHojasDeRuta.Publicar = false;
         idcabecera = itemsHoja.CabeceraHojasDeRuta.IdCabeceraHojasDeRuta;
 
+
+        if (itemsHoja.CabeceraHojasDeRuta != null)
+        {
+            string estado = UpdateSeguimientoAuditoria(idcabecera, itemsHoja.CabeceraHojasDeRuta.Periodo);
+            itemsHoja.CabeceraHojasDeRuta.EstadoAlCierre = estado != "" ? estado : itemsHoja.CabeceraHojasDeRuta.EstadoAlCierre;
+        }
+        
+
         _dc.SaveChanges();
 
         return (from H in _dc.HojasDeRuta
@@ -331,15 +339,14 @@ public partial class ConsultDocumentacion : System.Web.UI.Page
 
             // Busco para determinar si ya hay un registro de seguimiento para el mismo mes de la recepcion 
             // si no lo hay debo crearlo.
-            SeguimientoAuditoria segActual = seguimientosHoja.Where(w => w.FechaRecepcion.Month == DateTime.Now.Month && w.FechaRecepcion.Year == DateTime.Now.Year).FirstOrDefault();
+            List<SeguimientoAuditoria> allSegActual = seguimientosHoja.Where(w => w.objCabecera.IdCabeceraHojasDeRuta == idCabecera).ToList();
+            SeguimientoAuditoria segActual = allSegActual.Where(w => w.FechaRecepcion.Month == DateTime.Now.Month && w.FechaRecepcion.Year == DateTime.Now.Year).FirstOrDefault();
             if (segActual == null)
             {
                 segActual = new SeguimientoAuditoria();
                 segActual.FechaRecepcion = DateTime.Now;
-                segActual.Cabcera= idCabecera; 
-                //(from H in dc.CabeceraHojasDeRuta
-                //                                     where H.IdCabeceraHojasDeRuta == idCabecera
-                //                                     select H).FirstOrDefault<Entidades.CabeceraHojasDeRuta>();
+                segActual.Cabcera= idCabecera;
+                segActual.NroPresentacion = allSegActual.Count();
                 dc.AddToSeguimientoAuditoria(segActual);
                 dc.SaveChanges();
             }

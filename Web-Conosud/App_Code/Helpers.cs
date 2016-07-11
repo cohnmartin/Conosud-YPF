@@ -71,6 +71,8 @@ public class Helpers
     {
         public const string ContextoVehiculosYPF = "Vehiculos YPF";
         public const string ResultadosAuditoria = "RESULTADOS_AUDITORIA";
+        public const string CodigoResultadosAuditoria_Retencion = "RETENCION";
+        
 
         public abstract class PaginaMenu_
         {
