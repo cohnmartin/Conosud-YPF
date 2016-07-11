@@ -10063,6 +10063,30 @@ namespace Entidades
         private Nullable<global::System.Int64> _AudtorInterino;
         partial void OnAudtorInterinoChanging(Nullable<global::System.Int64> value);
         partial void OnAudtorInterinoChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> NroPresentacion
+        {
+            get
+            {
+                return _NroPresentacion;
+            }
+            set
+            {
+                OnNroPresentacionChanging(value);
+                ReportPropertyChanging("NroPresentacion");
+                _NroPresentacion = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("NroPresentacion");
+                OnNroPresentacionChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _NroPresentacion;
+        partial void OnNroPresentacionChanging(Nullable<global::System.Int32> value);
+        partial void OnNroPresentacionChanged();
 
         #endregion
 

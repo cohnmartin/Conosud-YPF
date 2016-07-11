@@ -685,6 +685,7 @@
           <Property Name="Retencion" Type="decimal" Scale="2" />
           <Property Name="FechaAsignacionInterino" Type="date" />
           <Property Name="AudtorInterino" Type="bigint" />
+          <Property Name="NroPresentacion" Type="int" />
         </EntityType>
         <EntityType Name="SegUsuario">
           <Key>
@@ -2566,6 +2567,7 @@
           <NavigationProperty Name="objResultado" Relationship="ModeloConosud.FK_SeguimientoAuditoria_Clasificacion" FromRole="SeguimientoAuditoria" ToRole="Clasificacion" />
           <NavigationProperty Name="objAuditorAsignado" Relationship="ModeloConosud.FK_SeguimientoAuditoria_SeguimientoAuditoria" FromRole="SeguimientoAuditoria" ToRole="SegUsuario" />
           <NavigationProperty Name="objAuditorInterino" Relationship="ModeloConosud.FK_SeguimientoAuditoria_SegUsuario" FromRole="SeguimientoAuditoria" ToRole="SegUsuario" />
+          <Property Type="Int32" Name="NroPresentacion" />
         </EntityType>
         <Association Name="FK_SeguimientoAuditoria_Cabecera">
           <End Type="ModeloConosud.CabeceraHojasDeRuta" Role="CabeceraHojasDeRuta" Multiplicity="1" />
@@ -3400,6 +3402,7 @@
           <EntitySetMapping Name="SeguimientoAuditoria">
             <EntityTypeMapping TypeName="ModeloConosud.SeguimientoAuditoria">
               <MappingFragment StoreEntitySet="SeguimientoAuditoria">
+                <ScalarProperty Name="NroPresentacion" ColumnName="NroPresentacion" />
                 <ScalarProperty Name="AudtorInterino" ColumnName="AudtorInterino" />
                 <ScalarProperty Name="FechaAsignacionInterino" ColumnName="FechaAsignacionInterino" />
                 <ScalarProperty Name="Retencion" ColumnName="Retencion" />
