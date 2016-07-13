@@ -78,7 +78,7 @@
 
 
                 /// Controles Tipo Combos
-                if (cellobjART.outerText != "") {
+                if (cellobjART.outerText.trim() != "") {
                     var itemTipoDoc = $find("<%= cboART.ClientID%>").findItemByText(cellobjART.outerText.trim());
                     $find("<%= cboART.ClientID%>").set_selectedItem(itemTipoDoc);
                     itemTipoDoc.select();
