@@ -10,10 +10,40 @@
     <script src="Scripts/AngularUI/ui-bootstrap-tpls-1.3.3.js" type="text/javascript"></script>
     <link href="Styles/bootstrap-dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
     <script src="Scripts/alertify/alertify.js" type="text/javascript"></script>
-
     <link href="Scripts/alertify/css/alertify.css" rel="stylesheet" type="text/css" />
     <link href="Scripts/alertify/css/themes/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="Styles/animate.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        /* set reference point */
+        .tab-animation > .tab-content {
+            position: relative;
+            background-color:White;
+        }
 
+        /* set animate effect */
+        .tab-animation > .tab-content > .tab-pane{
+            transition: 0.2s linear opacity;
+        }
+
+        /* overwrite display: none and remove from document flow */
+        .tab-animation > .tab-content > .tab-pane.active-remove {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            display: block;
+        }
+
+        /* opacity=0 when removing "active" class */
+        .tab-animation > .tab-content > .tab-pane.active-remove-active {
+            opacity: 0;
+        }
+
+        /* opacity=0 when adding "active" class */
+        .tab-animation > .tab-content > .tab-pane.active-add {
+            opacity: 0;
+        }
+    
+    </style>
     <table id="tblTitulo" cellpadding="0" cellspacing="5" style="width: 80%; padding-top: 10px">
         <tr>
             <td align="center" style="height: 35px; padding-left: 15px; padding-top: 15px; padding-bottom: 15px">
@@ -22,15 +52,12 @@
             </td>
         </tr>
     </table>
-    <div id="ng-app" ng-app="myApp" ng-controller="controller_seguimiento">
-        <div style="padding: 5px">
-            <uib-accordion close-others="false">
-                <uib-accordion-group  panel-class="panel-primary" style="text-align:left !important;">
-                  <uib-accordion-heading >
-                    EN TERMINO <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
-                  </uib-accordion-heading>
-      
-                   <table id="example" class="table table-striped table-bordered table-hover table-condensed " style="font-size:11px !important" >
+    <div id="ng-app" ng-app="myApp" ng-controller="controller_seguimiento" >
+     <div style="padding-left:5px;padding-right:5px;" >
+        <uib-tabset >
+            <uib-tab heading="EN TERMINO" >
+                                                                                                                                                                                                                                                            <div class="animated fadeIn" style="font-size:11px !important;background-color:White !important;padding-top:5px;padding-bottom:5px" >
+             <table id="example" class="table table-striped table-bordered table-hover table-condensed " style="font-size:11px !important;background-color:White !important;width:98% !important;" >
                         <thead>
                             <tr>
                                 <th colspan="6">
@@ -72,6 +99,7 @@
                     </td>
                     <td >
                         <select  id="cboAuditores" ng-model="item.AuditorAsignado" ng-options="clasif.Id as clasif.Nombre for clasif in Auditores"  style="font-size:12px !important" class="form-control">
+                            <option value=""></option>
                         </select>
                     </td>
                     
@@ -87,14 +115,11 @@
                         </tr>
                         </tfoot>
                     </table>
-
-                        </uib-accordion-group>
-
-                <uib-accordion-group  panel-class="panel-primary" style="text-align:left !important;">
-                  <uib-accordion-heading >
-                    FUERA DE TERMINO <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
-                  </uib-accordion-heading>
-                   <table id="Table1" class="table table-striped table-bordered table-hover table-condensed " style="font-size:11px !important" >
+            </div>
+            </uib-tab>
+            <uib-tab heading="FUERA TERMINO" >
+            <div class="animated fadeIn" style="font-size:11px !important;background-color:White !important;padding-top:5px;padding-bottom:5px" >
+                                                                                                                                                                                                                     <table id="Table1" class="table table-striped table-bordered table-hover table-condensed " style="font-size:11px !important;background-color:White !important;width:98% !important;" >
                         <thead>
                         <tr>
                                 <th colspan="6">
@@ -136,6 +161,7 @@
                                 </td>
                                 <td>
                                 <select  id="Select3" ng-model="item.AuditorAsignado" ng-options="clasif.Id as clasif.Nombre for clasif in Auditores" style="font-size:12px !important" class="form-control">
+                                     <option value=""></option>
                                     </select>
 
                         
@@ -144,13 +170,11 @@
                             </tr>
                         </tbody>
                     </table>
-    </uib-accordion-group>
-
-    <uib-accordion-group  panel-class="panel-primary" style="text-align:left !important;">
-      <uib-accordion-heading >
-        OTRAS <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
-      </uib-accordion-heading>
-       <table id="Table2" class="table table-striped table-bordered table-hover table-condensed " style="font-size:11px !important" >
+            </div>
+            </uib-tab>
+            <uib-tab heading="OTRAS" >
+           <div class="animated fadeIn" style="font-size:11px !important;background-color:White !important;padding-top:5px;padding-bottom:5px" >
+                                                                                                                                                                                                                                                     <table id="Table2" class="table table-striped table-bordered table-hover table-condensed " style="font-size:11px !important;background-color:White !important;width:98% !important;" >
             <thead>
             <tr>
                     <th colspan="6">
@@ -192,6 +216,7 @@
                     </td>
                     <td>
                          <select  id="Select1" ng-model="item.AuditorAsignado" ng-options="clasif.Id as clasif.Nombre for clasif in Auditores" style="font-size:12px !important" class="form-control">
+                         <option value=""></option>
                         </select>
                     </td>
                     
@@ -207,9 +232,11 @@
             </tr>
             </tfoot>
         </table>
-    </uib-accordion-group>
-  </uib-accordion>
-            <script type="text/ng-template" id="myModalContent.html">
+            </div>
+            </uib-tab>
+        </uib-tabset>
+        </div>
+        <script type="text/ng-template" id="myModalContent.html">
         <div class="modal-header">
             <h3 class="modal-title">Asignación Masiva Auditor</h3>
         </div>
@@ -224,7 +251,7 @@
             <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
             <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
         </div>
-            </script>
-        </div>
+        </script>
+    </div>
     </div>
 </asp:Content>

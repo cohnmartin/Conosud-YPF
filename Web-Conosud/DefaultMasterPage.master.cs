@@ -97,6 +97,8 @@ public partial class DefaultMasterPage : System.Web.UI.MasterPage
                     Response.Redirect("Login.aspx");
                 }
             }
+
+            
         }
         catch (Exception ex)
         {

@@ -163,7 +163,7 @@ public class ws_SeguimientoAuditoria : System.Web.Services.WebService
             datos.Add("ResultadosPosibles", resultados);
 
             #endregion
-            
+
             return datos;
 
         }
@@ -181,9 +181,9 @@ public class ws_SeguimientoAuditoria : System.Web.Services.WebService
 
             #region Busqueda de hojas para asignar resultado
             long? nullValue = null;
-            long? idContatista = IdContratista != "" ? long.Parse(IdContratista) : nullValue; 
+            long? idContatista = IdContratista != "" ? long.Parse(IdContratista) : nullValue;
             long? idContrato = IdContrato != "" ? long.Parse(IdContrato) : nullValue;
-            
+
 
             IQueryable<SeguimientoAuditoria> query = null;
             query = dc.SeguimientoAuditoria;
@@ -248,7 +248,8 @@ public class ws_SeguimientoAuditoria : System.Web.Services.WebService
             #region Busqueda de hojas para asignar auditor
 
             var hojas = (from s in dc.SeguimientoAuditoria.Include("CabeceraRutas")
-                         where s.objResultado != null && s.objResultado.Codigo ==  Helpers.Constantes.CodigoResultadosAuditoria_Retencion && s.Retencion == null
+                         where s.objResultado != null && s.objResultado.Codigo == Helpers.Constantes.CodigoResultadosAuditoria_Retencion
+                         && ((s.Retencion != null && (s.FechaRetencion.Value.Month == DateTime.Now.Month && s.FechaRetencion.Value.Year == DateTime.Now.Year)) || s.Retencion == null)
                          select new
                          {
                              CodigoContrato = s.objCabecera.ContratoEmpresas.Contrato.Codigo,
@@ -257,7 +258,8 @@ public class ws_SeguimientoAuditoria : System.Web.Services.WebService
                              EstadoAlCierre = s.objCabecera.EstadoAlCierre,
                              IdCabeceraHojasDeRuta = s.objCabecera.IdCabeceraHojasDeRuta,
                              IdSeguimiento = s.Id,
-                             NroPresentacion = s.NroPresentacion
+                             NroPresentacion = s.NroPresentacion,
+                             Retencion = s.Retencion
                          }).ToList();
 
             var hojasFormateadas = (from s in hojas
@@ -271,20 +273,20 @@ public class ws_SeguimientoAuditoria : System.Web.Services.WebService
                                         IdCabeceraHojasDeRuta = s.IdCabeceraHojasDeRuta,
                                         IdSeguimiento = s.IdSeguimiento,
                                         NroPresentacion = s.NroPresentacion == 0 ? "1º PRESENTACION" : s.NroPresentacion.ToString() + "º ADICIONAL",
-                                        Retencion = 0
-                                    }).ToList();
+                                        Retencion = s.Retencion == null ? 0 : s.Retencion
+                                    }).OrderBy(w => w.Contratista).ThenBy(w => w.CodigoContrato).ToList();
 
 
             datos.Add("Hojas", hojasFormateadas);
 
             #endregion
-          
+
             return datos;
 
         }
 
     }
-    
+
     [WebMethod]
     public bool GrabarAsignacion(IList<IDictionary<string, object>> Hojas)
     {
@@ -306,8 +308,8 @@ public class ws_SeguimientoAuditoria : System.Web.Services.WebService
             foreach (var item in Hojas)
             {
                 var seg = segs.Where(w => w.Id == long.Parse(item["IdSeguimiento"].ToString())).First();
-                seg.AuditorAsignado = item["AuditorAsignado"] != null && item["AuditorAsignado"].ToString() != "" ? long.Parse(item["AuditorAsignado"].ToString()): longNulo;
-                seg.FechaAsignacion = DateTime.Now;
+                seg.AuditorAsignado = item["AuditorAsignado"] != null && item["AuditorAsignado"].ToString() != "" ? long.Parse(item["AuditorAsignado"].ToString()) : longNulo;
+                seg.FechaAsignacion = item["AuditorAsignado"] != null && item["AuditorAsignado"].ToString() != "" ? DateTime.Now : fechaNula;
             }
 
             dc.SaveChanges();
@@ -463,7 +465,7 @@ public class ws_SeguimientoAuditoria : System.Web.Services.WebService
         //}
         return true;
     }
-    
+
     [WebMethod]
     public bool GrabarAsignacionResultado(IList<IDictionary<string, object>> Hojas)
     {
@@ -485,17 +487,297 @@ public class ws_SeguimientoAuditoria : System.Web.Services.WebService
             foreach (var item in Hojas)
             {
                 var seg = segs.Where(w => w.Id == long.Parse(item["IdSeguimiento"].ToString())).First();
-                seg.Resultado = item["ResultadoAsignado"] != null &&  item["ResultadoAsignado"].ToString() != "" ? long.Parse(item["ResultadoAsignado"].ToString()) : longNulo;
-                seg.FechaResultado= DateTime.Now;
+                seg.Resultado = item["ResultadoAsignado"] != null && item["ResultadoAsignado"].ToString() != "" ? long.Parse(item["ResultadoAsignado"].ToString()) : longNulo;
+                seg.FechaResultado = item["ResultadoAsignado"] != null && item["ResultadoAsignado"].ToString() != "" ? DateTime.Now : fechaNula;
             }
 
             dc.SaveChanges();
         }
 
-      
+
         return true;
     }
-    
+
+    [WebMethod]
+    public bool GrabarAsignacionRetencion(IList<IDictionary<string, object>> Hojas)
+    {
+        DateTime? fechaNula = null;
+        long? longNulo = null;
+        List<long> idsSeg = new List<long>();
+        foreach (var item in Hojas)
+        {
+            idsSeg.Add(long.Parse(item["IdSeguimiento"].ToString()));
+        }
+
+        using (EntidadesConosud dc = new EntidadesConosud())
+        {
+            var segs = (from s in dc.SeguimientoAuditoria
+                        where idsSeg.Contains(s.Id)
+                        select s).ToList();
+
+
+            foreach (var item in Hojas)
+            {
+                var seg = segs.Where(w => w.Id == long.Parse(item["IdSeguimiento"].ToString())).First();
+                seg.Retencion = item["Retencion"] != null && item["Retencion"].ToString() != "" ? long.Parse(item["Retencion"].ToString()) : longNulo;
+                seg.FechaRetencion = item["Retencion"] != null && item["Retencion"].ToString() != "" ? DateTime.Now : fechaNula;
+            }
+
+            dc.SaveChanges();
+        }
+
+
+        return true;
+    }
+
+    [WebMethod]
+    public object getReporteSeguimiento()
+    {
+        Dictionary<string, object> datos = new Dictionary<string, object>();
+
+        using (Entidades.EntidadesConosud dc = new Entidades.EntidadesConosud())
+        {
+
+
+            #region Busqueda de hojas para asignar auditor
+            CabeceraHojasDeRuta hh = new CabeceraHojasDeRuta();
+            int mes = DateTime.Now.AddMonths(-1).Month;
+            int año = DateTime.Now.AddMonths(-1).Year;
+            DateTime? fechaNula = null;
+
+            var ResultadoConsulta = (from cab in dc.CabeceraHojasDeRuta.Include("colSeguimientoAuditoria")
+                                     where cab.Periodo.Month == mes && cab.Periodo.Year == año
+                                    && cab.ContratoEmpresas.Empresa != null
+                                    && cab.ContratoEmpresas.Contrato != null
+                                     orderby cab.ContratoEmpresas.Empresa.RazonSocial
+                                     , cab.ContratoEmpresas.Contrato.Codigo
+                                     select new
+                                     {
+                                         CabeceraHojasDeRuta = cab,
+                                         ContratoEmp = cab.ContratoEmpresas,
+                                         Codigo = cab.ContratoEmpresas.Contrato.Codigo,
+                                         FechaInicio = cab.ContratoEmpresas.Contrato.FechaInicio.Value,
+                                         Estado = cab.Estado.Descripcion,
+                                         NroCarpeta = cab.NroCarpeta,
+                                         Periodo = cab.Periodo,
+                                         Empresa = cab.ContratoEmpresas.Empresa,
+                                         EsContratista = cab.ContratoEmpresas.EsContratista.Value,
+                                         EsFueraTermino = cab.EsFueraTermino,
+                                         IdCabeceraHojasDeRuta = cab.IdCabeceraHojasDeRuta,
+                                         ConstratistaParaSubConstratista = "",
+                                         Seguimiento = cab.colSeguimientoAuditoria
+                                     }).ToList();
+
+
+            var ResultadoFormateado = (from cab in ResultadoConsulta
+                                       select new
+                                       {
+                                           Periodo = string.Format("{0:yyyy/MM}", cab.Periodo),
+                                           NroContrato = cab.Codigo,
+                                           FechaInicio = cab.FechaInicio.ToShortDateString(),
+                                           FechaFin = cab.ContratoEmp.Contrato.Prorroga != null ? cab.ContratoEmp.Contrato.Prorroga.Value.ToShortDateString() : cab.ContratoEmp.Contrato.FechaVencimiento.Value.ToShortDateString(),
+                                           Clasificacion = cab.ContratoEmp.Contrato.TipoContrato.Descripcion,
+                                           Estado = cab.Estado,
+                                           NroCarpeta = cab.NroCarpeta,
+                                           Contratista = cab.Empresa.RazonSocial.ToUpper(),
+                                           IdCabeceraHojasDeRuta = cab.IdCabeceraHojasDeRuta,
+                                           ConstratistaParaSubConstratista = !cab.EsContratista ? ResultadoConsulta.Where(w => w.Codigo == cab.Codigo && w.EsContratista).FirstOrDefault().Empresa.RazonSocial : "",
+                                           Auditor = cab.Seguimiento.Count() > 0 && cab.Seguimiento.Last().objAuditorAsignado != null ? cab.Seguimiento.Last().objAuditorAsignado.Login.ToString() : "-",
+                                           SituacionAlCierre = cab.CabeceraHojasDeRuta.EstadoAlCierre == null || cab.CabeceraHojasDeRuta.EstadoAlCierre == "" ? "SIN PRESENTACION" : cab.CabeceraHojasDeRuta.EstadoAlCierre,
+
+                                           //FechaRecepcion1 = cab.Seguimiento.Count() > 0 ? cab.Seguimiento.First().FechaRecepcion : fechaNula,
+                                           //FechaAuditoria1 = cab.Seguimiento.Count() > 0 ? cab.Seguimiento.First().FechaResultado : fechaNula,
+                                           //Resultado1 = cab.Seguimiento.Count() > 0 && cab.Seguimiento.First().objResultado != null ? cab.Seguimiento.First().objResultado.Descripcion : "",
+                                           //FechaRetencion1 = cab.Seguimiento.Count() > 0 && cab.Seguimiento.First().FechaRetencion != null ? cab.Seguimiento.First().FechaRetencion : fechaNula,
+                                           //Retencion1 = cab.Seguimiento.Count() > 0 && cab.Seguimiento.First().FechaRetencion != null ? cab.Seguimiento.First().Retencion.ToString() : "",
+
+                                           //FechaRecepcion2 = cab.Seguimiento.Count() > 1 ? cab.Seguimiento.Skip(1).Take(1).First().FechaRecepcion : fechaNula,
+                                           //FechaAuditoria2 = cab.Seguimiento.Count() > 1 ? cab.Seguimiento.Skip(1).Take(1).First().FechaResultado : fechaNula,
+                                           //Resultado2 = cab.Seguimiento.Count() > 1 && cab.Seguimiento.Skip(1).Take(1).First().objResultado != null ? cab.Seguimiento.Skip(1).Take(1).First().objResultado.Descripcion : "",
+                                           //FechaRetencion2 = cab.Seguimiento.Count() > 1 && cab.Seguimiento.Skip(1).Take(1).First().FechaRetencion != null ? cab.Seguimiento.Skip(1).Take(1).First().FechaRetencion : fechaNula,
+                                           //Retencion2 = cab.Seguimiento.Count() > 1 && cab.Seguimiento.Skip(1).Take(1).First().FechaRetencion != null ? cab.Seguimiento.Skip(1).Take(1).First().Retencion.ToString() : "",
+
+                                           //FechaRecepcion3 = cab.Seguimiento.Count() > 2 ? cab.Seguimiento.Skip(2).Take(1).First().FechaRecepcion : fechaNula,
+                                           //FechaAuditoria3 = cab.Seguimiento.Count() > 2 ? cab.Seguimiento.Skip(2).Take(1).First().FechaResultado : fechaNula,
+                                           //Resultado3 = cab.Seguimiento.Count() > 2 && cab.Seguimiento.Skip(2).Take(1).First().objResultado != null ? cab.Seguimiento.Skip(2).Take(1).First().objResultado.Descripcion : "",
+                                           //FechaRetencion3 = cab.Seguimiento.Count() > 2 && cab.Seguimiento.Skip(2).Take(1).First().FechaRetencion != null ? cab.Seguimiento.Skip(2).Take(1).First().FechaRetencion : fechaNula,
+                                           //Retencion3 = cab.Seguimiento.Count() > 2 && cab.Seguimiento.Skip(2).Take(1).First().FechaRetencion != null ? cab.Seguimiento.Skip(2).Take(1).First().Retencion.ToString() : "",
+
+
+                                           FechaRecepcionUltima = cab.Seguimiento.Count() > 0 ? cab.Seguimiento.Last().FechaRecepcion.ToShortDateString() : "",
+                                           FechaAuditoriaUltima = cab.Seguimiento.Count() > 0 && cab.Seguimiento.Last().FechaResultado != null ? cab.Seguimiento.Last().FechaResultado.Value.ToShortDateString() : "",
+                                           ResultadoUltima = cab.Seguimiento.Count() > 0 && cab.Seguimiento.Last().objResultado != null ? cab.Seguimiento.Last().objResultado.Descripcion : "",
+                                           FechaRetencionUltima = cab.Seguimiento.Count() > 0 && cab.Seguimiento.Last().FechaRetencion != null ? cab.Seguimiento.Last().FechaRetencion.Value.ToShortDateString() : "",
+                                           RetencionUltima = cab.Seguimiento.Count() > 0 && cab.Seguimiento.Last().FechaRetencion != null ? cab.Seguimiento.Last().Retencion.ToString() : "",
+                                           EstadoActualAuditoria = cab.Seguimiento.Count() == 0 ? "Sin Documentacion" : (cab.Seguimiento.Last().FechaResultado == null ? "En Proceso" : "Terminado")
+
+
+
+
+                                       }).ToList();
+
+            #endregion
+
+
+            datos.Add("Hojas", ResultadoFormateado.ToList());
+
+
+        }
+
+        return datos;
+
+
+    }
+
+
+    [WebMethod]
+    public List<dynamic> getReporteSeguimientoExcel()
+    {
+        Dictionary<string, object> datos = new Dictionary<string, object>();
+
+        using (Entidades.EntidadesConosud dc = new Entidades.EntidadesConosud())
+        {
+
+            #region Busqueda de hojas para asignar auditor
+            CabeceraHojasDeRuta hh = new CabeceraHojasDeRuta();
+            int mes = DateTime.Now.AddMonths(-1).Month;
+            int año = DateTime.Now.AddMonths(-1).Year;
+
+            var ResultadoConsulta = (from cab in dc.CabeceraHojasDeRuta.Include("colSeguimientoAuditoria")
+                                     where cab.Periodo.Month == mes && cab.Periodo.Year == año
+                                    && cab.ContratoEmpresas.Empresa != null
+                                    && cab.ContratoEmpresas.Contrato != null
+                                     orderby cab.ContratoEmpresas.Empresa.RazonSocial
+                                     , cab.ContratoEmpresas.Contrato.Codigo
+                                     select new
+                                     {
+                                         CabeceraHojasDeRuta = cab,
+                                         ContratoEmp = cab.ContratoEmpresas,
+                                         Codigo = cab.ContratoEmpresas.Contrato.Codigo,
+                                         FechaInicio = cab.ContratoEmpresas.Contrato.FechaInicio.Value,
+                                         Estado = cab.Estado.Descripcion,
+                                         NroCarpeta = cab.NroCarpeta,
+                                         Periodo = cab.Periodo,
+                                         Empresa = cab.ContratoEmpresas.Empresa,
+                                         EsContratista = cab.ContratoEmpresas.EsContratista.Value,
+                                         EsFueraTermino = cab.EsFueraTermino,
+                                         IdCabeceraHojasDeRuta = cab.IdCabeceraHojasDeRuta,
+                                         ConstratistaParaSubConstratista = "",
+                                         Seguimiento = cab.colSeguimientoAuditoria
+                                     }).ToList();
+
+
+            List<dynamic> ResultadoFormateado = (from cab in ResultadoConsulta
+                                                 select new
+                                                 {
+                                                     Periodo = string.Format("{0:yyyy/MM}", cab.Periodo),
+                                                     NroContrato = cab.Codigo,
+                                                     FechaInicio = cab.FechaInicio.ToShortDateString(),
+                                                     FechaFin = cab.ContratoEmp.Contrato.Prorroga != null ? cab.ContratoEmp.Contrato.Prorroga.Value.ToShortDateString() : cab.ContratoEmp.Contrato.FechaVencimiento.Value.ToShortDateString(),
+                                                     Clasificacion = cab.ContratoEmp.Contrato.TipoContrato.Descripcion,
+                                                     Estado = cab.Estado,
+                                                     NroCarpeta = cab.NroCarpeta,
+                                                     Contratista = cab.Empresa.RazonSocial.ToUpper(),
+                                                     IdCabeceraHojasDeRuta = cab.IdCabeceraHojasDeRuta,
+                                                     ConstratistaParaSubConstratista = !cab.EsContratista ? ResultadoConsulta.Where(w => w.Codigo == cab.Codigo && w.EsContratista).FirstOrDefault().Empresa.RazonSocial : "",
+                                                     Auditor = cab.Seguimiento.Count() > 0 && cab.Seguimiento.Last().objAuditorAsignado != null ? cab.Seguimiento.Last().objAuditorAsignado.Login.ToString() : "-",
+                                                     SituacionAlCierre = cab.CabeceraHojasDeRuta.EstadoAlCierre == null || cab.CabeceraHojasDeRuta.EstadoAlCierre == "" ? "SIN PRESENTACION" : cab.CabeceraHojasDeRuta.EstadoAlCierre,
+
+                                                     FechaRecepcion1 = cab.Seguimiento.Count() > 0 ? cab.Seguimiento.First().FechaRecepcion.ToShortDateString() : "",
+                                                     FechaAuditoria1 = cab.Seguimiento.Count() > 0 && cab.Seguimiento.First().FechaResultado != null ? cab.Seguimiento.First().FechaResultado.Value.ToShortDateString() : "",
+                                                     Resultado1 = cab.Seguimiento.Count() > 0 && cab.Seguimiento.First().objResultado != null ? cab.Seguimiento.First().objResultado.Descripcion : "",
+                                                     FechaRetencion1 = cab.Seguimiento.Count() > 0 && cab.Seguimiento.First().FechaRetencion != null ? cab.Seguimiento.First().FechaRetencion.Value.ToShortDateString() : "",
+                                                     Retencion1 = cab.Seguimiento.Count() > 0 && cab.Seguimiento.First().FechaRetencion != null ? cab.Seguimiento.First().Retencion.ToString() : "",
+
+                                                     FechaRecepcion2 = cab.Seguimiento.Count() > 1 ? cab.Seguimiento.Skip(1).Take(1).First().FechaRecepcion.ToShortDateString() : "",
+                                                     FechaAuditoria2 = cab.Seguimiento.Count() > 1 && cab.Seguimiento.Skip(1).Take(1).First().FechaResultado != null ? cab.Seguimiento.Skip(1).Take(1).First().FechaResultado.Value.ToShortDateString() : "",
+                                                     Resultado2 = cab.Seguimiento.Count() > 1 && cab.Seguimiento.Skip(1).Take(1).First().objResultado != null ? cab.Seguimiento.Skip(1).Take(1).First().objResultado.Descripcion : "",
+                                                     FechaRetencion2 = cab.Seguimiento.Count() > 1 && cab.Seguimiento.Skip(1).Take(1).First().FechaRetencion != null ? cab.Seguimiento.Skip(1).Take(1).First().FechaRetencion.Value.ToShortDateString() : "",
+                                                     Retencion2 = cab.Seguimiento.Count() > 1 && cab.Seguimiento.Skip(1).Take(1).First().FechaRetencion != null ? cab.Seguimiento.Skip(1).Take(1).First().Retencion.ToString() : "",
+
+                                                     FechaRecepcion3 = cab.Seguimiento.Count() > 2 ? cab.Seguimiento.Skip(2).Take(1).First().FechaRecepcion.ToShortDateString() : "",
+                                                     FechaAuditoria3 = cab.Seguimiento.Count() > 2 && cab.Seguimiento.Skip(2).Take(1).First().FechaResultado != null ? cab.Seguimiento.Skip(2).Take(1).First().FechaResultado.Value.ToShortDateString() : "",
+                                                     Resultado3 = cab.Seguimiento.Count() > 2 && cab.Seguimiento.Skip(2).Take(1).First().objResultado != null ? cab.Seguimiento.Skip(2).Take(1).First().objResultado.Descripcion : "",
+                                                     FechaRetencion3 = cab.Seguimiento.Count() > 2 && cab.Seguimiento.Skip(2).Take(1).First().FechaRetencion != null ? cab.Seguimiento.Skip(2).Take(1).First().FechaRetencion.Value.ToShortDateString() : "",
+                                                     Retencion3 = cab.Seguimiento.Count() > 2 && cab.Seguimiento.Skip(2).Take(1).First().FechaRetencion != null ? cab.Seguimiento.Skip(2).Take(1).First().Retencion.ToString() : "",
+
+
+                                                     FechaRecepcionUltima = cab.Seguimiento.Count() > 0 ? cab.Seguimiento.Last().FechaRecepcion.ToShortDateString() : "",
+                                                     FechaAuditoriaUltima = cab.Seguimiento.Count() > 0 && cab.Seguimiento.Last().FechaResultado != null ? cab.Seguimiento.Last().FechaResultado.Value.ToShortDateString() : "",
+                                                     ResultadoUltima = cab.Seguimiento.Count() > 0 && cab.Seguimiento.Last().objResultado != null ? cab.Seguimiento.Last().objResultado.Descripcion : "",
+                                                     FechaRetencionUltima = cab.Seguimiento.Count() > 0 && cab.Seguimiento.Last().FechaRetencion != null ? cab.Seguimiento.Last().FechaRetencion.Value.ToShortDateString() : "",
+                                                     RetencionUltima = cab.Seguimiento.Count() > 0 && cab.Seguimiento.Last().FechaRetencion != null ? cab.Seguimiento.Last().Retencion.ToString() : "",
+                                                     EstadoActualAuditoria = cab.Seguimiento.Count() == 0 ? "Sin Documentacion" : (cab.Seguimiento.Last().FechaResultado == null ? "En Proceso" : "Terminado")
+
+
+
+
+                                                 }).ToList<dynamic>();
+
+            #endregion
+
+
+            return ResultadoFormateado;
+
+        }
+
+
+
+    }
+
+
+    [WebMethod(EnableSession = true)]
+    public object getMenues()
+    {
+        Dictionary<string, object> datos = new Dictionary<string, object>();
+
+        using (Entidades.EntidadesConosud dcAux = new Entidades.EntidadesConosud())
+        {
+
+            //this.lblNombreUsu.Text = Convert.ToString(this.Session["nombreusu"]);
+
+            long IdSegUsuario = (long)HttpContext.Current.Session["idusu"];
+            //long IdSegUsuario = 8;
+
+            Entidades.SegUsuario usu = (from us in dcAux.SegUsuario
+                                        .Include("SegUsuarioRol.SegRol.SegRolMenu.SegMenu.Padre")
+                                        where us.IdSegUsuario == IdSegUsuario
+                                        select us).First<Entidades.SegUsuario>();
+
+            List<Entidades.SegMenu> menues = new List<Entidades.SegMenu>();
+
+            foreach (Entidades.SegUsuarioRol UsuRol in usu.SegUsuarioRol)
+            {
+                foreach (Entidades.SegRolMenu confseg in UsuRol.SegRol.SegRolMenu)
+                {
+                    if (menues.FindAll(d => d.IdSegMenu == confseg.SegMenu.IdSegMenu).Count == 0)
+                    {
+                        menues.Add(confseg.SegMenu);
+                    }
+                }
+            }
+
+            var resultado = (from M in menues
+                             orderby M.Posicion
+                             select new
+                             {
+                                 M.IdSegMenu,
+                                 M.Descripcion,
+                                 M.Target,
+                                 M.IdPadre,
+                                 Url = M.Url != null ? M.Url.Replace("~/", ""):""
+                             }).ToList();
+
+            datos.Add("Menu", resultado);
+
+            return datos;
+
+        }
+
+
+
+    }
+
 
     protected IEnumerable<IDataObject> GetData(Type entityType, Expression<Func<dynamic, bool>> whereClause, Expression<Func<dynamic, dynamic>>[] includes)
     {

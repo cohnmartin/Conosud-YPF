@@ -5,10 +5,48 @@
     <script src="Scripts/js_angular/angular.js" type="text/javascript"></script>
     <script src="Scripts/js_angular/angular-animate.js" type="text/javascript"></script>
     <script src="Scripts/js_angular/angular-touch.js" type="text/javascript"></script>
-    <script src="Styles/bootstrap-dist/js/bootstrap.js" type="text/javascript"></script>
     <script src="angular/controllers/controller_asignacion_retencion.js" type="text/javascript"></script>
     <script src="Scripts/AngularUI/ui-bootstrap-tpls-1.3.3.js" type="text/javascript"></script>
+    <script src="Scripts/alertify/alertify.js" type="text/javascript"></script>
     <link href="Styles/bootstrap-dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="Scripts/alertify/css/alertify.css" rel="stylesheet" type="text/css" />
+    <link href="Scripts/alertify/css/themes/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="Styles/animate.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        /* set reference point */
+        .tab-animation > .tab-content
+        {
+            position: relative;
+            background-color: White;
+        }
+        
+        /* set animate effect */
+        .tab-animation > .tab-content > .tab-pane
+        {
+            transition: 0.2s linear opacity;
+        }
+        
+        /* overwrite display: none and remove from document flow */
+        .tab-animation > .tab-content > .tab-pane.active-remove
+        {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            display: block;
+        }
+        
+        /* opacity=0 when removing "active" class */
+        .tab-animation > .tab-content > .tab-pane.active-remove-active
+        {
+            opacity: 0;
+        }
+        
+        /* opacity=0 when adding "active" class */
+        .tab-animation > .tab-content > .tab-pane.active-add
+        {
+            opacity: 0;
+        }
+    </style>
     <div id="ng-app" ng-app="myApp" ng-controller="controller_asignacion_retencion">
         <table id="tblTitulo" cellpadding="0" cellspacing="5" style="width: 80%; padding-top: 10px">
             <tr>
@@ -18,16 +56,21 @@
                 </td>
             </tr>
         </table>
-        <uib-accordion close-others="false">
+        <div style="padding-left: 5px; padding-right: 5px;">
+            <uib-accordion close-others="false">
    
-
-    <uib-accordion-group  panel-class="panel-info" style="text-align:left !important;" is-open="status.open">
+   
+    <uib-accordion-group  panel-class="panel-primary" style="text-align:left !important;" is-open="status.open" >
       <uib-accordion-heading >
         Hojas Para Aplicar Retencion<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
       </uib-accordion-heading>
-      
       <table id="Table2" class="table table-striped table-bordered table-hover table-condensed " style="font-size:11px !important" >
             <thead>
+            <tr>
+                            <th colspan="6">
+                                <button type="button" class="btn btn-danger btn-m" ng-click="GuardarCambios()" ><i class="glyphicon glyphicon-floppy-disk"></i> Guardar Cambios</button>
+                            </th>
+                        </tr>
                 <tr>
                     <th>
                         Contrato
@@ -70,7 +113,7 @@
         </table>
     </uib-accordion-group>
   </uib-accordion>
-        <script type="text/ng-template" id="myModalContent.html">
+            <script type="text/ng-template" id="myModalContent.html">
         <div class="modal-header">
             <h3 class="modal-title">Asignación Masiva de Retencion</h3>
         </div>
@@ -84,6 +127,7 @@
             <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
             <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
         </div>
-        </script>
+            </script>
+        </div>
     </div>
 </asp:Content>

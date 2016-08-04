@@ -26,6 +26,16 @@ myAppModule.service('PageMethods', function ($http) {
         });
     };
 
+    this.GrabarAsignacionRetencion = function (hojas) {
+
+        return $http({
+            method: 'POST',
+            url: 'ws_SeguimientoAuditoria.asmx/GrabarAsignacionRetencion',
+            data: { Hojas: hojas },
+            contentType: 'application/json; charset=utf-8'
+        });
+    };
+
 
 });
 
@@ -89,7 +99,14 @@ myAppModule.controller('controller_asignacion_retencion', function ($scope, Page
                     });
     };
 
+    $scope.GuardarCambios = function () {
 
+        PageMethods.GrabarAsignacionRetencion($scope.Hojas)
+        .then(function (response) {
+            alertify.notify("Datos Grabados Correctamente", 'success', 3);
+        });
+
+    };
 
     $scope.BuscarHojas();
 
