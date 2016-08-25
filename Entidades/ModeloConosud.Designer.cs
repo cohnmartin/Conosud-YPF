@@ -1809,7 +1809,7 @@ namespace Entidades
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("ModeloConosud", "FK_SeguimientoAuditoria_Cabecera", "SeguimientoAuditoria")]
-        public EntityCollection<SeguimientoAuditoria> SeguimientoAuditoria
+        public EntityCollection<SeguimientoAuditoria> colSeguimientoAuditoria
         {
             get
             {

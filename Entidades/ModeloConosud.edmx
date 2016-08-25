@@ -1724,7 +1724,7 @@
           <NavigationProperty Name="SegUsuario" Relationship="ModeloConosud.FK_CabeceraHojasDeRuta_SegUsuario" FromRole="CabeceraHojasDeRuta" ToRole="SegUsuario" />
           <Property Name="FechaUltimaPubicacion" Type="DateTime" Nullable="true" />
           <Property Type="String" Name="EstadoAlCierre" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="SeguimientoAuditoria" Relationship="ModeloConosud.FK_SeguimientoAuditoria_Cabecera" FromRole="CabeceraHojasDeRuta" ToRole="SeguimientoAuditoria" /></EntityType>
+          <NavigationProperty Name="colSeguimientoAuditoria" Relationship="ModeloConosud.FK_SeguimientoAuditoria_Cabecera" FromRole="CabeceraHojasDeRuta" ToRole="SeguimientoAuditoria" /></EntityType>
         <EntityType Name="CategoriasItems">
           <Key>
             <PropertyRef Name="IdCategoria" />
@@ -3437,7 +3437,7 @@
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram Name="ModeloConosud" ZoomLevel="88" xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+      <Diagram Name="ModeloConosud" ZoomLevel="77" xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
         <EntityTypeShape EntityType="ModeloConosud.ArchivosAdjuntos" Width="1.5" PointX="7.25" PointY="0.5" Height="1.5923063151041674" IsExpanded="true" />
         <EntityTypeShape EntityType="ModeloConosud.CabeceraHojasDeRuta" Width="1.5" PointX="8.125" PointY="4" Height="3.9033007812499996" IsExpanded="true" />
         <EntityTypeShape EntityType="ModeloConosud.CategoriasItems" Width="1.5" PointX="8.625" PointY="13.75" Height="1.75665364583333" IsExpanded="true" />
