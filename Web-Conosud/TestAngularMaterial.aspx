@@ -41,18 +41,62 @@
         {
             opacity: 0;
         }
+        .flat
+        {
+            display: inline;
+            margin-right: 10px;
+        }
+        .flat-input
+        {
+            margin:0px !important;
+        }
+        .md-errors-spacer
+        {
+            display:none !important;
+            min-height:0xp !important;
+        }
     </style>
     <div ng-controller="controller_seguimiento_bis">
         <md-content md-scroll-y="" layout="column" flex="" class="_md layout-column flex">
     
     <md-tabs md-dynamic-height md-border-bottom>
-      <md-tab label="EN TERMINO">
+      <md-tab label="HOJAS PARA ASIGNAR AUDITOR">
         <md-content class="md-padding">
           <table id="example" class="table table-striped table-bordered table-hover table-condensed " style="font-size:11px !important;background-color:White !important;width:98% !important;" >
                         <thead>
                             <tr>
-                                <th colspan="6">
+                                <th colspan="1">
                                     <button type="button" class="btn btn-danger btn-m" ng-click="GuardarCambios('ET')" ><i class="glyphicon glyphicon-floppy-disk"></i> Guardar Cambios</button>
+                                </th>
+                                <th colspan="1">
+                                       <md-switch class="md-primary flat" md-no-ink ng-model="filtro.EnTermino" ng-true-value="'EN TERMINO'" ng-false-value="''">
+                                           <span style="padding-right:15px">En Termino</span> 
+                                        </md-switch>
+                                         <md-switch class="md-primary flat" md-no-ink ng-model="filtro.FueraTermino" ng-true-value="'FUERA DE TERMINO'" ng-false-value="''">
+                                            <span style="padding-right:15px">Fuera Termino</span> 
+                                        </md-switch>
+                                        <md-switch class="md-primary flat" md-no-ink ng-model="filtro.Otras" ng-true-value="'NO PRESENTO'" ng-false-value="''">
+                                            <span style="padding-right:15px">Otras</span> 
+                                        </md-switch>
+                                        
+                                </th>
+                                <th>
+                                    <md-input-container class="md-block flex-gt-sm flat-input">
+                                        <label class="md-body-2">Número Contrato</label>
+                                        <input ng-model="searchNumeroContrato"  flex-gt-sm>
+                                     </md-input-container>
+                                </th>
+                               <th>
+                                    <md-input-container class="md-block flex-gt-sm flat-input">
+                                        <label class="md-body-2">Nombre Contratista</label>
+                                        <input ng-model="searchNombreContratista"  flex-gt-sm>
+                                     </md-input-container>
+                                </th>
+                                 <th>
+                                    <md-input-container class="md-block flex-gt-sm flat-input">
+                                        <label class="md-body-2">Periodo</label>
+                                        <input ng-model="searchPeriodo"  flex-gt-sm>
+                                     </md-input-container>
                                 </th>
                             </tr>
                             <tr>
@@ -75,7 +119,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                                                                                                                                                                                                                                                    <tr ng-repeat="item in (filteredET = (HojasAsignacionAuditorET  | filter: { CodigoContrato: descSearch} | empiezaDesde:(paginaActual-1)*cantidadRegistros | limitTo:cantidadRegistros ))  track by $index ">
+                    <tr  ng-repeat="item in (filteredET = (HojasAsignacionAuditorET  | filter: FiltrarPorEstado | filter: {CodigoContrato:searchNumeroContrato, Contratista : searchNombreContratista, Periodo : searchPeriodo } | empiezaDesde:(paginaActual-1)*cantidadRegistros:this | limitTo:cantidadRegistros ))  track by $index ">
                     <td align="left" >
                         <span>{{item.CodigoContrato}}</span>
                     </td>
@@ -108,129 +152,10 @@
                     </table>
         </md-content>
       </md-tab>
-      <md-tab label="FUERA TERMINO">
-        <md-content class="md-padding">
-          <table id="Table1" class="table table-striped table-bordered table-hover table-condensed " style="font-size:11px !important;background-color:White !important;width:98% !important;" >
-                  <thead>
-                        <tr>
-                                <th colspan="6">
-                                    <button type="button" class="btn btn-danger btn-m" ng-click="GuardarCambios('FT')" ><i class="glyphicon glyphicon-floppy-disk"></i> Guardar Cambios</button>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Contrato
-                                </th>
-                                <th>
-                                    Contratista
-                                </th>
-                                <th>
-                                    Periodo
-                                </th>
-                                <th>
-                                    Estado Al Cierre
-                                </th>
-                                <th>
-                                    <span style="padding-right:10px">Auditor</span>
-                                    <button type="button" class="btn btn-primary btn-xs" ng-click="open('','FT')" >...</button>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="item in HojasAsignacionAuditorFT  ">
-                                               <td align="left" >
-                                    <span>{{item.CodigoContrato}}</span>
-                                </td>
-                                <td align="left" >
-                                    <span>{{item.Contratista}}</span>
-                                </td>
-                                <td align="left" >
-                                    <span>{{item.Periodo}}</span>
-                                </td>
-                                 <td align="left" >
-                                    <span>{{item.EstadoAlCierre}}</span>
-                                </td>
-                                <td>
-                                <select  id="Select3" ng-model="item.AuditorAsignado" ng-options="clasif.Id as clasif.Nombre for clasif in Auditores" style="font-size:12px !important" class="form-control">
-                                     <option value=""></option>
-                                    </select>
-
-                        
-                                </td>
-                    
-                            </tr>
-                        </tbody>
-                    </table>
-        </md-content>
-      </md-tab>
-      <md-tab label="OTRAS">
-        <md-content class="md-padding">
-          <table id="Table2" class="table table-striped table-bordered table-hover table-condensed " style="font-size:11px !important;background-color:White !important;width:98% !important;" >
-            <thead>
-                <tr>
-                    <th colspan="6">
-                        <button type="button" class="btn btn-danger btn-m" ng-click="GuardarCambios('OT')" ><i class="glyphicon glyphicon-floppy-disk"></i> Guardar Cambios</button>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        Contrato
-                    </th>
-                    <th>
-                        Contratista
-                    </th>
-                    <th>
-                        Periodo
-                    </th>
-                    <th>
-                        Estado Al Cierre
-                    </th>
-                    <th>
-                        <span style="padding-right:10px">Auditor</span>
-                        <button type="button" class="btn btn-primary btn-xs" ng-click="open('','OT')" >...</button>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                  <tr ng-repeat="item in (filteredOT = (HojasAsignacionAuditorOT  | filter: { CodigoContrato: descSearchOT} | empiezaDesde:(paginaActualOT-1)*cantidadRegistros | limitTo:cantidadRegistros ))  track by $index ">
-                    <td align="left" >
-                        <span>{{item.CodigoContrato}}</span>
-                    </td>
-                    <td align="left" >
-                        <span>{{item.Contratista}}</span>
-                    </td>
-                    <td align="left" >
-                        <span>{{item.Periodo}}</span>
-                    </td>
-                     <td align="left" >
-                        <span>{{item.EstadoAlCierre}}</span>
-                    </td>
-                    <td>
-                         <select  id="Select1" ng-model="item.AuditorAsignado" ng-options="clasif.Id as clasif.Nombre for clasif in Auditores" style="font-size:12px !important" class="form-control">
-                         <option value=""></option>
-                        </select>
-                    </td>
-                    
-                </tr>
-            </tbody>
-            <tfoot>
-            <tr>
-            <td colspan="6">
-                <center>
-                <uib-pagination total-items="itemsOT" ng-model="paginaActualOT" previous-text="Anterior" next-text="Siguiente" max-size="6" items-per-page="cantidadRegistros" class="pagination-sm" boundary-link-numbers="true" rotate="false"></uib-pagination>
-                </center>
-            </td>
-            </tr>
-            </tfoot>
-        </table>
-        </md-content>
-      </md-tab>
     </md-tabs>
    
 
      </md-content>
-
-
         <script type="text/ng-template" id="myModalContent.html">
         <div class="modal-header">
             <h3 class="modal-title">Asignación Masiva Auditor</h3>
@@ -247,7 +172,5 @@
             <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
         </div>
         </script>
-
-
     </div>
 </asp:Content>

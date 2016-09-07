@@ -1,7 +1,5 @@
-﻿var myAppModule = angular.module('myApp', ['ui.bootstrap']);
-
-// slice: 35:100
-myAppModule.filter('empiezaDesde', function () {
+﻿// slice: 35:100
+modulYPF.filter('empiezaDesde', function () {
 
     return function (input, start) {
         start = +start; //parse to int
@@ -14,32 +12,21 @@ myAppModule.filter('empiezaDesde', function () {
 });
 
 
-myAppModule.service('PageMethods', function ($http) {
+modulYPF.service('PageMethods', function ($http) {
 
-    this.getHojas = function () {
+    this.getHojas = function (NomContratista,NroContrato) {
 
         return $http({
             method: 'POST',
             url: 'ws_SeguimientoAuditoria.asmx/getHojasAsignacionRetencion',
-            data: {},
+            data: {contratista:NomContratista, contrato:NroContrato},
             contentType: 'application/json; charset=utf-8'
         });
     };
-
-    this.GrabarAsignacionRetencion = function (hojas) {
-
-        return $http({
-            method: 'POST',
-            url: 'ws_SeguimientoAuditoria.asmx/GrabarAsignacionRetencion',
-            data: { Hojas: hojas },
-            contentType: 'application/json; charset=utf-8'
-        });
-    };
-
 
 });
 
-myAppModule.controller('controller_asignacion_retencion', function ($scope, PageMethods, $uibModal, $log, $http, $timeout) {
+modulYPF.controller('controller_asignacion_retencion', function ($scope, PageMethods, $uibModal, $log, $http, $timeout) {
     $scope.Hojas;
     $scope.contratoSelected;
     $scope.Current;
@@ -48,7 +35,7 @@ myAppModule.controller('controller_asignacion_retencion', function ($scope, Page
     $scope.asyncIdSelected = '0';
     $scope.animationsEnabled = true;
     $scope.oneAtATime = true;
-
+    $scope.Retenciones;
     $scope.items = 0;
     $scope.filtered;
     $scope.descSearch;
@@ -59,29 +46,6 @@ myAppModule.controller('controller_asignacion_retencion', function ($scope, Page
         open: true
     }
 
-    $scope.open = function (size) {
-
-        var modalInstance = $uibModal.open({
-            animation: $scope.animationsEnabled,
-            templateUrl: 'myModalContent.html',
-            controller: 'ModalInstanceCtrl',
-            scope: $scope,
-            size: size
-        });
-
-        modalInstance.result.then(function (selectedItem) {
-
-            var dataSource = null;
-            dataSource = $scope.Hojas;
-            for (var i = 0; i < dataSource.length; i++) {
-                dataSource[i].Retencion = selectedItem;
-            }
-
-
-        }, function () {
-            $log.info('Modal dismissed at: ' + new Date());
-        });
-    };
 
     $scope.toggleAnimation = function () {
         $scope.animationsEnabled = !$scope.animationsEnabled;
@@ -90,42 +54,42 @@ myAppModule.controller('controller_asignacion_retencion', function ($scope, Page
 
     $scope.BuscarHojas = function () {
 
-        PageMethods.getHojas()
+        if (($scope.searchNombreContratista == undefined || $scope.searchNombreContratista == "") && ($scope.searchNumeroContrato == undefined || $scope.searchNumeroContrato == "")) {
+            alertify.set('notifier', 'position', 'top-left');
+            alertify.notify("Debe ingresar el numero de contrato o el nombre del contratista para realizar la búsqueda", 'warning', 5);
+        }
+        else {
+            var Contratista = $scope.searchNombreContratista == undefined ? "" : $scope.searchNombreContratista;
+            var Contrato = $scope.searchNumeroContrato == undefined ? "" : $scope.searchNumeroContrato;
+
+            PageMethods.getHojas(Contratista , Contrato)
                     .then(function (response) {
 
                         $scope.Hojas = response.data.d["Hojas"];
                         $scope.items = $scope.Hojas.length;
+                        if ($scope.Hojas.length == 0)
+                        {
+                            alertify.set('notifier', 'position', 'top-left');
+                            alertify.notify("No se encontraron resultados.", 'warning', 3);
+                        }
 
                     });
+        }
     };
 
     $scope.GuardarCambios = function () {
 
+
         PageMethods.GrabarAsignacionRetencion($scope.Hojas)
         .then(function (response) {
+
             alertify.notify("Datos Grabados Correctamente", 'success', 3);
         });
 
     };
 
-    $scope.BuscarHojas();
-
 });
 
-// Please note that $uibModalInstance represents a modal window (instance) dependency.
-// It is not the same as the $uibModal service used above.
 
-myAppModule.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance) {
-    
-    $scope.resultadoSelected;
-
-    $scope.ok = function () {
-        $uibModalInstance.close($scope.resultadoSelected);
-    };
-
-    $scope.cancel = function () {
-        $uibModalInstance.dismiss('cancel');
-    };
-});
 
 

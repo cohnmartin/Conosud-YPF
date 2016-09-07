@@ -1,9 +1,10 @@
-﻿//var myAppModule = angular.module('conosudApp', ['ui.bootstrap', 'ngAnimate', 'ngMaterial']);
+﻿modulYPF.filter('empiezaDesde', function () {
 
-// slice: 35:100
-modulYPF.filter('empiezaDesde', function () {
+    return function (input, start, scope) {
 
-    return function (input, start) {
+        if (input != undefined && scope != undefined && scope.itemsET != undefined)
+            scope.itemsET = input.length;
+        
         start = +start; //parse to int
         if (input != undefined)
             return input.slice(start);
@@ -41,10 +42,9 @@ modulYPF.service('PageMethods', function ($http) {
 
 });
 
+
 modulYPF.controller('controller_seguimiento_bis', function ($scope, PageMethods, $uibModal, $log, $http, $timeout) {
     $scope.HojasAsignacionAuditorET;
-    $scope.HojasAsignacionAuditorFT;
-    $scope.HojasAsignacionAuditorOT;
     $scope.Auditores;
     $scope.Current;
     $scope.Clasificaciones;
@@ -62,13 +62,35 @@ modulYPF.controller('controller_seguimiento_bis', function ($scope, PageMethods,
     $scope.cantidadRegistros = 10;
     $scope.paginaActual = 1;
 
-    $scope.descSearchOT;
-    $scope.filteredOT;
-    $scope.itemsOT = 0;
-    $scope.paginaActualOT = 1;
 
 
     $scope.Contratos = undefined;
+
+    $scope.filtro = {
+        EnTermino: 'EN TERMINO',
+        FueraTermino: '',
+        Otras: ''
+    };
+
+
+    $scope.FiltrarPorEstado = function (hoja) {
+
+
+        if ($scope.filtro.EnTermino != '' && hoja.EstadoAlCierre == $scope.filtro.EnTermino) {
+            return true;
+        }
+
+        if ($scope.filtro.FueraTermino != '' && hoja.EstadoAlCierre == $scope.filtro.FueraTermino) {
+            return true;
+        }
+
+        if ($scope.filtro.Otras != '' && hoja.EstadoAlCierre == $scope.filtro.Otras) {
+            return true;
+        }
+
+
+        return false;
+    };
 
     $scope.BuscarContratos = function (Id) {
         PageMethods.getContratos(Id)
@@ -114,13 +136,9 @@ modulYPF.controller('controller_seguimiento_bis', function ($scope, PageMethods,
 
         modalInstance.result.then(function (selectedItem) {
 
-            var dataSource = null;
-            if (tipoDataSource == 'ET') { dataSource = $scope.HojasAsignacionAuditorET }
-            if (tipoDataSource == 'FT') { dataSource = $scope.HojasAsignacionAuditorFT }
-            if (tipoDataSource == 'OT') { dataSource = $scope.HojasAsignacionAuditorOT }
 
-            for (var i = 0; i < dataSource.length; i++) {
-                dataSource[i].AuditorAsignado = selectedItem;
+            for (var i = 0; i < $scope.filteredET.length; i++) {
+                $scope.filteredET[i].AuditorAsignado = selectedItem;
             }
 
 
@@ -140,12 +158,7 @@ modulYPF.controller('controller_seguimiento_bis', function ($scope, PageMethods,
                     .then(function (response) {
 
                         $scope.HojasAsignacionAuditorET = response.data.d["HojasET"];
-                        $scope.HojasAsignacionAuditorFT = response.data.d["HojasFT"];
-                        $scope.HojasAsignacionAuditorOT = response.data.d["HojasOT"];
                         $scope.Auditores = response.data.d["Auditores"];
-
-                        $scope.itemsET = $scope.HojasAsignacionAuditorET.length;
-                        $scope.itemsOT = $scope.HojasAsignacionAuditorOT.length;
 
                     });
     };
@@ -153,18 +166,7 @@ modulYPF.controller('controller_seguimiento_bis', function ($scope, PageMethods,
 
     $scope.GuardarCambios = function (tipo) {
 
-        datos = null;
-        if (tipo == 'ET') {
-            datos = $scope.HojasAsignacionAuditorET;
-        }
-        else if (tipo == 'FT') {
-            datos = $scope.HojasAsignacionAuditorFT;
-        }
-        else {
-            datos = $scope.HojasAsignacionAuditorOT;
-        }
-
-        PageMethods.GrabarAsignacion(datos)
+        PageMethods.GrabarAsignacion($scope.HojasAsignacionAuditorET)
                     .then(function (response) {
                         alertify.notify("Datos Grabados Correctamente", 'success', 3);
                     });

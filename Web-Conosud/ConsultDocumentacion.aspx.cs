@@ -226,10 +226,20 @@ public partial class ConsultDocumentacion : System.Web.UI.Page
 
         }
 
-        if (cabecera != null)
+        if (cabecera != null )
         {
-            string estado = UpdateSeguimientoAuditoria(idcabecera, cabecera.Periodo);
-            cabecera.EstadoAlCierre = estado != "" ? estado : cabecera.EstadoAlCierre;
+            Entidades.CabeceraHojasDeRuta cab = cabecera;
+            if (!cabecera.ContratoEmpresas.EsContratista.Value)
+            {
+                cab = (from c in _dc.CabeceraHojasDeRuta
+                       where c.ContratoEmpresas.Contrato.IdContrato == cabecera.ContratoEmpresas.Contrato.IdContrato 
+                       && c.ContratoEmpresas.EsContratista.Value && (c.Periodo.Month == cabecera.Periodo.Month && c.Periodo.Year == cabecera.Periodo.Year)
+                       select c).First<Entidades.CabeceraHojasDeRuta>();
+            }
+
+            string estado = UpdateSeguimientoAuditoria(cab.IdCabeceraHojasDeRuta, cab.Periodo, cab.ContratoEmpresas.IdContratoEmpresas);
+
+            cab.EstadoAlCierre = estado != "" ? estado : cab.EstadoAlCierre;
         }
 
         _dc.SaveChanges();
@@ -276,8 +286,18 @@ public partial class ConsultDocumentacion : System.Web.UI.Page
 
         if (itemsHoja.CabeceraHojasDeRuta != null)
         {
-            string estado = UpdateSeguimientoAuditoria(idcabecera, itemsHoja.CabeceraHojasDeRuta.Periodo);
-            itemsHoja.CabeceraHojasDeRuta.EstadoAlCierre = estado != "" ? estado : itemsHoja.CabeceraHojasDeRuta.EstadoAlCierre;
+            Entidades.CabeceraHojasDeRuta cab = itemsHoja.CabeceraHojasDeRuta;
+            if (!itemsHoja.CabeceraHojasDeRuta.ContratoEmpresas.EsContratista.Value)
+            {
+                cab = (from c in _dc.CabeceraHojasDeRuta
+                       where c.ContratoEmpresas.Contrato.IdContrato == itemsHoja.CabeceraHojasDeRuta.ContratoEmpresas.Contrato.IdContrato
+                       && c.ContratoEmpresas.EsContratista.Value && c.Periodo == itemsHoja.CabeceraHojasDeRuta.Periodo
+                       select c).First<Entidades.CabeceraHojasDeRuta>();
+            }
+
+            string estado = UpdateSeguimientoAuditoria(cab.IdCabeceraHojasDeRuta, cab.Periodo, cab.ContratoEmpresas.IdContratoEmpresas);
+
+            cab.EstadoAlCierre = estado != "" ? estado : cab.EstadoAlCierre;
         }
         
 
@@ -299,7 +319,7 @@ public partial class ConsultDocumentacion : System.Web.UI.Page
 
     }
 
-    public static string UpdateSeguimientoAuditoria(long idCabecera, DateTime PeriodoPresentacion)
+    public static string UpdateSeguimientoAuditoria(long idCabecera, DateTime PeriodoPresentacion, long idContratoEmpresa)
     {
 
         using (EntidadesConosud dc = new EntidadesConosud())
@@ -308,6 +328,11 @@ public partial class ConsultDocumentacion : System.Web.UI.Page
             List<Entidades.SeguimientoAuditoria> seguimientosHoja = (from H in dc.SeguimientoAuditoria
                                                               where H.Cabcera == idCabecera
                                                               select H).ToList<Entidades.SeguimientoAuditoria>();
+
+
+            List<Entidades.Clasificacion> clasificacionesAuditoria = (from H in dc.Clasificacion
+                                                                     where H.Tipo.Contains("AUDITORIA")
+                                                                     select H).ToList<Entidades.Clasificacion>();
 
 
             // Si la documentacion presentada pertenece al periodo actual ( mes actual menos uno) entonces evaluo el dia para 
@@ -347,50 +372,42 @@ public partial class ConsultDocumentacion : System.Web.UI.Page
                 segActual.FechaRecepcion = DateTime.Now;
                 segActual.Cabcera= idCabecera;
                 segActual.NroPresentacion = allSegActual.Count();
+
+                if (estado == "FUERA DE TERMINO")
+                { 
+                    /// 1. Para este estado debo poner el seguimiento con el resultado de retencion
+                    long resultadoRetencion = clasificacionesAuditoria.Where(w => w.Codigo == "RETENCION").FirstOrDefault().IdClasificacion;
+                    segActual.FechaResultado = DateTime.Now;
+                    segActual.Resultado = resultadoRetencion;
+
+                    /// 2. Se debe calcular el porcentaje de retencion que posee, la regla es:
+                    /// Si ya posee una retención en algun de los seguimientos de cualquier otra hoja
+                    /// debo poner la retención siguiente, la ultima retención es la 2.
+
+                    List<Entidades.SeguimientoAuditoria> seguimientosAnteriores = (from H in dc.SeguimientoAuditoria
+                                                                             where H.objCabecera.ContratoEmpresas.IdContratoEmpresas == idContratoEmpresa
+                                                                             && H.Resultado == resultadoRetencion && H.Cabcera != idCabecera && H.objRetencion != null
+                                                                             select H).ToList<Entidades.SeguimientoAuditoria>();
+
+                    if (seguimientosAnteriores.Count == 0)
+                    {
+                        segActual.Retencion = clasificacionesAuditoria.Where(w => w.Tipo == "RETENCION_AUDITORIA" && w.Codigo == "0").FirstOrDefault().IdClasificacion;
+                    }
+                    else
+                    {
+                       string codigoRetencionAsignar =  int.Parse(seguimientosAnteriores.Last().objRetencion.Codigo) == 2 ? "2":"1";
+
+                        segActual.Retencion = clasificacionesAuditoria.Where(w => w.Tipo == "RETENCION_AUDITORIA" && w.Codigo == codigoRetencionAsignar).FirstOrDefault().IdClasificacion;
+                    }
+
+                    segActual.FechaRetencion = DateTime.Now;
+                }
+
                 dc.AddToSeguimientoAuditoria(segActual);
                 dc.SaveChanges();
             }
 
-
             return estado;
-
-
         }
-
-        //long idcabecera = 0;
-        //EntidadesConosud _dc = new EntidadesConosud();
-
-        //Entidades.HojasDeRuta itemsHoja = (from H in _dc.HojasDeRuta
-        //                                   where H.IdHojaDeRuta == id
-        //                                   select H).First<Entidades.HojasDeRuta>();
-
-        //if (item["FechaEntrega"] != null)
-        //    itemsHoja.DocFechaEntrega = DateTime.Parse(item["FechaEntrega"].ToString());
-        //else
-        //    itemsHoja.DocFechaEntrega = null;
-
-        //itemsHoja.DocComentario = item["Comentario"].ToString();
-
-        ///// al presnetar documentación para una hoja de ruta que esta publicada
-        ///// se des-publica automaticamente.
-        //itemsHoja.CabeceraHojasDeRuta.Publicar = false;
-        //idcabecera = itemsHoja.CabeceraHojasDeRuta.IdCabeceraHojasDeRuta;
-
-        //_dc.SaveChanges();
-
-        //return (from H in _dc.HojasDeRuta
-        //        where H.CabeceraHojasDeRuta.IdCabeceraHojasDeRuta == idcabecera
-        //        orderby H.Plantilla.Codigo
-        //        select new
-        //        {
-        //            IdHoja = H.IdHojaDeRuta,
-        //            Titulo = H.Plantilla.Descripcion,
-        //            FechaEntrega = H.DocFechaEntrega,
-        //            FechaEntregaOriginal = H.DocFechaEntrega,
-        //            Comentario = H.DocComentario,
-        //            Presento = false
-
-        //        }).ToList();
-
     }
 }

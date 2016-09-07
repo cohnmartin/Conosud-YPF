@@ -183,10 +183,7 @@
                                             <span>{{item.EstadoAlCierre}}</span>
                                         </td>
                                         <td>
-                                        <select  id="Select2" ng-model="item.ResultadoAsignado" ng-options="clasif.Id as clasif.Nombre for clasif in Resultados" style="font-size:12px !important" class="form-control">
-                                            </select>
-
-                        
+                                        <span>{{item.ResultadoAsignadoDesc}}</span>
                                         </td>
                     
                                     </tr>
