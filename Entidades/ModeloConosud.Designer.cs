@@ -72,6 +72,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("ModeloConosud", "FK_SeguimientoAuditoria_Clasificacion", "Clasificacion", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Entidades.Clasificacion), "SeguimientoAuditoria", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Entidades.SeguimientoAuditoria), true)]
 [assembly: EdmRelationshipAttribute("ModeloConosud", "FK_SeguimientoAuditoria_SeguimientoAuditoria", "SegUsuario", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Entidades.SegUsuario), "SeguimientoAuditoria", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Entidades.SeguimientoAuditoria), true)]
 [assembly: EdmRelationshipAttribute("ModeloConosud", "FK_SeguimientoAuditoria_SegUsuario", "SegUsuario", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Entidades.SegUsuario), "SeguimientoAuditoria", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Entidades.SeguimientoAuditoria), true)]
+[assembly: EdmRelationshipAttribute("ModeloConosud", "FK_SeguimientoAuditoria_Clasificacion1", "Clasificacion", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Entidades.Clasificacion), "SeguimientoAuditoria", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Entidades.SeguimientoAuditoria), true)]
 
 #endregion
 
@@ -2933,6 +2934,28 @@ namespace Entidades
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SeguimientoAuditoria>("ModeloConosud.FK_SeguimientoAuditoria_Clasificacion", "SeguimientoAuditoria", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ModeloConosud", "FK_SeguimientoAuditoria_Clasificacion1", "SeguimientoAuditoria")]
+        public EntityCollection<SeguimientoAuditoria> SeguimientoAuditoria1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SeguimientoAuditoria>("ModeloConosud.FK_SeguimientoAuditoria_Clasificacion1", "SeguimientoAuditoria");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SeguimientoAuditoria>("ModeloConosud.FK_SeguimientoAuditoria_Clasificacion1", "SeguimientoAuditoria", value);
                 }
             }
         }
@@ -9997,7 +10020,7 @@ namespace Entidades
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> Retencion
+        public Nullable<global::System.Int64> Retencion
         {
             get
             {
@@ -10012,8 +10035,8 @@ namespace Entidades
                 OnRetencionChanged();
             }
         }
-        private Nullable<global::System.Decimal> _Retencion;
-        partial void OnRetencionChanging(Nullable<global::System.Decimal> value);
+        private Nullable<global::System.Int64> _Retencion;
+        partial void OnRetencionChanging(Nullable<global::System.Int64> value);
         partial void OnRetencionChanged();
     
         /// <summary>
@@ -10087,6 +10110,30 @@ namespace Entidades
         private Nullable<global::System.Int32> _NroPresentacion;
         partial void OnNroPresentacionChanging(Nullable<global::System.Int32> value);
         partial void OnNroPresentacionChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> Publicado
+        {
+            get
+            {
+                return _Publicado;
+            }
+            set
+            {
+                OnPublicadoChanging(value);
+                ReportPropertyChanging("Publicado");
+                _Publicado = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Publicado");
+                OnPublicadoChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _Publicado;
+        partial void OnPublicadoChanging(Nullable<global::System.Boolean> value);
+        partial void OnPublicadoChanged();
 
         #endregion
 
@@ -10241,6 +10288,44 @@ namespace Entidades
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SegUsuario>("ModeloConosud.FK_SeguimientoAuditoria_SegUsuario", "SegUsuario", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ModeloConosud", "FK_SeguimientoAuditoria_Clasificacion1", "Clasificacion")]
+        public Clasificacion objRetencion
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Clasificacion>("ModeloConosud.FK_SeguimientoAuditoria_Clasificacion1", "Clasificacion").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Clasificacion>("ModeloConosud.FK_SeguimientoAuditoria_Clasificacion1", "Clasificacion").Value = value;
+            }
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Clasificacion> objRetencionReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Clasificacion>("ModeloConosud.FK_SeguimientoAuditoria_Clasificacion1", "Clasificacion");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Clasificacion>("ModeloConosud.FK_SeguimientoAuditoria_Clasificacion1", "Clasificacion", value);
                 }
             }
         }
