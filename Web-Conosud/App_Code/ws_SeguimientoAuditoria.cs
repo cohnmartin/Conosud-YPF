@@ -78,8 +78,7 @@ public class ws_SeguimientoAuditoria : System.Web.Services.WebService
             var hojasResto = hojasFormateadas.Where(w => !ids.Contains(w.IdCabeceraHojasDeRuta)).ToList();
 
             //datos.Add("HojasET", hojasEnTermino);
-            datos.Add("HojasET", hojasFormateadas);
-
+            datos.Add("HojasET", hojasFormateadas.OrderBy(w=>w.Contratista).ThenBy(w=>w.CodigoContrato).ThenBy(w=>w.Periodo));
             datos.Add("HojasFT", hojasFueraTermino);
             datos.Add("HojasOT", hojasResto);
 
@@ -119,7 +118,9 @@ public class ws_SeguimientoAuditoria : System.Web.Services.WebService
 
             var hojas = (from s in dc.SeguimientoAuditoria.Include("CabeceraRutas")
                          where ((s.AuditorAsignado != null && s.AuditorAsignado.Value == idAuditor) || (s.AudtorInterino != null && s.AudtorInterino.Value == idAuditor))
-                         && (s.objResultado == null || (s.objResultado != null && (s.FechaResultado.Value.Month == DateTime.Now.Month && s.FechaResultado.Value.Year == DateTime.Now.Year)))
+                         // No se controla mas por la fecha si no por el estado de publicado
+                         //&& (s.objResultado == null || (s.objResultado != null && (s.FechaResultado.Value.Month == DateTime.Now.Month && s.FechaResultado.Value.Year == DateTime.Now.Year)))
+                         && (s.objResultado == null || (s.objResultado != null && (!s.Publicado.HasValue || !s.Publicado.Value )))
                          select new
                          {
                              CodigoContrato = s.objCabecera.ContratoEmpresas.Contrato.Codigo,
@@ -192,7 +193,8 @@ public class ws_SeguimientoAuditoria : System.Web.Services.WebService
             IQueryable<SeguimientoAuditoria> query = null;
             query = dc.SeguimientoAuditoria;
 
-            query = query.Where(s => ((s.AuditorAsignado != null && s.AuditorAsignado.Value == idAuditor) || (s.AudtorInterino != null && s.AudtorInterino.Value == idAuditor)) && s.objResultado != null);
+            //query = query.Where(s => ((s.AuditorAsignado != null && s.AuditorAsignado.Value == idAuditor) || (s.AudtorInterino != null && s.AudtorInterino.Value == idAuditor)) && s.objResultado != null);
+            query = query.Where(s => (s.AuditorAsignado != null) && s.Resultado != null);
 
             if (idContatista != null)
                 query = query.Where(s => s.objCabecera.ContratoEmpresas.Empresa.IdEmpresa == idContatista);

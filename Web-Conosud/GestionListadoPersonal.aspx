@@ -182,13 +182,15 @@
                                 <select id="Select3" ng-model="Current.TipoTurno" ng-change="checkLineaRetorno()">
                                     <option value="TURNO" selected="selected">TURNO</option>
                                     <option value="DIURNO">DIURNO</option>
+                                    <option value="6x1">6x1</option>
+                                    <option value="VEHÍCULO ASIGNADO">VEHÍCULO ASIGNADO</option>
                                 </select>
                             </td>
                             <td class="tdSimple" align="left" style="width: 240px;">
                                 Línea Asignada:
                             </td>
-                            <td class="tdSimple" align="left" style="width: 220px;">
-                                <select  id="cboRecorridosAlta" ng-model="Current.LineaAsignada" ng-options="clasif.Id as clasif.NombreAbreviado for clasif in recorridos">
+                            <td class="tdSimple" align="left" style="width: 220px;" >
+                                <select  id="cboRecorridosAlta" ng-model="Current.LineaAsignada" ng-options="clasif.Id as clasif.NombreAbreviado for clasif in recorridos" >
                                 </select>
                             </td>
                         </tr>
@@ -208,8 +210,15 @@
                                 </select>
                             </td>
                         </tr>
+
                         <tr>
-                            <td align="right" colspan="4" style="padding: 5px">
+                            <td class="tdSimple" align="left" style="width: 240px;">
+                                Legajo/DNI
+                            </td>
+                            <td class="tdSimple" align="left" style="width: 310px;">
+                                <input id="Text3" type="text" ng-model="Current.Legajo" style="width: 96%" />
+                            </td>
+                            <td align="right" colspan="2" style="padding: 5px">
                                 <button type="button" id="btnCancelar" style="width: 150px; height: 35px; font-size: 15px"
                                     ng-click="CancelarEdicion()">
                                     Cancelar</button>
@@ -259,6 +268,8 @@
                                     <option value="" selected="selected">Tipo</option>
                                     <option value="TURNO">TURNO</option>
                                     <option value="DIURNO">DIURNO</option>
+                                    <option value="6x1">6x1</option>
+                                    <option value="VEHÍCULO ASIGNADO">VEHÍCULO ASIGNADO</option>
                                 </select>
                             </th>
                             <th class="Theader">

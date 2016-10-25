@@ -5,8 +5,11 @@ var myAppModule = angular.module('myApp', []);
 myAppModule.filter('empiezaDesde', function () {
 
     return function (input, start) {
-        start = +start; //parse to int
-        return input.slice(start);
+        if (input != undefined)
+        {
+            start = +start; //parse to int
+            return input.slice(start);
+        }
     }
 });
 
@@ -69,7 +72,7 @@ myAppModule.service('PageMethodsDomicilios', function ($http) {
 
 myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDomicilios) {
     $scope.Domicilios;
-    $scope.Current = null;
+    $scope.Current;
     $scope.textSearch;
     $scope.textSearchTipo;
     $scope.searchDomicilio = null;
@@ -182,7 +185,7 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
 
                         $scope.Domicilios = response.data.d.Dom;
                         $scope.Poblaciones = response.data.d.Pob;
-                    
+
                     });
 
     };
@@ -328,18 +331,6 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
 
         $scope.Current = null;
         angular.element("#tblAlta").css('display', 'none');
-        //        angular.element("#tblEdicion").css('display', 'none');
-        //        $("#txtNombre").parentsUntil("tr").parent().find("span").css("display", "inline");
-
-        //        $("#" + Constants.controlImgCancelar).css("display", "none");
-        //        $("#txtNombre").css("display", "none");
-        //        $("#txtDomicilio").css("display", "none");
-        //        $("#txtPoblacion").css("display", "none");
-        //        $("#txtDistrito").css("display", "none");
-        //        $("#txtTipo").css("display", "none");
-        //        $("#cboRecorridosAsignacion").css("display", "none");
-        //        $("#" + Constants.controlImgGrabar).css("display", "none");
-
     }
 
     $scope.CancelarEdicion = function () {
@@ -354,47 +345,20 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
         if (top == 0)
             top = top + 300;
         else
-            top = top - 300;
-
+            top = top - 400;
 
         $scope.TipoAccion = "Nuevo Legajo";
         angular.element("#tblAlta").css('display', 'inline');
-        angular.element("#tblAlta").css('top', top + 'px');
+        angular.element("#tblAlta").css('top', '35%');
         angular.element("#tblAlta").css('left', '35px');
     }
 
     $scope.Editar = function ($event, domicilio) {
+
         $scope.TipoAccion = "Edición de Legajo";
         angular.element("#tblAlta").css('display', 'inline');
         angular.element("#tblAlta").css('top', 120 + 'px'); //angular.element($event.target).position().top + 10
         angular.element("#tblAlta").css('left', '35px');
-
-
-
-        //$("#" + Constants.controlImgCancelar).css("display", "inline");
-        //        $("#txtNombre").css("display", "inline");
-        //        $("#txtDomicilio").css("display", "inline");
-        //        $("#txtPoblacion").css("display", "inline");
-        //        $("#txtDistrito").css("display", "inline");
-        //        $("#txtTipo").css("display", "inline");
-        //        $("#cboRecorridosAsignacion").css("display", "inline");
-        //        $("#" + Constants.controlImgGrabar).css("display", "inline");
-
-        //        if ($("#txtNombre").val() != "") {
-        //            $("#txtNombre").parentsUntil("tr").parent().find("span").css("display", "inline");
-        //        }
-
-        // angular.element($event.target).parentsUntil("tr").parent().find("span").css("display", "none");
-
-
-        //$("#" + Constants.controlImgCancelar).appendTo(angular.element($event.target).parent().parent().parent().parent().children()[0]);
-        //        $("#txtNombre").appendTo(angular.element($event.target).parent().parent().parent().parent().children()[1]);
-        //        $("#txtDomicilio").appendTo(angular.element($event.target).parent().parent().parent().parent().children()[2]);
-        //        $("#txtPoblacion").appendTo(angular.element($event.target).parent().parent().parent().parent().children()[3]);
-        //        $("#txtDistrito").appendTo(angular.element($event.target).parent().parent().parent().parent().children()[4]);
-        //        $("#txtTipo").appendTo(angular.element($event.target).parent().parent().parent().parent().children()[5]);
-        //        $("#cboRecorridosAsignacion").appendTo(angular.element($event.target).parent().parent().parent().parent().children()[6]);
-        //        $("#" + Constants.controlImgGrabar).appendTo(angular.element($event.target).parent().parent().parent().parent().children()[7]);
 
         $scope.Current = domicilio;
         $scope.checkLineaRetorno();
@@ -402,16 +366,9 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
 
     };
 
-    //    $scope.NuevoVehiculo = function () {
-
-    //        $scope.Current = {};
-    //        $find(Constants.controlPopUp).set_CollectionDiv('divPrincipal');
-    //        $find(Constants.controlPopUp).ShowWindows('divPrincipal', "Nuevo Vehículo ");
-
-    //    };
 
     $scope.BuscarDomicilios();
-    //$scope.getContextoClasificaciones();
+
 
 });
 

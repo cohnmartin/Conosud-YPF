@@ -104,8 +104,8 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
                                                 where r.LineaAsignada == LineaAsignada
                                                 select r).Count();
 
-                        if (legajosAsignados + 1 > capacidadMaxima)
-                            return "No se puede asiganar este legajo al recorrido seleccionado ya que supera la capacidad máxima del recorrido (cap. max.: " + capacidadMaxima.ToString() + ")";
+                        //if (legajosAsignados + 1 > capacidadMaxima)
+                        //    return "No se puede asiganar este legajo al recorrido seleccionado ya que supera la capacidad máxima del recorrido (cap. max.: " + capacidadMaxima.ToString() + ")";
 
                     }
 
@@ -129,8 +129,8 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
                                                 where r.LineaAsignada == LineaAsignada
                                                 select r).Count();
 
-                        if (legajosAsignados + 1 > capacidadMaxima)
-                            return "No se puede asiganar este legajo ya que supera la capacidad máxima de la línea (cap. max.: " + capacidadMaxima.ToString() + ")";
+                        //if (legajosAsignados + 1 > capacidadMaxima)
+                        //    return "No se puede asiganar este legajo ya que supera la capacidad máxima de la línea (cap. max.: " + capacidadMaxima.ToString() + ")";
 
                     }
 
@@ -158,7 +158,8 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
             current.Poblacion = domicilio["Poblacion"].ToString();
             current.Distrito = domicilio["Distrito"].ToString();
             current.TipoTurno = domicilio.ContainsKey("TipoTurno") ? domicilio["TipoTurno"].ToString() : null;
-            
+            current.Legajo = domicilio.ContainsKey("Legajo") ? domicilio["Legajo"].ToString() : "";
+
             if (domicilio.ContainsKey("LineaAsignada") && domicilio["LineaAsignada"] != null && long.Parse(domicilio["LineaAsignada"].ToString()) > 0) { current.LineaAsignada = long.Parse(domicilio["LineaAsignada"].ToString()); }
             if (domicilio.ContainsKey("Empresa") && domicilio["Empresa"] != null && long.Parse(domicilio["Empresa"].ToString()) > 0) { current.Empresa = long.Parse(domicilio["Empresa"].ToString()); }
 

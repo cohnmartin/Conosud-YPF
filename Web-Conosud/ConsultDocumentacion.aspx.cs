@@ -363,10 +363,10 @@ public partial class ConsultDocumentacion : System.Web.UI.Page
 
 
             // Busco para determinar si ya hay un registro de seguimiento para el mismo mes de la recepcion 
-            // si no lo hay debo crearlo.
+            // si no lo hay debo crearlo o si existe pero ya fue publicado debo crear uno nuevo.
             List<SeguimientoAuditoria> allSegActual = seguimientosHoja.Where(w => w.objCabecera.IdCabeceraHojasDeRuta == idCabecera).ToList();
-            SeguimientoAuditoria segActual = allSegActual.Where(w => w.FechaRecepcion.Month == DateTime.Now.Month && w.FechaRecepcion.Year == DateTime.Now.Year).FirstOrDefault();
-            if (segActual == null)
+            SeguimientoAuditoria segActual = allSegActual.Where(w => w.FechaRecepcion.Month == DateTime.Now.Month && w.FechaRecepcion.Year == DateTime.Now.Year).LastOrDefault();
+            if (segActual == null || (segActual.Publicado != null && segActual.Publicado.Value == true))
             {
                 segActual = new SeguimientoAuditoria();
                 segActual.FechaRecepcion = DateTime.Now;

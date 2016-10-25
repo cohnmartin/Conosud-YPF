@@ -1,6 +1,4 @@
-﻿var myAppModule = angular.module('myApp', ['ui.bootstrap']);
-
-myAppModule.service('PageMethods', function ($http) {
+﻿modulYPF.service('PageMethods', function ($http) {
 
     this.getHojas = function () {
 
@@ -12,9 +10,19 @@ myAppModule.service('PageMethods', function ($http) {
         });
     };
 
+    this.getContratos = function (id) {
+
+        return $http({
+            method: 'POST',
+            url: 'ws_VehiculosYPF.asmx/getContratos',
+            data: { IdEmpresa: id },
+            contentType: 'application/json; charset=utf-8'
+        });
+    };
+
 });
 
-myAppModule.controller('controller_consulta_seguimiento', function ($scope, PageMethods, $uibModal, $log, $http, $timeout) {
+modulYPF.controller('controller_consulta_seguimiento', function ($scope, PageMethods, $uibModal, $log, $http, $timeout) {
     $scope.Hojas;
     $scope.animationsEnabled = true;
 
@@ -34,6 +42,38 @@ myAppModule.controller('controller_consulta_seguimiento', function ($scope, Page
 
     };
 
+    $scope.BuscarContratos = function (Id) {
+        $scope.asyncIdSelected = Id;
+        PageMethods.getContratos(Id)
+                            .then(function (response) {
+                                $scope.Contratos = response.data.d;
+                                $timeout($scope.openDrop, 300);
+
+                            });
+
+    };
+
+    $scope.openDrop = function () {
+        var e = document.createEvent('MouseEvents');
+        e.initMouseEvent("mousedown", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+        $("#Select1")[0].dispatchEvent(e);
+
+    };
+
+    $scope.getContratistas = function (val) {
+        $scope.Contratos = undefined;
+        return $http({
+            method: 'POST',
+            url: 'ws_VehiculosYPF.asmx/getContratistas ',
+            data: { nombre: val },
+            contentType: 'application/json; charset=utf-8'
+        }).then(function (response) {
+            return response.data.d
+        });
+
+    };
+
+
     $scope.BuscarHojas = function () {
 
         PageMethods.getHojas().then(function (response) {
@@ -48,7 +88,7 @@ myAppModule.controller('controller_consulta_seguimiento', function ($scope, Page
 
 
 
-    $scope.BuscarHojas();
+    //$scope.BuscarHojas();
 
 });
 

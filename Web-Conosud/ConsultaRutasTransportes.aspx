@@ -78,27 +78,18 @@
 
 
         $(document).ready(function () {
+            var width = screen.width - 30;
+            var height = screen.height - 150;
+
+            $("#master_contentplaceholder").css("width", width + 'px');
+            $("#master_contentplaceholder").css("height", height + 'px');
+
             load_map();
-
-
-            //            $('#search').live('click', function () {
-            //                load_map1();
-            //            });
+                        
         });
 
 
         function load_map() {
-            //            var myLatlng = new google.maps.LatLng(-32.888714, -68.843712);
-            //            var myOptions = {
-            //                zoom: 14,
-            //                center: myLatlng,
-            //                mapTypeId: google.maps.MapTypeId.ROADMAP
-            //            };
-
-
-
-            //            map = new google.maps.Map($("#map_canvas").get(0), myOptions);
-
             $(document).on('click', '#search', function () {
                 //$('#search').live('click', function () {
                 $("#DivDescripcionPto").css("display", "none");
@@ -740,8 +731,7 @@
                 </tr>
             </table>
         </div>
-        <div id='map_canvas' style="width: 960px; height: 450px; border: 1px solid black;
-            margin-top: 5px">
+        <div id='map_canvas' style="width:  95%; height:85vh; border: 1px solid black;background-color:White;margin-top: 5px">
         </div>
         <div id='DivBtnPaso2' style="display: none; padding-top: 15px">
             <table border="0" cellpadding="0" cellspacing="0" width="80%" style="text-align: left;

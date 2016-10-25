@@ -39,8 +39,10 @@ public partial class ConsultaRutasTransportes : System.Web.UI.Page
                 cboLocalidades.DataValueField = "Id";
                 cboLocalidades.DataSource = localidades;
                 cboLocalidades.DataBind();
+
+                (Page.Master as DefaultMasterPage).OcultarSoloEncabezado();
             }
-        
+
         }
     }
 

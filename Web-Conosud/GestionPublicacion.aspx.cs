@@ -86,10 +86,29 @@ public partial class GestionPublicacion : System.Web.UI.Page
         cabs = dc.CabeceraHojasDeRuta.Include("HojasDeRuta").Where(
             Helpers.ContainsExpression<Entidades.CabeceraHojasDeRuta, long>(cab => cab.IdCabeceraHojasDeRuta, IdSel)).ToList<Entidades.CabeceraHojasDeRuta>();
 
+
+        List<long> idsCab = (from c in cabs
+                             select c.IdCabeceraHojasDeRuta).Distinct().ToList();
+
+        List<SeguimientoAuditoria> regSeguimientos = (from s in dc.SeguimientoAuditoria
+                                                     where idsCab.Contains(s.Cabcera)
+                                                     select s).ToList();
+
+        
         int i = 0;
         foreach (Entidades.CabeceraHojasDeRuta item in cabs)
         {
             item.Publicar = true;
+
+            /// Regla de Seguimiento de Auditoria (oct-2016): Al publicar se debe marcar el reg de seguimiento como publicado, 
+            /// esto hace que los auditores no puedan ver mas dicho registro en su consola.
+            SeguimientoAuditoria regSeguimiento = regSeguimientos.Where(w => w.Cabcera == item.IdCabeceraHojasDeRuta).LastOrDefault();
+            if (regSeguimiento != null)
+            {
+                regSeguimiento.Publicado = true;
+            }
+
+
             if (item.EsFueraTermino.HasValue && !item.EsFueraTermino.Value)
             {
 

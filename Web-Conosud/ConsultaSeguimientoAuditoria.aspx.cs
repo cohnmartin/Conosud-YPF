@@ -9,7 +9,79 @@ public partial class ConsultaSeguimientoAuditoria : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        /*
+         <table id="Table2" class="table table-striped table-bordered table-hover table-condensed " style="font-size:11px !important; background-color:white !important" >
+                        <thead>
+                            <tr   >
+                                <th colspan="9" style="text-align:right">
+                                    <button  type="button" class="btn btn-danger btn-m" ng-click="exportarExcel()" ><i class="glyphicon glyphicon-floppy-save"></i> Exportar</button>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Periodo
+                                </th>
+                                <th>
+                                    Nro Contrato
+                                </th>
+                                <th>
+                                    Fecha Inicio
+                                </th>
+                                <th>
+                                    Fecha Fin
+                                </th>
+                                <th>
+                                    Conrtatista
+                                </th>
+                                <th>
+                                    Auditor
+                                </th>                    
+                                <th style="width:130px">
+                                    Estado Cierre
+                                </th>
+                                <th style="width:130px">
+                                    Ultima Rec.
+                                </th>
+                                <th style="width:130px">
+                                    Estado Auditoria
+                                </th>                                                        
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in Hojas">
+                                <td align="left" >
+                                    <span>{{item.Periodo}}</span>
+                                </td>
+                                <td align="left" >
+                                    <span>{{item.NroContrato}}</span>
+                                </td>
+                                <td align="left" >
+                                    <span>{{item.FechaInicio}}</span>
+                                </td>
+                                <td align="left" >
+                                    <span>{{item.FechaFin}}</span>
+                                </td>
+                                <td align="left" >
+                                    <span ng-show="item.ConstratistaParaSubConstratista==''">{{item.Contratista}}</span>
+                                    <span ng-show="item.ConstratistaParaSubConstratista!=''"><strong>Sub: </strong>{{item.Contratista}}</span>
+                                    
+                                </td>
+                                <td align="left" >
+                                    <span>{{item.Auditor}}</span>
+                                </td>
+                                <td align="left" >
+                                    <span>{{item.SituacionAlCierre}}</span>
+                                </td>
+                                <td align="left" >
+                                    <span>{{item.FechaRecepcionUltima}}</span>
+                                </td>
+                                <td align="left" >
+                                    <span>{{item.EstadoActualAuditoria}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+         */
     }
 
     public void btnBuscar_Click(object sender, EventArgs e)

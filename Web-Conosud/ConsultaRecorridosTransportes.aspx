@@ -28,6 +28,13 @@
 
             map = new window.google.maps.Map(document.getElementById("map"), mapOptions);
 
+            var width = screen.width - 30;
+            var height = screen.height - 150;
+
+            $("#master_contentplaceholder").css("width", width + 'px');
+            $("#master_contentplaceholder").css("height", height + 'px');
+
+
         });
 
 
@@ -340,11 +347,10 @@
                 </td>
             </tr>
             <tr>
-                <td style="padding-right: 5px">
+                <td style="padding-right: 5px" colspan="4">
                     <asp:Label ID="Label1" runat="server" SkinID="lblConosud" Text="Ruta:"></asp:Label>
-                </td>
-                <td align="left" colspan="3">
-                    <telerik:RadComboBox ID="cboRecorridos" runat="server" Skin="Sunset" Width="99%"
+                                
+                    <telerik:RadComboBox ID="cboRecorridos" runat="server" Skin="Sunset" Width="95%"
                         EmptyMessage="Seleccione un recorrido" AllowCustomText="true" MarkFirstMatch="true"
                         OnClientSelectedIndexChanged="CargarMapa" />
                 </td>
