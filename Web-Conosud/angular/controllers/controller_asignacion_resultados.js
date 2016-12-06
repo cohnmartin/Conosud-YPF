@@ -1,9 +1,11 @@
-﻿var myAppModule = angular.module('myApp', ['ui.bootstrap']);
+﻿// slice: 35:100
+modulYPF.filter('empiezaDesde', function () {
 
-// slice: 35:100
-myAppModule.filter('empiezaDesde', function () {
+    return function (input, start, scope) {
 
-    return function (input, start) {
+        if (input != undefined && scope != undefined && scope.items != undefined)
+            scope.items = input.length;
+
         start = +start; //parse to int
         if (input != undefined)
             return input.slice(start);
@@ -14,7 +16,7 @@ myAppModule.filter('empiezaDesde', function () {
 });
 
 
-myAppModule.service('PageMethods', function ($http) {
+modulYPF.service('PageMethods', function ($http) {
 
     this.getHojasAsignacionResultado = function () {
 
@@ -59,7 +61,7 @@ myAppModule.service('PageMethods', function ($http) {
 
 });
 
-myAppModule.controller('controller_asignacion_resultados', function ($scope, PageMethods, $uibModal, $log, $http, $timeout) {
+modulYPF.controller('controller_asignacion_resultados', function ($scope, PageMethods, $uibModal, $log, $http, $timeout) {
     $scope.HojasAsignacionResultado;
     $scope.HojasConResultado;
     $scope.Resultados;
@@ -76,6 +78,37 @@ myAppModule.controller('controller_asignacion_resultados', function ($scope, Pag
     $scope.descSearch;
     $scope.cantidadRegistros = 10;
     $scope.paginaActual = 1;
+    $scope.filtro = {
+        EnTermino: 'EN TERMINO',
+        FueraTermino: '',
+        Otras: ''
+    };
+
+    $scope.exportarExcel = function () {
+
+        document.getElementById(Constants.controlbtnExportar).click();
+
+    };
+
+
+    $scope.FiltrarPorEstado = function (hoja) {
+
+
+        if ($scope.filtro.EnTermino != '' && hoja.EstadoAlCierre == $scope.filtro.EnTermino) {
+            return true;
+        }
+
+        if ($scope.filtro.FueraTermino != '' && hoja.EstadoAlCierre == $scope.filtro.FueraTermino) {
+            return true;
+        }
+
+        if ($scope.filtro.Otras != '' && hoja.EstadoAlCierre == $scope.filtro.Otras) {
+            return true;
+        }
+
+
+        return false;
+    };
 
     $scope.BuscarContratos = function (Id) {
         $scope.asyncIdSelected = Id;
@@ -122,11 +155,16 @@ myAppModule.controller('controller_asignacion_resultados', function ($scope, Pag
 
         modalInstance.result.then(function (selectedItem) {
 
-            var dataSource = null;
-            dataSource = $scope.HojasAsignacionResultado;
-            for (var i = 0; i < dataSource.length; i++) {
-                dataSource[i].ResultadoAsignado = selectedItem;
+            for (var i = 0; i < $scope.filtered.length; i++) {
+                $scope.filtered[i].ResultadoAsignado = selectedItem;
             }
+
+
+            //            var dataSource = null;
+            //            dataSource = $scope.HojasAsignacionResultado;
+            //            for (var i = 0; i < dataSource.length; i++) {
+            //                dataSource[i].ResultadoAsignado = selectedItem;
+            //            }
 
 
         }, function () {
@@ -168,7 +206,7 @@ myAppModule.controller('controller_asignacion_resultados', function ($scope, Pag
 
         PageMethods.GrabarAsignacion($scope.HojasAsignacionResultado)
                     .then(function (response) {
-                        alertify.notify("Datos Grabados Correctamente", 'success',3);
+                        alertify.notify("Datos Grabados Correctamente", 'success', 3);
                         //alert("Datos Grabados Correctamente");
                     });
 
@@ -180,8 +218,7 @@ myAppModule.controller('controller_asignacion_resultados', function ($scope, Pag
 
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
 // It is not the same as the $uibModal service used above.
-
-myAppModule.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance) {
+modulYPF.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance) {
 
 
     $scope.resultadoSelected;
