@@ -149,7 +149,7 @@ public class ws_SeguimientoAuditoria : System.Web.Services.WebService
                                         ResultadoAsignado = s.ResultadoAsignado != null ? s.ResultadoAsignado.IdClasificacion : auditorNulo,
                                     }).ToList();
 
-            datos.Add("Hojas", hojasFormateadas);
+            datos.Add("Hojas", hojasFormateadas.OrderBy(w => w.Contratista).ThenBy(w => w.CodigoContrato).ThenBy(w => w.Periodo));
 
 
             #endregion
@@ -311,7 +311,7 @@ public class ws_SeguimientoAuditoria : System.Web.Services.WebService
                                         NroPresentacion = s.NroPresentacion == 0 ? "1º PRESENTACION" : s.NroPresentacion.ToString() + "º ADICIONAL",
                                         RetencionAplicada = s.Retencion == null ? "" : s.Retencion.Descripcion,
                                         Auditor = s.Auditor
-                                    }).OrderBy(w => w.Contratista).ThenBy(w => w.CodigoContrato).ToList();
+                                    }).OrderBy(w => w.Contratista).ThenBy(w => w.CodigoContrato).ThenBy(w=>w.PeriodoFecha).ToList();
 
             datos.Add("Hojas", hojasFormateadas);
 
@@ -578,42 +578,42 @@ public class ws_SeguimientoAuditoria : System.Web.Services.WebService
                     foreach (var itemHoja in itemsHoja)
                     {
                         itemHoja.AuditoriaTerminada = true;
+                        itemHoja.DocFechaEntrega = null;
                     }
 
-                }
-
-
-                if (seg.Resultado != null && seg.objResultado.Codigo == "HIBILITADO")
-                {
-                    seg.objRetencion = null;
-                    seg.FechaRetencion = null;
-                }
-                else if (seg.Resultado != null && seg.objResultado.Codigo == "RETENCION")
-                {
-
-                    /// 1. Se debe calcular el porcentaje de retencion que posee, la regla es:
-                    /// Si ya posee una retención en algun de los seguimientos de cualquier otra hoja
-                    /// debo poner la retención siguiente, la ultima retención es la 2.
-
-                    List<Entidades.SeguimientoAuditoria> seguimientosAnteriores = (from H in dc.SeguimientoAuditoria
-                                                                                   where H.objCabecera.ContratoEmpresas.IdContratoEmpresas == seg.objCabecera.ContratoEmpresas.IdContratoEmpresas
-                                                                                   && H.Resultado == seg.Resultado && H.Cabcera != seg.Cabcera && H.objRetencion != null
-                                                                                   select H).ToList<Entidades.SeguimientoAuditoria>();
-
-                    if (seguimientosAnteriores.Count == 0)
+                    if (seg.Resultado != null && seg.objResultado.Codigo == "HIBILITADO")
                     {
-                        seg.Retencion = clasificacionesAuditoria.Where(w => w.Tipo == "RETENCION_AUDITORIA" && w.Codigo == "0").FirstOrDefault().IdClasificacion;
+                        seg.objRetencion = null;
+                        seg.FechaRetencion = null;
                     }
-                    else
+                    else if (seg.Resultado != null && seg.objResultado.Codigo == "RETENCION")
                     {
-                        string codigoRetencionAsignar = int.Parse(seguimientosAnteriores.Last().objRetencion.Codigo) == 0 ? "1" : "2";
 
-                        seg.Retencion = clasificacionesAuditoria.Where(w => w.Tipo == "RETENCION_AUDITORIA" && w.Codigo == codigoRetencionAsignar).FirstOrDefault().IdClasificacion;
+                        /// 1. Se debe calcular el porcentaje de retencion que posee, la regla es:
+                        /// Si ya posee una retención en algun de los seguimientos de cualquier otra hoja
+                        /// debo poner la retención siguiente, la ultima retención es la 2.
+
+                        List<Entidades.SeguimientoAuditoria> seguimientosAnteriores = (from H in dc.SeguimientoAuditoria
+                                                                                       where H.objCabecera.ContratoEmpresas.IdContratoEmpresas == seg.objCabecera.ContratoEmpresas.IdContratoEmpresas
+                                                                                       && H.Resultado == seg.Resultado && H.Cabcera != seg.Cabcera && H.objRetencion != null
+                                                                                       select H).ToList<Entidades.SeguimientoAuditoria>();
+
+                        if (seguimientosAnteriores.Count == 0)
+                        {
+                            seg.Retencion = clasificacionesAuditoria.Where(w => w.Tipo == "RETENCION_AUDITORIA" && w.Codigo == "0").FirstOrDefault().IdClasificacion;
+                        }
+                        else
+                        {
+                            string codigoRetencionAsignar = int.Parse(seguimientosAnteriores.Last().objRetencion.Codigo) == 0 ? "1" : "2";
+
+                            seg.Retencion = clasificacionesAuditoria.Where(w => w.Tipo == "RETENCION_AUDITORIA" && w.Codigo == codigoRetencionAsignar).FirstOrDefault().IdClasificacion;
+                        }
+
+                        seg.FechaRetencion = DateTime.Now;
+
                     }
-
-                    seg.FechaRetencion = DateTime.Now;
-
                 }
+              
             }
 
             dc.SaveChanges();
@@ -903,6 +903,60 @@ public class ws_SeguimientoAuditoria : System.Web.Services.WebService
 
     }
 
+
+    [WebMethod]
+    public List<dynamic> getExportacion()
+    {
+
+        long idAuditor = (long)HttpContext.Current.Session["idusu"];
+
+        using (EntidadesConosud dc = new EntidadesConosud())
+        {
+            Dictionary<string, object> datos = new Dictionary<string, object>();
+
+            #region Busqueda de hojas para asignar resultado
+
+            var hojas = (from s in dc.SeguimientoAuditoria.Include("CabeceraRutas")
+                         where ((s.AuditorAsignado != null && s.AuditorAsignado.Value == idAuditor) || (s.AudtorInterino != null && s.AudtorInterino.Value == idAuditor))
+                         && (s.objResultado == null || (s.objResultado != null && (!s.Publicado.HasValue || !s.Publicado.Value)))
+                         select new
+                         {
+                             CodigoContrato = s.objCabecera.ContratoEmpresas.Contrato.Codigo,
+                             Contratista = s.objCabecera.ContratoEmpresas.Empresa.RazonSocial,
+                             Periodo = s.objCabecera.Periodo,
+                             EstadoAlCierre = s.objCabecera.EstadoAlCierre,
+                             IdCabeceraHojasDeRuta = s.objCabecera.IdCabeceraHojasDeRuta,
+                             AuditorAsignado = s.objAuditorAsignado,
+                             ResultadoAsignado = s.objResultado,
+                             IdSeguimiento = s.Id
+
+                         }).ToList();
+
+            long? auditorNulo = null;
+            var hojasFormateadas = (from s in hojas
+                                    select new
+                                    {
+                                        CodigoContrato = s.CodigoContrato,
+                                        Contratista = s.Contratista,
+                                        Periodo = string.Format("{0:MM/yyyy}", s.Periodo),
+                                        EstadoAlCierre = s.EstadoAlCierre == "" ? "NO PRESENTO" : s.EstadoAlCierre,
+                                        PeriodoFecha = s.Periodo,
+                                        IdCabeceraHojasDeRuta = s.IdCabeceraHojasDeRuta,
+                                        AuditorAsignado = s.AuditorAsignado != null ? s.AuditorAsignado.IdSegUsuario : auditorNulo,
+                                        IdSeguimiento = s.IdSeguimiento,
+                                        ResultadoAsignado = s.ResultadoAsignado != null ? s.ResultadoAsignado.IdClasificacion : auditorNulo,
+                                    }).ToList();
+
+
+            return hojasFormateadas.OrderBy(w => w.Contratista).ThenBy(w => w.CodigoContrato).ThenBy(w => w.Periodo).ToList<dynamic>();
+
+            #endregion
+
+
+        }
+
+
+    }
 
     protected IEnumerable<IDataObject> GetData(Type entityType, Expression<Func<dynamic, bool>> whereClause, Expression<Func<dynamic, dynamic>>[] includes)
     {
