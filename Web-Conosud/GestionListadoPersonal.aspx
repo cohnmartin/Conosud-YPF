@@ -145,24 +145,24 @@
                             </td>
                             <td class="tdSimple" align="left" style="width: 115px;">
                                 <select id="cboDepartamentos" ng-model="Current.Distrito">
-                                    <option value="Mendoza" selected="selected">Capital</option>
-                                    <option value="General Alvear">General Alvear</option>
-                                    <option value="Godoy Cruz">Godoy Cruz</option>
-                                    <option value="Guaymallén">Guaymallén</option>
-                                    <option value="Junín">Junín</option>
-                                    <option value="La Paz">La Paz</option>
-                                    <option value="Las Heras">Las Heras</option>
-                                    <option value="Lavalle">Lavalle</option>
-                                    <option value="Luján de Cuyo">Luján de Cuyo</option>
-                                    <option value="Maipú">Maipú</option>
-                                    <option value="Malargüe">Malargüe</option>
-                                    <option value="Rivadavia">Rivadavia</option>
-                                    <option value="San Carlos">San Carlos</option>
-                                    <option value="San Martín">San Martín</option>
-                                    <option value="San Rafael">San Rafael</option>
-                                    <option value="Santa Rosa">Santa Rosa</option>
-                                    <option value="Tunuyán">Tunuyán</option>
-                                    <option value="Tupungato">Tupungato</option>
+                                    <option value="MENDOZA" selected="selected">CAPITAL</option>
+                                    <option value="GENERAL ALVEAR">GENERAL ALVEAR</option>
+                                    <option value="GODOY CRUZ">GODOY CRUZ</option>
+                                    <option value="GUAYMALLÉN">GUAYMALLÉN</option>
+                                    <option value="JUNÍN">JUNÍN</option>
+                                    <option value="LA PAZ">LA PAZ</option>
+                                    <option value="LAS HERAS">LAS HERAS</option>
+                                    <option value="LAVALLE">LAVALLE</option>
+                                    <option value="LUJÁN DE CUYO">LUJÁN DE CUYO</option>
+                                    <option value="MAIPÚ">MAIPÚ</option>
+                                    <option value="MALARGÜE">MALARGÜE</option>
+                                    <option value="RIVADAVIA">RIVADAVIA</option>
+                                    <option value="SAN CARLOS">SAN CARLOS</option>
+                                    <option value="SAN MARTÍN">SAN MARTÍN</option>
+                                    <option value="SAN RAFAEL">SAN RAFAEL</option>
+                                    <option value="SANTA ROSA">SANTA ROSA</option>
+                                    <option value="TUNUYÁN">TUNUYÁN</option>
+                                    <option value="TUPUNGATO">TUPUNGATO</option>
                                 </select>
                             </td>
                             <td class="tdSimple" align="left" style="width: 240px;">
