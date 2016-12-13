@@ -118,9 +118,7 @@ public class ws_SeguimientoAuditoria : System.Web.Services.WebService
 
             var hojas = (from s in dc.SeguimientoAuditoria.Include("CabeceraRutas")
                          where ((s.AuditorAsignado != null && s.AuditorAsignado.Value == idAuditor) || (s.AudtorInterino != null && s.AudtorInterino.Value == idAuditor))
-                         // No se controla mas por la fecha si no por el estado de publicado
-                         //&& (s.objResultado == null || (s.objResultado != null && (s.FechaResultado.Value.Month == DateTime.Now.Month && s.FechaResultado.Value.Year == DateTime.Now.Year)))
-                         && (s.objResultado == null || (s.objResultado != null && (!s.Publicado.HasValue || !s.Publicado.Value )))
+                         && (s.objResultado == null || (s.objResultado != null && (s.Publicado.HasValue == false || s.Publicado.Value == false)))
                          select new
                          {
                              CodigoContrato = s.objCabecera.ContratoEmpresas.Contrato.Codigo,
@@ -130,7 +128,8 @@ public class ws_SeguimientoAuditoria : System.Web.Services.WebService
                              IdCabeceraHojasDeRuta = s.objCabecera.IdCabeceraHojasDeRuta,
                              AuditorAsignado = s.objAuditorAsignado,
                              ResultadoAsignado = s.objResultado,
-                             IdSeguimiento = s.Id
+                             IdSeguimiento = s.Id,
+                             Publicado = s.Publicado
 
                          }).ToList();
 
@@ -147,6 +146,7 @@ public class ws_SeguimientoAuditoria : System.Web.Services.WebService
                                         AuditorAsignado = s.AuditorAsignado != null ? s.AuditorAsignado.IdSegUsuario : auditorNulo,
                                         IdSeguimiento = s.IdSeguimiento,
                                         ResultadoAsignado = s.ResultadoAsignado != null ? s.ResultadoAsignado.IdClasificacion : auditorNulo,
+                                        Publicado = s.Publicado
                                     }).ToList();
 
             datos.Add("Hojas", hojasFormateadas.OrderBy(w => w.Contratista).ThenBy(w => w.CodigoContrato).ThenBy(w => w.Periodo));

@@ -102,11 +102,15 @@ public partial class GestionPublicacion : System.Web.UI.Page
 
             /// Regla de Seguimiento de Auditoria (oct-2016): Al publicar se debe marcar el reg de seguimiento como publicado, 
             /// esto hace que los auditores no puedan ver mas dicho registro en su consola.
-            SeguimientoAuditoria regSeguimiento = regSeguimientos.Where(w => w.Cabcera == item.IdCabeceraHojasDeRuta).LastOrDefault();
-            if (regSeguimiento != null)
+            List<SeguimientoAuditoria> Seguimientos = regSeguimientos.Where(w => w.Cabcera == item.IdCabeceraHojasDeRuta).ToList();
+            foreach (var regSeguimiento in Seguimientos)
             {
-                regSeguimiento.Publicado = true;
+                if (regSeguimiento != null)
+                {
+                    regSeguimiento.Publicado = true;
+                }
             }
+            
 
 
             if (item.EsFueraTermino.HasValue && !item.EsFueraTermino.Value)
