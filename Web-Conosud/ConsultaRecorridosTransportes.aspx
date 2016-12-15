@@ -391,7 +391,7 @@
         <input type="text" id="newPoints" style="width: 600px;" value='' />
     </div>
     
-    <div id="map" style="height: 450px; width: 100%; margin-top: 5px;margin-left:0px;z-index:1;">
+    <div id="map" style="height: 520px; width: 100%; margin-top: 5px;margin-left:0px;z-index:1;">
     </div>
     <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
     </script>
