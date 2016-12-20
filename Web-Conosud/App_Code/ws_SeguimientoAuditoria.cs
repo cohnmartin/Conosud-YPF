@@ -230,7 +230,7 @@ public class ws_SeguimientoAuditoria : System.Web.Services.WebService
                                         IdSeguimiento = s.IdSeguimiento,
                                         ResultadoAsignado = s.ResultadoAsignado != null ? s.ResultadoAsignado.IdClasificacion : auditorNulo,
                                         ResultadoAsignadoDesc = s.ResultadoAsignado != null ? s.ResultadoAsignado.Descripcion : "",
-                                    }).ToList();
+                                    }).OrderBy(w => w.Contratista).ThenBy(w => w.CodigoContrato).ThenBy(w => w.Periodo).ToList();
 
             datos.Add("Hojas", hojasFormateadas);
 
@@ -311,7 +311,7 @@ public class ws_SeguimientoAuditoria : System.Web.Services.WebService
                                         NroPresentacion = s.NroPresentacion == 0 ? "1º PRESENTACION" : s.NroPresentacion.ToString() + "º ADICIONAL",
                                         RetencionAplicada = s.Retencion == null ? "" : s.Retencion.Descripcion,
                                         Auditor = s.Auditor
-                                    }).OrderBy(w => w.Contratista).ThenBy(w => w.CodigoContrato).ThenBy(w=>w.PeriodoFecha).ToList();
+                                    }).OrderBy(w => w.Contratista).ThenBy(w => w.CodigoContrato).ThenBy(w => w.Periodo).ToList();
 
             datos.Add("Hojas", hojasFormateadas);
 
@@ -674,6 +674,7 @@ public class ws_SeguimientoAuditoria : System.Web.Services.WebService
                                      where cab.Periodo.Month == mes && cab.Periodo.Year == año
                                     && cab.ContratoEmpresas.Empresa != null
                                     && cab.ContratoEmpresas.Contrato != null
+                                    && cab.ContratoEmpresas.EsContratista.Value
                                      orderby cab.ContratoEmpresas.Empresa.RazonSocial
                                      , cab.ContratoEmpresas.Contrato.Codigo
                                      select new
@@ -710,25 +711,6 @@ public class ws_SeguimientoAuditoria : System.Web.Services.WebService
                                            Auditor = cab.Seguimiento.Count() > 0 && cab.Seguimiento.Last().objAuditorAsignado != null ? cab.Seguimiento.Last().objAuditorAsignado.Login.ToString() : "-",
                                            SituacionAlCierre = cab.CabeceraHojasDeRuta.EstadoAlCierre == null || cab.CabeceraHojasDeRuta.EstadoAlCierre == "" ? "SIN PRESENTACION" : cab.CabeceraHojasDeRuta.EstadoAlCierre,
 
-                                           //FechaRecepcion1 = cab.Seguimiento.Count() > 0 ? cab.Seguimiento.First().FechaRecepcion : fechaNula,
-                                           //FechaAuditoria1 = cab.Seguimiento.Count() > 0 ? cab.Seguimiento.First().FechaResultado : fechaNula,
-                                           //Resultado1 = cab.Seguimiento.Count() > 0 && cab.Seguimiento.First().objResultado != null ? cab.Seguimiento.First().objResultado.Descripcion : "",
-                                           //FechaRetencion1 = cab.Seguimiento.Count() > 0 && cab.Seguimiento.First().FechaRetencion != null ? cab.Seguimiento.First().FechaRetencion : fechaNula,
-                                           //Retencion1 = cab.Seguimiento.Count() > 0 && cab.Seguimiento.First().FechaRetencion != null ? cab.Seguimiento.First().Retencion.ToString() : "",
-
-                                           //FechaRecepcion2 = cab.Seguimiento.Count() > 1 ? cab.Seguimiento.Skip(1).Take(1).First().FechaRecepcion : fechaNula,
-                                           //FechaAuditoria2 = cab.Seguimiento.Count() > 1 ? cab.Seguimiento.Skip(1).Take(1).First().FechaResultado : fechaNula,
-                                           //Resultado2 = cab.Seguimiento.Count() > 1 && cab.Seguimiento.Skip(1).Take(1).First().objResultado != null ? cab.Seguimiento.Skip(1).Take(1).First().objResultado.Descripcion : "",
-                                           //FechaRetencion2 = cab.Seguimiento.Count() > 1 && cab.Seguimiento.Skip(1).Take(1).First().FechaRetencion != null ? cab.Seguimiento.Skip(1).Take(1).First().FechaRetencion : fechaNula,
-                                           //Retencion2 = cab.Seguimiento.Count() > 1 && cab.Seguimiento.Skip(1).Take(1).First().FechaRetencion != null ? cab.Seguimiento.Skip(1).Take(1).First().Retencion.ToString() : "",
-
-                                           //FechaRecepcion3 = cab.Seguimiento.Count() > 2 ? cab.Seguimiento.Skip(2).Take(1).First().FechaRecepcion : fechaNula,
-                                           //FechaAuditoria3 = cab.Seguimiento.Count() > 2 ? cab.Seguimiento.Skip(2).Take(1).First().FechaResultado : fechaNula,
-                                           //Resultado3 = cab.Seguimiento.Count() > 2 && cab.Seguimiento.Skip(2).Take(1).First().objResultado != null ? cab.Seguimiento.Skip(2).Take(1).First().objResultado.Descripcion : "",
-                                           //FechaRetencion3 = cab.Seguimiento.Count() > 2 && cab.Seguimiento.Skip(2).Take(1).First().FechaRetencion != null ? cab.Seguimiento.Skip(2).Take(1).First().FechaRetencion : fechaNula,
-                                           //Retencion3 = cab.Seguimiento.Count() > 2 && cab.Seguimiento.Skip(2).Take(1).First().FechaRetencion != null ? cab.Seguimiento.Skip(2).Take(1).First().Retencion.ToString() : "",
-
-
                                            FechaRecepcionUltima = cab.Seguimiento.Count() > 0 ? cab.Seguimiento.Last().FechaRecepcion.ToShortDateString() : "",
                                            FechaAuditoriaUltima = cab.Seguimiento.Count() > 0 && cab.Seguimiento.Last().FechaResultado != null ? cab.Seguimiento.Last().FechaResultado.Value.ToShortDateString() : "",
                                            ResultadoUltima = cab.Seguimiento.Count() > 0 && cab.Seguimiento.Last().objResultado != null ? cab.Seguimiento.Last().objResultado.Descripcion : "",
@@ -737,9 +719,7 @@ public class ws_SeguimientoAuditoria : System.Web.Services.WebService
                                            EstadoActualAuditoria = cab.Seguimiento.Count() == 0 ? "Sin Documentacion" : (cab.Seguimiento.Last().FechaResultado == null ? "En Proceso" : "Terminado")
 
 
-
-
-                                       }).ToList();
+                                       }).OrderBy(w=>w.Contratista).ThenBy(w=>w.NroContrato).ToList();
 
             #endregion
 
@@ -772,6 +752,7 @@ public class ws_SeguimientoAuditoria : System.Web.Services.WebService
                                      where cab.Periodo.Month == mes && cab.Periodo.Year == año
                                     && cab.ContratoEmpresas.Empresa != null
                                     && cab.ContratoEmpresas.Contrato != null
+                                    && cab.ContratoEmpresas.EsContratista.Value
                                      orderby cab.ContratoEmpresas.Empresa.RazonSocial
                                      , cab.ContratoEmpresas.Contrato.Codigo
                                      select new
@@ -834,10 +815,9 @@ public class ws_SeguimientoAuditoria : System.Web.Services.WebService
                                                      RetencionUltima = cab.Seguimiento.Count() > 0 && cab.Seguimiento.Last().FechaRetencion != null ? cab.Seguimiento.Last().Retencion.ToString() : "",
                                                      EstadoActualAuditoria = cab.Seguimiento.Count() == 0 ? "Sin Documentacion" : (cab.Seguimiento.Last().FechaResultado == null ? "En Proceso" : "Terminado")
 
+                                                     
 
-
-
-                                                 }).ToList<dynamic>();
+                                                 }).OrderBy(w => w.Contratista).ThenBy(w => w.NroContrato).ToList<dynamic>();
 
             #endregion
 

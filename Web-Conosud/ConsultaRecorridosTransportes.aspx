@@ -34,6 +34,8 @@
             $("#master_contentplaceholder").css("width", width + 'px');
             $("#master_contentplaceholder").css("height", height + 'px');
 
+            $("#map").css("height", height - 50 + 'px');
+            
 
         });
 
@@ -391,7 +393,7 @@
         <input type="text" id="newPoints" style="width: 600px;" value='' />
     </div>
     
-    <div id="map" style="height: 620px; width: 100%; margin-top: 5px;margin-left:0px;z-index:1;">
+    <div id="map" style="width: 100%; margin-top: 5px;margin-left:0px;z-index:1;">
     </div>
     <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
     </script>
