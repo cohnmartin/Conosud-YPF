@@ -611,6 +611,8 @@
 
             OcultarMenu();
 
+            $("#map").css("height", height - 50 + 'px');
+
         });
 
         function OcultarMenu() {

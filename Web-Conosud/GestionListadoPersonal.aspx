@@ -273,7 +273,10 @@
                                 </select>
                             </th>
                             <th class="Theader">
-                                Linea Asignada
+                                <select id="Select5" style="width: 95%" ng-model="textSearchLinea">
+                                    <option value="" selected="selected">Lineas</option>
+                                    <option ng-repeat="p in recorridos" value="{{p.Id}}">{{p.NombreAbreviado}}</option>
+                                </select>
                             </th>
                             <th class="Theader">
                                 Empresa
@@ -287,7 +290,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="trDatos" ng-repeat="item in (filteredDom = (Domicilios  | filter: { Poblacion: textSearch , TipoTurno: textSearchTipo,NombreLegajo:nameSearch} | empiezaDesde:paginaActual*cantidadRegistros | limitTo:cantidadRegistros ))  ">
+                        <tr class="trDatos" ng-repeat="item in (filteredDom = (Domicilios  | filter: { Poblacion: textSearch , TipoTurno: textSearchTipo,NombreLegajo:nameSearch,LineaAsignada:textSearchLinea} | empiezaDesde:paginaActual*cantidadRegistros | limitTo:cantidadRegistros ))  ">
                             <td style="width: 35px" class="tdSimple" align="center">
                                 <center>
                                     <span>
@@ -461,10 +464,13 @@
             var width = screen.width - 30;
             var height = screen.height - 150;
 
+            OcultarMenu();
+
             $("#master_contentplaceholder").css("width", width + 'px');
             $("#master_contentplaceholder").css("height", height + 'px');
 
-            OcultarMenu();
+            $("#map").css("height", height - 50 + 'px');
+
 
             google.maps.event.addListener(map, 'click', clickOnMap);
             google.maps.event.addListener(map, 'rightclick', clickOnMap1);
