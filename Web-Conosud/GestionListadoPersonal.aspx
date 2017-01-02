@@ -290,7 +290,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="trDatos" ng-repeat="item in (filteredDom = (Domicilios  | filter: { Poblacion: textSearch , TipoTurno: textSearchTipo,NombreLegajo:nameSearch,LineaAsignada:textSearchLinea} | empiezaDesde:paginaActual*cantidadRegistros | limitTo:cantidadRegistros ))  ">
+                        <tr class="trDatos" ng-repeat="item in (filteredDom = (Domicilios  | filter: { Poblacion: textSearch , TipoTurno: textSearchTipo,NombreLegajo:nameSearch} | filter : FiltrarLegajos  | empiezaDesde:paginaActual*cantidadRegistros | limitTo:cantidadRegistros ))  ">
                             <td style="width: 35px" class="tdSimple" align="center">
                                 <center>
                                     <span>

@@ -73,8 +73,9 @@ myAppModule.service('PageMethodsDomicilios', function ($http) {
 myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDomicilios) {
     $scope.Domicilios;
     $scope.Current;
-    $scope.textSearch;
-    $scope.textSearchTipo;
+    $scope.textSearch = "";
+    $scope.textSearchTipo = "";
+    $scope.textSearchLinea = "";
     $scope.searchDomicilio = null;
     $scope.Poblaciones;
     $scope.filteredDom;
@@ -157,12 +158,17 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
 
     }
 
-    $scope.Filtrar = function () {
-        //alert($scope.textSearch);
-        //            PageMethods.filtrarVehiculos($scope.textSearch)
-        //                        .then(function (response) {
-        //                            $scope.Vehiculos = response.data.d;
-        //                        });
+            $scope.FiltrarLegajos = function (item) {
+
+        if ($scope.textSearchLinea != "") {
+            if ($scope.textSearchLinea == item.LineaAsignada)
+                return true;
+            else
+                return false;
+        }
+        else {
+            return true;
+        }
 
     };
 
@@ -211,15 +217,15 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
 
         for (var i = 0; i < $scope.filteredDom.length; i++) {
 
-                if ($scope.filteredDom[i].Latitud != null || $scope.filteredDom[i].LatitudReposicion != null) {
-                    if ($scope.filteredDom[i].LatitudReposicion == null) {
-                        MostrarUbicacionMapa($scope.filteredDom[i].Latitud + '', $scope.filteredDom[i].Longitud + '', $scope.filteredDom[i].Domicilio + ' ' + $scope.filteredDom[i].Distrito + ' ' + $scope.filteredDom[i].Poblacion + '(' + i + ')');
-                    }
-                    else {
-                        MostrarUbicacionMapa($scope.filteredDom[i].LatitudReposicion + '', $scope.filteredDom[i].LongitudReposicion + '', $scope.filteredDom[i].Domicilio + ' ' + $scope.filteredDom[i].Distrito + ' ' + $scope.filteredDom[i].Poblacion + '(' + i +')');
-                    }
-
+            if ($scope.filteredDom[i].Latitud != null || $scope.filteredDom[i].LatitudReposicion != null) {
+                if ($scope.filteredDom[i].LatitudReposicion == null) {
+                    MostrarUbicacionMapa($scope.filteredDom[i].Latitud + '', $scope.filteredDom[i].Longitud + '', $scope.filteredDom[i].Domicilio + ' ' + $scope.filteredDom[i].Distrito + ' ' + $scope.filteredDom[i].Poblacion + '(' + i + ')');
                 }
+                else {
+                    MostrarUbicacionMapa($scope.filteredDom[i].LatitudReposicion + '', $scope.filteredDom[i].LongitudReposicion + '', $scope.filteredDom[i].Domicilio + ' ' + $scope.filteredDom[i].Distrito + ' ' + $scope.filteredDom[i].Poblacion + '(' + i + ')');
+                }
+
+            }
 
         }
 

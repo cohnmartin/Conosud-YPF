@@ -73,20 +73,20 @@
                                     ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
                             <td align="left">
-                                <asp:Label ID="Label5" runat="server" SkinID="lblConosud" Text="Departamento:"></asp:Label>
+                                <asp:Label ID="Label5" runat="server" SkinID="lblConosud" Text="Area:"></asp:Label>
                             </td>
                             <td>
-                                <select id="cboDepartamento" runat="server" ng-model="Current.IdDepartamento" style="width: 170px" ng-options="clasif.Id as clasif.Descripcion for clasif in Clasificaciones | filter:Tipo='Departamentos'">
+                                <select id="cboDepartamento" runat="server" ng-model="Current.IdDepartamento" style="width: 170px" ng-options="clasif.Id as clasif.Descripcion for clasif in Clasificaciones | filter:Tipo='Areas' | orderBy:'Descripcion' ">
                                     <option value="" disabled selected></option>
                                 </select>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="cboDepartamento" 
                                     ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
                             <td align="left">
-                                <asp:Label ID="Label6" runat="server" SkinID="lblConosud" Text="Sector:"></asp:Label>
+                                <asp:Label ID="Label6" runat="server" SkinID="lblConosud" Text="Departamento:"></asp:Label>
                             </td>
                             <td>
-                                <select id="cboSector" runat="server" ng-model="Current.IdSector" style="width: 170px" ng-options="clasif.Id as clasif.Descripcion for clasif in Clasificaciones | filter:Tipo='Sectores'">
+                                <select id="cboSector" runat="server" ng-model="Current.IdSector" style="width: 170px" ng-options="clasif.Id as clasif.Descripcion for clasif in Clasificaciones | filter:Tipo='Departamentos' | orderBy:'Descripcion' ">
                                  <option value="" disabled selected></option>
                                 </select>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator14" runat="server" ControlToValidate="cboSector" 
@@ -452,10 +452,10 @@
                         Tipo y Modelo
                     </th>
                     <th class="Theader">
-                        Dpto.
+                        Area
                     </th>
                     <th class="Theader">
-                        Sector
+                        Dpto.
                     </th>
                     <th class="Theader">
                         Titular

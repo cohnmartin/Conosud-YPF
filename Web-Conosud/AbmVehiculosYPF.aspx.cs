@@ -51,6 +51,10 @@ public partial class AbmVehiculosYPF : System.Web.UI.Page
         alias.Add("TarjetasActivas", "Tarjetas Activas");
         alias.Add("LimiteCredito", "Límite Crédito");
 
+        alias.Add("Departamento", "Area");
+        alias.Add("Sector", "Departamento");
+
+
         alias.Add("TitularPin", "Titular PIN");
 
 
