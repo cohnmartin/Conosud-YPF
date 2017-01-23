@@ -10,18 +10,20 @@
     <script type="text/javascript">
 
         var Constants = {
-            controlbtnExportar: '<%= btnExportar.ClientID %>'
+            controlbtnExportar: '<%= btnExportar.ClientID %>',
+            controlPeriodo: '<%= hiddenPeriodo.ClientID %>'
         };
     </script>
     <div ng-controller="controller_consulta_seguimiento">
         <md-content md-scroll-y="" layout="column" flex="" class="_md layout-column flex">
-        <asp:Button ID="btnExportar" runat="server" Text="Exportar" OnClick="btnBuscar_Click"   CausesValidation="false" Style="display: none" />
+        <asp:Button ID="btnExportar" runat="server" Text="Exportar" OnClick="btnBuscar_Click"  periodo="444" otro="sdsd" CausesValidation="false" Style="display: none" />
+        <asp:HiddenField runat="server" Value="" ID="hiddenPeriodo" />
         <md-tabs md-dynamic-height md-border-bottom>
-          <md-tab label="Reporte Seguimiento Auditoria">
+          <md-tab label="Ingrese Periodo">
             <md-content class="md-padding">
             
             <div class="row" style="height:300px">
-                              <div class="col-md-5">
+                              <!-- div class="col-md-5">
                                  Contratista:
                                               <input type="text" ng-model="asyncSelected" placeholder="Ingrese nombre contratista" uib-typeahead="clasif as clasif.Nombre for clasif in getContratistas($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control"
                                                typeahead-on-select="BuscarContratos($item.Id)">
@@ -38,7 +40,7 @@
                                             <select id="Select1" class="form-control" ng-model="contratoSelected"  ng-options="clasif.Id as clasif.Codigo for clasif in Contratos" >
                                                 <option value=""></option>
                                             </select>
-                              </div>
+                              </div-->
                                <div class="col-md-2">
                                Periodo:
                                       <input type="text" ng-model="periodoSelected" placeholder="Formato: MM/YYYYY" class="form-control" />

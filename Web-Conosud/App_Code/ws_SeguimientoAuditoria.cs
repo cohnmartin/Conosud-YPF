@@ -736,17 +736,22 @@ public class ws_SeguimientoAuditoria : System.Web.Services.WebService
 
 
     [WebMethod]
-    public List<dynamic> getReporteSeguimientoExcel()
+    public List<dynamic> getReporteSeguimientoExcel(string periodo)
     {
         Dictionary<string, object> datos = new Dictionary<string, object>();
 
         using (Entidades.EntidadesConosud dc = new Entidades.EntidadesConosud())
         {
+            DateTime fechaConsulta = DateTime.Now;
+
+            if (periodo != "")
+                fechaConsulta = DateTime.Parse("01/" + periodo);
+
 
             #region Busqueda de hojas para asignar auditor
             CabeceraHojasDeRuta hh = new CabeceraHojasDeRuta();
-            int mes = DateTime.Now.AddMonths(-1).Month;
-            int año = DateTime.Now.AddMonths(-1).Year;
+            int mes = fechaConsulta.AddMonths(-1).Month;
+            int año = fechaConsulta.AddMonths(-1).Year;
 
             var ResultadoConsulta = (from cab in dc.CabeceraHojasDeRuta.Include("colSeguimientoAuditoria")
                                      where cab.Periodo.Month == mes && cab.Periodo.Year == año

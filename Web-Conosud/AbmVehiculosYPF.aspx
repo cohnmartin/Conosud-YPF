@@ -25,7 +25,7 @@
         <cc1:ServerControlWindow ID="ServerControlVehiculos" runat="server" BackColor="WhiteSmoke"
             WindowColor="Rojo">
             <ContentControls>
-                <div id="divPrincipal" style="height: 610px; width: 1100px">
+                <div id="divPrincipal" style="height: 610px; width: 1100px;overflow:scroll">
                     <table cellpadding="2" cellspacing="2" style="width: 100%;">
                         <tr>
                             <td colspan="6" style="background-color: #CACACA; padding-left: 10px; height: 28px;">
@@ -43,7 +43,7 @@
                                     ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
                             <td align="left">
-                                <asp:Label ID="Label1" runat="server" SkinID="lblConosud" Text="Tipo y Modelo:"></asp:Label>
+                                <asp:Label ID="Label1" runat="server" SkinID="lblConosud" Text="Marca y Modelo:"></asp:Label>
                             </td>
                             <td align="left">
                                 <input type="text" ng-model="Current.Modelo" style="width: 130px" runat="server"
@@ -52,7 +52,7 @@
                                     ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
                             <td align="left">
-                                <asp:Label ID="Label3" runat="server" SkinID="lblConosud" Text="Modelo Año:"></asp:Label>
+                                <asp:Label ID="Label3" runat="server" SkinID="lblConosud" Text="Año:"></asp:Label>
                             </td>
                             <td align="left">
                                 <input type="text" ng-model="Current.Anio" style="width: 130px" runat="server" id="txtAnio" />
@@ -73,44 +73,58 @@
                                     ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
                             <td align="left">
-                                <asp:Label ID="Label5" runat="server" SkinID="lblConosud" Text="Area:"></asp:Label>
+                                <asp:Label ID="Label5" runat="server" SkinID="lblConosud" Text="Chasis:"></asp:Label>
                             </td>
                             <td>
-                                <select id="cboDepartamento" runat="server" ng-model="Current.IdDepartamento" style="width: 170px" ng-options="clasif.Id as clasif.Descripcion for clasif in Clasificaciones | filter:Tipo='Areas' | orderBy:'Descripcion' ">
-                                    <option value="" disabled selected></option>
-                                </select>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="cboDepartamento" 
+                                <input type="text" ng-model="Current.Chasis" style="width: 130px" runat="server" id="txtChasis" />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtChasis" 
                                     ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
                             <td align="left">
-                                <asp:Label ID="Label6" runat="server" SkinID="lblConosud" Text="Departamento:"></asp:Label>
+                                <asp:Label ID="Label6" runat="server" SkinID="lblConosud" Text="Motor:"></asp:Label>
                             </td>
                             <td>
-                                <select id="cboSector" runat="server" ng-model="Current.IdSector" style="width: 170px" ng-options="clasif.Id as clasif.Descripcion for clasif in Clasificaciones | filter:Tipo='Departamentos' | orderBy:'Descripcion' ">
-                                 <option value="" disabled selected></option>
-                                </select>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator14" runat="server" ControlToValidate="cboSector" 
+                                <input type="text" ng-model="Current.Motor" style="width: 130px" runat="server" id="txtMotor" />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator14" runat="server" ControlToValidate="txtMotor" 
                                     ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
                         </tr>
                         <tr>
                             <td align="left">
-                                <asp:Label ID="Label7" runat="server" SkinID="lblConosud" Text="Titular:"></asp:Label>
+                                <asp:Label ID="Label49" runat="server" SkinID="lblConosud" Text="ABS:"></asp:Label>
                             </td>
                             <td align="left">
-                                <input type="text" ng-model="Current.Titular" style="width: 130px" id="txtTitular" runat="server" />
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtTitular"
+                                <asp:CheckBox Text="" runat="server" ID="chkABS"  ng-model="Current.ABS" />
+                            </td>
+                            <td align="left">
+                                <asp:Label ID="Label50" runat="server" SkinID="lblConosud" Text="AIRBAGS:"></asp:Label>
+                            </td>
+                            <td colspan="3">
+                                <asp:CheckBox Text="" runat="server" ID="chkAIRBAGS"  ng-model="Current.AIRBAGS" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align="left">
+                                <asp:Label ID="Label51" runat="server" SkinID="lblConosud" Text="Estado:"></asp:Label>
+                            </td>
+                            <td align="left">
+                                 <select runat="server" ng-model="Current.IdEstado" style="width: 170px" id="cboEstado"
+                                    ng-options="clasif.Id as clasif.Descripcion for clasif in Clasificaciones | filter:Tipo='Estado Vehiculo YPF'">
+                                    <option value="" selected></option>
+                                </select>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator17" runat="server" ControlToValidate="cboEstado" 
                                     ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
-                            <td align="left">
-                                <asp:Label ID="Label25" runat="server" SkinID="lblConosud" Text="Responsable:"></asp:Label>
+                             <td align="left">
+                                <asp:Label ID="Label9" runat="server" SkinID="lblConosud" Text="Vto. Rev. Técnica:"></asp:Label>
                             </td>
                             <td align="left">
-                                <input type="text" ng-model="Current.Responsable" style="width: 130px" id="txtReponsable" runat="server" />
-                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtReponsable"
-                                    ErrorMessage="*"></asp:RequiredFieldValidator>
+                                <telerik:RadDatePicker ID="txtVtoRevTecnica" MinDate="1950/1/1" runat="server" ZIndex="922000000"
+                                    Width="95%">
+                                </telerik:RadDatePicker>
                             </td>
-                            <td align="left">
+                             <td align="left">
                                 <asp:Label ID="Label8" runat="server" SkinID="lblConosud" Text="Vto. Tarj. Verde:"></asp:Label>
                             </td>
                             <td align="left">
@@ -120,17 +134,23 @@
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtVtoTarjVerde"
                                     ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
+                           
                         </tr>
+
+
                         <tr>
                             <td align="left">
-                                <asp:Label ID="Label9" runat="server" SkinID="lblConosud" Text="Vto. Rev. Técnica:"></asp:Label>
+                                <asp:Label ID="Label52" runat="server" SkinID="lblConosud" Text="Tipo Vehículo:"></asp:Label>
                             </td>
                             <td align="left">
-                                <telerik:RadDatePicker ID="txtVtoRevTecnica" MinDate="1950/1/1" runat="server" ZIndex="922000000"
-                                    Width="95%">
-                                </telerik:RadDatePicker>
+                                <select runat="server" ng-model="Current.IdTipoVehiculo" style="width: 170px" id="cboTipoVehiculo"
+                                    ng-options="clasif.Id as clasif.Descripcion for clasif in Clasificaciones | filter:Tipo='Tipo Vehiculo YPF'">
+                                    <option value="" selected></option>
+                                </select>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator18" runat="server" ControlToValidate="cboTipoVehiculo" 
+                                    ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
-                            <td align="left">
+                             <td align="left">
                                 <asp:Label ID="Label15" runat="server" SkinID="lblConosud" Text="Fecha Odóm.:"></asp:Label>
                             </td>
                             <td align="left">
@@ -144,38 +164,87 @@
                             <td align="left">
                                 <input type="text" ng-model="Current.VelocimetroOdometro" style="width: 95%" />
                             </td>
+                           
                         </tr>
                         <tr>
                             <td colspan="6" style="background-color: #CACACA; padding-left: 10px; height: 28px;">
-                                <asp:Label ID="Label10" runat="server" SkinID="lblConosud" Text="TARJETA YER  (YPF EN RUTA)"></asp:Label>
+                                <asp:Label ID="Label7" runat="server" SkinID="lblConosud" Text="Duplicados"></asp:Label>
                             </td>
                         </tr>
+
+
                         <tr>
                             <td align="left">
-                                <asp:Label ID="Label11" runat="server" SkinID="lblConosud" Text="Contrato:"></asp:Label>
+                                <asp:Label ID="Label25" runat="server" SkinID="lblConosud" Text="Llave:"></asp:Label>
                             </td>
                             <td align="left">
-                                <input type="text" ng-model="Current.Contrato" style="width: 92%" id="txtContrato" runat="server" />
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="txtContrato"
+                                <asp:CheckBox Text="" runat="server" ID="chkLlave"  ng-model="Current.Llave" />
+                            </td>
+                            <td align="left">
+                                <asp:Label ID="Label53" runat="server" SkinID="lblConosud" Text="Control con alarma:"></asp:Label>
+                            </td>
+                            <td >
+                                <asp:CheckBox Text="" runat="server" ID="chkControlAlarma"  ng-model="Current.ControlAlarma" />
+                            </td>
+                            <td align="left">
+                                <asp:Label ID="Label54" runat="server" SkinID="lblConosud" Text="Llave con Alarma:"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:CheckBox Text="" runat="server" ID="chkLlaveAlarma"  ng-model="Current.LlaveAlarma" />
+                            </td>
+                        </tr>
+
+                         <tr>
+                            <td colspan="6" style="background-color: #CACACA; padding-left: 10px; height: 28px;">
+                                <asp:Label ID="Label55" runat="server" SkinID="lblConosud" Text="Asignación"></asp:Label>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td align="left">
+                                <asp:Label ID="Label56" runat="server" SkinID="lblConosud" Text="Responsable:"></asp:Label>
+                            </td>
+                            <td align="left">
+                                <input type="text" ng-model="Current.Responsable" style="width: 130px" id="txtReponsable" runat="server" />
+                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtReponsable"
                                     ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
                             <td align="left">
-                                <asp:Label ID="Label12" runat="server" SkinID="lblConosud" Text="Nro Tarjeta:"></asp:Label>
+                                <asp:Label ID="Label57" runat="server" SkinID="lblConosud" Text="Posicion:"></asp:Label>
+                            </td>
+                            <td align="left" colspan="3">
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align="left">
+                                <asp:Label ID="Label58" runat="server" SkinID="lblConosud" Text="Titular:"></asp:Label>
                             </td>
                             <td align="left">
-                                <input type="text" ng-model="Current.NroTarjeta" style="width: 92%" id="txtNroTarjetas" runat="server" />
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ControlToValidate="txtNroTarjetas"
+                                <input type="text" ng-model="Current.Titular" style="width: 130px" id="txtTitular" runat="server" />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtTitular"
                                     ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
-                            <td align="left">
+
+                           <td align="left">
                                 <asp:Label ID="Label13" runat="server" SkinID="lblConosud" Text="Tipo Asignación:"></asp:Label>
                             </td>
-                            <td align="left">
+                            <td align="left" colspan="2">
                                 <select id="cboTipoAsignacion" runat="server" style="width: 92%" ng-model="Current.IdTipoAsignacion" ng-options="clasif.Id as clasif.Descripcion for clasif in Clasificaciones | filter:Tipo='Tipo Asignacion'">
                                 <option value="" disabled selected></option>
                                 </select>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator15" runat="server" ControlToValidate="cboTipoAsignacion" 
                                     ErrorMessage="*"></asp:RequiredFieldValidator>
+                            </td>
+                        </tr>
+
+
+
+                        <tr>
+                            <td colspan="6" style="background-color: #CACACA; padding-left: 10px; height: 28px;">
+                                <asp:Label ID="Label10" runat="server" SkinID="lblConosud" Text="TARJETA YER  (YPF EN RUTA)"></asp:Label>
                             </td>
                         </tr>
                         <tr>
@@ -188,6 +257,34 @@
                                     ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
                             <td align="left">
+                                <asp:Label ID="Label12" runat="server" SkinID="lblConosud" Text="Nro de Tarjeta:"></asp:Label>
+                            </td>
+                            <td align="left" colspan="2">
+                                <input type="text" ng-model="Current.NroTarjeta" style="width: 92%" id="txtNroTarjetas" runat="server" />
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ControlToValidate="txtNroTarjetas"
+                                    ErrorMessage="*"></asp:RequiredFieldValidator>
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                        <td align="left">
+                                <asp:Label ID="Label11" runat="server" SkinID="lblConosud" Text="Contrato:"></asp:Label>
+                            </td>
+                            <td align="left">
+                                <input type="text" ng-model="Current.Contrato" style="width: 92%" id="txtContrato" runat="server" />
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="txtContrato"
+                                    ErrorMessage="*"></asp:RequiredFieldValidator>
+                            </td>
+                            <td align="left">
+                                <asp:Label ID="Label18" runat="server" SkinID="lblConosud" Text="Centro Costo:"></asp:Label>
+                            </td>
+                            <td align="left" >
+                                <input type="text" ng-model="Current.CentroCosto" style="width: 92%" id="txtCentroCosto" runat="server" />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator13" runat="server" ControlToValidate="txtCentroCosto"
+                                    ErrorMessage="*"></asp:RequiredFieldValidator>
+                            </td>
+
+                            <td align="left">
                                 <asp:Label ID="Label20" runat="server" SkinID="lblConosud" Text="Tarjeta Activas:"></asp:Label>
                             </td>
                             <td align="left">
@@ -195,6 +292,9 @@
                                  <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ControlToValidate="txtTarjetasActivas"
                                     ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
+                            
+                        </tr>
+                        <tr>
                             <td align="left">
                                 <asp:Label ID="Label21" runat="server" SkinID="lblConosud" Text="Limite Credito:"></asp:Label>
                             </td>
@@ -203,20 +303,13 @@
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator12" runat="server" ControlToValidate="txtLimiteCredito"
                                     ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
-                        </tr>
-                        <tr>
                             <td align="left">
-                                <asp:Label ID="Label18" runat="server" SkinID="lblConosud" Text="Centro Costo:"></asp:Label>
+                                <asp:Label ID="Label59" runat="server" SkinID="lblConosud" Text="Limite Cons. Mensual:"></asp:Label>
                             </td>
-                            <td align="left" colspan="4">
-                                <input type="text" ng-model="Current.CentroCosto" style="width: 92%" id="txtCentroCosto" runat="server" />
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator13" runat="server" ControlToValidate="txtCentroCosto"
+                            <td align="left" colspan="2">
+                                <input type="text" ng-model="Current.LimiteConMensual" style="width: 92%" id="txtLimiteConsMensual" runat="server" />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator19" runat="server" ControlToValidate="txtLimiteConsMensual"
                                     ErrorMessage="*"></asp:RequiredFieldValidator>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="6" style="background-color: #CACACA; padding-left: 10px; height: 28px;">
-                                <asp:Label ID="Label26" runat="server" SkinID="lblConosud" Text="DATOS PIN"></asp:Label>
                             </td>
                         </tr>
                         <tr>

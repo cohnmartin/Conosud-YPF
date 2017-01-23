@@ -389,6 +389,12 @@ public partial class ABMContratos : System.Web.UI.Page
                                         objEliminar.Add(itemC);
                                     }
 
+                                    // Elimino los seguimientos asociados
+                                    if (!rowCabHR.colSeguimientoAuditoria.IsLoaded) { rowCabHR.colSeguimientoAuditoria.Load(); }
+                                    foreach (Entidades.SeguimientoAuditoria itemS in rowCabHR.colSeguimientoAuditoria)
+                                    {
+                                        objEliminar.Add(itemS);
+                                    }
                                 }
                             }
                         }

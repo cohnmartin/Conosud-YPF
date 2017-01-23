@@ -38,6 +38,8 @@ modulYPF.controller('controller_consulta_seguimiento', function ($scope, PageMet
 
     $scope.exportarExcel = function () {
 
+        
+        document.getElementById(Constants.controlPeriodo).value = $scope.periodoSelected;
         document.getElementById(Constants.controlbtnExportar).click();
 
     };

@@ -9,6 +9,12 @@ public partial class ConsultaSeguimientoAuditoria : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+            ((MasterPage)this.Master).Titulo = "CONSULTA SEGUIMIENTO DE AUDITORIA";
+
+        }
+
         /*
          <table id="Table2" class="table table-striped table-bordered table-hover table-condensed " style="font-size:11px !important; background-color:white !important" >
                         <thead>
@@ -87,8 +93,8 @@ public partial class ConsultaSeguimientoAuditoria : System.Web.UI.Page
     public void btnBuscar_Click(object sender, EventArgs e)
     {
         ws_SeguimientoAuditoria ws = new ws_SeguimientoAuditoria();
-
-        List<dynamic> datosExportar = ws.getReporteSeguimientoExcel();
+        var periodo = hiddenPeriodo.Value;
+        List<dynamic> datosExportar = ws.getReporteSeguimientoExcel(periodo);
 
 
         List<string> camposExcluir = new List<string>(); ;

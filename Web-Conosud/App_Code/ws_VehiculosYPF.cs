@@ -174,6 +174,12 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                 current.TitularPin7 = vehiculo["TitularPin7"].ToString();
 
 
+            if (vehiculo.ContainsKey("IdEstado") && vehiculo["IdEstado"] != null)
+                current.Estado = long.Parse(vehiculo["IdEstado"].ToString());
+
+            if (vehiculo.ContainsKey("IdTipoVehiculo") && vehiculo["IdTipoVehiculo"] != null)
+                current.TipoVehiculo = long.Parse(vehiculo["IdTipoVehiculo"].ToString());
+
             dc.SaveChanges();
         }
         return true;
@@ -257,7 +263,9 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                              v.PIN6,
                              v.TitularPin6,
                              v.PIN7,
-                             v.TitularPin7
+                             v.TitularPin7,
+                             Estado = v.objEstado,
+                             TipoVehiculo = v.objTipoVehiculo
 
                          }).Take(25).ToList();
 
@@ -281,6 +289,11 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                         IdTipoCombustible = v.TipoCombustible != null ? v.TipoCombustible.IdClasificacion : nullValue,
                         TipoCombustible = v.TipoCombustible != null ? v.TipoCombustible.Descripcion : "",
 
+                        IdEstado = v.Estado != null ? v.Estado.IdClasificacion : nullValue,
+                        Estado = v.Estado != null ? v.Estado.Descripcion : "",
+
+                        IdTipoVehiculo = v.TipoVehiculo != null ? v.TipoVehiculo.IdClasificacion : nullValue,
+                        TipoVehiculo = v.TipoVehiculo != null ? v.TipoVehiculo.Descripcion : "",
 
                         v.Titular,
                         FechaBaja = string.Format("{0:dd/MM/yyyy}", v.FechaBaja),
@@ -371,7 +384,9 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                              v.PIN6,
                              v.TitularPin6,
                              v.PIN7,
-                             v.TitularPin7
+                             v.TitularPin7,
+                             Estado = v.objEstado,
+                             TipoVehiculo  = v.objTipoVehiculo
                          }).Take(10).ToList();
 
 
@@ -393,6 +408,12 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
 
                         IdTipoCombustible = v.TipoCombustible != null ? v.TipoCombustible.IdClasificacion : nullValue,
                         TipoCombustible = v.TipoCombustible != null ? v.TipoCombustible.Descripcion : "",
+
+                        IdEstado = v.Estado != null ? v.Estado.IdClasificacion : nullValue,
+                        Estado = v.Estado != null ? v.Estado.Descripcion : "",
+
+                        IdTipoVehiculo = v.TipoVehiculo != null ? v.TipoVehiculo.IdClasificacion : nullValue,
+                        TipoVehiculo = v.TipoVehiculo != null ? v.TipoVehiculo.Descripcion : "",
 
 
                         v.Titular,
