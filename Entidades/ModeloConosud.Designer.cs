@@ -73,6 +73,8 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("ModeloConosud", "FK_SeguimientoAuditoria_SeguimientoAuditoria", "SegUsuario", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Entidades.SegUsuario), "SeguimientoAuditoria", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Entidades.SeguimientoAuditoria), true)]
 [assembly: EdmRelationshipAttribute("ModeloConosud", "FK_SeguimientoAuditoria_SegUsuario", "SegUsuario", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Entidades.SegUsuario), "SeguimientoAuditoria", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Entidades.SeguimientoAuditoria), true)]
 [assembly: EdmRelationshipAttribute("ModeloConosud", "FK_SeguimientoAuditoria_Clasificacion1", "Clasificacion", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Entidades.Clasificacion), "SeguimientoAuditoria", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Entidades.SeguimientoAuditoria), true)]
+[assembly: EdmRelationshipAttribute("ModeloConosud", "FK_VehiculosYPF_Estado", "Clasificacion", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Entidades.Clasificacion), "VehiculosYPF", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Entidades.VehiculosYPF), true)]
+[assembly: EdmRelationshipAttribute("ModeloConosud", "FK_VehiculosYPF_TipoVehiculo", "Clasificacion", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Entidades.Clasificacion), "VehiculosYPF", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Entidades.VehiculosYPF), true)]
 
 #endregion
 
@@ -2956,6 +2958,50 @@ namespace Entidades
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SeguimientoAuditoria>("ModeloConosud.FK_SeguimientoAuditoria_Clasificacion1", "SeguimientoAuditoria", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ModeloConosud", "FK_VehiculosYPF_Estado", "VehiculosYPF")]
+        public EntityCollection<VehiculosYPF> VehiculosYPF2_1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<VehiculosYPF>("ModeloConosud.FK_VehiculosYPF_Estado", "VehiculosYPF");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<VehiculosYPF>("ModeloConosud.FK_VehiculosYPF_Estado", "VehiculosYPF", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ModeloConosud", "FK_VehiculosYPF_TipoVehiculo", "VehiculosYPF")]
+        public EntityCollection<VehiculosYPF> VehiculosYPF5
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<VehiculosYPF>("ModeloConosud.FK_VehiculosYPF_TipoVehiculo", "VehiculosYPF");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<VehiculosYPF>("ModeloConosud.FK_VehiculosYPF_TipoVehiculo", "VehiculosYPF", value);
                 }
             }
         }
@@ -13071,6 +13117,270 @@ namespace Entidades
         private global::System.String _TitularPin7;
         partial void OnTitularPin7Changing(global::System.String value);
         partial void OnTitularPin7Changed();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Chasis
+        {
+            get
+            {
+                return _Chasis;
+            }
+            set
+            {
+                OnChasisChanging(value);
+                ReportPropertyChanging("Chasis");
+                _Chasis = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Chasis");
+                OnChasisChanged();
+            }
+        }
+        private global::System.String _Chasis;
+        partial void OnChasisChanging(global::System.String value);
+        partial void OnChasisChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Motor
+        {
+            get
+            {
+                return _Motor;
+            }
+            set
+            {
+                OnMotorChanging(value);
+                ReportPropertyChanging("Motor");
+                _Motor = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Motor");
+                OnMotorChanged();
+            }
+        }
+        private global::System.String _Motor;
+        partial void OnMotorChanging(global::System.String value);
+        partial void OnMotorChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> ABS
+        {
+            get
+            {
+                return _ABS;
+            }
+            set
+            {
+                OnABSChanging(value);
+                ReportPropertyChanging("ABS");
+                _ABS = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ABS");
+                OnABSChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _ABS;
+        partial void OnABSChanging(Nullable<global::System.Boolean> value);
+        partial void OnABSChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> AIRBAGS
+        {
+            get
+            {
+                return _AIRBAGS;
+            }
+            set
+            {
+                OnAIRBAGSChanging(value);
+                ReportPropertyChanging("AIRBAGS");
+                _AIRBAGS = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AIRBAGS");
+                OnAIRBAGSChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _AIRBAGS;
+        partial void OnAIRBAGSChanging(Nullable<global::System.Boolean> value);
+        partial void OnAIRBAGSChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Estado
+        {
+            get
+            {
+                return _Estado;
+            }
+            set
+            {
+                OnEstadoChanging(value);
+                ReportPropertyChanging("Estado");
+                _Estado = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Estado");
+                OnEstadoChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Estado;
+        partial void OnEstadoChanging(Nullable<global::System.Int64> value);
+        partial void OnEstadoChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TipoVehiculo
+        {
+            get
+            {
+                return _TipoVehiculo;
+            }
+            set
+            {
+                OnTipoVehiculoChanging(value);
+                ReportPropertyChanging("TipoVehiculo");
+                _TipoVehiculo = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TipoVehiculo");
+                OnTipoVehiculoChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TipoVehiculo;
+        partial void OnTipoVehiculoChanging(Nullable<global::System.Int64> value);
+        partial void OnTipoVehiculoChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> Llave
+        {
+            get
+            {
+                return _Llave;
+            }
+            set
+            {
+                OnLlaveChanging(value);
+                ReportPropertyChanging("Llave");
+                _Llave = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Llave");
+                OnLlaveChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _Llave;
+        partial void OnLlaveChanging(Nullable<global::System.Boolean> value);
+        partial void OnLlaveChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> ControlAlarma
+        {
+            get
+            {
+                return _ControlAlarma;
+            }
+            set
+            {
+                OnControlAlarmaChanging(value);
+                ReportPropertyChanging("ControlAlarma");
+                _ControlAlarma = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ControlAlarma");
+                OnControlAlarmaChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _ControlAlarma;
+        partial void OnControlAlarmaChanging(Nullable<global::System.Boolean> value);
+        partial void OnControlAlarmaChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> LlaveAlarma
+        {
+            get
+            {
+                return _LlaveAlarma;
+            }
+            set
+            {
+                OnLlaveAlarmaChanging(value);
+                ReportPropertyChanging("LlaveAlarma");
+                _LlaveAlarma = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LlaveAlarma");
+                OnLlaveAlarmaChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _LlaveAlarma;
+        partial void OnLlaveAlarmaChanging(Nullable<global::System.Int64> value);
+        partial void OnLlaveAlarmaChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Posicion
+        {
+            get
+            {
+                return _Posicion;
+            }
+            set
+            {
+                OnPosicionChanging(value);
+                ReportPropertyChanging("Posicion");
+                _Posicion = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Posicion");
+                OnPosicionChanged();
+            }
+        }
+        private global::System.String _Posicion;
+        partial void OnPosicionChanging(global::System.String value);
+        partial void OnPosicionChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> LimiteConsMensual
+        {
+            get
+            {
+                return _LimiteConsMensual;
+            }
+            set
+            {
+                OnLimiteConsMensualChanging(value);
+                ReportPropertyChanging("LimiteConsMensual");
+                _LimiteConsMensual = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LimiteConsMensual");
+                OnLimiteConsMensualChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _LimiteConsMensual;
+        partial void OnLimiteConsMensualChanging(Nullable<global::System.Int32> value);
+        partial void OnLimiteConsMensualChanged();
 
         #endregion
 
@@ -13225,6 +13535,82 @@ namespace Entidades
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Clasificacion>("ModeloConosud.FK_VehiculosYPF_TipoAsignacion", "Clasificacion", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ModeloConosud", "FK_VehiculosYPF_Estado", "Clasificacion")]
+        public Clasificacion objEstado
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Clasificacion>("ModeloConosud.FK_VehiculosYPF_Estado", "Clasificacion").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Clasificacion>("ModeloConosud.FK_VehiculosYPF_Estado", "Clasificacion").Value = value;
+            }
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Clasificacion> objEstadoReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Clasificacion>("ModeloConosud.FK_VehiculosYPF_Estado", "Clasificacion");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Clasificacion>("ModeloConosud.FK_VehiculosYPF_Estado", "Clasificacion", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ModeloConosud", "FK_VehiculosYPF_TipoVehiculo", "Clasificacion")]
+        public Clasificacion objTipoVehiculo
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Clasificacion>("ModeloConosud.FK_VehiculosYPF_TipoVehiculo", "Clasificacion").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Clasificacion>("ModeloConosud.FK_VehiculosYPF_TipoVehiculo", "Clasificacion").Value = value;
+            }
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Clasificacion> objTipoVehiculoReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Clasificacion>("ModeloConosud.FK_VehiculosYPF_TipoVehiculo", "Clasificacion");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Clasificacion>("ModeloConosud.FK_VehiculosYPF_TipoVehiculo", "Clasificacion", value);
                 }
             }
         }
