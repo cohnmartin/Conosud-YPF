@@ -34,8 +34,8 @@ public partial class AbmVehiculosYPF : System.Web.UI.Page
         Dictionary<string, string> alias = new Dictionary<string, string>();
 
         alias.Add("Patente", "Dominio");
-        alias.Add("Modelo", "Vehiculo");
-        alias.Add("Año", "Modelo Año");
+        alias.Add("Modelo", "Marca y Modelo");
+        alias.Add("Año", "Año");
         alias.Add("TipoCombustible", "Combustible");
         alias.Add("VtoTarjVerde", "Vencimiento T. Verde");
         alias.Add("VtoRevTecnica", "Vencimiento Rev. Tec.");
@@ -55,7 +55,31 @@ public partial class AbmVehiculosYPF : System.Web.UI.Page
         alias.Add("Sector", "Departamento");
 
 
-        alias.Add("TitularPin", "Titular PIN");
+
+
+
+        alias.Add("ControlAlarma", "Control de Alarma");
+        alias.Add("LlaveAlarma", "Llave con Alarma");
+        alias.Add("LimiteConsMensual", "Límite Consumo Mensual");
+        alias.Add("TipoVehiculo", "Tipo Vehiculo");
+
+
+        alias.Add("TitularPin", "Usuario PIN");
+        alias.Add("TitularPin1", "Usuario PIN1");
+        alias.Add("TitularPin2", "Usuario PIN2");
+        alias.Add("TitularPin3", "Usuario PIN3");
+        alias.Add("TitularPin4", "Usuario PIN4");
+        alias.Add("TitularPin5", "Usuario PIN5");
+        alias.Add("TitularPin6", "Usuario PIN6");
+        alias.Add("TitularPin7", "Usuario PIN7");
+
+
+        camposExcluir.Add("IdEstado");
+        camposExcluir.Add("IdTipoVehiculo");
+        camposExcluir.Add("IdDepartamento");
+        camposExcluir.Add("IdSector");
+        camposExcluir.Add("IdTipoAsignacion");
+        camposExcluir.Add("IdTipoCombustible");
 
 
         List<string> DatosReporte = new List<string>();

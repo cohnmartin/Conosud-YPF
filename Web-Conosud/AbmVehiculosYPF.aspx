@@ -25,14 +25,14 @@
         <cc1:ServerControlWindow ID="ServerControlVehiculos" runat="server" BackColor="WhiteSmoke"
             WindowColor="Rojo">
             <ContentControls>
-                <div id="divPrincipal" style="height: 610px; width: 1100px;overflow:scroll">
+                <div id="divPrincipal" style="height: 610px; width: 1100px; overflow: scroll">
                     <table cellpadding="2" cellspacing="2" style="width: 100%;">
                         <tr>
                             <td colspan="6" style="background-color: #CACACA; padding-left: 10px; height: 28px;">
                                 <asp:Label ID="lblTituloCaractesticas" runat="server" SkinID="lblConosud" Text="CARACTERISTICAS DEL VEHICULO"></asp:Label>
                             </td>
                         </tr>
-                        <tr>
+                        <rt>
                             <td align="left">
                                 <asp:Label ID="Label2" runat="server" SkinID="lblConosud" Text="Dominio:"></asp:Label>
                             </td>
@@ -94,16 +94,21 @@
                                 <asp:Label ID="Label49" runat="server" SkinID="lblConosud" Text="ABS:"></asp:Label>
                             </td>
                             <td align="left">
-                                <asp:CheckBox Text="" runat="server" ID="chkABS"  ng-model="Current.ABS" />
+                                <input type="checkbox" name="chkAIRBAGS" ng-model="Current.ABS" />
                             </td>
                             <td align="left">
                                 <asp:Label ID="Label50" runat="server" SkinID="lblConosud" Text="AIRBAGS:"></asp:Label>
                             </td>
-                            <td colspan="3">
-                                <asp:CheckBox Text="" runat="server" ID="chkAIRBAGS"  ng-model="Current.AIRBAGS" />
+                            <td >
+                                <input type="checkbox" name="chkAIRBAGS" ng-model="Current.AIRBAGS" />
+                            </td>
+                            <td align="left">
+                                <asp:Label ID="Label62" runat="server" SkinID="lblConosud" Text="MICROTRACK:"></asp:Label>
+                            </td>
+                            <td >
+                                <input type="checkbox" name="chkAIRBAGS" ng-model="Current.MICROTRACK" />
                             </td>
                         </tr>
-
                         <tr>
                             <td align="left">
                                 <asp:Label ID="Label51" runat="server" SkinID="lblConosud" Text="Estado:"></asp:Label>
@@ -136,8 +141,6 @@
                             </td>
                            
                         </tr>
-
-
                         <tr>
                             <td align="left">
                                 <asp:Label ID="Label52" runat="server" SkinID="lblConosud" Text="Tipo Vehículo:"></asp:Label>
@@ -171,36 +174,55 @@
                                 <asp:Label ID="Label7" runat="server" SkinID="lblConosud" Text="Duplicados"></asp:Label>
                             </td>
                         </tr>
-
-
                         <tr>
                             <td align="left">
                                 <asp:Label ID="Label25" runat="server" SkinID="lblConosud" Text="Llave:"></asp:Label>
                             </td>
                             <td align="left">
-                                <asp:CheckBox Text="" runat="server" ID="chkLlave"  ng-model="Current.Llave" />
+                                
+                                <input type="checkbox" name="chkLlave" ng-model="Current.Llave" />
                             </td>
                             <td align="left">
                                 <asp:Label ID="Label53" runat="server" SkinID="lblConosud" Text="Control con alarma:"></asp:Label>
                             </td>
                             <td >
-                                <asp:CheckBox Text="" runat="server" ID="chkControlAlarma"  ng-model="Current.ControlAlarma" />
+                                <input type="checkbox" name="chkControlAlarma" ng-model="Current.ControlAlarma" />
                             </td>
                             <td align="left">
                                 <asp:Label ID="Label54" runat="server" SkinID="lblConosud" Text="Llave con Alarma:"></asp:Label>
                             </td>
                             <td>
-                                <asp:CheckBox Text="" runat="server" ID="chkLlaveAlarma"  ng-model="Current.LlaveAlarma" />
+                                <input type="checkbox" name="chkLlaveAlarma" ng-model="Current.LlaveAlarma" />
                             </td>
                         </tr>
-
                          <tr>
                             <td colspan="6" style="background-color: #CACACA; padding-left: 10px; height: 28px;">
                                 <asp:Label ID="Label55" runat="server" SkinID="lblConosud" Text="Asignación"></asp:Label>
                             </td>
                         </tr>
+                        <tr>
+                            <td align="left">
+                                <asp:Label ID="Label26" runat="server" SkinID="lblConosud" Text="Area:"></asp:Label>
+                            </td>
+                            <td>
+                                <select id="cboDepartamento" runat="server" ng-model="Current.IdDepartamento" style="width: 170px" ng-options="clasif.Id as clasif.Descripcion for clasif in Clasificaciones | filter:Tipo='Areas' | orderBy:'Descripcion' ">
+                                    <option value="" disabled selected></option>
+                                </select>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator20" runat="server" ControlToValidate="cboDepartamento" 
+                                    ErrorMessage="*"></asp:RequiredFieldValidator>
+                            </td>
 
-
+                            <td align="left">
+                                <asp:Label ID="Label60" runat="server" SkinID="lblConosud" Text="Departamento:"></asp:Label>
+                            </td>
+                            <td>
+                                <select id="cboSector" runat="server" ng-model="Current.IdSector" style="width: 170px" ng-options="clasif.Id as clasif.Descripcion for clasif in Clasificaciones | filter:Tipo='Departamentos' | orderBy:'Descripcion' ">
+                                 <option value="" disabled selected></option>
+                                </select>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator21" runat="server" ControlToValidate="cboSector" 
+                                    ErrorMessage="*"></asp:RequiredFieldValidator>
+                            </td>
+                        </tr>
                         <tr>
                             <td align="left">
                                 <asp:Label ID="Label56" runat="server" SkinID="lblConosud" Text="Responsable:"></asp:Label>
@@ -213,11 +235,10 @@
                             <td align="left">
                                 <asp:Label ID="Label57" runat="server" SkinID="lblConosud" Text="Posicion:"></asp:Label>
                             </td>
-                            <td align="left" colspan="3">
-
+                            <td align="left" >
+                                <input type="text" ng-model="Current.Posicion" style="width: 130px" id="Text1" runat="server" />
                             </td>
                         </tr>
-
                         <tr>
                             <td align="left">
                                 <asp:Label ID="Label58" runat="server" SkinID="lblConosud" Text="Titular:"></asp:Label>
@@ -256,10 +277,10 @@
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ControlToValidate="txtRazonSocial"
                                     ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
-                            <td align="left">
+                            <td align="left" >
                                 <asp:Label ID="Label12" runat="server" SkinID="lblConosud" Text="Nro de Tarjeta:"></asp:Label>
                             </td>
-                            <td align="left" colspan="2">
+                            <td align="left"  colspan="2">
                                 <input type="text" ng-model="Current.NroTarjeta" style="width: 92%" id="txtNroTarjetas" runat="server" />
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ControlToValidate="txtNroTarjetas"
                                     ErrorMessage="*"></asp:RequiredFieldValidator>
@@ -288,7 +309,7 @@
                                 <asp:Label ID="Label20" runat="server" SkinID="lblConosud" Text="Tarjeta Activas:"></asp:Label>
                             </td>
                             <td align="left">
-                                <input type="text" ng-model="Current.TarjetasActivas" style="width: 92%" id="txtTarjetasActivas" runat="server" />
+                                <input type="text" ng-model="Current.TarjetasActivas" style="width: 60%" id="txtTarjetasActivas" runat="server" />
                                  <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ControlToValidate="txtTarjetasActivas"
                                     ErrorMessage="*"></asp:RequiredFieldValidator>
                             </td>
@@ -307,9 +328,15 @@
                                 <asp:Label ID="Label59" runat="server" SkinID="lblConosud" Text="Limite Cons. Mensual:"></asp:Label>
                             </td>
                             <td align="left" colspan="2">
-                                <input type="text" ng-model="Current.LimiteConMensual" style="width: 92%" id="txtLimiteConsMensual" runat="server" />
+                                <input type="text" ng-model="Current.LimiteConsMensual" style="width: 92%" id="txtLimiteConsMensual" runat="server" />
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator19" runat="server" ControlToValidate="txtLimiteConsMensual"
                                     ErrorMessage="*"></asp:RequiredFieldValidator>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="6" style="background-color: #CACACA; padding-left: 10px; height: 28px;">
+                                <asp:Label ID="Label61" runat="server" SkinID="lblConosud" Text="PIN"></asp:Label>
                             </td>
                         </tr>
                         <tr>
@@ -319,22 +346,30 @@
                                     <td align="left">
                                             <asp:Label ID="Label39" runat="server" SkinID="lblConosud" Text="1:"></asp:Label>
                                         </td>
+                                        
+                                        <td align="left" style="width:80px">
+                                            <asp:Label ID="Label24" runat="server" SkinID="lblConosud" Text="Usuario:"></asp:Label>
+                                        </td>
+                                        <td align="left">
+                                            <input type="text" ng-model="Current.TitularPin" style="width: 95%" />
+                                        </td>
                                         <td align="left" style="width:45px">
                                             <asp:Label ID="Label23" runat="server" SkinID="lblConosud" Text="PIN:"></asp:Label>
                                         </td>
                                         <td align="left">
                                             <input type="text" ng-model="Current.PIN" style="width: 95%" numbers-only="numbers-only" />
                                         </td>
-                                        <td align="left" style="width:80px">
-                                            <asp:Label ID="Label24" runat="server" SkinID="lblConosud" Text="Titula PIN:"></asp:Label>
-                                        </td>
-                                        <td align="left">
-                                            <input type="text" ng-model="Current.TitularPin" style="width: 95%" />
-                                        </td>
                                     </tr>
                                     <tr>
                                         <td align="left">
                                             <asp:Label ID="Label35" runat="server" SkinID="lblConosud" Text="2:"></asp:Label>
+                                        </td>
+                                        
+                                        <td align="left">
+                                            <asp:Label ID="Label28" runat="server" SkinID="lblConosud" Text="Usuario:"></asp:Label>
+                                        </td>
+                                        <td align="left">
+                                            <input type="text" ng-model="Current.TitularPin1" style="width: 95%" />
                                         </td>
                                         <td align="left">
                                             <asp:Label ID="Label27" runat="server" SkinID="lblConosud" Text="PIN:"></asp:Label>
@@ -342,16 +377,17 @@
                                         <td align="left">
                                             <input type="text" ng-model="Current.PIN1" style="width: 95%" numbers-only="numbers-only" />
                                         </td>
-                                        <td align="left">
-                                            <asp:Label ID="Label28" runat="server" SkinID="lblConosud" Text="Titula PIN:"></asp:Label>
-                                        </td>
-                                        <td align="left">
-                                            <input type="text" ng-model="Current.TitularPin1" style="width: 95%" />
-                                        </td>
                                     </tr>
                                     <tr>
                                     <td align="left">
                                             <asp:Label ID="Label36" runat="server" SkinID="lblConosud" Text="3:"></asp:Label>
+                                        </td>
+                                        
+                                        <td align="left">
+                                            <asp:Label ID="Label30" runat="server" SkinID="lblConosud" Text="Usuario:"></asp:Label>
+                                        </td>
+                                        <td align="left">
+                                            <input type="text" ng-model="Current.TitularPin2" style="width: 95%" />
                                         </td>
                                         <td align="left">
                                             <asp:Label ID="Label29" runat="server" SkinID="lblConosud" Text="PIN:"></asp:Label>
@@ -359,16 +395,17 @@
                                         <td align="left">
                                             <input type="text" ng-model="Current.PIN2" style="width: 95%" numbers-only="numbers-only" />
                                         </td>
-                                        <td align="left">
-                                            <asp:Label ID="Label30" runat="server" SkinID="lblConosud" Text="Titula PIN:"></asp:Label>
-                                        </td>
-                                        <td align="left">
-                                            <input type="text" ng-model="Current.TitularPin2" style="width: 95%" />
-                                        </td>
                                     </tr>
                                     <tr>
                                     <td align="left">
                                             <asp:Label ID="Label37" runat="server" SkinID="lblConosud" Text="4:"></asp:Label>
+                                        </td>
+                                        
+                                        <td align="left">
+                                            <asp:Label ID="Label32" runat="server" SkinID="lblConosud" Text="Usuario:"></asp:Label>
+                                        </td>
+                                        <td align="left">
+                                            <input type="text" ng-model="Current.TitularPin3" style="width: 95%" />
                                         </td>
                                         <td align="left">
                                             <asp:Label ID="Label31" runat="server" SkinID="lblConosud" Text="PIN:"></asp:Label>
@@ -376,16 +413,17 @@
                                         <td align="left">
                                             <input type="text" ng-model="Current.PIN3" style="width: 95%" numbers-only="numbers-only" />
                                         </td>
-                                        <td align="left">
-                                            <asp:Label ID="Label32" runat="server" SkinID="lblConosud" Text="Titula PIN:"></asp:Label>
-                                        </td>
-                                        <td align="left">
-                                            <input type="text" ng-model="Current.TitularPin3" style="width: 95%" />
-                                        </td>
                                     </tr>
                                     <tr>
-                                    <td align="left">
+                                        <td align="left">
                                             <asp:Label ID="Label38" runat="server" SkinID="lblConosud" Text="5:"></asp:Label>
+                                        </td>
+                                        
+                                        <td align="left">
+                                            <asp:Label ID="Label34" runat="server" SkinID="lblConosud" Text="Usuario:"></asp:Label>
+                                        </td>
+                                        <td align="left">
+                                            <input type="text" ng-model="Current.TitularPin4" style="width: 95%" />
                                         </td>
                                         <td align="left">
                                             <asp:Label ID="Label33" runat="server" SkinID="lblConosud" Text="PIN:"></asp:Label>
@@ -393,16 +431,17 @@
                                         <td align="left">
                                             <input type="text" ng-model="Current.PIN4" style="width: 95%" numbers-only="numbers-only" />
                                         </td>
-                                        <td align="left">
-                                            <asp:Label ID="Label34" runat="server" SkinID="lblConosud" Text="Titula PIN:"></asp:Label>
-                                        </td>
-                                        <td align="left">
-                                            <input type="text" ng-model="Current.TitularPin4" style="width: 95%" />
-                                        </td>
                                     </tr>
                                     <tr>
-                                    <td align="left">
+                                     <td align="left">
                                             <asp:Label ID="Label40" runat="server" SkinID="lblConosud" Text="6:"></asp:Label>
+                                        </td>
+                                        
+                                        <td align="left">
+                                            <asp:Label ID="Label42" runat="server" SkinID="lblConosud" Text="Usuario:"></asp:Label>
+                                        </td>
+                                        <td align="left">
+                                            <input type="text" ng-model="Current.TitularPin5" style="width: 95%" />
                                         </td>
                                         <td align="left">
                                             <asp:Label ID="Label41" runat="server" SkinID="lblConosud" Text="PIN:"></asp:Label>
@@ -410,16 +449,17 @@
                                         <td align="left">
                                             <input type="text" ng-model="Current.PIN5" style="width: 95%" numbers-only="numbers-only" />
                                         </td>
-                                        <td align="left">
-                                            <asp:Label ID="Label42" runat="server" SkinID="lblConosud" Text="Titula PIN:"></asp:Label>
-                                        </td>
-                                        <td align="left">
-                                            <input type="text" ng-model="Current.TitularPin5" style="width: 95%" />
-                                        </td>
                                     </tr>
                                     <tr>
                                     <td align="left">
                                             <asp:Label ID="Label43" runat="server" SkinID="lblConosud" Text="7:"></asp:Label>
+                                        </td>
+                                        
+                                        <td align="left">
+                                            <asp:Label ID="Label45" runat="server" SkinID="lblConosud" Text="Usuario:"></asp:Label>
+                                        </td>
+                                        <td align="left">
+                                            <input type="text" ng-model="Current.TitularPin6" style="width: 95%" />
                                         </td>
                                         <td align="left">
                                             <asp:Label ID="Label44" runat="server" SkinID="lblConosud" Text="PIN:"></asp:Label>
@@ -427,28 +467,23 @@
                                         <td align="left">
                                             <input type="text" ng-model="Current.PIN6" style="width: 95%" numbers-only="numbers-only" />
                                         </td>
-                                        <td align="left">
-                                            <asp:Label ID="Label45" runat="server" SkinID="lblConosud" Text="Titula PIN:"></asp:Label>
-                                        </td>
-                                        <td align="left">
-                                            <input type="text" ng-model="Current.TitularPin6" style="width: 95%" />
-                                        </td>
                                     </tr>
                                     <tr>
                                     <td align="left">
                                             <asp:Label ID="Label46" runat="server" SkinID="lblConosud" Text="8:"></asp:Label>
+                                        </td>
+                                        
+                                        <td align="left">
+                                            <asp:Label ID="Label48" runat="server" SkinID="lblConosud" Text="Usuario:"></asp:Label>
+                                        </td>
+                                        <td align="left">
+                                            <input type="text" ng-model="Current.TitularPin7" style="width: 95%" numbers-only="numbers-only" />
                                         </td>
                                         <td align="left">
                                             <asp:Label ID="Label47" runat="server" SkinID="lblConosud" Text="PIN:"></asp:Label>
                                         </td>
                                         <td align="left">
                                             <input type="text" ng-model="Current.PIN7" style="width: 95%" numbers-only="numbers-only" />
-                                        </td>
-                                        <td align="left">
-                                            <asp:Label ID="Label48" runat="server" SkinID="lblConosud" Text="Titula PIN:"></asp:Label>
-                                        </td>
-                                        <td align="left">
-                                            <input type="text" ng-model="Current.TitularPin7" style="width: 95%" numbers-only="numbers-only" />
                                         </td>
                                     </tr>
                                 </table>

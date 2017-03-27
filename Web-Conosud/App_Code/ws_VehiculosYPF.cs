@@ -22,7 +22,7 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
 
     }
 
- 
+
     [WebMethod]
     public bool GrabarVehiculo(IDictionary<string, object> vehiculo)
     {
@@ -59,7 +59,7 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
 
             if (vehiculo.ContainsKey("Responsable") && vehiculo["Responsable"] != null)
                 current.Responsable = vehiculo["Responsable"].ToString();
-            
+
             current.Combustible = long.Parse(vehiculo["IdTipoCombustible"].ToString());
 
             if (vehiculo.ContainsKey("IdTipoAsignacion") && vehiculo["IdTipoAsignacion"] != null)
@@ -180,6 +180,37 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
             if (vehiculo.ContainsKey("IdTipoVehiculo") && vehiculo["IdTipoVehiculo"] != null)
                 current.TipoVehiculo = long.Parse(vehiculo["IdTipoVehiculo"].ToString());
 
+
+            if (vehiculo.ContainsKey("Chasis") && vehiculo["Chasis"] != null)
+                current.Chasis = vehiculo["Chasis"].ToString();
+
+            if (vehiculo.ContainsKey("Motor") && vehiculo["Motor"] != null)
+                current.Motor = vehiculo["Motor"].ToString();
+
+            if (vehiculo.ContainsKey("ABS") && vehiculo["ABS"] != null)
+                current.ABS = bool.Parse(vehiculo["ABS"].ToString());
+
+            if (vehiculo.ContainsKey("AIRBAGS") && vehiculo["AIRBAGS"] != null)
+                current.AIRBAGS = bool.Parse(vehiculo["AIRBAGS"].ToString());
+
+            if (vehiculo.ContainsKey("Llave") && vehiculo["Llave"] != null)
+                current.Llave = bool.Parse(vehiculo["Llave"].ToString());
+
+            if (vehiculo.ContainsKey("ControlAlarma") && vehiculo["ControlAlarma"] != null)
+                current.ControlAlarma = bool.Parse(vehiculo["ControlAlarma"].ToString());
+
+            if (vehiculo.ContainsKey("LlaveAlarma") && vehiculo["LlaveAlarma"] != null)
+                current.LlaveAlarma = bool.Parse(vehiculo["LlaveAlarma"].ToString());
+
+            if (vehiculo.ContainsKey("Posicion") && vehiculo["Posicion"] != null)
+                current.Posicion = vehiculo["Posicion"].ToString();
+
+            if (vehiculo.ContainsKey("LimiteConsMensual") && vehiculo["LimiteConsMensual"] != null)
+                current.LimiteConsMensual = int.Parse(vehiculo["LimiteConsMensual"].ToString());
+
+            if (vehiculo.ContainsKey("MICROTRACK") && vehiculo["MICROTRACK"] != null)
+                current.MICROTRACK = bool.Parse(vehiculo["MICROTRACK"].ToString());
+
             dc.SaveChanges();
         }
         return true;
@@ -265,7 +296,17 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                              v.PIN7,
                              v.TitularPin7,
                              Estado = v.objEstado,
-                             TipoVehiculo = v.objTipoVehiculo
+                             TipoVehiculo = v.objTipoVehiculo,
+                             Chasis = v.Chasis,
+                             Motor = v.Motor,
+                             ABS = v.ABS,
+                             AIRBAGS = v.AIRBAGS,
+                             MICROTRACK = v.MICROTRACK,
+                             v.Llave,
+                             v.ControlAlarma,
+                             v.LlaveAlarma,
+                             v.Posicion,
+                             v.LimiteConsMensual
 
                          }).Take(25).ToList();
 
@@ -325,7 +366,17 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                         v.PIN6,
                         v.TitularPin6,
                         v.PIN7,
-                        v.TitularPin7
+                        v.TitularPin7,
+                        Chasis = v.Chasis,
+                        Motor = v.Motor,
+                        ABS = v.ABS == null ? false : v.ABS,
+                        AIRBAGS = v.AIRBAGS == null ? false : v.AIRBAGS,
+                        MICROTRACK = v.MICROTRACK == null ? false : v.MICROTRACK,
+                        Llave = v.Llave == null ? false : v.Llave,
+                        ControlAlarma = v.ControlAlarma == null ? false : v.ControlAlarma,
+                        LlaveAlarma = v.LlaveAlarma == null ? false : v.LlaveAlarma,
+                        Posicion = v.Posicion,
+                        LimiteConsMensual = v.LimiteConsMensual,
 
 
                     }).ToList();
@@ -386,7 +437,18 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                              v.PIN7,
                              v.TitularPin7,
                              Estado = v.objEstado,
-                             TipoVehiculo  = v.objTipoVehiculo
+                             TipoVehiculo = v.objTipoVehiculo,
+                             Chasis = v.Chasis,
+                             Motor = v.Motor,
+                             ABS = v.ABS,
+                             AIRBAGS = v.AIRBAGS,
+                             MICROTRACK = v.MICROTRACK,
+                             v.Llave,
+                             v.ControlAlarma,
+                             v.LlaveAlarma,
+                             v.Posicion,
+                             v.LimiteConsMensual
+
                          }).Take(10).ToList();
 
 
@@ -415,6 +477,16 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                         IdTipoVehiculo = v.TipoVehiculo != null ? v.TipoVehiculo.IdClasificacion : nullValue,
                         TipoVehiculo = v.TipoVehiculo != null ? v.TipoVehiculo.Descripcion : "",
 
+                        Chasis = v.Chasis,
+                        Motor = v.Motor,
+                        ABS = v.ABS == null ? false : v.ABS,
+                        AIRBAGS = v.AIRBAGS == null ? false : v.AIRBAGS,
+                        MICROTRACK = v.MICROTRACK == null ? false : v.MICROTRACK,
+                        Llave = v.Llave == null ? false : v.Llave,
+                        ControlAlarma = v.ControlAlarma == null ? false : v.ControlAlarma,
+                        LlaveAlarma = v.LlaveAlarma == null ? false : v.LlaveAlarma,
+                        Posicion = v.Posicion,
+                        LimiteConsMensual = v.LimiteConsMensual,
 
                         v.Titular,
                         v.Responsable,
@@ -461,20 +533,26 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
         using (EntidadesConosud dc = new EntidadesConosud())
         {
 
+            var tipos = (from c in dc.Clasificacion
+                         where c.Tipo == Helpers.Constantes.ContextoVehiculosYPF
+                         select c).FirstOrDefault().Hijos.Select(c => c.Tipo).Distinct().ToList();
+
+
             return (from c in dc.Clasificacion
-                    where c.Tipo == Helpers.Constantes.ContextoVehiculosYPF
-                    select c).FirstOrDefault().Hijos.Select(c => new
+                    where tipos.Contains(c.Tipo)
+                    select new
                     {
                         Id = c.IdClasificacion,
                         Descripcion = c.Descripcion,
                         Tipo = c.Tipo
-                    }).ToList();
+                    }).Distinct().ToList();
+
         }
 
     }
 
     [WebMethod]
-    public List<vehiculosYpfTemp> getExportacion()
+    public List<dynamic> getExportacion()
     {
 
         using (EntidadesConosud dc = new EntidadesConosud())
@@ -521,55 +599,85 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                              v.PIN6,
                              v.TitularPin6,
                              v.PIN7,
-                             v.TitularPin7
+                             v.TitularPin7,
+                             Estado = v.objEstado,
+                             TipoVehiculo = v.objTipoVehiculo,
+                             Chasis = v.Chasis,
+                             Motor = v.Motor,
+                             ABS = v.ABS,
+                             AIRBAGS = v.AIRBAGS,
+                             MICROTRACK = v.MICROTRACK,
+                             v.Llave,
+                             v.ControlAlarma,
+                             v.LlaveAlarma,
+                             v.Posicion,
+                             v.LimiteConsMensual
 
 
                          }).ToList();
 
 
 
-            List<vehiculosYpfTemp> datosExportar = (from v in datos
-                                                    select new vehiculosYpfTemp
-                                                    {
-                                                        Patente = v.Patente,
-                                                        Modelo = v.Modelo,
-                                                        Departamento = v.Departamento != null ? v.Departamento.Descripcion : "",
+            List<dynamic> datosExportar = (from v in datos
+                                           select new
+                                           {
+                                               Patente = v.Patente,
+                                               Modelo = v.Modelo,
+                                               Año = v.Año,
+                                               TipoCombustible = v.TipoCombustible != null ? v.TipoCombustible.Descripcion : "",
+                                               Chasis = v.Chasis,
+                                               Motor = v.Motor,
+                                               ABS = v.ABS == null || v.ABS == false ? "NO" : "SI",
+                                               AIRBAGS = v.AIRBAGS == null || v.AIRBAGS == false ? "NO" : "SI",
+                                               MICROTRACK = v.MICROTRACK == null || v.MICROTRACK == false ? "NO" : "SI",
+                                               Estado = v.Estado != null ? v.Estado.Descripcion : "",
+                                               VtoRevTecnica = v.VtoRevTecnica.ToString(),
+                                               VtoTarjVerde = v.VtoTarjVerde.ToString(),
+                                               TipoVehiculo = v.TipoVehiculo != null ? v.TipoVehiculo.Descripcion : "",
+                                               VelocimetroFecha = v.VelocimetroFecha.ToString(),
+                                               VelocimetroOdometro = v.VelocimetroOdometro,
 
-                                                        TipoCombustible = v.TipoCombustible != null ? v.TipoCombustible.Descripcion : "",
-                                                        TipoAsignacion = v.TipoAsignacion != null ? v.TipoAsignacion.Descripcion : "",
-                                                        Sector = v.Sector != null ? v.Sector.Descripcion : "",
-                                                        Responsable = v.Responsable,
-                                                        Titular = v.Titular,
-                                                        CentroCosto = v.CentroCosto,
-                                                        VtoTarjVerde = v.VtoTarjVerde.ToString(),
-                                                        VtoRevTecnica = v.VtoRevTecnica.ToString(),
-                                                        VelocimetroFecha = v.VelocimetroFecha.ToString(),
-                                                        Contrato = v.Contrato,
-                                                        NroTarjeta = v.NroTarjeta,
-                                                        VelocimetroOdometro = v.VelocimetroOdometro,
-                                                        Año = v.Año,
-                                                        RazonSocial = v.RazonSocial,
-                                                        TarjetasActivas = v.TarjetasActivas.ToString(),
-                                                        LimiteCredito = v.LimiteCredito.ToString(),
-                                                        PIN = v.PIN.ToString(),
-                                                        TitularPin = v.TitularPin,
-                                                        PIN1 = v.PIN1.ToString(),
-                                                        TitularPin1 = v.TitularPin1,
-                                                        PIN2 = v.PIN2.ToString(),
-                                                        TitularPin2 = v.TitularPin2,
-                                                        PIN3 = v.PIN3.ToString(),
-                                                        TitularPin3 = v.TitularPin3,
-                                                        PIN4 = v.PIN4.ToString(),
-                                                        TitularPin4 = v.TitularPin4,
-                                                        PIN5 = v.PIN5.ToString(),
-                                                        TitularPin5 = v.TitularPin5,
-                                                        PIN6 = v.PIN6.ToString(),
-                                                        TitularPin6 = v.TitularPin6,
-                                                        PIN7 = v.PIN7.ToString(),
-                                                        TitularPin7 = v.TitularPin7,
-                                                        Observacion = v.Observacion
+                                               Llave = v.Llave == null || v.Llave == false ? "NO" : "SI",
+                                               ControlAlarma = v.ControlAlarma == null || v.ControlAlarma == false ? "NO" : "SI",
+                                               LlaveAlarma = v.LlaveAlarma == null || v.LlaveAlarma == false ? "NO" : "SI",
 
-                                                    }).ToList<vehiculosYpfTemp>();
+
+                                               Departamento = v.Departamento != null ? v.Departamento.Descripcion : "",
+                                               Sector = v.Sector != null ? v.Sector.Descripcion : "",
+                                               Responsable = v.Responsable,
+                                               Posicion = v.Posicion,
+                                               Titular = v.Titular,
+                                               TipoAsignacion = v.TipoAsignacion != null ? v.TipoAsignacion.Descripcion : "",
+
+
+                                               RazonSocial = v.RazonSocial,
+                                               NroTarjeta = v.NroTarjeta,
+                                               Contrato = v.Contrato,
+                                               CentroCosto = v.CentroCosto,
+                                               TarjetasActivas = v.TarjetasActivas.ToString(),
+                                               LimiteCredito = v.LimiteCredito.ToString(),
+                                               LimiteConsMensual = v.LimiteConsMensual.ToString(),
+
+
+                                               PIN = v.PIN.ToString(),
+                                               TitularPin = v.TitularPin,
+                                               PIN1 = v.PIN1.ToString(),
+                                               TitularPin1 = v.TitularPin1,
+                                               PIN2 = v.PIN2.ToString(),
+                                               TitularPin2 = v.TitularPin2,
+                                               PIN3 = v.PIN3.ToString(),
+                                               TitularPin3 = v.TitularPin3,
+                                               PIN4 = v.PIN4.ToString(),
+                                               TitularPin4 = v.TitularPin4,
+                                               PIN5 = v.PIN5.ToString(),
+                                               TitularPin5 = v.TitularPin5,
+                                               PIN6 = v.PIN6.ToString(),
+                                               TitularPin6 = v.TitularPin6,
+                                               PIN7 = v.PIN7.ToString(),
+                                               TitularPin7 = v.TitularPin7,
+                                               Observacion = v.Observacion
+
+                                           }).ToList<dynamic>();
 
 
             return datosExportar;
@@ -588,7 +696,7 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
 
             return (from c in dc.Empresa
                     where c.RazonSocial.Contains(nombre)
-                    select new 
+                    select new
                     {
                         Id = c.IdEmpresa,
                         Nombre = c.RazonSocial,
