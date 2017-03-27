@@ -13315,7 +13315,7 @@ namespace Entidades
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int64> LlaveAlarma
+        public Nullable<global::System.Boolean> LlaveAlarma
         {
             get
             {
@@ -13330,8 +13330,8 @@ namespace Entidades
                 OnLlaveAlarmaChanged();
             }
         }
-        private Nullable<global::System.Int64> _LlaveAlarma;
-        partial void OnLlaveAlarmaChanging(Nullable<global::System.Int64> value);
+        private Nullable<global::System.Boolean> _LlaveAlarma;
+        partial void OnLlaveAlarmaChanging(Nullable<global::System.Boolean> value);
         partial void OnLlaveAlarmaChanged();
     
         /// <summary>
@@ -13381,6 +13381,30 @@ namespace Entidades
         private Nullable<global::System.Int32> _LimiteConsMensual;
         partial void OnLimiteConsMensualChanging(Nullable<global::System.Int32> value);
         partial void OnLimiteConsMensualChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> MICROTRACK
+        {
+            get
+            {
+                return _MICROTRACK;
+            }
+            set
+            {
+                OnMICROTRACKChanging(value);
+                ReportPropertyChanging("MICROTRACK");
+                _MICROTRACK = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("MICROTRACK");
+                OnMICROTRACKChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _MICROTRACK;
+        partial void OnMICROTRACKChanging(Nullable<global::System.Boolean> value);
+        partial void OnMICROTRACKChanged();
 
         #endregion
 

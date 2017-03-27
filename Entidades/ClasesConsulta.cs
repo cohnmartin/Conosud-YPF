@@ -48,5 +48,18 @@ namespace Entidades
         public string TitularPin7 { get; set; }
         public string Observacion { get; set; }
 
+
+        public string Estado { get; set; }
+        public string TipoVehiculo { get; set; }
+        public string Chasis { get; set; }
+        public string Motor { get; set; }
+        public string ABS { get; set; }
+        public string AIRBAGS { get; set; }
+        public string Llave { get; set; }
+        public string ControlAlarma { get; set; }
+        public string LlaveAlarma { get; set; }
+        public string Posicion { get; set; }
+        public string LimiteConsMensual { get; set; }
+
     }
 }

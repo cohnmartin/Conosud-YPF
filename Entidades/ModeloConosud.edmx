@@ -352,7 +352,7 @@
             <PropertyRef Name="IdClasificacion" />
           </Key>
           <Property Name="IdClasificacion" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="800" />
           <Property Name="IdPadre" Type="bigint" />
           <Property Name="Codigo" Type="varchar" MaxLength="50" />
           <Property Name="Tipo" Type="varchar" MaxLength="50" />
@@ -826,9 +826,10 @@
           <Property Name="TipoVehiculo" Type="bigint" />
           <Property Name="Llave" Type="bit" />
           <Property Name="ControlAlarma" Type="bit" />
-          <Property Name="LlaveAlarma" Type="bigint" />
+          <Property Name="LlaveAlarma" Type="bit" />
           <Property Name="Posicion" Type="varchar" MaxLength="50" />
           <Property Name="LimiteConsMensual" Type="int" />
+          <Property Name="MICROTRACK" Type="bit" />
         </EntityType>
         <!--Se encontraron errores durante la generación:
       advertencia 6002: La tabla o vista 'Conosud.dbo.View_EmpresasContratos' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
@@ -2469,11 +2470,12 @@
           <Property Type="Int64" Name="TipoVehiculo" />
           <Property Type="Boolean" Name="Llave" />
           <Property Type="Boolean" Name="ControlAlarma" />
-          <Property Type="Int64" Name="LlaveAlarma" />
+          <Property Type="Boolean" Name="LlaveAlarma" />
           <Property Type="String" Name="Posicion" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="LimiteConsMensual" />
           <NavigationProperty Name="objEstado" Relationship="ModeloConosud.FK_VehiculosYPF_Estado" FromRole="VehiculosYPF" ToRole="Clasificacion" />
           <NavigationProperty Name="objTipoVehiculo" Relationship="ModeloConosud.FK_VehiculosYPF_TipoVehiculo" FromRole="VehiculosYPF" ToRole="Clasificacion" />
+          <Property Type="Boolean" Name="MICROTRACK" />
         </EntityType>
         <EntityType Name="InformacionPlanTrabajo">
           <Key>
@@ -3422,6 +3424,7 @@
           <EntitySetMapping Name="VehiculosYPF">
             <EntityTypeMapping TypeName="ModeloConosud.VehiculosYPF">
               <MappingFragment StoreEntitySet="VehiculosYPF">
+                <ScalarProperty Name="MICROTRACK" ColumnName="MICROTRACK" />
                 <ScalarProperty Name="LimiteConsMensual" ColumnName="LimiteConsMensual" />
                 <ScalarProperty Name="Posicion" ColumnName="Posicion" />
                 <ScalarProperty Name="LlaveAlarma" ColumnName="LlaveAlarma" />
@@ -3575,7 +3578,7 @@
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram Name="ModeloConosud" ZoomLevel="71" xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+      <Diagram Name="ModeloConosud" ZoomLevel="62" xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
         <EntityTypeShape EntityType="ModeloConosud.ArchivosAdjuntos" Width="1.5" PointX="7.25" PointY="0.5" Height="1.5923063151041674" IsExpanded="true" />
         <EntityTypeShape EntityType="ModeloConosud.CabeceraHojasDeRuta" Width="1.5" PointX="8.125" PointY="4" Height="3.9033007812499996" IsExpanded="true" />
         <EntityTypeShape EntityType="ModeloConosud.CategoriasItems" Width="1.5" PointX="8.625" PointY="13.75" Height="1.75665364583333" IsExpanded="true" />
