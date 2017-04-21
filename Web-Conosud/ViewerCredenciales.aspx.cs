@@ -37,7 +37,18 @@ public partial class ViewerCredenciales : System.Web.UI.Page
                     List<VahiculosyEquipos> VahiyEqui = (from U in Contexto.VahiculosyEquipos where U.IdVehiculoEquipo == id select U).ToList();
 
 
-                    if (VahiyEqui.First().Tipo != "Eventuales")
+                    if (VahiyEqui.First().Tipo == "Eventuales" || VahiyEqui.First().Tipo == "EE")
+                    {
+
+                        CredencialVehiculosEventuales rep = new CredencialVehiculosEventuales();
+                        string PuestoIngrso = VahiyEqui.First().PuestoIngreso == null ? "" : VahiyEqui.First().PuestoIngreso;
+                        string Empresa = VahiyEqui.First().objEmpresa.RazonSocial;
+                        rep.InitReport(VahiyEqui.First().Patente, string.Format("{0:dd/MM/yy}", VahiyEqui.First().VencimientoCredencial), PuestoIngrso, Empresa);
+
+                        rep.DataSource = null;
+                        this.ReportViewer1.Report = rep;
+                    }
+                    else
                     {
                         CredencialVehiculos rep = new CredencialVehiculos();
                         string Tipo = VahiyEqui.First().objEmpresa.RazonSocial.Contains("YPF") ? "OFICIAL" : "CONTRATISTA";
@@ -51,17 +62,7 @@ public partial class ViewerCredenciales : System.Web.UI.Page
                         rep.DataSource = null;
                         this.ReportViewer1.Report = rep;
                     }
-                    else
-                    {
-
-                        CredencialVehiculosEventuales rep = new CredencialVehiculosEventuales();
-                        string PuestoIngrso = VahiyEqui.First().PuestoIngreso == null ? "" : VahiyEqui.First().PuestoIngreso;
-                        string Empresa = VahiyEqui.First().objEmpresa.RazonSocial;
-                        rep.InitReport(VahiyEqui.First().Patente, string.Format("{0:dd/MM/yy}", VahiyEqui.First().VencimientoCredencial),PuestoIngrso, Empresa);
-
-                        rep.DataSource = null;
-                        this.ReportViewer1.Report = rep;
-                    }
+                       
                 }
                 else
                 {

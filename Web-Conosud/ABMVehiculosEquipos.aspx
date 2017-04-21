@@ -511,7 +511,7 @@
                                         </td>
                                     </tr>
                                     <tr style="padding-top:5px">
-                                        <td colspan="4" align="left" style="padding-left: 5px; padding-right: 5px">
+                                        <td colspan="4" align="left" style="padding-left: 5px; padding-right: 5px;padding-top:5px">
                                             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align: left;">
                                                 <tr>
                                                     <td style="width: 180px">
@@ -567,7 +567,7 @@
                                         </td>
                                     </tr>
                                     <tr style="padding-top:5px">
-                                        <td colspan="4" align="left" style="padding-left: 5px; padding-right: 5px">
+                                        <td colspan="4" align="left" style="padding-left: 5px; padding-right: 5px;padding-top:5px">
                                             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align: left;">
                                                 <tr>
                                                     <td style="width: 180px">
@@ -677,7 +677,7 @@
                                         </td>
                                     </tr>
                                     <tr style="padding-top:5px">
-                                        <td colspan="4" align="left" style="padding-left: 5px; padding-right: 5px">
+                                        <td colspan="4" align="left" style="padding-left: 5px; padding-right: 5px;padding-top:5px">
                                             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align: left;">
                                                 <tr>
                                                     <td style="width: 120px">
@@ -731,13 +731,13 @@
                                             </table>
                                         </td>
                                     </tr>
-                                     <tr runat="server" id="RowHeaderAuditoria">
-                                        <td colspan="4" style="background-color: #CACACA; padding-left: 10px;height:30px">
+                                     <tr runat="server" id="RowHeaderAuditoria" >
+                                        <td colspan="14" style="background-color: #CACACA; padding-left: 10px;height:30px;">
                                             <asp:Label ID="Label1" runat="server" SkinID="lblConosud" Text="DATOS AUDITORIA"></asp:Label>
                                         </td>
                                     </tr>
-                                    <tr runat="server" id="RowBodyAuditoria" style="padding-top:5px">
-                                        <td colspan="4" align="left" style="padding-left: 5px; padding-right: 5px">
+                                    <tr runat="server" id="RowBodyAuditoria" style="">
+                                        <td colspan="4" align="left" style="padding-left: 5px; padding-right: 5px;padding-top:5px">
                                             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align: left;">
                                                 <tr>
                                                     <td align="center" width="30%">

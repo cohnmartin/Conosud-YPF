@@ -81,6 +81,10 @@ public partial class ABMVehiculosEquipos : System.Web.UI.Page
                 {
                     Session["TipoAlta"] = "Equipo";
                 }
+                else if (Request.QueryString["Tipo"] == "EE")
+                {
+                    Session["TipoAlta"] = "EE";
+                }
                 else 
                 {
                     Session["TipoAlta"] = "Eventuales";
@@ -135,6 +139,15 @@ public partial class ABMVehiculosEquipos : System.Web.UI.Page
                 GridVehiculos.FunctionsGral[0].Text = "Nuevo Equipo";
                 CargarCombos("E");
             }
+            else if (TipoAlta == "EE")
+            {
+                lblTipoGestion.Text = "EQUIPOS EVENTUALES";
+                lblTituloCaractesticas.Text = "CARACTERISTICAS DEL EQUIPO";
+                lblPropio.Text = "Equipo Propio?:";
+                lblTiuloSeguro.Text = "SEGURO DEL EQUIPO";
+                GridVehiculos.FunctionsGral[0].Text = "Nuevo Equipo";
+                CargarCombos("EE");
+            }
             else
             {
                 lblTipoGestion.Text = "VEHICULOS EVENTUALES";
@@ -186,8 +199,8 @@ public partial class ABMVehiculosEquipos : System.Web.UI.Page
         }
         else
         {
-            RowHeaderAuditoria.Style.Add(HtmlTextWriterStyle.Display, "block");
-            RowBodyAuditoria.Style.Add(HtmlTextWriterStyle.Display, "block");
+            RowHeaderAuditoria.Style.Add(HtmlTextWriterStyle.Display, "");
+            RowBodyAuditoria.Style.Add(HtmlTextWriterStyle.Display, "");
             btnAplicar.Visible = true;
         }
     }
