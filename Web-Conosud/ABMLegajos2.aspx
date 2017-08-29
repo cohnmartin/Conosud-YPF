@@ -75,6 +75,7 @@
             $find("<%=ServerControlWindow1.ClientID %>").ShowWindows('divPrincipal', "Nuevo Legajo", $get("<%=txtApellido.ClientID %>"));
         }
         function EditLegajo() {
+            debugger;
             LimpiarControles();
             var grid = $find("<%= RadGrid1.ClientID%>");
             var MasterTable = grid.get_masterTableView();
@@ -97,7 +98,7 @@
                 var cellTipoDocumento = MasterTable.getCellByColumnUniqueName(Item[0], "TipoDocumentoColumn");
                 var cellConvenio = MasterTable.getCellByColumnUniqueName(Item[0], "ConvenioColumn");
                 var cellFechaIngreos = MasterTable.getCellByColumnUniqueName(Item[0], "FechaIngreosColumn");
-
+                
                 /// Controles Tipo TextBox
                 document.getElementById("<%= txtApellido.ClientID%>").innerText = cellApellido.innerText;
                 document.getElementById("<%= txtNombre.ClientID%>").innerText = cellNombre.innerText;
@@ -130,7 +131,7 @@
 
 
                 /// Controles Tipo Combos
-                if (cellTipoDocumento.outerText != "") {
+                if (cellTipoDocumento.outerText.trim() != "") {
                     var itemTipoDoc = $find("<%= cboTipoDoc.ClientID%>").findItemByText(cellTipoDocumento.outerText.trim());
                     $find("<%= cboTipoDoc.ClientID%>").set_selectedItem(itemTipoDoc);
                     itemTipoDoc.select();
@@ -140,7 +141,7 @@
                 }
 
 
-                if (cellEstadoCivil.outerText != "") {
+                if (cellEstadoCivil.outerText.trim() != "") {
                     var itemEstadoCivial = $find("<%= cboEstadoCivil.ClientID%>").findItemByText(cellEstadoCivil.outerText.trim());
                     $find("<%= cboEstadoCivil.ClientID%>").set_selectedItem(itemEstadoCivial);
                     itemEstadoCivial.select();
@@ -149,7 +150,7 @@
                     $find("<%= cboEstadoCivil.ClientID%>").clearSelection();
                 }
 
-                if (cellNacionalidad.outerText != "") {
+                if (cellNacionalidad.outerText.trim() != "") {
                     var itemNacionalidad = $find("<%= cboNacionalidad.ClientID%>").findItemByText(cellNacionalidad.outerText.trim());
                     $find("<%= cboNacionalidad.ClientID%>").set_selectedItem(itemNacionalidad);
                     itemNacionalidad.select();
@@ -158,7 +159,7 @@
                     $find("<%= cboNacionalidad.ClientID%>").clearSelection();
                 }
 
-                if (cellConvenio.outerText != "") {
+                if (cellConvenio.outerText.trim() != "") {
                     var itemConvenio = $find("<%= cboConvenio.ClientID%>").findItemByText(cellConvenio.outerText.trim());
                     $find("<%= cboConvenio.ClientID%>").set_selectedItem(itemConvenio);
                     itemConvenio.select();
@@ -167,7 +168,7 @@
                     $find("<%= cboConvenio.ClientID%>").clearSelection();
                 }
 
-                if (cellProvincia.outerText != "") {
+                if (cellProvincia.outerText.trim() != "") {
                     var itemProvincia = $find("<%= cboProvincia.ClientID%>").findItemByText(cellProvincia.outerText.trim());
                     $find("<%= cboProvincia.ClientID%>").set_selectedItem(itemProvincia);
                     itemProvincia.select();
