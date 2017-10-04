@@ -72,7 +72,7 @@ public class Helpers
         public const string ContextoVehiculosYPF = "Vehiculos YPF";
         public const string ResultadosAuditoria = "RESULTADOS_AUDITORIA";
         public const string CodigoResultadosAuditoria_Retencion = "RETENCION";
-        
+
 
         public abstract class PaginaMenu_
         {
@@ -90,13 +90,13 @@ public class Helpers
             public const string GestionRoles = "ABMRoles2";
         }
 
-    
+
     }
 
     public enum EstadosHoja
-    { 
-        Aprobada=14,
-        NoAprobada=15
+    {
+        Aprobada = 14,
+        NoAprobada = 15
     }
 
     public enum RolesEspeciales
@@ -115,6 +115,28 @@ public class Helpers
         //
         // TODO: Add constructor logic here
         //
+
+    }
+
+    public static void ActualizarVencimientoCredencialesVehiEquipos(EntidadesConosud Ds, DateTime FFin, Entidades.Contrato ContratoActual)
+    {
+        var ve = (from v in Ds.VahiculosyEquipos
+                  where v.objContrato.IdContrato == ContratoActual.IdContrato
+                  select v).ToList();
+
+
+        foreach (var item in ve)
+        {
+            SortedList fechas = new SortedList();
+            fechas.Add(item.FechaUltimoPagoSeguro != null ? item.FechaUltimoPagoSeguro.Value : DateTime.MaxValue, "fechaSeguro");
+            fechas.Add(FFin, "FecahContrato");
+            fechas.Add(item.FechaHabilitacion != null ? item.FechaHabilitacion.Value : DateTime.MaxValue.AddDays(-1), "fechaCENT");
+
+            DateTime menor = (DateTime)fechas.GetKeyList()[0];
+
+            item.VencimientoCredencial = (menor - DateTime.Now ).Days > 90 ? DateTime.Now.AddDays(90) : menor;
+
+        }
 
     }
 
@@ -144,7 +166,7 @@ public class Helpers
         catch { }
 
 
-        long  id = Convert.ToInt64(Helpers.EstadosHoja.NoAprobada);
+        long id = Convert.ToInt64(Helpers.EstadosHoja.NoAprobada);
         IEnumerable<KeyValuePair<string, object>> entityKeyValues = new KeyValuePair<string, object>[] { 
                 new KeyValuePair<string, object>("IdClasificacion", id) };
         EntityKey key = new EntityKey("EntidadesConosud.Clasificacion", entityKeyValues);
@@ -227,7 +249,7 @@ public class Helpers
         }
     }
 
-    public static void GenerarHojadeRuta(DSConosud Ds, DateTime FInicio, DateTime FFin, long pIdContratoEmpresas )
+    public static void GenerarHojadeRuta(DSConosud Ds, DateTime FInicio, DateTime FFin, long pIdContratoEmpresas)
     {
         ////Comienzo Proceso de creacion de Hoja de Ruta y Documentacion
         DSConosudTableAdapters.CategoriasItemsTableAdapter TACatItems = new DSConosudTableAdapters.CategoriasItemsTableAdapter();
@@ -260,7 +282,7 @@ public class Helpers
         }
         catch (Exception)
         {
-            
+
         }
         ultimonrocarpeta += 1;
 
@@ -366,7 +388,7 @@ public class Helpers
         {
             colCampos = col;
             FileStream fs = new FileStream(ruta, FileMode.Create,
-            FileAccess.ReadWrite); 
+            FileAccess.ReadWrite);
             w = new StreamWriter(fs);
             string bgColor = "", fontColor = "";
             bgColor = " bgcolor=\"Blue\" ";
@@ -412,15 +434,15 @@ public class Helpers
             html.Append("</tr>"); w.Write(html.ToString());
         }
 
-        public void EscribeLinea(DataRow dr) 
-        { 
+        public void EscribeLinea(DataRow dr)
+        {
             string bgColor = "", fontColor = "";
-            fontColor = " style=\"font-size: 10px;\" "; 
+            fontColor = " style=\"font-size: 10px;\" ";
 
             w.Write(@"<tr >");
             foreach (DataControlField dcf in colCampos)
             {
-                if (dcf is BoundField )
+                if (dcf is BoundField)
                 {
                     w.Write(@" <td {0} {1}> {2} </td>", bgColor, fontColor, dr[((BoundField)dcf).DataField].ToString());
                 }
@@ -444,28 +466,28 @@ public class Helpers
                 w.Write(@" <td {0} {1}> {2} </td>", bgColor, fontColor, dr[dc.ColumnName].ToString());
             }
             w.Write(@" </tr >");
-        }    
-        
-        public void EscribePiePagina() 
-        { 
+        }
+
+        public void EscribePiePagina()
+        {
             StringBuilder html = new StringBuilder();
             html.Append("  </table>"); html.Append("</p>");
             html.Append(" </body>"); html.Append("</html>");
-            w.Write(html.ToString()); 
+            w.Write(html.ToString());
         }
     }
-    
+
     public static List<Entidades.Empresa> GetEmpresas(long IdUsuario)
     {
-    
+
         //long IdUsuario = long.Parse(["idusuario"].ToString());
         //long IdUsuario = 4;
 
         EntidadesConosud db = new EntidadesConosud();
         //.Include("Empresa")
         List<Entidades.Empresa> empresas = (from U in db.SegUsuario
-                                    where U.IdSegUsuario == IdUsuario
-                                    && U.Empresa != null
+                                            where U.IdSegUsuario == IdUsuario
+                                            && U.Empresa != null
                                             select U.Empresa).ToList<Entidades.Empresa>();
 
 
@@ -475,8 +497,8 @@ public class Helpers
         }
         else
         {
-           empresas = (from E in db.Empresa
-                           orderby E.RazonSocial
+            empresas = (from E in db.Empresa
+                        orderby E.RazonSocial
                         select E).ToList<Entidades.Empresa>();
 
             return empresas;
@@ -509,8 +531,8 @@ public class Helpers
                                select C.Empresa).Distinct<Entidades.Empresa>();
 
             empresas = (from Emp in varempresas
-                       orderby Emp.RazonSocial
-                       select Emp).ToList<Entidades.Empresa>();
+                        orderby Emp.RazonSocial
+                        select Emp).ToList<Entidades.Empresa>();
 
             return empresas;
         }
@@ -523,9 +545,9 @@ public class Helpers
         EntidadesConosud db = new EntidadesConosud();
 
         List<Entidades.Contrato> contratos = (from C in db.ContratoEmpresas
-                                  where C.Empresa.IdEmpresa == id
-                                  && C.EsContratista.Value 
-                                   select C.Contrato).ToList<Entidades.Contrato>();
+                                              where C.Empresa.IdEmpresa == id
+                                              && C.EsContratista.Value
+                                              select C.Contrato).ToList<Entidades.Contrato>();
 
 
         return contratos;
@@ -533,17 +555,17 @@ public class Helpers
 
     public static object GetContratistas(int id)
     {
-//        SELECT DISTINCT ContratoEmpresas.IdContratoEmpresas, ContratoEmpresas.IdContrato, Empresa.RazonSocial, ContratoEmpresas.EsContratista
-//FROM         ContratoEmpresas INNER JOIN
-//                      Empresa ON ContratoEmpresas.IdEmpresa = Empresa.IdEmpresa INNER JOIN
-//                      CabeceraHojasDeRuta ON ContratoEmpresas.IdContratoEmpresas = CabeceraHojasDeRuta.IdContratoEmpresa
-//WHERE     (ContratoEmpresas.IdContrato = @IdContrato)
+        //        SELECT DISTINCT ContratoEmpresas.IdContratoEmpresas, ContratoEmpresas.IdContrato, Empresa.RazonSocial, ContratoEmpresas.EsContratista
+        //FROM         ContratoEmpresas INNER JOIN
+        //                      Empresa ON ContratoEmpresas.IdEmpresa = Empresa.IdEmpresa INNER JOIN
+        //                      CabeceraHojasDeRuta ON ContratoEmpresas.IdContratoEmpresas = CabeceraHojasDeRuta.IdContratoEmpresa
+        //WHERE     (ContratoEmpresas.IdContrato = @IdContrato)
 
         EntidadesConosud db = new EntidadesConosud();
 
         var contratosEmp = from C in db.ContratoEmpresas
                            where C.Contrato.IdContrato == id
-                           select new {C.IdContratoEmpresas , C.Empresa.RazonSocial};
+                           select new { C.IdContratoEmpresas, C.Empresa.RazonSocial };
 
 
         return contratosEmp;
@@ -562,20 +584,20 @@ public class Helpers
         string DescRol = Helpers.RolesEspeciales.Administrador.ToString();
 
         int RolesAdministrador = (from U in db.SegUsuario
-                                   from UR in U.SegUsuarioRol
-                                   where U.IdSegUsuario == IdUsuarioLogin
-                                   && UR.SegRol.Descripcion == DescRol
-                                   select UR).Count();
+                                  from UR in U.SegUsuarioRol
+                                  where U.IdSegUsuario == IdUsuarioLogin
+                                  && UR.SegRol.Descripcion == DescRol
+                                  select UR).Count();
 
 
-        DateTime Fecha = Convert.ToDateTime("01/"+ DateTime.Now.AddMonths(-1).Month.ToString() + "/" + DateTime.Now.AddMonths(-1).Year.ToString());
-        
+        DateTime Fecha = Convert.ToDateTime("01/" + DateTime.Now.AddMonths(-1).Month.ToString() + "/" + DateTime.Now.AddMonths(-1).Year.ToString());
+
         if (RolesAdministrador > 0)
             Fecha = DateTime.Now.AddMonths(-100);
-      
 
 
-       
+
+
         long idEstado = 15;
         DateTime FechaHasta = DateTime.Now.AddMonths(-1);
 
@@ -583,7 +605,7 @@ public class Helpers
                                                         where C.Estado.IdClasificacion == idEstado
                                               && C.ContratoEmpresas.IdContratoEmpresas == id
                                               && ((C.Periodo < FechaHasta) || (C.Periodo.Month == FechaHasta.Month && C.Periodo.Year == FechaHasta.Year))
-                                              orderby C.Periodo
+                                                        orderby C.Periodo
                                                         select C).ToList<Entidades.CabeceraHojasDeRuta>();
 
 
@@ -652,20 +674,20 @@ public class Helpers
         DateTime FechaHasta = DateTime.Now.AddMonths(-1);
 
         List<DateTime> periodos = (from C in db.CabeceraHojasDeRuta
-                                                        where C.ContratoEmpresas.Contrato.IdContrato == id
-                                                        && (C.Periodo >= Fecha && C.Periodo <= FechaHasta
-                                                        || (C.Periodo.Month == FechaHasta.Month && C.Periodo.Year == FechaHasta.Year))
-                                                        orderby C.Periodo
-                                                        select C.Periodo
+                                   where C.ContratoEmpresas.Contrato.IdContrato == id
+                                   && (C.Periodo >= Fecha && C.Periodo <= FechaHasta
+                                   || (C.Periodo.Month == FechaHasta.Month && C.Periodo.Year == FechaHasta.Year))
+                                   orderby C.Periodo
+                                   select C.Periodo
                                                        ).ToList<DateTime>();
 
 
 
         object[] PeriodosFormateados = (from p in periodos
-                   select new 
-                   {
-                      Periodo =  string.Format("{0:MM/yyyy}",p)
-                   }).Distinct().ToArray();
+                                        select new
+                                        {
+                                            Periodo = string.Format("{0:MM/yyyy}", p)
+                                        }).Distinct().ToArray();
 
 
         return PeriodosFormateados;
@@ -678,14 +700,14 @@ public class Helpers
 
         List<Legajos> legajos = (from L in dbLocal.Legajos
                                  select L).ToList<Legajos>();
-                                     //.Include("objContEmpLegajos")
-                                     //.Include("objContEmpLegajos.CabeceraHojasDeRuta")
-                                     //.Include("objContEmpLegajos.ContratoEmpresas")
-                                     //.Include("objContEmpLegajos.ContratoEmpresas.Empresa")
-                                     //.Include("objContEmpLegajos.ContratoEmpresas.Contrato")
+        //.Include("objContEmpLegajos")
+        //.Include("objContEmpLegajos.CabeceraHojasDeRuta")
+        //.Include("objContEmpLegajos.ContratoEmpresas")
+        //.Include("objContEmpLegajos.ContratoEmpresas.Empresa")
+        //.Include("objContEmpLegajos.ContratoEmpresas.Contrato")
 
         List<Entidades.Empresa> emps = (from L in dbLocal.Empresa
-                              select L).ToList<Entidades.Empresa>();
+                                        select L).ToList<Entidades.Empresa>();
         List<Entidades.Contrato> conts = (from L in dbLocal.Contrato
                                           select L).ToList<Entidades.Contrato>();
         List<Entidades.ContratoEmpresas> ContratoEmpresas = (from L in dbLocal.ContratoEmpresas
@@ -740,12 +762,12 @@ public class Helpers
             else
             {
                 item.Add(new XAttribute("contrato", "Sin Contrato"));
-                item.Add(new XAttribute("UltimoPeriodo",""));
+                item.Add(new XAttribute("UltimoPeriodo", ""));
             }
 
             item.Add(new XAttribute("NroDocumento", current.NroDoc));
             item.Add(new XAttribute("IdLegajo", current.IdLegajos));
-            
+
         }
 
 
