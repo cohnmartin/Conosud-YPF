@@ -273,7 +273,7 @@
                                 </select>
                             </th>
                             <th class="Theader">
-                                <select id="Select5" style="width: 95%" ng-model="textSearchLinea">
+                                <select id="cboLineaFiltro" style="width: 95%" ng-model="textSearchLinea">
                                     <option value="" selected="selected">Lineas</option>
                                     <option ng-repeat="p in recorridos" value="{{p.Id}}">{{p.NombreAbreviado}}</option>
                                 </select>
@@ -317,9 +317,9 @@
                                 <span>{{item.TipoTurno}}</span>
                             </td>
                             <td class="tdSimple" align="left" style="width: 220px">
-                                <span ng-show="Current==null || Current.Id != item.Id" id="spanLineaAsignada" ng-repeat="val in recorridos | filter:{Id: item.LineaAsignada}:true">
-                                    {{val.NombreAbreviado}}</span>
-                            </td>
+                               
+                                   <span>{{item.descLineaAsignada}}</span>-<span>{{item.descLineaAsignadaVuelta}}</span>
+                            </td
                             <td class="tdSimple" align="left" style="width: 160px">
                                 <span>{{item.descEmpresa}}</span>
                             </td>
