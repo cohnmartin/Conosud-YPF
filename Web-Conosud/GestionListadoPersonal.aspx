@@ -318,7 +318,8 @@
                             </td>
                             <td class="tdSimple" align="left" style="width: 220px">
                                
-                                   <span>{{item.descLineaAsignada}}</span>-<span>{{item.descLineaAsignadaVuelta}}</span>
+                                   <span ng-if="ShowLineaAsignada('I')">{{item.descLineaAsignada}}</span>
+                                   <span ng-if="ShowLineaAsignada('V')">{{item.descLineaAsignadaVuelta}}</span>
                             </td
                             <td class="tdSimple" align="left" style="width: 160px">
                                 <span>{{item.descEmpresa}}</span>
