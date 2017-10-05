@@ -5,8 +5,7 @@ var myAppModule = angular.module('myApp', []);
 myAppModule.filter('empiezaDesde', function () {
 
     return function (input, start) {
-        if (input != undefined)
-        {
+        if (input != undefined) {
             start = +start; //parse to int
             return input.slice(start);
         }
@@ -158,13 +157,47 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
 
     }
 
-            $scope.FiltrarLegajos = function (item) {
-
+    $scope.ShowLineaAsignada = function (tipo) {
         if ($scope.textSearchLinea != "") {
-            if ($scope.textSearchLinea == item.LineaAsignada)
+
+            if ($("#cboLineaFiltro option:selected")[0].text.indexOf("REG") < 0 && tipo == 'I') {
+                return true;
+            }
+            else if ($("#cboLineaFiltro option:selected")[0].text.indexOf("REG") >= 0 && tipo == 'V') {
+                return true;
+            }
+            else {
+                return false;
+            }
+
+
+        }
+        else {
+            if (tipo == 'I')
                 return true;
             else
                 return false;
+        }
+    }
+
+    $scope.FiltrarLegajos = function (item) {
+
+        if ($scope.textSearchLinea != "") {
+
+            if ($("#cboLineaFiltro option:selected")[0].text.indexOf("REG") < 0) {
+                if ($scope.textSearchLinea == item.LineaAsignada)
+                    return true;
+                else
+                    return false;
+            }
+            else {
+                if ($scope.textSearchLinea == item.LineaAsignadaVuelta)
+                    return true;
+                else
+                    return false;
+            }
+
+
         }
         else {
             return true;
