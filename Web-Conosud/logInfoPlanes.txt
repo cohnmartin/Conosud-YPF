@@ -19,3 +19,35 @@ La tabla externa no tiene el formato esperado.
    at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
    at System.Data.OleDb.OleDbConnection.Open()
    at GestionConsolaPlanTrabajo.BindResults() in c:\Desarrollo\Repositorio\Conosud\Conosud\GestionConsolaPlanTrabajo.aspx.cs:line 80
+Se produjo un error mientras se actualizaban las entradas. Vea la excepción interna para obtener detalles.
+   en System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)
+   en System.Data.EntityClient.EntityAdapter.Update(IEntityStateManager entityCache)
+   en System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   en System.Data.Objects.ObjectContext.SaveChanges()
+   en GestionConsolaPlanTrabajo.BindResults() en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 185
+String or binary data would be truncated.
+The statement has been terminated.
+Se produjo un error mientras se actualizaban las entradas. Vea la excepción interna para obtener detalles.
+   en System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)
+   en System.Data.EntityClient.EntityAdapter.Update(IEntityStateManager entityCache)
+   en System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   en System.Data.Objects.ObjectContext.SaveChanges()
+   en GestionConsolaPlanTrabajo.BindResults() en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 185
+String or binary data would be truncated.
+The statement has been terminated.
+Se produjo un error mientras se actualizaban las entradas. Vea la excepción interna para obtener detalles.
+   en System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)
+   en System.Data.EntityClient.EntityAdapter.Update(IEntityStateManager entityCache)
+   en System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   en System.Data.Objects.ObjectContext.SaveChanges()
+   en GestionConsolaPlanTrabajo.BindResults() en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 185
+String or binary data would be truncated.
+The statement has been terminated.
+Se produjo un error mientras se actualizaban las entradas. Vea la excepción interna para obtener detalles.
+   en System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)
+   en System.Data.EntityClient.EntityAdapter.Update(IEntityStateManager entityCache)
+   en System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   en System.Data.Objects.ObjectContext.SaveChanges()
+   en GestionConsolaPlanTrabajo.BindResults() en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 185
+String or binary data would be truncated.
+The statement has been terminated.

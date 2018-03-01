@@ -361,6 +361,26 @@ public partial class ABMContratos : System.Web.UI.Page
                     {
                         ///Agrega Diferencias
                         Helpers.GenerarHojadeRuta(Contexto, FechaFinAnt.Value, FechaFinNuevo.Value, ContEmp);
+                        
+                        ////Helpers.ActualizarVencimientoCredencialesVehiEquipos(Contexto, FechaFinNuevo.Value, _ContratoAnt);
+
+                        var ve = (from v in Contexto.VahiculosyEquipos
+                                  where v.objContrato.IdContrato == _ContratoAnt.IdContrato
+                                  select v).ToList();
+
+
+                        foreach (var item in ve)
+                        {
+                            SortedList fechas = new SortedList();
+                            if (item.FechaUltimoPagoSeguro != null) { fechas.Add(item.FechaUltimoPagoSeguro, "fechaSeguro"); }
+                            fechas.Add(FechaFinNuevo.Value, "FecahContrato");
+                            if (item.FechaVencimientoHabilitacion != null) { fechas.Add(item.FechaVencimientoHabilitacion.Value.AddSeconds(3), "fechaCENT"); };
+
+                            DateTime menor = (DateTime)fechas.GetKeyList()[0];
+
+                            item.VencimientoCredencial = (menor - DateTime.Now).Days > 90 ? DateTime.Now.AddDays(90) : menor;
+
+                        }
 
                     }
                     else
@@ -402,6 +422,25 @@ public partial class ABMContratos : System.Web.UI.Page
                         foreach (object item in objEliminar)
                         {
                             Contexto.DeleteObject(item);
+                        }
+
+
+                        var ve = (from v in Contexto.VahiculosyEquipos
+                                  where v.objContrato.IdContrato == idContrato
+                                  select v).ToList();
+
+
+                        foreach (var item in ve)
+                        {
+                            SortedList fechas = new SortedList();
+                            if (item.FechaUltimoPagoSeguro != null) { fechas.Add(item.FechaUltimoPagoSeguro, "fechaSeguro"); }
+                            fechas.Add(FechaFinNuevo.Value, "FecahContrato");
+                            if (item.FechaVencimientoHabilitacion != null) { fechas.Add(item.FechaVencimientoHabilitacion.Value.AddSeconds(3), "fechaCENT"); };
+
+                            DateTime menor = (DateTime)fechas.GetKeyList()[0];
+
+                            item.VencimientoCredencial = (menor - DateTime.Now).Days > 90 ? DateTime.Now.AddDays(90) : menor;
+
                         }
 
                     }

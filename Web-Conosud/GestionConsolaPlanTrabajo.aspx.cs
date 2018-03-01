@@ -315,7 +315,7 @@ public partial class GestionConsolaPlanTrabajo : System.Web.UI.Page
                                               UOCRA = g.Sum(w => w.UOCRA),
                                               OTROS = g.Sum(w => w.OTROS),
                                               INDEPENDIENTES = g.Sum(w => w.INDEPENDIENTES)
-                                          }).ToList();
+                                          }).ToList().OrderByDescending(w => Convert.ToDateTime("01/" + w.Periodo));
 
             var Plantilla = (from d in dc.Plantilla
                              orderby d.Codigo

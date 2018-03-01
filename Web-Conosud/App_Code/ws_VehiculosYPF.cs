@@ -350,22 +350,22 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                         v.RazonSocial,
                         v.TarjetasActivas,
                         v.LimiteCredito,
-                        v.PIN,
+                        PIN = formatPIN(v.PIN),
                         v.TitularPin,
                         v.Responsable,
-                        v.PIN1,
+                        PIN1 = formatPIN(v.PIN1),
                         v.TitularPin1,
-                        v.PIN2,
+                        PIN2 = formatPIN(v.PIN2),
                         v.TitularPin2,
-                        v.PIN3,
+                        PIN3 = formatPIN(v.PIN3),
                         v.TitularPin3,
-                        v.PIN4,
+                        PIN4 = formatPIN(v.PIN4),
                         v.TitularPin4,
-                        v.PIN5,
+                        PIN5 = formatPIN(v.PIN5),
                         v.TitularPin5,
-                        v.PIN6,
+                        PIN6 = formatPIN(v.PIN6),
                         v.TitularPin6,
-                        v.PIN7,
+                        PIN7 = formatPIN(v.PIN7),
                         v.TitularPin7,
                         Chasis = v.Chasis,
                         Motor = v.Motor,
@@ -503,21 +503,21 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                         v.RazonSocial,
                         v.TarjetasActivas,
                         v.LimiteCredito,
-                        v.PIN,
+                        PIN = formatPIN(v.PIN),
                         v.TitularPin,
-                        v.PIN1,
+                        PIN1 = formatPIN(v.PIN1),
                         v.TitularPin1,
-                        v.PIN2,
+                        PIN2 = formatPIN(v.PIN2),
                         v.TitularPin2,
-                        v.PIN3,
+                        PIN3 = formatPIN(v.PIN3),
                         v.TitularPin3,
-                        v.PIN4,
+                        PIN4 = formatPIN(v.PIN4),
                         v.TitularPin4,
-                        v.PIN5,
+                        PIN5 = formatPIN(v.PIN5),
                         v.TitularPin5,
-                        v.PIN6,
+                        PIN6 = formatPIN(v.PIN6),
                         v.TitularPin6,
-                        v.PIN7,
+                        PIN7 = formatPIN(v.PIN7),
                         v.TitularPin7
 
                     }).ToList();
@@ -659,21 +659,21 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
                                                LimiteConsMensual = v.LimiteConsMensual.ToString(),
 
 
-                                               PIN = v.PIN.ToString(),
+                                               PIN = formatPIN(v.PIN) != "" ? "=TEXTO(" + v.PIN + ";\"0000\")" : "",
                                                TitularPin = v.TitularPin,
-                                               PIN1 = v.PIN1.ToString(),
+                                               PIN1 = formatPIN(v.PIN1) != "" ? "=TEXTO(" + v.PIN1 + ";\"0000\")" : "",
                                                TitularPin1 = v.TitularPin1,
-                                               PIN2 = v.PIN2.ToString(),
+                                               PIN2 = formatPIN(v.PIN2) != "" ? "=TEXTO(" + v.PIN2 + ";\"0000\")" : "",
                                                TitularPin2 = v.TitularPin2,
-                                               PIN3 = v.PIN3.ToString(),
+                                               PIN3 = formatPIN(v.PIN3) != "" ? "=TEXTO(" + v.PIN3 + ";\"0000\")" : "",
                                                TitularPin3 = v.TitularPin3,
-                                               PIN4 = v.PIN4.ToString(),
+                                               PIN4 = formatPIN(v.PIN4) != "" ? "=TEXTO(" + v.PIN4 + ";\"0000\")" : "",
                                                TitularPin4 = v.TitularPin4,
-                                               PIN5 = v.PIN5.ToString(),
+                                               PIN5 = formatPIN(v.PIN5) != "" ? "=TEXTO(" + v.PIN5 + ";\"0000\")" : "",
                                                TitularPin5 = v.TitularPin5,
-                                               PIN6 = v.PIN6.ToString(),
+                                               PIN6 = formatPIN(v.PIN6) != "" ? "=TEXTO(" + v.PIN6 + ";\"0000\")" : "",
                                                TitularPin6 = v.TitularPin6,
-                                               PIN7 = v.PIN7.ToString(),
+                                               PIN7 = formatPIN(v.PIN7) != "" ? "=TEXTO(" + v.PIN7 + ";\"0000\")" : "",
                                                TitularPin7 = v.TitularPin7,
                                                Observacion = v.Observacion
 
@@ -723,4 +723,16 @@ public class ws_VehiculosYPF : System.Web.Services.WebService
 
     }
 
+    private string formatPIN(int? PIN)
+    {
+
+        if (PIN != null)
+        {
+            return PIN.ToString().PadLeft(4, '0');
+        }
+        else
+        {
+            return "";
+        }
+    }
 }
