@@ -2,9 +2,47 @@
     AutoEventWireup="true" CodeFile="ConsultaRecorridosTransportes.aspx.cs" Inherits="ConsultaRecorridosTransportes" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+
+    <script src="Scripts/jquery-1.3.1.js" type="text/javascript"></script>
+    <link href="Scripts/Angular-Material/angular-material.min.css" rel="stylesheet" type="text/css" />
+    <link href="Scripts/Angular-Material/modules/menu/font-awesome-4.6.3/css/font-awesome.css"
+        rel="stylesheet" type="text/css" />
+    <!-- Angular Material requires Angular.js Libraries -->
+    <script src="Scripts/js_angular/angular.min.js" type="text/javascript"></script>
+    <script src="Scripts/js_angular/angular-animate.min.js" type="text/javascript"></script>
+    <script src="Scripts/js_angular/angular-aria.min.js" type="text/javascript"></script>
+    <script src="Scripts/js_angular/angular-touch.js" type="text/javascript"></script>
+    <script src="Scripts/js_angular/angular-resource.js" type="text/javascript"></script>
+    <script src="Scripts/js_angular/angular-messages.min.js" type="text/javascript"></script>
+    <script src="Scripts/js_angular/angular-route.min.js" type="text/javascript"></script>
+
+    <script src="Styles/bootstrap-dist/js/bootstrap.js" type="text/javascript"></script>
+    <script src="Scripts/AngularUI/ui-bootstrap-tpls-1.3.3.js" type="text/javascript"></script>
+    <script src="Scripts/alertify/alertify.js" type="text/javascript"></script>
+    <!-- Angular Material Library -->
+    <script src="Scripts/Angular-Material/angular-material.min.js" type="text/javascript"></script>
+
+    <!-- Angular Material MENU-->
+    <script src="angular/controllers/controller_menu.js" type="text/javascript"></script>
+    <script src="Scripts/Angular-Material/modules/menu/home.controller.js" type="text/javascript"></script>
+    <script src="Scripts/Angular-Material/modules/menu/menu.service.js" type="text/javascript"></script>
+    <script src="Scripts/Angular-Material/modules/menu/menu_toggle.directive.js" type="text/javascript"></script>
+    <script src="Scripts/Angular-Material/modules/menu/menulink.directive.js" type="text/javascript"></script>
+
+    <script src="angular/controllers/controller_ConsultaRecorridos.js" type="text/javascript"></script>
+
+
+
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiK9GD4zYZsB4nrZqxg-LcTnJ8hhAmGRk&libraries=adsense&sensor=true&language=es&libraries=geometry"></script>
     <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
     <link href="Styles/stylesMenuAlt.css" rel="stylesheet" type="text/css" />
+
+    <style type="text/css">
+        md-input-container .md-errors-spacer {
+            min-height: 0;
+        }
+    </style>
+
     <script type="text/javascript">
         var map;
         var directionsDisplay;
@@ -12,6 +50,7 @@
         var flightPath;
         var markerInicial;
         var markerFinal;
+        var rutasSeleccionadas = [];
 
         jQuery(function () {
 
@@ -35,251 +74,9 @@
             $("#master_contentplaceholder").css("height", height + 'px');
 
             $("#map").css("height", height - 50 + 'px');
-            
+
 
         });
-
-
-        //        function ShowRutaEncontrada(stops) {
-
-        //            var batches = [];
-        //            var combinedResults;
-        //            var unsortedResults = [{}]; // to hold the counter and the results themselves as they come back, to later sort
-
-
-        //            if (stops.length > 1) {
-        //                directionsDisplay.setMap(map);
-        //                armarRutaConsula(stops, batches);
-        //            }
-
-        //            var cant = 0;
-        //            var aa = window.setInterval(function () {
-        //                var porsion = batches.slice(cant, cant + 5);
-        //                if (porsion.length > 0) {
-        //                    calculo(directionsService, directionsDisplay, porsion, unsortedResults);
-        //                    cant += 5;
-        //                }
-        //                else {
-        //                    window.clearInterval(aa);
-        //                    dibujar(unsortedResults, directionsDisplay, combinedResults, stops);
-        //                }
-
-        //            }, 2000);
-
-        //        };
-
-        //        function calculo(directionsService, directionsDisplay, batches, unsortedResults) {
-
-
-        //            var directionsResultsReturned = 0;
-
-
-        //            for (var k = 0; k < batches.length; k++) {
-        //                var lastIndex = batches[k].length - 1;
-        //                var start = batches[k][0].location;
-        //                var end = batches[k][lastIndex].location;
-
-        //                // trim first and last entry from array
-        //                var waypts = [];
-        //                waypts = batches[k];
-        //                waypts.splice(0, 1);
-        //                waypts.splice(waypts.length - 1, 1);
-
-        //                var request = {
-        //                    origin: start,
-        //                    destination: end,
-        //                    waypoints: waypts,
-        //                    travelMode: window.google.maps.TravelMode.WALKING
-        //                };
-
-
-
-        //                (function (kk) {
-        //                    directionsService.route(request, function (result, status) {
-        //                        if (status == window.google.maps.DirectionsStatus.OK) {
-
-        //                            var unsortedResult = { order: kk, result: result };
-        //                            unsortedResults.push(unsortedResult);
-
-        //                            directionsResultsReturned++;
-
-
-        //                        }
-        //                        else {
-        //                            var aa = 11;
-        //                        }
-        //                    });
-        //                })(k);
-        //            }
-        //        }
-
-
-        //        function armarRutaConsula(stops, batches) {
-
-        //            var itemsPerBatch = 10; // google API max = 10 - 1 start, 1 stop, and 8 waypoints
-        //            var itemsCounter = 0;
-        //            var wayptsExist = stops.length > 0;
-
-        //            while (wayptsExist) {
-        //                var subBatch = [];
-        //                var subitemsCounter = 0;
-
-        //                for (var j = itemsCounter; j < stops.length; j++) {
-        //                    subitemsCounter++;
-        //                    subBatch.push({
-        //                        location: new window.google.maps.LatLng(stops[j].Geometry.Latitude, stops[j].Geometry.Longitude),
-        //                        stopover: true
-        //                    });
-        //                    if (subitemsCounter == itemsPerBatch)
-        //                        break;
-        //                }
-
-        //                itemsCounter += subitemsCounter;
-        //                batches.push(subBatch);
-        //                wayptsExist = itemsCounter < stops.length;
-        //                // If it runs again there are still points. Minus 1 before continuing to
-        //                // start up with end of previous tour leg
-        //                itemsCounter--;
-        //            }
-
-        //        }
-
-
-        //        function dibujar(unsortedResults, directionsDisplay, combinedResults, stops) {
-
-        //            // sort the returned values into their correct order
-        //            unsortedResults.sort(function (a, b) { return parseFloat(a.order) - parseFloat(b.order); });
-        //            var count = 0;
-        //            for (var key in unsortedResults) {
-        //                if (unsortedResults[key].result != null) {
-        //                    if (unsortedResults.hasOwnProperty(key)) {
-        //                        if (count == 0) // first results. new up the combinedResults object
-        //                            combinedResults = unsortedResults[key].result;
-        //                        else {
-        //                            // only building up legs, overview_path, and bounds in my consolidated object. This is not a complete
-        //                            // directionResults object, but enough to draw a path on the map, which is all I need
-        //                            combinedResults.routes[0].legs = combinedResults.routes[0].legs.concat(unsortedResults[key].result.routes[0].legs);
-        //                            combinedResults.routes[0].overview_path = combinedResults.routes[0].overview_path.concat(unsortedResults[key].result.routes[0].overview_path);
-
-        //                            combinedResults.routes[0].bounds = combinedResults.routes[0].bounds.extend(unsortedResults[key].result.routes[0].bounds.getNorthEast());
-        //                            combinedResults.routes[0].bounds = combinedResults.routes[0].bounds.extend(unsortedResults[key].result.routes[0].bounds.getSouthWest());
-        //                        }
-        //                        count++;
-        //                    }
-        //                }
-        //            }
-        //            directionsDisplay.setDirections(combinedResults);
-        //            var legs = combinedResults.routes[0].legs;
-
-        //            for (var i = 0; i < legs.length; i++) {
-        //                var markerletter = "A".charCodeAt(0);
-        //                markerletter += i;
-        //                markerletter = String.fromCharCode(markerletter);
-        //                if (i == 0) {
-        //                    markerInicial = createMarker(directionsDisplay.getMap(), legs[0].start_location, 'Punto Salida Línea', "Dirección" + "<br>" + legs[0].start_address, "change");
-        //                }
-        //            }
-
-        //            var i = legs.length;
-        //            var markerletter = "A".charCodeAt(0);
-        //            markerletter += i;
-        //            markerletter = String.fromCharCode(markerletter);
-
-        //            var val = stops[stops.length - 1];
-        //            var fin = new window.google.maps.LatLng(val.Geometry.Latitude, val.Geometry.Longitude)
-
-        //            markerFinal = createMarker(directionsDisplay.getMap(), fin, 'Punto Llegada Línea', "Dirección" + "<br>" + legs[legs.length - 1].end_address, "change");
-
-        //        }
-
-        function init(newPoints) {
-
-            CargarCabecera(newPoints);
-
-            if (flightPath != null)
-                flightPath.setMap(null);
-
-            if (markerInicial != null)
-                markerInicial.setMap(null);
-
-            if (markerFinal != null)
-                markerFinal.setMap(null);
-
-
-            //            if (newPoints["InfoRecorrido"]["recorrido"].length < 100) {
-
-            //                var stops = "[]";
-
-            //                if (newPoints != undefined) {
-            //                    stops = " [";
-            //                    for (var i = 0; i < newPoints["InfoRecorrido"]["recorrido"].length; i++) {
-
-            //                        if (i == newPoints["InfoRecorrido"]["recorrido"].length - 1)
-            //                            stops += '{ "Geometry": { "Latitude":' + newPoints["InfoRecorrido"]["recorrido"][i].Latitud.replace(',', '.') + ', "Longitude":' + newPoints["InfoRecorrido"]["recorrido"][i].Longitud.replace(',', '.') + '} }';
-            //                        else {
-            //                            stops += '{ "Geometry": { "Latitude":' + newPoints["InfoRecorrido"]["recorrido"][i].Latitud.replace(',', '.') + ', "Longitude":' + newPoints["InfoRecorrido"]["recorrido"][i].Longitud.replace(',', '.') + '} },';
-            //                        }
-
-            //                    }
-            //                    stops += ']';
-
-            //                    stops = eval(stops);
-            //                    ShowRutaEncontrada(stops);
-            //                }
-            //            }
-            //            else {
-            //                
-            //            }
-            ShowRutaEncontradaLines(newPoints);
-            $("#map").css("display", "block");
-        }
-
-
-        function ShowRutaEncontradaLines(newPoints) {
-
-            var mapOptions = {
-                zoom: 13,
-                center: new google.maps.LatLng(newPoints["InfoRecorrido"]["recorrido"][0].Latitud.replace(',', '.'), newPoints["InfoRecorrido"]["recorrido"][0].Longitud.replace(',', '.')),
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                disableDefaultUI: true
-            };
-
-            map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-            var flightPlanCoordinates = [];
-
-            for (var i = 0; i < newPoints["InfoRecorrido"]["recorrido"].length; i++) {
-                flightPlanCoordinates.push(new google.maps.LatLng(newPoints["InfoRecorrido"]["recorrido"][i].Latitud.replace(',', '.'), newPoints["InfoRecorrido"]["recorrido"][i].Longitud.replace(',', '.')));
-            }
-
-
-
-            flightPath = new google.maps.Polyline({
-                path: flightPlanCoordinates,
-                geodesic: true,
-                strokeColor: '#FF0000',
-                strokeOpacity: 1.0,
-                strokeWeight: 2
-            });
-
-            flightPath.setMap(map);
-
-            markerInicial = createMarker(map, flightPlanCoordinates[0], 'Punto Salida Línea', "", "change");
-            markerFinal = createMarker(map, flightPlanCoordinates[flightPlanCoordinates.length - 1], 'Punto Llegada Línea', "", "change");
-
-            var path = flightPath.getPath();
-            var distance = google.maps.geometry.spherical.computeLength(path.getArray()) / 1000;
-            $("#<%= lblTotalKm.ClientID %>").text(distance.toFixed(2) + " km.");
-        }
-
-        function CargarCabecera(datos) {
-
-            $("#<%= lblEmpresa.ClientID %>").text(datos["InfoRecorrido"]["Empresa"]);
-            $("#<%= lblHorarios.ClientID %>").text(datos["InfoRecorrido"]["Horario"]);
-            $("#<%= lblRecorrido.ClientID %>").text(datos["InfoRecorrido"]["TipoRecorrido"]);
-
-
-        }
 
         var infowindow = new google.maps.InfoWindow({ size: new google.maps.Size(150, 50) });
 
@@ -310,6 +107,62 @@
             type: 'poly'
         };
 
+
+        function init(newPoints) {
+
+
+            var colores = ['#35c49d', '#eb0c1b', '#0c0ceb', '#1beb0c', '#63a892', '#9863a8', '#967815', '#e899eb', '#35c49d', '#eb0c1b', '#0c0ceb', '#1beb0c', '#63a892', '#9863a8', '#967815', '#e899eb', '#35c49d', '#eb0c1b', '#0c0ceb', '#1beb0c', '#63a892', '#9863a8', '#967815', '#e899eb'];
+            for (i = 0; i <= newPoints["InfoRecorrido"].length - 1; i++) {
+
+                ShowRutaEncontradaLines(newPoints["InfoRecorrido"][i], colores[i]);
+
+
+            }
+
+
+            $("#map").css("display", "block");
+        }
+
+
+        function ShowRutaEncontradaLines(newPoints, color) {
+
+            var flightPlanCoordinates = [];
+
+            for (var i = 0; i < newPoints["recorrido"].length; i++) {
+                flightPlanCoordinates.push(new google.maps.LatLng(newPoints["recorrido"][i].Latitud.replace(',', '.'), newPoints["recorrido"][i].Longitud.replace(',', '.')));
+            }
+
+
+
+            flightPath = new google.maps.Polyline({
+                path: flightPlanCoordinates,
+                geodesic: true,
+                strokeColor: color,
+                strokeOpacity: 1.0,
+                strokeWeight: 2
+            });
+
+            flightPath.setMap(map);
+
+            var path = flightPath.getPath();
+            var distance = google.maps.geometry.spherical.computeLength(path.getArray()) / 1000;
+
+            markerInicial = createMarker(map, flightPlanCoordinates[0], '<p style="color:' + color + '"><b>DETALLE DEL RECORRIDO</b></p><br>Distancia Total: ' + distance.toFixed(2) + ' km.</br><br>Emrpesa:' + newPoints["Empresa"] + '</br><br>Horarios:' + newPoints["Horario"] + '</br><br>Tipo Recorrido:' + newPoints["TipoRecorrido"] + '</br>', "", "change");
+            markerFinal = createMarker(map, flightPlanCoordinates[flightPlanCoordinates.length - 1], '<p style="color:' + color + '"><b>DETALLE DEL RECORRIDO</b></p><br>Distancia Total: ' + distance.toFixed(2) + ' km.</br><br>Emrpesa:' + newPoints["Empresa"] + '</br><br>Horarios:' + newPoints["Horario"] + '</br><br>Tipo Recorrido:' + newPoints["TipoRecorrido"] + '</br>', "", "change");
+
+
+        }
+
+        function CargarCabecera(datos) {
+
+            $("#<%= lblEmpresa.ClientID %>").text(datos["InfoRecorrido"]["Empresa"]);
+            $("#<%= lblHorarios.ClientID %>").text(datos["InfoRecorrido"]["Horario"]);
+            $("#<%= lblRecorrido.ClientID %>").text(datos["InfoRecorrido"]["TipoRecorrido"]);
+
+        }
+
+
+
         function getMarkerImage(iconStr) {
 
             return icons[iconStr];
@@ -317,17 +170,26 @@
 
         function createMarker(map, latlng, label, html, color, pos) {
 
-            var contentString = '<b>' + label + '</b><br>' + html;
+            var infowindow = new google.maps.InfoWindow({
+                content: label
+            });
+
+
             var marker = new google.maps.Marker({
                 position: latlng,
                 map: map,
                 shadow: iconShadow,
                 icon: getMarkerImage(color),
                 shape: iconShape,
-                title: label,
+                content: label,
                 zIndex: Math.round(latlng.lat() * -100000) << 5
             });
+
             marker.myname = label;
+
+            marker.addListener('click', function () {
+                infowindow.open(map, marker);
+            });
 
             return marker;
         }
@@ -339,10 +201,47 @@
                 alert("Error en el llamado de recuperacion del recorrido.");
             });
         }
+
+        function CargarMapanNew(ids) {
+
+
+            if (flightPath != null)
+                flightPath.setMap(null);
+
+            if (markerInicial != null)
+                markerInicial.setMap(null);
+
+            if (markerFinal != null)
+                markerFinal.setMap(null);
+
+            var mapOptions = {
+                zoom: 13,
+                center: new google.maps.LatLng(-32.948713, -68.805808),
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                disableDefaultUI: true
+            };
+
+            map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+
+            for (i = 0; i <= ids.length - 1; i++) {
+
+                PageMethods.GetRecorridoAll(ids, function (newPoints) {
+
+                    init(newPoints);
+
+                }, function () {
+                    alert("Error en el llamado de recuperacion del recorrido.");
+                });
+            }
+
+
+
+
+        }
     </script>
-    <div id="DivDescripcionPto" style="display: inline; background-color: White;">
-        <table border="0" cellpadding="0" cellspacing="0" style="border: 1px solid #0066CC;
-            text-align: left; width: 99%; margin-top: 5px; background-color: white;">
+    <div id="DivDescripcionPto" style="display: none; background-color: White;">
+        <table border="0" cellpadding="0" cellspacing="0" style="border: 1px solid #0066CC; text-align: left; width: 99%; margin-top: 5px; background-color: white;">
             <tr>
                 <td rowspan="4" align="center" style="padding: 8px; width: 120px" valign="middle">
                     <img src="images/autobus.jpg" alt="" width="65px" />
@@ -351,7 +250,7 @@
             <tr>
                 <td style="padding-right: 5px" colspan="4">
                     <asp:Label ID="Label1" runat="server" SkinID="lblConosud" Text="Ruta:"></asp:Label>
-                                
+
                     <telerik:RadComboBox ID="cboRecorridos" runat="server" Skin="Sunset" Width="95%"
                         EmptyMessage="Seleccione un recorrido" AllowCustomText="true" MarkFirstMatch="true"
                         OnClientSelectedIndexChanged="CargarMapa" />
@@ -392,11 +291,73 @@
         <input type="text" id="txtend" value="" />
         <input type="text" id="newPoints" style="width: 600px;" value='' />
     </div>
-    
-    <div id="map" style="width: 100%; margin-top: 5px;margin-left:0px;z-index:1;">
-    </div>
+
+
+
+
     <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
     </script>
+
+
+    <div id="ng-app" ng-app="myApp" ng-controller="controller_consultaRecorridos" layout="column" style="height: 500px;" ng-cloak>
+
+        <section layout="row" flex>
+
+    <md-sidenav class="md-sidenav-left" md-component-id="left"
+                md-disable-backdrop md-whiteframe="4" style="top:25px;min-width: 390px;">
+
+      <md-toolbar class="md-theme-indigo">
+         <h1 class="md-toolbar-tools">Rutas Disponibles</h1>
+      </md-toolbar>
+
+      <md-content style="max-height:480px !important">
+       
+          <md-list ng-cloak style="max-height:280px !important;display:block;text-align:left">
+                <md-input-container class="md-block flex-gt-sm flat-input" style="max-width: 370px;">
+                    <label class="md-body-2">Buscar por Nombre</label>
+                    <input ng-model="searchRuta"  flex-gt-sm>
+                </md-input-container>
+              </md-subheader>
+              <md-list-item ng-repeat="ruta in rutasDisponibles | filter: {Descripcion:searchRuta}">
+                <p style="text-align: left;font-size: x-small;"> {{ ruta.Descripcion }} </p>
+                <md-checkbox class="md-secondary" ng-model="ruta.Selected"></md-checkbox>
+              </md-list-item>
+
+             
+
+          </md-list>
+          <md-divider></md-divider>
+            <md-button ng-click="toggleLeft(true)" class="md-raised md-primary">
+                Aplicar Cambios
+            </md-button>
+           
+
+      </md-content>
+       
+            
+       
+    </md-sidenav>
+
+    <md-content flex layout-padding style="height: 100%;">
+
+      <div layout="column" layout-align="top center">
+         <div id="map" style="width: 100%; height:100%">
+         </div>
+
+        <div>
+          <md-button ng-click="toggleLeft(false)" class="md-raised" style="top: 5px;left:0px;z-index:1;position:absolute">
+            Ver Rutas
+          </md-button>
+        </div>
+
+      </div>
+
+    </md-content>
+
+  </section>
+
+    </div>
+
     <script type="text/javascript">
         _uacct = "UA-162157-1";
         urchinTracker();

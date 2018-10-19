@@ -91,10 +91,10 @@ public partial class GestionConsolaPlanTrabajo : System.Web.UI.Page
                                            Contratista = excel.Field<object>("Contratista"),
                                            Sindicato = excel.Field<object>("Sindicato"),
                                            Aplicacion = excel.Field<object>("Aplicacion") == null ? 0 : Convert.ToDecimal(excel.Field<object>("Aplicacion"))
-                                       }).ToList();
+                                       }).Where(w => w.Contrato != null && w.Contratista != null && w.Sindicato != null).ToList();
 
                 //_sw.WriteLine("Total Registros:" + AlllegajosExcel.Count);
-                //_sw.WriteLine("Total Contratos:" + AlllegajosExcel.Where(w => w.Contrato.ToString().Contains("UOCRA")).Count());
+                ////_sw.WriteLine("Total Contratos:" + AlllegajosExcel.Where(w => w.Contrato.ToString().Contains("UOCRA")).Count());
                 //_sw.WriteLine("Total Sindicato:" + AlllegajosExcel.Where(w => w.Sindicato.ToString().Contains("UOCRA")).Count());
 
                 var oucra = (from o in AlllegajosExcel
@@ -109,7 +109,7 @@ public partial class GestionConsolaPlanTrabajo : System.Web.UI.Page
                              }).ToList();
 
                 var independientes = (from o in AlllegajosExcel
-                                      where o.Sindicato.ToString().ToLower().Contains("(sin informacion)")
+                                      where (o.Sindicato.ToString().ToLower().Contains("(sin informacion)") || o.Sindicato.ToString().ToLower().Contains("independiente") )
                                       group o by new { o.Contrato, o.Contratista } into g
                                       select new
                                       {
@@ -120,7 +120,7 @@ public partial class GestionConsolaPlanTrabajo : System.Web.UI.Page
                                       }).ToList();
 
                 var otros = (from o in AlllegajosExcel
-                             where !o.Sindicato.ToString().Contains("UOCRA") && !o.Sindicato.ToString().ToLower().Contains("(sin informacion)")
+                             where !o.Sindicato.ToString().Contains("UOCRA") && !(o.Sindicato.ToString().ToLower().Contains("(sin informacion)") || o.Sindicato.ToString().ToLower().Contains("independiente"))
                              group o by new { o.Contrato, o.Contratista } into g
                              select new
                              {

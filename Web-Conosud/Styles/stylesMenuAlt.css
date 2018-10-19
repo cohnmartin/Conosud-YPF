@@ -9,7 +9,8 @@
 #navigationMenu li{
 	list-style:none;
 	height:39px;
-	padding-left:3px;
+	/* padding-left:3px; */
+	
 	width:40px;
 
 }

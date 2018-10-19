@@ -60,4 +60,30 @@ public partial class ConsultaRecorridosTransportes : System.Web.UI.Page
 
         return datos;
     }
+
+    [WebMethod(EnableSession = true)]
+    public static object GetRecorridoAll(List<long> ids)
+    {
+        Dictionary<string, object> datos = new Dictionary<string, object>();
+
+        using (EntidadesConosud dc = new EntidadesConosud())
+        {
+            var recorrido = (from c in dc.CabeceraRutasTransportes
+                             where ids.Contains(c.Id)
+                             select new
+                             {
+                                 recorrido = c.RutasTransportes.Select(w => new { w.Latitud, w.Longitud }),
+                                 c.Empresa,
+                                 Horario = c.HorariosSalida + " - " + c.HorariosLlegada,
+                                 TipoRecorrido = "IDA"
+
+                             }).ToList();
+
+            datos.Add("InfoRecorrido", recorrido);
+
+        }
+
+
+        return datos;
+    }
 }

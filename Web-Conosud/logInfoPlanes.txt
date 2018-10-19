@@ -51,3 +51,122 @@ Se produjo un error mientras se actualizaban las entradas. Vea la excepción int
    en GestionConsolaPlanTrabajo.BindResults() en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 185
 String or binary data would be truncated.
 The statement has been terminated.
+Referencia a objeto no establecida como instancia de un objeto.
+   en GestionConsolaPlanTrabajo.<BindResults>b__1(<>f__AnonymousType0`4 o) en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 101
+   en System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   en System.Linq.Lookup`2.Create[TSource](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   en System.Linq.GroupedEnumerable`3.GetEnumerator()
+   en System.Linq.Enumerable.WhereSelectEnumerableIterator`2.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en GestionConsolaPlanTrabajo.BindResults() en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 100
+Referencia a objeto no establecida como instancia de un objeto.
+   en GestionConsolaPlanTrabajo.<BindResults>b__1(<>f__AnonymousType0`4 o) en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 101
+   en System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   en System.Linq.Lookup`2.Create[TSource](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   en System.Linq.GroupedEnumerable`3.GetEnumerator()
+   en System.Linq.Enumerable.WhereSelectEnumerableIterator`2.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en GestionConsolaPlanTrabajo.BindResults() en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 100
+Total Registros:221
+Referencia a objeto no establecida como instancia de un objeto.
+   en GestionConsolaPlanTrabajo.<BindResults>b__1(<>f__AnonymousType0`4 w) en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 97
+   en System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   en System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
+   en GestionConsolaPlanTrabajo.BindResults() en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 97
+Referencia a objeto no establecida como instancia de un objeto.
+   en GestionConsolaPlanTrabajo.<BindResults>b__1(<>f__AnonymousType0`4 w) en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 98
+   en System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   en System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
+   en GestionConsolaPlanTrabajo.BindResults() en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 98
+Total Registros:221
+Referencia a objeto no establecida como instancia de un objeto.
+   en GestionConsolaPlanTrabajo.<BindResults>b__1(<>f__AnonymousType0`4 w) en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 98
+   en System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   en System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
+   en GestionConsolaPlanTrabajo.BindResults() en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 98
+Total Registros:221
+Referencia a objeto no establecida como instancia de un objeto.
+   en GestionConsolaPlanTrabajo.<BindResults>b__1(<>f__AnonymousType0`4 w) en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 98
+   en System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   en System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
+   en GestionConsolaPlanTrabajo.BindResults() en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 98
+Total Registros:221
+Referencia a objeto no establecida como instancia de un objeto.
+   en GestionConsolaPlanTrabajo.<BindResults>b__1(<>f__AnonymousType0`4 w) en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 98
+   en System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   en System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
+   en GestionConsolaPlanTrabajo.BindResults() en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 98
+Total Registros:221
+Referencia a objeto no establecida como instancia de un objeto.
+   en GestionConsolaPlanTrabajo.<BindResults>b__1(<>f__AnonymousType0`4 w) en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 98
+   en System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   en System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
+   en GestionConsolaPlanTrabajo.BindResults() en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 98
+Total Registros:221
+Referencia a objeto no establecida como instancia de un objeto.
+   en GestionConsolaPlanTrabajo.<BindResults>b__1(<>f__AnonymousType0`4 w) en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 98
+   en System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   en System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
+   en GestionConsolaPlanTrabajo.BindResults() en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 98
+Total Registros:221
+Referencia a objeto no establecida como instancia de un objeto.
+   en GestionConsolaPlanTrabajo.<BindResults>b__1(<>f__AnonymousType0`4 w) en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 98
+   en System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   en System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
+   en GestionConsolaPlanTrabajo.BindResults() en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 98
+Total Registros:221
+Referencia a objeto no establecida como instancia de un objeto.
+   en GestionConsolaPlanTrabajo.<BindResults>b__1(<>f__AnonymousType0`4 w) en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 98
+   en System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   en System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
+   en GestionConsolaPlanTrabajo.BindResults() en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 98
+Total Registros:221
+Referencia a objeto no establecida como instancia de un objeto.
+   en GestionConsolaPlanTrabajo.<BindResults>b__1(<>f__AnonymousType0`4 w) en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 98
+   en System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   en System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
+   en GestionConsolaPlanTrabajo.BindResults() en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 98
+Total Registros:221
+Referencia a objeto no establecida como instancia de un objeto.
+   en GestionConsolaPlanTrabajo.<BindResults>b__1(<>f__AnonymousType0`4 w) en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 98
+   en System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   en System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
+   en GestionConsolaPlanTrabajo.BindResults() en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 98
+Total Registros:221
+Referencia a objeto no establecida como instancia de un objeto.
+   en GestionConsolaPlanTrabajo.<BindResults>b__1(<>f__AnonymousType0`4 w) en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 98
+   en System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   en System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
+   en GestionConsolaPlanTrabajo.BindResults() en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 98
+Total Registros:1
+Total Sindicato:0
+Total Registros:220
+Total Sindicato:27
+Total Registros:220
+Total Sindicato:27
+El proveedor 'Microsoft.ACE.OLEDB.12.0' no está registrado en el equipo local.
+   en System.Data.OleDb.OleDbServicesWrapper.GetDataSource(OleDbConnectionString constr, DataSourceWrapper& datasrcWrapper)
+   en System.Data.OleDb.OleDbConnectionInternal..ctor(OleDbConnectionString constr, OleDbConnection connection)
+   en System.Data.OleDb.OleDbConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningObject)
+   en System.Data.ProviderBase.DbConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   en System.Data.ProviderBase.DbConnectionFactory.CreateNonPooledConnection(DbConnection owningConnection, DbConnectionPoolGroup poolGroup, DbConnectionOptions userOptions)
+   en System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   en System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   en System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   en System.Data.ProviderBase.DbConnectionInternal.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   en System.Data.OleDb.OleDbConnection.Open()
+   en GestionConsolaPlanTrabajo.BindResults() en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 80
+El proveedor 'Microsoft.ACE.OLEDB.12.0' no está registrado en el equipo local.
+   en System.Data.OleDb.OleDbServicesWrapper.GetDataSource(OleDbConnectionString constr, DataSourceWrapper& datasrcWrapper)
+   en System.Data.OleDb.OleDbConnectionInternal..ctor(OleDbConnectionString constr, OleDbConnection connection)
+   en System.Data.OleDb.OleDbConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningObject)
+   en System.Data.ProviderBase.DbConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   en System.Data.ProviderBase.DbConnectionFactory.CreateNonPooledConnection(DbConnection owningConnection, DbConnectionPoolGroup poolGroup, DbConnectionOptions userOptions)
+   en System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   en System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   en System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   en System.Data.ProviderBase.DbConnectionInternal.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   en System.Data.OleDb.OleDbConnection.Open()
+   en GestionConsolaPlanTrabajo.BindResults() en d:\Martin\Conosud\Conosud YPF\trunk\Web-Conosud\GestionConsolaPlanTrabajo.aspx.cs:línea 80

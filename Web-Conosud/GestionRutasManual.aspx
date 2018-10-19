@@ -114,6 +114,7 @@
             </a></li>
             <li id="Opc_BorrarSeleccionados" onclick="BorrarSeleccionados();"><a class="eliminarSel"
                 href="#"><span>Eliminar Seleccionados</span> </a></li>
+            <li id="Opc_AgregarInicio"><a class="contact" href="#"><span><label style="display:inline-block"><input type="checkbox" id="chkAgregarInicio" style="display: inline-block;"> Agregar al inicio</label></span> </a></li>
             <li id="Opc_GrabarCambios" onclick="GrabarRuta();"><a class="grabar" href="#"><span>
                 Guardar Recorrido</span> </a></li>
             <li id="Opc_CargarRuta" onclick="CargarRuta();"><a class="CargarRecorrido" href="#">
@@ -623,6 +624,7 @@
             $("#Opc_CargarRuta").css("display", "none");
             $("#Opc_ListadoPasajeros").css("display", "none");
             $("#Opc_Reemplazar").css("display", "none");
+            $("#Opc_AgregarInicio").css("display", "none");
 
 
         }
@@ -775,7 +777,10 @@
                 if (AccionEnCurso == "Edicion") {
                     $("#Opc_BorrarSeleccionados").css("display", "inline");
                     $("#Opc_GrabarCambios").css("display", "inline");
+                    $("#Opc_AgregarInicio").css("display", "inline");
                     $("#lblTipoAccion").text("Modo Edición");
+
+                    
 
                 }
                 else {
@@ -810,7 +815,12 @@
 
             if (AccionEnCurso == "Edicion") {
                 if (objCorreccion.objInicial == null && objCorreccion.objFinal == null) {
-                    flightPlanCoordinates.push(event.latLng);
+
+                    if ($("#chkAgregarInicio")[0].checked == true)
+                        flightPlanCoordinates.unshift(event.latLng);
+                    else
+                        flightPlanCoordinates.push(event.latLng);
+
 
                     flightPath = new google.maps.Polyline({
                         path: flightPlanCoordinates,
@@ -933,7 +943,7 @@
                 markers[PosFinal].setIcon("http://www.google.com/mapfiles/ms/micons/markerX.png");
             }
 
-            flightPlanCoordinates.splice(posInicial + 1, (PosFinal - posInicial) + 1);
+            flightPlanCoordinates.splice(posInicial +1 , (PosFinal - posInicial) );
             reloadMap();
             calcularDistancia();
 

@@ -78,13 +78,16 @@ public partial class ABMItems : System.Web.UI.Page
         {
 
             Entidades.Plantilla hoja = EntityDataSourceExtensions.GetItemObject<Entidades.Plantilla>(e.Item.DataItem);
-            hoja.RolesPlanilla.Load();
-            if (hoja.RolesPlanilla.Count > 0)
+            if (hoja != null)
             {
-                hoja.RolesPlanilla.First().SegRolReference.Load();
-                if (e.Item.FindControl("cboRoles") != null)
-                    (e.Item.FindControl("cboRoles") as RadComboBox).SelectedValue = hoja.RolesPlanilla.First().SegRol.IdSegRol.ToString();
+                hoja.RolesPlanilla.Load();
+                if (hoja.RolesPlanilla.Count > 0)
+                {
+                    hoja.RolesPlanilla.First().SegRolReference.Load();
+                    if (e.Item.FindControl("cboRoles") != null)
+                        (e.Item.FindControl("cboRoles") as RadComboBox).SelectedValue = hoja.RolesPlanilla.First().SegRol.IdSegRol.ToString();
 
+                }
             }
         }
 

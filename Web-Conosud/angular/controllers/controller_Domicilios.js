@@ -90,10 +90,21 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
     $scope.paginaActual = 0;
 
     $scope.checkLineaRetorno = function () {
-        if ($scope.Current.TipoTurno == "DIURNO")
-            document.getElementById("cboRecorridoVuelta").disabled = false;
-        else
+        if ($scope.Current.TipoTurno == "VEHÍCULO ASIGNADO") {
             document.getElementById("cboRecorridoVuelta").disabled = true;
+            document.getElementById("cboRecorridosAlta").disabled = true;
+
+            $scope.Current.LineaAsignada = null;
+            $scope.Current.LineaAsignadaVuelta = null;
+        }
+        else if ($scope.Current.TipoTurno == "DIURNO") {
+            document.getElementById("cboRecorridoVuelta").disabled = false;
+            document.getElementById("cboRecorridosAlta").disabled = false;
+        }
+        else {
+            document.getElementById("cboRecorridoVuelta").disabled = true;
+            document.getElementById("cboRecorridosAlta").disabled = false;
+        }
     };
 
 
