@@ -82,6 +82,7 @@ public partial class GestionPublicacion : System.Web.UI.Page
             item.Publicar = false;
         }
 
+        // Este cambio se realizo debido al tiempo de demora, se realizan varias consultas en lugar de una sola.
         cabs = new List<Entidades.CabeceraHojasDeRuta>();
         for (int ids = 0; ids < IdSel.Count; ids++)
         {
