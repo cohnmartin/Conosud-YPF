@@ -82,9 +82,15 @@ public partial class GestionPublicacion : System.Web.UI.Page
             item.Publicar = false;
         }
 
+        cabs = new List<Entidades.CabeceraHojasDeRuta>();
+        for (int ids = 0; ids < IdSel.Count; ids++)
+        {
+           cabs.AddRange(dc.CabeceraHojasDeRuta.Include("HojasDeRuta").Where(
+           Helpers.ContainsExpression<Entidades.CabeceraHojasDeRuta, long>(cab => cab.IdCabeceraHojasDeRuta, IdSel.Skip(ids).Take(30).ToList<long>())).ToList<Entidades.CabeceraHojasDeRuta>());
 
-        cabs = dc.CabeceraHojasDeRuta.Include("HojasDeRuta").Where(
-            Helpers.ContainsExpression<Entidades.CabeceraHojasDeRuta, long>(cab => cab.IdCabeceraHojasDeRuta, IdSel)).ToList<Entidades.CabeceraHojasDeRuta>();
+           ids = ids + 29;
+        }
+
 
 
         List<long> idsCab = (from c in cabs
