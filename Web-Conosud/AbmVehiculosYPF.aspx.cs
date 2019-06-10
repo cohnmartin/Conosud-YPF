@@ -19,8 +19,19 @@ public partial class AbmVehiculosYPF : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+            long idUsuario = long.Parse(Session["idusu"].ToString());
+            Entidades.SegRolMenu PermisosPagina = Helpers.GetPermisosAcciones("AbmVehiculosYPF", idUsuario);
 
+            btnBuscar.Visible = PermisosPagina.Modificacion;
 
+            if (! PermisosPagina.Creacion)
+                divNuevoVahiculo.Style.Add(HtmlTextWriterStyle.Display, "none");
+
+            
+            
+        }
     }
 
     public void btnBuscar_Click(object sender, EventArgs e)

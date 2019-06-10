@@ -1,0 +1,17 @@
+F:\Martin\Conosud\Source Git\Conosud-YPF\Entidades\bin\Debug\Entidades.dll.config
+F:\Martin\Conosud\Source Git\Conosud-YPF\Entidades\bin\Debug\Entidades.dll
+F:\Martin\Conosud\Source Git\Conosud-YPF\Entidades\bin\Debug\Entidades.pdb
+F:\Martin\Conosud\Source Git\Conosud-YPF\Entidades\bin\Debug\Telerik.Reporting.dll
+F:\Martin\Conosud\Source Git\Conosud-YPF\Entidades\obj\Debug\Entidades.CredencialVehiculosEventuales.resources
+F:\Martin\Conosud\Source Git\Conosud-YPF\Entidades\obj\Debug\Entidades.CredencialVisita.resources
+F:\Martin\Conosud\Source Git\Conosud-YPF\Entidades\obj\Debug\Entidades.CredencialVehiculos.resources
+F:\Martin\Conosud\Source Git\Conosud-YPF\Entidades\obj\Debug\Entidades.InformeAltaBajaLegajo.resources
+F:\Martin\Conosud\Source Git\Conosud-YPF\Entidades\obj\Debug\Entidades.InformeEncuadreGremial.resources
+F:\Martin\Conosud\Source Git\Conosud-YPF\Entidades\obj\Debug\Entidades.InformeEstodoHojas.resources
+F:\Martin\Conosud\Source Git\Conosud-YPF\Entidades\obj\Debug\Entidades.InformeMapaHojaDeRuta.resources
+F:\Martin\Conosud\Source Git\Conosud-YPF\Entidades\obj\Debug\Entidades.InformeMensualEmpresasAuditar.resources
+F:\Martin\Conosud\Source Git\Conosud-YPF\Entidades\obj\Debug\Entidades.InformexPeriodo.resources
+F:\Martin\Conosud\Source Git\Conosud-YPF\Entidades\obj\Debug\Entidades.InformexPeriodoHistorico.resources
+F:\Martin\Conosud\Source Git\Conosud-YPF\Entidades\obj\Debug\Entidades.csproj.GenerateResource.Cache
+F:\Martin\Conosud\Source Git\Conosud-YPF\Entidades\obj\Debug\Entidades.dll
+F:\Martin\Conosud\Source Git\Conosud-YPF\Entidades\obj\Debug\Entidades.pdb

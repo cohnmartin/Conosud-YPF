@@ -555,7 +555,7 @@
                 <tr>
                     <th class="tdFunctionAdd" colspan="8">
                         <center>
-                            <div style="cursor: hand; width: 120px; display: inline" ng-click="NuevoVehiculo()">
+                            <div runat="server" id="divNuevoVahiculo" style="cursor: hand; width: 120px; display: inline" ng-click="NuevoVehiculo()">
                                 <asp:Image ImageUrl="~/images/AddRecord.gif" ID="Image2" runat="server" Style="cursor: hand;
                                     padding-right: 5px;" /><span style="color: White; position: relative; top: -3px">Nuevo
                                         Vehículo</span></div>

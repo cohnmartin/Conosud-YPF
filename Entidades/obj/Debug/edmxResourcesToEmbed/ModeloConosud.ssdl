@@ -1,0 +1,1458 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ModeloConosud.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityType Name="ArchivosAdjuntos">
+    <Key>
+      <PropertyRef Name="IdArchivoAdjunto" />
+    </Key>
+    <Property Name="IdArchivoAdjunto" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreArchivo" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="IdContratoEmpresa" Type="bigint" Nullable="false" />
+    <Property Name="FechaAdjunto" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ArchivosSueldos">
+    <Key>
+      <PropertyRef Name="IdArchivoSueldos" />
+    </Key>
+    <Property Name="IdArchivoSueldos" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="250" />
+    <Property Name="FechaCreacion" Type="datetime" />
+    <Property Name="Usuario" Type="bigint" />
+  </EntityType>
+  <EntityType Name="CabeceraHojasDeRuta">
+    <Key>
+      <PropertyRef Name="IdCabeceraHojasDeRuta" />
+    </Key>
+    <Property Name="IdCabeceraHojasDeRuta" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdEstado" Type="bigint" Nullable="false" />
+    <Property Name="FechaAprobacion" Type="datetime" />
+    <Property Name="Periodo" Type="datetime" Nullable="false" />
+    <Property Name="NroCarpeta" Type="int" Nullable="false" />
+    <Property Name="IdContratoEmpresa" Type="bigint" Nullable="false" />
+    <Property Name="Publicar" Type="bit" />
+    <Property Name="Estimacion" Type="text" />
+    <Property Name="FechaEstimacion" Type="datetime" />
+    <Property Name="FechaAprobacionSinLegajos" Type="datetime" />
+    <Property Name="PresentoSueldo" Type="bit" />
+    <Property Name="EsFueraTermino" Type="bit" />
+    <Property Name="UsuarioAprobador" Type="bigint" />
+    <Property Name="FechaUltimaPubicacion" Type="datetime" />
+    <Property Name="EstadoAlCierre" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="CabeceraRutasTransportes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Empresa" Type="varchar" MaxLength="50" />
+    <Property Name="Linea" Type="varchar" MaxLength="50" />
+    <Property Name="Turno" Type="varchar" MaxLength="50" />
+    <Property Name="HorariosSalida" Type="varchar" MaxLength="50" />
+    <Property Name="HorariosLlegada" Type="varchar" MaxLength="50" />
+    <Property Name="TipoUnidad" Type="varchar" MaxLength="50" />
+    <Property Name="TipoRecorrido" Type="varchar" MaxLength="50" />
+    <Property Name="TipoTurno" Type="varchar" MaxLength="50" />
+    <Property Name="Km" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="DetalleRuta" Type="varchar" MaxLength="1500" />
+    <Property Name="Capacidad" Type="int" />
+  </EntityType>
+  <EntityType Name="CategoriasItems">
+    <Key>
+      <PropertyRef Name="IdCategoria" />
+    </Key>
+    <Property Name="IdCategoria" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="100" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="255" />
+    <Property Name="Dialimitepresentacion" Type="int" />
+  </EntityType>
+  <EntityType Name="Clasificacion">
+    <Key>
+      <PropertyRef Name="IdClasificacion" />
+    </Key>
+    <Property Name="IdClasificacion" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="800" />
+    <Property Name="IdPadre" Type="bigint" />
+    <Property Name="Codigo" Type="varchar" MaxLength="50" />
+    <Property Name="Tipo" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ComentariosGral">
+    <Key>
+      <PropertyRef Name="IdComentarioGral" />
+    </Key>
+    <Property Name="IdComentarioGral" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Plantilla" Type="bigint" />
+    <Property Name="ContratoEmpresa" Type="bigint" />
+    <Property Name="Comentario" Type="varchar" MaxLength="7000" />
+  </EntityType>
+  <EntityType Name="ContEmpLegajos">
+    <Key>
+      <PropertyRef Name="IdContEmpLegajos" />
+    </Key>
+    <Property Name="IdContEmpLegajos" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdContratoEmpresas" Type="bigint" />
+    <Property Name="IdLegajos" Type="bigint" />
+    <Property Name="IdCabecerHojaRuta" Type="bigint" />
+    <Property Name="PresentoSueldo" Type="bit" />
+    <Property Name="FechaTramiteBaja" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Contrato">
+    <Key>
+      <PropertyRef Name="IdContrato" />
+    </Key>
+    <Property Name="IdContrato" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Codigo" Type="varchar" MaxLength="50" />
+    <Property Name="Servicio" Type="varchar" MaxLength="255" />
+    <Property Name="FechaInicio" Type="datetime" />
+    <Property Name="FechaVencimiento" Type="datetime" />
+    <Property Name="Prorroga" Type="datetime" />
+    <Property Name="TipoContrato" Type="bigint" />
+    <Property Name="Contratadopor" Type="bigint" />
+    <Property Name="Categoria" Type="bigint" />
+  </EntityType>
+  <EntityType Name="ContratoEmpresas">
+    <Key>
+      <PropertyRef Name="IdContratoEmpresas" />
+    </Key>
+    <Property Name="IdContratoEmpresas" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdContrato" Type="bigint" />
+    <Property Name="IdEmpresa" Type="bigint" />
+    <Property Name="EsContratista" Type="bit" />
+    <Property Name="Comentario" Type="text" />
+  </EntityType>
+  <EntityType Name="ContratosImp">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Codigo" Type="nvarchar" MaxLength="255" />
+    <Property Name="Servicio" Type="nvarchar" MaxLength="855" />
+    <Property Name="FechaInicio" Type="nvarchar" MaxLength="255" />
+    <Property Name="FechaVencimiento" Type="nvarchar" MaxLength="255" />
+    <Property Name="Prorroga" Type="datetime" />
+    <Property Name="TipoContrato" Type="nvarchar" MaxLength="255" />
+    <Property Name="ContratadoPor" Type="nvarchar" MaxLength="255" />
+    <Property Name="CUIT_FK" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DatosDeSueldos">
+    <Key>
+      <PropertyRef Name="IdDatosSueldos" />
+    </Key>
+    <Property Name="IdDatosSueldos" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AdicionalesNORemunerativos" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="AdicionalesRemunerativos" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="AsignacionFamiliar" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Basico_ValorHora" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="BasicoLiquidado" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Descuentos" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="HorasExtras" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Periodo" Type="datetime" />
+    <Property Name="SAC" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TotalBruto" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TotalNeto" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Vacaciones" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ArchivoOrigen" Type="bigint" />
+    <Property Name="Legajo" Type="bigint" />
+    <Property Name="Empresa" Type="bigint" />
+    <Property Name="Contrato" Type="bigint" />
+    <Property Name="CategoriaCCT" Type="varchar" MaxLength="150" />
+    <Property Name="FuncionCCT" Type="varchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="DomiciliosPersonal">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Legajo" Type="varchar" MaxLength="50" />
+    <Property Name="NombreLegajo" Type="nvarchar" MaxLength="255" />
+    <Property Name="Domicilio" Type="nvarchar" MaxLength="255" />
+    <Property Name="Poblacion" Type="nvarchar" MaxLength="255" />
+    <Property Name="Distrito" Type="nvarchar" MaxLength="255" />
+    <Property Name="TipoTurno" Type="nvarchar" MaxLength="255" />
+    <Property Name="Latitud" Type="varchar" MaxLength="50" />
+    <Property Name="Longitud" Type="varchar" MaxLength="50" />
+    <Property Name="LatitudReposicion" Type="varchar" MaxLength="50" />
+    <Property Name="LongitudReposicion" Type="varchar" MaxLength="50" />
+    <Property Name="LineaAsignada" Type="bigint" />
+    <Property Name="Empresa" Type="bigint" />
+    <Property Name="LineaAsignadaVuelta" Type="bigint" />
+    <Property Name="Chofer" Type="bit" />
+    <Property Name="CambiaClave" Type="bit" />
+    <Property Name="Clave" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Empresa">
+    <Key>
+      <PropertyRef Name="IdEmpresa" />
+    </Key>
+    <Property Name="IdEmpresa" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RazonSocial" Type="varchar" MaxLength="500" />
+    <Property Name="CUIT" Type="varchar" MaxLength="50" />
+    <Property Name="FechaAlta" Type="datetime" />
+    <Property Name="RepresentanteTecnico" Type="varchar" MaxLength="500" />
+    <Property Name="PrestacionEmergencia" Type="varchar" MaxLength="500" />
+    <Property Name="Direccion" Type="varchar" MaxLength="500" />
+    <Property Name="Telefono" Type="varchar" MaxLength="500" />
+    <Property Name="CorreoElectronico" Type="varchar" MaxLength="500" />
+    <Property Name="ART" Type="bigint" />
+    <Property Name="Emergencia" Type="varchar" MaxLength="5000" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Conosud.dbo.EmpresasImp' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="HojasDeRuta">
+    <Key>
+      <PropertyRef Name="IdHojaDeRuta" />
+    </Key>
+    <Property Name="IdHojaDeRuta" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdCabeceraHojaDeRuta" Type="bigint" Nullable="false" />
+    <Property Name="IdPlanilla" Type="bigint" Nullable="false" />
+    <Property Name="HojaComentario" Type="varchar" MaxLength="8000" />
+    <Property Name="HojaFechaControlado" Type="datetime" />
+    <Property Name="HojaAprobado" Type="bit" />
+    <Property Name="HojaFechaAprobacion" Type="datetime" />
+    <Property Name="DocComentario" Type="text" />
+    <Property Name="DocFechaEntrega" Type="datetime" />
+    <Property Name="AuditadoPor" Type="nvarchar" MaxLength="256" />
+    <Property Name="AuditoriaTerminada" Type="bit" />
+  </EntityType>
+  <EntityType Name="InformacionPlanTrabajo">
+    <Key>
+      <PropertyRef Name="IdInfoPlanTrabajo" />
+    </Key>
+    <Property Name="IdInfoPlanTrabajo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Periodo" Type="varchar" MaxLength="50" />
+    <Property Name="UOCRA" Type="int" />
+    <Property Name="OTROS" Type="int" />
+    <Property Name="INDEPENDIENTES" Type="int" />
+    <Property Name="Contrato" Type="varchar" MaxLength="50" />
+    <Property Name="Empresa" Type="varchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="IngresosEventuales">
+    <Key>
+      <PropertyRef Name="IdIngresoEventual" />
+    </Key>
+    <Property Name="IdIngresoEventual" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FechaSolicitud" Type="datetime" />
+    <Property Name="ApellidoNombre" Type="varchar" MaxLength="150" />
+    <Property Name="DNI" Type="varchar" MaxLength="50" />
+    <Property Name="Empresa" Type="varchar" MaxLength="150" />
+    <Property Name="Contrato" Type="varchar" MaxLength="50" />
+    <Property Name="Actividad" Type="varchar" MaxLength="150" />
+    <Property Name="Citadopor" Type="varchar" MaxLength="150" />
+    <Property Name="FechaIngreso1" Type="datetime" />
+    <Property Name="FechaIngreso2" Type="datetime" />
+    <Property Name="FechaIngreso3" Type="datetime" />
+    <Property Name="FechaIngreso4" Type="datetime" />
+    <Property Name="FechaIngreso5" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Instructivos">
+    <Key>
+      <PropertyRef Name="IdInstructivo" />
+    </Key>
+    <Property Name="IdInstructivo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreFisico" Type="varchar" MaxLength="250" />
+    <Property Name="NombreAlias" Type="varchar" MaxLength="250" />
+    <Property Name="Fecha" Type="datetime" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="5000" />
+  </EntityType>
+  <EntityType Name="Legajos">
+    <Key>
+      <PropertyRef Name="IdLegajos" />
+    </Key>
+    <Property Name="IdLegajos" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Apellido" Type="varchar" MaxLength="50" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" />
+    <Property Name="TipoDoc" Type="bigint" />
+    <Property Name="NroDoc" Type="varchar" MaxLength="50" />
+    <Property Name="FechaNacimiento" Type="datetime" />
+    <Property Name="Sexo" Type="bit" />
+    <Property Name="EstadoCivil" Type="bigint" />
+    <Property Name="CUIL" Type="varchar" MaxLength="50" />
+    <Property Name="Nacionalidad" Type="bigint" />
+    <Property Name="Direccion" Type="varchar" MaxLength="50" />
+    <Property Name="CodigoPostal" Type="varchar" MaxLength="50" />
+    <Property Name="Provincia" Type="bigint" />
+    <Property Name="TelefonoFijo" Type="varchar" MaxLength="50" />
+    <Property Name="CorreoElectronico" Type="varchar" MaxLength="50" />
+    <Property Name="Convenio" Type="bigint" />
+    <Property Name="FechaIngreos" Type="datetime" />
+    <Property Name="LineaAsignada" Type="bigint" />
+  </EntityType>
+  <EntityType Name="LegajosContratosImp">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NroContrato" Type="nvarchar" MaxLength="255" />
+    <Property Name="FechaIngreso" Type="datetime" />
+    <Property Name="Contratista" Type="nvarchar" MaxLength="255" />
+    <Property Name="Apellido" Type="nvarchar" MaxLength="255" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="255" />
+    <Property Name="Tipo Documento" Type="nvarchar" MaxLength="255" />
+    <Property Name="NroDoc" Type="float" />
+    <Property Name="FechaNacimiento" Type="nvarchar" MaxLength="255" />
+    <Property Name="CUIL" Type="nvarchar" MaxLength="255" />
+    <Property Name="Direccion" Type="nvarchar" MaxLength="255" />
+    <Property Name="CodigoPostal" Type="nvarchar" MaxLength="255" />
+    <Property Name="TelefonoFijo" Type="nvarchar" MaxLength="255" />
+    <Property Name="CorreoElectronico" Type="nvarchar" MaxLength="255" />
+    <Property Name="EstadoCivil" Type="nvarchar" MaxLength="255" />
+    <Property Name="Nacionalidad" Type="nvarchar" MaxLength="255" />
+    <Property Name="Provincia" Type="nvarchar" MaxLength="255" />
+    <Property Name="Convenio" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="ModificacionVehiculos">
+    <Key>
+      <PropertyRef Name="Patente" />
+    </Key>
+    <Property Name="Tipo" Type="nvarchar" MaxLength="50" />
+    <Property Name="Empresa" Type="nvarchar" MaxLength="50" />
+    <Property Name="Patente" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="FechaFabricacion" Type="nvarchar" MaxLength="50" />
+    <Property Name="TipoUnidad" Type="nvarchar" MaxLength="50" />
+    <Property Name="Marca" Type="nvarchar" MaxLength="50" />
+    <Property Name="Titular" Type="nvarchar" MaxLength="50" />
+    <Property Name="Contrato" Type="nvarchar" MaxLength="50" />
+    <Property Name="NroPoliza" Type="nvarchar" MaxLength="50" />
+    <Property Name="CiaSeguro" Type="nvarchar" MaxLength="50" />
+    <Property Name="FechaHabilitacionCENT" Type="nvarchar" MaxLength="50" />
+    <Property Name="FechaPoliza" Type="nvarchar" MaxLength="50" />
+    <Property Name="FechaVencimientoCredencial" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Plantilla">
+    <Key>
+      <PropertyRef Name="IdPlantilla" />
+    </Key>
+    <Property Name="IdPlantilla" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="650" />
+    <Property Name="Codigo" Type="nchar" MaxLength="10" />
+    <Property Name="IdCategoria" Type="bigint" />
+    <Property Name="Riesgo" Type="varchar" MaxLength="50" />
+    <Property Name="Grado" Type="int" />
+    <Property Name="FornulaPlanTrabajo" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="RolesPlanilla">
+    <Key>
+      <PropertyRef Name="IdRolPlanilla" />
+    </Key>
+    <Property Name="IdRolPlanilla" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdPlanilla" Type="bigint" Nullable="false" />
+    <Property Name="IdRol" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RutasTransportes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Latitud" Type="varchar" MaxLength="50" />
+    <Property Name="Longitud" Type="varchar" MaxLength="50" />
+    <Property Name="Departamento" Type="varchar" MaxLength="50" />
+    <Property Name="Cabecera" Type="bigint" />
+  </EntityType>
+  <EntityType Name="SegMenu">
+    <Key>
+      <PropertyRef Name="IdSegMenu" />
+    </Key>
+    <Property Name="IdSegMenu" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PadreId" Type="bigint" />
+    <Property Name="Posicion" Type="int" Nullable="false" />
+    <Property Name="Icono" Type="varchar" MaxLength="150" />
+    <Property Name="Url" Type="varchar" MaxLength="150" />
+    <Property Name="Target" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="SegRol">
+    <Key>
+      <PropertyRef Name="IdSegRol" />
+    </Key>
+    <Property Name="IdSegRol" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="SegRolMenu">
+    <Key>
+      <PropertyRef Name="IdSegRolMenu" />
+    </Key>
+    <Property Name="IdSegRolMenu" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Menu" Type="bigint" Nullable="false" />
+    <Property Name="Rol" Type="bigint" Nullable="false" />
+    <Property Name="Lectura" Type="bit" Nullable="false" />
+    <Property Name="Modificacion" Type="bit" Nullable="false" />
+    <Property Name="Creacion" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguimientoAuditoria">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cabcera" Type="bigint" Nullable="false" />
+    <Property Name="FechaRecepcion" Type="date" Nullable="false" />
+    <Property Name="FechaAsignacion" Type="date" />
+    <Property Name="AuditorAsignado" Type="bigint" />
+    <Property Name="FechaResultado" Type="date" />
+    <Property Name="Resultado" Type="bigint" />
+    <Property Name="FechaRetencion" Type="date" />
+    <Property Name="FechaAsignacionInterino" Type="date" />
+    <Property Name="AudtorInterino" Type="bigint" />
+    <Property Name="NroPresentacion" Type="int" />
+    <Property Name="retencion" Type="bigint" />
+    <Property Name="Publicado" Type="bit" />
+  </EntityType>
+  <EntityType Name="SegUsuario">
+    <Key>
+      <PropertyRef Name="IdSegUsuario" />
+    </Key>
+    <Property Name="IdSegUsuario" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="IdEmpresa" Type="bigint" />
+  </EntityType>
+  <EntityType Name="SegUsuarioRol">
+    <Key>
+      <PropertyRef Name="IdSegUsuarioRol" />
+    </Key>
+    <Property Name="IdSegUsuarioRol" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Usuario" Type="bigint" Nullable="false" />
+    <Property Name="Rol" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VahiculosyEquipos">
+    <Key>
+      <PropertyRef Name="IdVehiculoEquipo" />
+    </Key>
+    <Property Name="IdVehiculoEquipo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Patente" Type="varchar" MaxLength="150" />
+    <Property Name="TipoUnidad" Type="bigint" />
+    <Property Name="NroChasis" Type="varchar" MaxLength="150" />
+    <Property Name="CapacidadCarga" Type="varchar" MaxLength="150" />
+    <Property Name="FechaFabricacion" Type="datetime" />
+    <Property Name="Marca" Type="varchar" MaxLength="150" />
+    <Property Name="Modelo" Type="varchar" MaxLength="150" />
+    <Property Name="NroMotor" Type="varchar" MaxLength="150" />
+    <Property Name="NroHabilitacion" Type="varchar" MaxLength="150" />
+    <Property Name="FechaHabilitacion" Type="datetime" />
+    <Property Name="FechaVencimientoHabilitacion" Type="datetime" />
+    <Property Name="EsPropio" Type="bit" />
+    <Property Name="NombreTitular" Type="varchar" MaxLength="150" />
+    <Property Name="AltaEmpresa" Type="datetime" />
+    <Property Name="BajaEmpresa" Type="datetime" />
+    <Property Name="EquipamientoAgregado" Type="varchar" MaxLength="550" />
+    <Property Name="Tipo" Type="varchar" MaxLength="50" />
+    <Property Name="ContratoAfectado" Type="bigint" />
+    <Property Name="Empresa" Type="bigint" />
+    <Property Name="VencimientoCredencial" Type="datetime" />
+    <Property Name="HabilitarCredencial" Type="bit" />
+    <Property Name="NroPoliza" Type="varchar" MaxLength="50" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="250" />
+    <Property Name="CompañiaSeguro" Type="bigint" />
+    <Property Name="FechaInicial" Type="datetime" />
+    <Property Name="FechaVencimiento" Type="datetime" />
+    <Property Name="FechaUltimoPago" Type="datetime" />
+    <Property Name="FechaUltimaActualizacion" Type="datetime" />
+    <Property Name="FechaCreacion" Type="datetime" />
+    <Property Name="NroInterno" Type="bigint" />
+    <Property Name="NroHabilitacionEE" Type="varchar" MaxLength="150" />
+    <Property Name="FechaHabilitacionEE" Type="datetime" />
+    <Property Name="FechaVencimientoHabilitacionEE" Type="datetime" />
+    <Property Name="PuestoIngreso" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="VehiculosEquiposImp">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tipo" Type="nvarchar" MaxLength="255" />
+    <Property Name="Empresa" Type="nvarchar" MaxLength="255" />
+    <Property Name="Patente" Type="nvarchar" MaxLength="255" />
+    <Property Name="FechaFabricacion" Type="float" />
+    <Property Name="TipoUnidad" Type="nvarchar" MaxLength="255" />
+    <Property Name="Marca" Type="nvarchar" MaxLength="255" />
+    <Property Name="Titular" Type="nvarchar" MaxLength="255" />
+    <Property Name="Contrato" Type="varchar" MaxLength="255" />
+    <Property Name="NroPoliza" Type="varchar" MaxLength="255" />
+    <Property Name="CiaSeguro" Type="nvarchar" MaxLength="255" />
+    <Property Name="FechaHabilitacionCENT" Type="datetime" />
+    <Property Name="FechaPoliza" Type="varchar" MaxLength="50" />
+    <Property Name="FechaVencimientoCredencial" Type="datetime" />
+  </EntityType>
+  <EntityType Name="VehiculosYPF">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Patente" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Modelo" Type="varchar" MaxLength="150" />
+    <Property Name="Año" Type="varchar" MaxLength="150" />
+    <Property Name="Combustible" Type="bigint" />
+    <Property Name="Departamento" Type="bigint" />
+    <Property Name="Sector" Type="bigint" />
+    <Property Name="Titular" Type="varchar" MaxLength="150" />
+    <Property Name="FechaVtoTarjVerde" Type="datetime" />
+    <Property Name="FechaVtoRevTecnica" Type="datetime" />
+    <Property Name="Contrato" Type="varchar" MaxLength="150" />
+    <Property Name="NroTarjeta" Type="varchar" MaxLength="150" />
+    <Property Name="TipoAsignacion" Type="bigint" />
+    <Property Name="CentroCosto" Type="varchar" MaxLength="150" />
+    <Property Name="VelocimetroFecha" Type="datetime" />
+    <Property Name="VelocimetroOdometro" Type="varchar" MaxLength="150" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="Observacion" Type="varchar" MaxLength="5000" />
+    <Property Name="RazonSocial" Type="varchar" MaxLength="150" />
+    <Property Name="TarjetasActivas" Type="int" />
+    <Property Name="LimiteCredito" Type="int" />
+    <Property Name="PIN" Type="int" />
+    <Property Name="TitularPin" Type="varchar" MaxLength="150" />
+    <Property Name="Responsable" Type="varchar" MaxLength="500" />
+    <Property Name="PIN1" Type="int" />
+    <Property Name="TitularPin1" Type="varchar" MaxLength="150" />
+    <Property Name="PIN2" Type="int" />
+    <Property Name="TitularPin2" Type="varchar" MaxLength="150" />
+    <Property Name="PIN3" Type="int" />
+    <Property Name="TitularPin3" Type="varchar" MaxLength="150" />
+    <Property Name="PIN4" Type="int" />
+    <Property Name="TitularPin4" Type="varchar" MaxLength="150" />
+    <Property Name="PIN5" Type="int" />
+    <Property Name="TitularPin5" Type="varchar" MaxLength="150" />
+    <Property Name="PIN6" Type="int" />
+    <Property Name="TitularPin6" Type="varchar" MaxLength="150" />
+    <Property Name="PIN7" Type="int" />
+    <Property Name="TitularPin7" Type="varchar" MaxLength="150" />
+    <Property Name="Chasis" Type="varchar" MaxLength="50" />
+    <Property Name="Motor" Type="varchar" MaxLength="50" />
+    <Property Name="ABS" Type="bit" />
+    <Property Name="AIRBAGS" Type="bit" />
+    <Property Name="Estado" Type="bigint" />
+    <Property Name="TipoVehiculo" Type="bigint" />
+    <Property Name="Llave" Type="bit" />
+    <Property Name="ControlAlarma" Type="bit" />
+    <Property Name="LlaveAlarma" Type="bit" />
+    <Property Name="Posicion" Type="varchar" MaxLength="50" />
+    <Property Name="LimiteConsMensual" Type="int" />
+    <Property Name="MICROTRACK" Type="bit" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Conosud.dbo.View_EmpresasContratos' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="View_EmpresasContratos">
+    <Key>
+      <PropertyRef Name="CodigoContrato" />
+    </Key>
+    <Property Name="RazonSocial" Type="varchar" MaxLength="500" />
+    <Property Name="CodigoContrato" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="EsContratista" Type="bit" />
+  </EntityType>
+  <Association Name="FK_ArchivosAdjuntos_ContratoEmpresas">
+    <End Role="ContratoEmpresas" Type="Self.ContratoEmpresas" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ArchivosAdjuntos" Type="Self.ArchivosAdjuntos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ContratoEmpresas">
+        <PropertyRef Name="IdContratoEmpresas" />
+      </Principal>
+      <Dependent Role="ArchivosAdjuntos">
+        <PropertyRef Name="IdContratoEmpresa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ArchivosSueldos_SegUsuario">
+    <End Role="SegUsuario" Type="Self.SegUsuario" Multiplicity="0..1" />
+    <End Role="ArchivosSueldos" Type="Self.ArchivosSueldos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SegUsuario">
+        <PropertyRef Name="IdSegUsuario" />
+      </Principal>
+      <Dependent Role="ArchivosSueldos">
+        <PropertyRef Name="Usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CabeceraHojasDeRuta_Clasificacion">
+    <End Role="Clasificacion" Type="Self.Clasificacion" Multiplicity="1" />
+    <End Role="CabeceraHojasDeRuta" Type="Self.CabeceraHojasDeRuta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificacion">
+        <PropertyRef Name="IdClasificacion" />
+      </Principal>
+      <Dependent Role="CabeceraHojasDeRuta">
+        <PropertyRef Name="IdEstado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CabeceraHojasDeRuta_ContratoEmpresas">
+    <End Role="ContratoEmpresas" Type="Self.ContratoEmpresas" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CabeceraHojasDeRuta" Type="Self.CabeceraHojasDeRuta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ContratoEmpresas">
+        <PropertyRef Name="IdContratoEmpresas" />
+      </Principal>
+      <Dependent Role="CabeceraHojasDeRuta">
+        <PropertyRef Name="IdContratoEmpresa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CabeceraHojasDeRuta_SegUsuario">
+    <End Role="SegUsuario" Type="Self.SegUsuario" Multiplicity="0..1" />
+    <End Role="CabeceraHojasDeRuta" Type="Self.CabeceraHojasDeRuta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SegUsuario">
+        <PropertyRef Name="IdSegUsuario" />
+      </Principal>
+      <Dependent Role="CabeceraHojasDeRuta">
+        <PropertyRef Name="UsuarioAprobador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Clasificacion_Clasificacion">
+    <End Role="Clasificacion" Type="Self.Clasificacion" Multiplicity="0..1" />
+    <End Role="Clasificacion1" Type="Self.Clasificacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificacion">
+        <PropertyRef Name="IdClasificacion" />
+      </Principal>
+      <Dependent Role="Clasificacion1">
+        <PropertyRef Name="IdPadre" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ComentariosGral_ContratoEmpresas">
+    <End Role="ContratoEmpresas" Type="Self.ContratoEmpresas" Multiplicity="0..1" />
+    <End Role="ComentariosGral" Type="Self.ComentariosGral" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ContratoEmpresas">
+        <PropertyRef Name="IdContratoEmpresas" />
+      </Principal>
+      <Dependent Role="ComentariosGral">
+        <PropertyRef Name="ContratoEmpresa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ComentariosGral_Plantilla">
+    <End Role="Plantilla" Type="Self.Plantilla" Multiplicity="0..1" />
+    <End Role="ComentariosGral" Type="Self.ComentariosGral" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Plantilla">
+        <PropertyRef Name="IdPlantilla" />
+      </Principal>
+      <Dependent Role="ComentariosGral">
+        <PropertyRef Name="Plantilla" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContEmpLegajos_CabeceraHojasDeRuta">
+    <End Role="CabeceraHojasDeRuta" Type="Self.CabeceraHojasDeRuta" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ContEmpLegajos" Type="Self.ContEmpLegajos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CabeceraHojasDeRuta">
+        <PropertyRef Name="IdCabeceraHojasDeRuta" />
+      </Principal>
+      <Dependent Role="ContEmpLegajos">
+        <PropertyRef Name="IdCabecerHojaRuta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContEmpLegajos_ContratoEmpresas">
+    <End Role="ContratoEmpresas" Type="Self.ContratoEmpresas" Multiplicity="0..1" />
+    <End Role="ContEmpLegajos" Type="Self.ContEmpLegajos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ContratoEmpresas">
+        <PropertyRef Name="IdContratoEmpresas" />
+      </Principal>
+      <Dependent Role="ContEmpLegajos">
+        <PropertyRef Name="IdContratoEmpresas" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContEmpLegajos_Legajos">
+    <End Role="Legajos" Type="Self.Legajos" Multiplicity="0..1" />
+    <End Role="ContEmpLegajos" Type="Self.ContEmpLegajos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Legajos">
+        <PropertyRef Name="IdLegajos" />
+      </Principal>
+      <Dependent Role="ContEmpLegajos">
+        <PropertyRef Name="IdLegajos" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Contrato_Clasificacion">
+    <End Role="Clasificacion" Type="Self.Clasificacion" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Contrato" Type="Self.Contrato" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificacion">
+        <PropertyRef Name="IdClasificacion" />
+      </Principal>
+      <Dependent Role="Contrato">
+        <PropertyRef Name="TipoContrato" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Contrato_Clasificacion1">
+    <End Role="Clasificacion" Type="Self.Clasificacion" Multiplicity="0..1" />
+    <End Role="Contrato" Type="Self.Contrato" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificacion">
+        <PropertyRef Name="IdClasificacion" />
+      </Principal>
+      <Dependent Role="Contrato">
+        <PropertyRef Name="Contratadopor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Contrato_Clasificacion2">
+    <End Role="Clasificacion" Type="Self.Clasificacion" Multiplicity="0..1" />
+    <End Role="Contrato" Type="Self.Contrato" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificacion">
+        <PropertyRef Name="IdClasificacion" />
+      </Principal>
+      <Dependent Role="Contrato">
+        <PropertyRef Name="Categoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContratoEmpresas_Contrato">
+    <End Role="Contrato" Type="Self.Contrato" Multiplicity="0..1" />
+    <End Role="ContratoEmpresas" Type="Self.ContratoEmpresas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contrato">
+        <PropertyRef Name="IdContrato" />
+      </Principal>
+      <Dependent Role="ContratoEmpresas">
+        <PropertyRef Name="IdContrato" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContratoEmpresas_Empresa">
+    <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+    <End Role="ContratoEmpresas" Type="Self.ContratoEmpresas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empresa">
+        <PropertyRef Name="IdEmpresa" />
+      </Principal>
+      <Dependent Role="ContratoEmpresas">
+        <PropertyRef Name="IdEmpresa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DatosDeSueldos_ArchivosSueldos">
+    <End Role="ArchivosSueldos" Type="Self.ArchivosSueldos" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="DatosDeSueldos" Type="Self.DatosDeSueldos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ArchivosSueldos">
+        <PropertyRef Name="IdArchivoSueldos" />
+      </Principal>
+      <Dependent Role="DatosDeSueldos">
+        <PropertyRef Name="ArchivoOrigen" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DatosDeSueldos_Contrato">
+    <End Role="Contrato" Type="Self.Contrato" Multiplicity="0..1" />
+    <End Role="DatosDeSueldos" Type="Self.DatosDeSueldos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contrato">
+        <PropertyRef Name="IdContrato" />
+      </Principal>
+      <Dependent Role="DatosDeSueldos">
+        <PropertyRef Name="Contrato" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DatosDeSueldos_Empresa">
+    <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+    <End Role="DatosDeSueldos" Type="Self.DatosDeSueldos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empresa">
+        <PropertyRef Name="IdEmpresa" />
+      </Principal>
+      <Dependent Role="DatosDeSueldos">
+        <PropertyRef Name="Empresa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DatosDeSueldos_Legajos">
+    <End Role="Legajos" Type="Self.Legajos" Multiplicity="0..1" />
+    <End Role="DatosDeSueldos" Type="Self.DatosDeSueldos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Legajos">
+        <PropertyRef Name="IdLegajos" />
+      </Principal>
+      <Dependent Role="DatosDeSueldos">
+        <PropertyRef Name="Legajo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DomiciliosPersonal_CabeceraRutasTransportes">
+    <End Role="CabeceraRutasTransportes" Type="Self.CabeceraRutasTransportes" Multiplicity="0..1" />
+    <End Role="DomiciliosPersonal" Type="Self.DomiciliosPersonal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CabeceraRutasTransportes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DomiciliosPersonal">
+        <PropertyRef Name="LineaAsignada" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DomiciliosPersonal_Empresa">
+    <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+    <End Role="DomiciliosPersonal" Type="Self.DomiciliosPersonal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empresa">
+        <PropertyRef Name="IdEmpresa" />
+      </Principal>
+      <Dependent Role="DomiciliosPersonal">
+        <PropertyRef Name="Empresa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Empresa_Clasificacion">
+    <End Role="Clasificacion" Type="Self.Clasificacion" Multiplicity="0..1" />
+    <End Role="Empresa" Type="Self.Empresa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificacion">
+        <PropertyRef Name="IdClasificacion" />
+      </Principal>
+      <Dependent Role="Empresa">
+        <PropertyRef Name="ART" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HojasDeRuta_CabeceraHojasDeRuta">
+    <End Role="CabeceraHojasDeRuta" Type="Self.CabeceraHojasDeRuta" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="HojasDeRuta" Type="Self.HojasDeRuta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CabeceraHojasDeRuta">
+        <PropertyRef Name="IdCabeceraHojasDeRuta" />
+      </Principal>
+      <Dependent Role="HojasDeRuta">
+        <PropertyRef Name="IdCabeceraHojaDeRuta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HojasDeRuta_Plantilla">
+    <End Role="Plantilla" Type="Self.Plantilla" Multiplicity="1" />
+    <End Role="HojasDeRuta" Type="Self.HojasDeRuta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Plantilla">
+        <PropertyRef Name="IdPlantilla" />
+      </Principal>
+      <Dependent Role="HojasDeRuta">
+        <PropertyRef Name="IdPlanilla" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Legajos_Clasificacion">
+    <End Role="Clasificacion" Type="Self.Clasificacion" Multiplicity="0..1" />
+    <End Role="Legajos" Type="Self.Legajos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificacion">
+        <PropertyRef Name="IdClasificacion" />
+      </Principal>
+      <Dependent Role="Legajos">
+        <PropertyRef Name="TipoDoc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Legajos_Clasificacion1">
+    <End Role="Clasificacion" Type="Self.Clasificacion" Multiplicity="0..1" />
+    <End Role="Legajos" Type="Self.Legajos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificacion">
+        <PropertyRef Name="IdClasificacion" />
+      </Principal>
+      <Dependent Role="Legajos">
+        <PropertyRef Name="Nacionalidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Legajos_Clasificacion2">
+    <End Role="Clasificacion" Type="Self.Clasificacion" Multiplicity="0..1" />
+    <End Role="Legajos" Type="Self.Legajos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificacion">
+        <PropertyRef Name="IdClasificacion" />
+      </Principal>
+      <Dependent Role="Legajos">
+        <PropertyRef Name="EstadoCivil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Legajos_Clasificacion3">
+    <End Role="Clasificacion" Type="Self.Clasificacion" Multiplicity="0..1" />
+    <End Role="Legajos" Type="Self.Legajos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificacion">
+        <PropertyRef Name="IdClasificacion" />
+      </Principal>
+      <Dependent Role="Legajos">
+        <PropertyRef Name="Provincia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Legajos_Clasificacion4">
+    <End Role="Clasificacion" Type="Self.Clasificacion" Multiplicity="0..1" />
+    <End Role="Legajos" Type="Self.Legajos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificacion">
+        <PropertyRef Name="IdClasificacion" />
+      </Principal>
+      <Dependent Role="Legajos">
+        <PropertyRef Name="Convenio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Plantilla_CategoriasItems">
+    <End Role="CategoriasItems" Type="Self.CategoriasItems" Multiplicity="0..1" />
+    <End Role="Plantilla" Type="Self.Plantilla" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CategoriasItems">
+        <PropertyRef Name="IdCategoria" />
+      </Principal>
+      <Dependent Role="Plantilla">
+        <PropertyRef Name="IdCategoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RolesPlanilla_SegRol">
+    <End Role="SegRol" Type="Self.SegRol" Multiplicity="1" />
+    <End Role="RolesPlanilla" Type="Self.RolesPlanilla" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SegRol">
+        <PropertyRef Name="IdSegRol" />
+      </Principal>
+      <Dependent Role="RolesPlanilla">
+        <PropertyRef Name="IdRol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RutasTransportes_CabeceraRutasTransportes">
+    <End Role="CabeceraRutasTransportes" Type="Self.CabeceraRutasTransportes" Multiplicity="0..1" />
+    <End Role="RutasTransportes" Type="Self.RutasTransportes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CabeceraRutasTransportes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RutasTransportes">
+        <PropertyRef Name="Cabecera" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SegMenu_SegMenu">
+    <End Role="SegMenu" Type="Self.SegMenu" Multiplicity="0..1" />
+    <End Role="SegMenu1" Type="Self.SegMenu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SegMenu">
+        <PropertyRef Name="IdSegMenu" />
+      </Principal>
+      <Dependent Role="SegMenu1">
+        <PropertyRef Name="PadreId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SegRolMenu_SegMenu">
+    <End Role="SegMenu" Type="Self.SegMenu" Multiplicity="1" />
+    <End Role="SegRolMenu" Type="Self.SegRolMenu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SegMenu">
+        <PropertyRef Name="IdSegMenu" />
+      </Principal>
+      <Dependent Role="SegRolMenu">
+        <PropertyRef Name="Menu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SegRolMenu_SegRol">
+    <End Role="SegRol" Type="Self.SegRol" Multiplicity="1" />
+    <End Role="SegRolMenu" Type="Self.SegRolMenu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SegRol">
+        <PropertyRef Name="IdSegRol" />
+      </Principal>
+      <Dependent Role="SegRolMenu">
+        <PropertyRef Name="Rol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SeguimientoAuditoria_Cabecera">
+    <End Role="CabeceraHojasDeRuta" Type="Self.CabeceraHojasDeRuta" Multiplicity="1" />
+    <End Role="SeguimientoAuditoria" Type="Self.SeguimientoAuditoria" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CabeceraHojasDeRuta">
+        <PropertyRef Name="IdCabeceraHojasDeRuta" />
+      </Principal>
+      <Dependent Role="SeguimientoAuditoria">
+        <PropertyRef Name="Cabcera" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SeguimientoAuditoria_Clasificacion">
+    <End Role="Clasificacion" Type="Self.Clasificacion" Multiplicity="0..1" />
+    <End Role="SeguimientoAuditoria" Type="Self.SeguimientoAuditoria" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificacion">
+        <PropertyRef Name="IdClasificacion" />
+      </Principal>
+      <Dependent Role="SeguimientoAuditoria">
+        <PropertyRef Name="Resultado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SeguimientoAuditoria_Clasificacion1">
+    <End Role="Clasificacion" Type="Self.Clasificacion" Multiplicity="0..1" />
+    <End Role="SeguimientoAuditoria" Type="Self.SeguimientoAuditoria" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificacion">
+        <PropertyRef Name="IdClasificacion" />
+      </Principal>
+      <Dependent Role="SeguimientoAuditoria">
+        <PropertyRef Name="retencion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SeguimientoAuditoria_SeguimientoAuditoria">
+    <End Role="SegUsuario" Type="Self.SegUsuario" Multiplicity="0..1" />
+    <End Role="SeguimientoAuditoria" Type="Self.SeguimientoAuditoria" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SegUsuario">
+        <PropertyRef Name="IdSegUsuario" />
+      </Principal>
+      <Dependent Role="SeguimientoAuditoria">
+        <PropertyRef Name="AuditorAsignado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SeguimientoAuditoria_SegUsuario">
+    <End Role="SegUsuario" Type="Self.SegUsuario" Multiplicity="0..1" />
+    <End Role="SeguimientoAuditoria" Type="Self.SeguimientoAuditoria" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SegUsuario">
+        <PropertyRef Name="IdSegUsuario" />
+      </Principal>
+      <Dependent Role="SeguimientoAuditoria">
+        <PropertyRef Name="AudtorInterino" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SegUsuario_Empresa">
+    <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+    <End Role="SegUsuario" Type="Self.SegUsuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empresa">
+        <PropertyRef Name="IdEmpresa" />
+      </Principal>
+      <Dependent Role="SegUsuario">
+        <PropertyRef Name="IdEmpresa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SegUsuarioRol_SegRol">
+    <End Role="SegRol" Type="Self.SegRol" Multiplicity="1" />
+    <End Role="SegUsuarioRol" Type="Self.SegUsuarioRol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SegRol">
+        <PropertyRef Name="IdSegRol" />
+      </Principal>
+      <Dependent Role="SegUsuarioRol">
+        <PropertyRef Name="Rol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SegUsuarioRol_SegUsuario">
+    <End Role="SegUsuario" Type="Self.SegUsuario" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="SegUsuarioRol" Type="Self.SegUsuarioRol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SegUsuario">
+        <PropertyRef Name="IdSegUsuario" />
+      </Principal>
+      <Dependent Role="SegUsuarioRol">
+        <PropertyRef Name="Usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VahiculosyEquipos_Clasificacion">
+    <End Role="Clasificacion" Type="Self.Clasificacion" Multiplicity="0..1" />
+    <End Role="VahiculosyEquipos" Type="Self.VahiculosyEquipos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificacion">
+        <PropertyRef Name="IdClasificacion" />
+      </Principal>
+      <Dependent Role="VahiculosyEquipos">
+        <PropertyRef Name="TipoUnidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VahiculosyEquipos_CompañiaSeguro">
+    <End Role="Clasificacion" Type="Self.Clasificacion" Multiplicity="0..1" />
+    <End Role="VahiculosyEquipos" Type="Self.VahiculosyEquipos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificacion">
+        <PropertyRef Name="IdClasificacion" />
+      </Principal>
+      <Dependent Role="VahiculosyEquipos">
+        <PropertyRef Name="CompañiaSeguro" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VahiculosyEquipos_Contrato">
+    <End Role="Contrato" Type="Self.Contrato" Multiplicity="0..1" />
+    <End Role="VahiculosyEquipos" Type="Self.VahiculosyEquipos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contrato">
+        <PropertyRef Name="IdContrato" />
+      </Principal>
+      <Dependent Role="VahiculosyEquipos">
+        <PropertyRef Name="ContratoAfectado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VahiculosyEquipos_Empresa">
+    <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+    <End Role="VahiculosyEquipos" Type="Self.VahiculosyEquipos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empresa">
+        <PropertyRef Name="IdEmpresa" />
+      </Principal>
+      <Dependent Role="VahiculosyEquipos">
+        <PropertyRef Name="Empresa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VehiculosYPF_Combustible">
+    <End Role="Clasificacion" Type="Self.Clasificacion" Multiplicity="0..1" />
+    <End Role="VehiculosYPF" Type="Self.VehiculosYPF" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificacion">
+        <PropertyRef Name="IdClasificacion" />
+      </Principal>
+      <Dependent Role="VehiculosYPF">
+        <PropertyRef Name="Combustible" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VehiculosYPF_Departamento">
+    <End Role="Clasificacion" Type="Self.Clasificacion" Multiplicity="0..1" />
+    <End Role="VehiculosYPF" Type="Self.VehiculosYPF" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificacion">
+        <PropertyRef Name="IdClasificacion" />
+      </Principal>
+      <Dependent Role="VehiculosYPF">
+        <PropertyRef Name="Departamento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VehiculosYPF_Estado">
+    <End Role="Clasificacion" Type="Self.Clasificacion" Multiplicity="0..1" />
+    <End Role="VehiculosYPF" Type="Self.VehiculosYPF" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificacion">
+        <PropertyRef Name="IdClasificacion" />
+      </Principal>
+      <Dependent Role="VehiculosYPF">
+        <PropertyRef Name="Estado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VehiculosYPF_Sectores">
+    <End Role="Clasificacion" Type="Self.Clasificacion" Multiplicity="0..1" />
+    <End Role="VehiculosYPF" Type="Self.VehiculosYPF" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificacion">
+        <PropertyRef Name="IdClasificacion" />
+      </Principal>
+      <Dependent Role="VehiculosYPF">
+        <PropertyRef Name="Sector" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VehiculosYPF_TipoAsignacion">
+    <End Role="Clasificacion" Type="Self.Clasificacion" Multiplicity="0..1" />
+    <End Role="VehiculosYPF" Type="Self.VehiculosYPF" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificacion">
+        <PropertyRef Name="IdClasificacion" />
+      </Principal>
+      <Dependent Role="VehiculosYPF">
+        <PropertyRef Name="TipoAsignacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VehiculosYPF_TipoVehiculo">
+    <End Role="Clasificacion" Type="Self.Clasificacion" Multiplicity="0..1" />
+    <End Role="VehiculosYPF" Type="Self.VehiculosYPF" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificacion">
+        <PropertyRef Name="IdClasificacion" />
+      </Principal>
+      <Dependent Role="VehiculosYPF">
+        <PropertyRef Name="TipoVehiculo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ModeloConosudStoreContainer">
+    <EntitySet Name="ArchivosAdjuntos" EntityType="Self.ArchivosAdjuntos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ArchivosSueldos" EntityType="Self.ArchivosSueldos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CabeceraHojasDeRuta" EntityType="Self.CabeceraHojasDeRuta" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CabeceraRutasTransportes" EntityType="Self.CabeceraRutasTransportes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CategoriasItems" EntityType="Self.CategoriasItems" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Clasificacion" EntityType="Self.Clasificacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ComentariosGral" EntityType="Self.ComentariosGral" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContEmpLegajos" EntityType="Self.ContEmpLegajos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Contrato" EntityType="Self.Contrato" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContratoEmpresas" EntityType="Self.ContratoEmpresas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContratosImp" EntityType="Self.ContratosImp" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DatosDeSueldos" EntityType="Self.DatosDeSueldos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DomiciliosPersonal" EntityType="Self.DomiciliosPersonal" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HojasDeRuta" EntityType="Self.HojasDeRuta" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InformacionPlanTrabajo" EntityType="Self.InformacionPlanTrabajo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="IngresosEventuales" EntityType="Self.IngresosEventuales" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Instructivos" EntityType="Self.Instructivos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Legajos" EntityType="Self.Legajos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LegajosContratosImp" EntityType="Self.LegajosContratosImp" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ModificacionVehiculos" EntityType="Self.ModificacionVehiculos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Plantilla" EntityType="Self.Plantilla" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RolesPlanilla" EntityType="Self.RolesPlanilla" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RutasTransportes" EntityType="Self.RutasTransportes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SegMenu" EntityType="Self.SegMenu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SegRol" EntityType="Self.SegRol" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SegRolMenu" EntityType="Self.SegRolMenu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SeguimientoAuditoria" EntityType="Self.SeguimientoAuditoria" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SegUsuario" EntityType="Self.SegUsuario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SegUsuarioRol" EntityType="Self.SegUsuarioRol" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VahiculosyEquipos" EntityType="Self.VahiculosyEquipos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VehiculosEquiposImp" EntityType="Self.VehiculosEquiposImp" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VehiculosYPF" EntityType="Self.VehiculosYPF" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="View_EmpresasContratos" EntityType="Self.View_EmpresasContratos" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[View_EmpresasContratos].[RazonSocial] AS [RazonSocial], 
+[View_EmpresasContratos].[CodigoContrato] AS [CodigoContrato], 
+[View_EmpresasContratos].[EsContratista] AS [EsContratista]
+FROM [dbo].[View_EmpresasContratos] AS [View_EmpresasContratos]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_ArchivosAdjuntos_ContratoEmpresas" Association="Self.FK_ArchivosAdjuntos_ContratoEmpresas">
+      <End Role="ContratoEmpresas" EntitySet="ContratoEmpresas" />
+      <End Role="ArchivosAdjuntos" EntitySet="ArchivosAdjuntos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ArchivosSueldos_SegUsuario" Association="Self.FK_ArchivosSueldos_SegUsuario">
+      <End Role="SegUsuario" EntitySet="SegUsuario" />
+      <End Role="ArchivosSueldos" EntitySet="ArchivosSueldos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CabeceraHojasDeRuta_Clasificacion" Association="Self.FK_CabeceraHojasDeRuta_Clasificacion">
+      <End Role="Clasificacion" EntitySet="Clasificacion" />
+      <End Role="CabeceraHojasDeRuta" EntitySet="CabeceraHojasDeRuta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CabeceraHojasDeRuta_ContratoEmpresas" Association="Self.FK_CabeceraHojasDeRuta_ContratoEmpresas">
+      <End Role="ContratoEmpresas" EntitySet="ContratoEmpresas" />
+      <End Role="CabeceraHojasDeRuta" EntitySet="CabeceraHojasDeRuta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CabeceraHojasDeRuta_SegUsuario" Association="Self.FK_CabeceraHojasDeRuta_SegUsuario">
+      <End Role="SegUsuario" EntitySet="SegUsuario" />
+      <End Role="CabeceraHojasDeRuta" EntitySet="CabeceraHojasDeRuta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Clasificacion_Clasificacion" Association="Self.FK_Clasificacion_Clasificacion">
+      <End Role="Clasificacion" EntitySet="Clasificacion" />
+      <End Role="Clasificacion1" EntitySet="Clasificacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ComentariosGral_ContratoEmpresas" Association="Self.FK_ComentariosGral_ContratoEmpresas">
+      <End Role="ContratoEmpresas" EntitySet="ContratoEmpresas" />
+      <End Role="ComentariosGral" EntitySet="ComentariosGral" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ComentariosGral_Plantilla" Association="Self.FK_ComentariosGral_Plantilla">
+      <End Role="Plantilla" EntitySet="Plantilla" />
+      <End Role="ComentariosGral" EntitySet="ComentariosGral" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContEmpLegajos_CabeceraHojasDeRuta" Association="Self.FK_ContEmpLegajos_CabeceraHojasDeRuta">
+      <End Role="CabeceraHojasDeRuta" EntitySet="CabeceraHojasDeRuta" />
+      <End Role="ContEmpLegajos" EntitySet="ContEmpLegajos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContEmpLegajos_ContratoEmpresas" Association="Self.FK_ContEmpLegajos_ContratoEmpresas">
+      <End Role="ContratoEmpresas" EntitySet="ContratoEmpresas" />
+      <End Role="ContEmpLegajos" EntitySet="ContEmpLegajos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContEmpLegajos_Legajos" Association="Self.FK_ContEmpLegajos_Legajos">
+      <End Role="Legajos" EntitySet="Legajos" />
+      <End Role="ContEmpLegajos" EntitySet="ContEmpLegajos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Contrato_Clasificacion" Association="Self.FK_Contrato_Clasificacion">
+      <End Role="Clasificacion" EntitySet="Clasificacion" />
+      <End Role="Contrato" EntitySet="Contrato" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Contrato_Clasificacion1" Association="Self.FK_Contrato_Clasificacion1">
+      <End Role="Clasificacion" EntitySet="Clasificacion" />
+      <End Role="Contrato" EntitySet="Contrato" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Contrato_Clasificacion2" Association="Self.FK_Contrato_Clasificacion2">
+      <End Role="Clasificacion" EntitySet="Clasificacion" />
+      <End Role="Contrato" EntitySet="Contrato" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContratoEmpresas_Contrato" Association="Self.FK_ContratoEmpresas_Contrato">
+      <End Role="Contrato" EntitySet="Contrato" />
+      <End Role="ContratoEmpresas" EntitySet="ContratoEmpresas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContratoEmpresas_Empresa" Association="Self.FK_ContratoEmpresas_Empresa">
+      <End Role="Empresa" EntitySet="Empresa" />
+      <End Role="ContratoEmpresas" EntitySet="ContratoEmpresas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DatosDeSueldos_ArchivosSueldos" Association="Self.FK_DatosDeSueldos_ArchivosSueldos">
+      <End Role="ArchivosSueldos" EntitySet="ArchivosSueldos" />
+      <End Role="DatosDeSueldos" EntitySet="DatosDeSueldos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DatosDeSueldos_Contrato" Association="Self.FK_DatosDeSueldos_Contrato">
+      <End Role="Contrato" EntitySet="Contrato" />
+      <End Role="DatosDeSueldos" EntitySet="DatosDeSueldos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DatosDeSueldos_Empresa" Association="Self.FK_DatosDeSueldos_Empresa">
+      <End Role="Empresa" EntitySet="Empresa" />
+      <End Role="DatosDeSueldos" EntitySet="DatosDeSueldos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DatosDeSueldos_Legajos" Association="Self.FK_DatosDeSueldos_Legajos">
+      <End Role="Legajos" EntitySet="Legajos" />
+      <End Role="DatosDeSueldos" EntitySet="DatosDeSueldos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DomiciliosPersonal_CabeceraRutasTransportes" Association="Self.FK_DomiciliosPersonal_CabeceraRutasTransportes">
+      <End Role="CabeceraRutasTransportes" EntitySet="CabeceraRutasTransportes" />
+      <End Role="DomiciliosPersonal" EntitySet="DomiciliosPersonal" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DomiciliosPersonal_Empresa" Association="Self.FK_DomiciliosPersonal_Empresa">
+      <End Role="Empresa" EntitySet="Empresa" />
+      <End Role="DomiciliosPersonal" EntitySet="DomiciliosPersonal" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Empresa_Clasificacion" Association="Self.FK_Empresa_Clasificacion">
+      <End Role="Clasificacion" EntitySet="Clasificacion" />
+      <End Role="Empresa" EntitySet="Empresa" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HojasDeRuta_CabeceraHojasDeRuta" Association="Self.FK_HojasDeRuta_CabeceraHojasDeRuta">
+      <End Role="CabeceraHojasDeRuta" EntitySet="CabeceraHojasDeRuta" />
+      <End Role="HojasDeRuta" EntitySet="HojasDeRuta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HojasDeRuta_Plantilla" Association="Self.FK_HojasDeRuta_Plantilla">
+      <End Role="Plantilla" EntitySet="Plantilla" />
+      <End Role="HojasDeRuta" EntitySet="HojasDeRuta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Legajos_Clasificacion" Association="Self.FK_Legajos_Clasificacion">
+      <End Role="Clasificacion" EntitySet="Clasificacion" />
+      <End Role="Legajos" EntitySet="Legajos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Legajos_Clasificacion1" Association="Self.FK_Legajos_Clasificacion1">
+      <End Role="Clasificacion" EntitySet="Clasificacion" />
+      <End Role="Legajos" EntitySet="Legajos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Legajos_Clasificacion2" Association="Self.FK_Legajos_Clasificacion2">
+      <End Role="Clasificacion" EntitySet="Clasificacion" />
+      <End Role="Legajos" EntitySet="Legajos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Legajos_Clasificacion3" Association="Self.FK_Legajos_Clasificacion3">
+      <End Role="Clasificacion" EntitySet="Clasificacion" />
+      <End Role="Legajos" EntitySet="Legajos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Legajos_Clasificacion4" Association="Self.FK_Legajos_Clasificacion4">
+      <End Role="Clasificacion" EntitySet="Clasificacion" />
+      <End Role="Legajos" EntitySet="Legajos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Plantilla_CategoriasItems" Association="Self.FK_Plantilla_CategoriasItems">
+      <End Role="CategoriasItems" EntitySet="CategoriasItems" />
+      <End Role="Plantilla" EntitySet="Plantilla" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RolesPlanilla_SegRol" Association="Self.FK_RolesPlanilla_SegRol">
+      <End Role="SegRol" EntitySet="SegRol" />
+      <End Role="RolesPlanilla" EntitySet="RolesPlanilla" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RutasTransportes_CabeceraRutasTransportes" Association="Self.FK_RutasTransportes_CabeceraRutasTransportes">
+      <End Role="CabeceraRutasTransportes" EntitySet="CabeceraRutasTransportes" />
+      <End Role="RutasTransportes" EntitySet="RutasTransportes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SegMenu_SegMenu" Association="Self.FK_SegMenu_SegMenu">
+      <End Role="SegMenu" EntitySet="SegMenu" />
+      <End Role="SegMenu1" EntitySet="SegMenu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SegRolMenu_SegMenu" Association="Self.FK_SegRolMenu_SegMenu">
+      <End Role="SegMenu" EntitySet="SegMenu" />
+      <End Role="SegRolMenu" EntitySet="SegRolMenu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SegRolMenu_SegRol" Association="Self.FK_SegRolMenu_SegRol">
+      <End Role="SegRol" EntitySet="SegRol" />
+      <End Role="SegRolMenu" EntitySet="SegRolMenu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SeguimientoAuditoria_Cabecera" Association="Self.FK_SeguimientoAuditoria_Cabecera">
+      <End Role="CabeceraHojasDeRuta" EntitySet="CabeceraHojasDeRuta" />
+      <End Role="SeguimientoAuditoria" EntitySet="SeguimientoAuditoria" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SeguimientoAuditoria_Clasificacion" Association="Self.FK_SeguimientoAuditoria_Clasificacion">
+      <End Role="Clasificacion" EntitySet="Clasificacion" />
+      <End Role="SeguimientoAuditoria" EntitySet="SeguimientoAuditoria" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SeguimientoAuditoria_Clasificacion1" Association="Self.FK_SeguimientoAuditoria_Clasificacion1">
+      <End Role="Clasificacion" EntitySet="Clasificacion" />
+      <End Role="SeguimientoAuditoria" EntitySet="SeguimientoAuditoria" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SeguimientoAuditoria_SeguimientoAuditoria" Association="Self.FK_SeguimientoAuditoria_SeguimientoAuditoria">
+      <End Role="SegUsuario" EntitySet="SegUsuario" />
+      <End Role="SeguimientoAuditoria" EntitySet="SeguimientoAuditoria" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SeguimientoAuditoria_SegUsuario" Association="Self.FK_SeguimientoAuditoria_SegUsuario">
+      <End Role="SegUsuario" EntitySet="SegUsuario" />
+      <End Role="SeguimientoAuditoria" EntitySet="SeguimientoAuditoria" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SegUsuario_Empresa" Association="Self.FK_SegUsuario_Empresa">
+      <End Role="Empresa" EntitySet="Empresa" />
+      <End Role="SegUsuario" EntitySet="SegUsuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SegUsuarioRol_SegRol" Association="Self.FK_SegUsuarioRol_SegRol">
+      <End Role="SegRol" EntitySet="SegRol" />
+      <End Role="SegUsuarioRol" EntitySet="SegUsuarioRol" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SegUsuarioRol_SegUsuario" Association="Self.FK_SegUsuarioRol_SegUsuario">
+      <End Role="SegUsuario" EntitySet="SegUsuario" />
+      <End Role="SegUsuarioRol" EntitySet="SegUsuarioRol" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VahiculosyEquipos_Clasificacion" Association="Self.FK_VahiculosyEquipos_Clasificacion">
+      <End Role="Clasificacion" EntitySet="Clasificacion" />
+      <End Role="VahiculosyEquipos" EntitySet="VahiculosyEquipos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VahiculosyEquipos_CompañiaSeguro" Association="Self.FK_VahiculosyEquipos_CompañiaSeguro">
+      <End Role="Clasificacion" EntitySet="Clasificacion" />
+      <End Role="VahiculosyEquipos" EntitySet="VahiculosyEquipos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VahiculosyEquipos_Contrato" Association="Self.FK_VahiculosyEquipos_Contrato">
+      <End Role="Contrato" EntitySet="Contrato" />
+      <End Role="VahiculosyEquipos" EntitySet="VahiculosyEquipos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VahiculosyEquipos_Empresa" Association="Self.FK_VahiculosyEquipos_Empresa">
+      <End Role="Empresa" EntitySet="Empresa" />
+      <End Role="VahiculosyEquipos" EntitySet="VahiculosyEquipos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VehiculosYPF_Combustible" Association="Self.FK_VehiculosYPF_Combustible">
+      <End Role="Clasificacion" EntitySet="Clasificacion" />
+      <End Role="VehiculosYPF" EntitySet="VehiculosYPF" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VehiculosYPF_Departamento" Association="Self.FK_VehiculosYPF_Departamento">
+      <End Role="Clasificacion" EntitySet="Clasificacion" />
+      <End Role="VehiculosYPF" EntitySet="VehiculosYPF" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VehiculosYPF_Estado" Association="Self.FK_VehiculosYPF_Estado">
+      <End Role="Clasificacion" EntitySet="Clasificacion" />
+      <End Role="VehiculosYPF" EntitySet="VehiculosYPF" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VehiculosYPF_Sectores" Association="Self.FK_VehiculosYPF_Sectores">
+      <End Role="Clasificacion" EntitySet="Clasificacion" />
+      <End Role="VehiculosYPF" EntitySet="VehiculosYPF" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VehiculosYPF_TipoAsignacion" Association="Self.FK_VehiculosYPF_TipoAsignacion">
+      <End Role="Clasificacion" EntitySet="Clasificacion" />
+      <End Role="VehiculosYPF" EntitySet="VehiculosYPF" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VehiculosYPF_TipoVehiculo" Association="Self.FK_VehiculosYPF_TipoVehiculo">
+      <End Role="Clasificacion" EntitySet="Clasificacion" />
+      <End Role="VehiculosYPF" EntitySet="VehiculosYPF" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
