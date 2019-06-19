@@ -218,14 +218,60 @@
                             <td class="tdSimple" align="left" style="width: 310px;">
                                 <input id="Text3" type="text" ng-model="Current.Legajo" style="width: 96%" />
                             </td>
-                            <td align="right" colspan="2" style="padding: 5px">
-                                <button type="button" id="btnCancelar" style="width: 150px; height: 35px; font-size: 15px"
+                            <td class="tdSimple" align="left" style="width: 240px;">
+                                Datos Solicitados:
+                            </td>
+                            <td class="tdSimple" align="left" style="width: 310px;">
+                                <input id="Text3" type="text" ng-model="Current.DatosActualizacion" style="width: 96%" ng-if="Current.EstadoActulizacion == 'PENDIENTE'" />
+                                <label style="font-size: x-small;font-weight:bolder" ng-if="Current.EstadoActulizacion != 'PENDIENTE'" >No posee solicitud de cambio</label>
+                            </td>
+                        </tr>
+
+                         <tr>
+                            <td class="tdSimple" align="left" style="width: 240px;">
+                                Teléfono:
+                            </td>
+                            <td class="tdSimple" align="left" style="width: 220px;">
+                                <input id="Text3" type="text" ng-model="Current.Telefono" style="width: 96%" />
+                            </td>
+                            <td class="tdSimple" align="left" style="width: 240px;">
+                                Correo:
+                            </td>
+                            <td class="tdSimple" align="left" style="width: 250px;">
+                                <input id="Text3" type="text" ng-model="Current.Correo" style="width: 96%" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="tdSimple" align="left" style="width: 240px;">
+                                Es Chofer:
+                            </td>
+                            <td class="tdSimple" align="left" style="width: 220px;" colspan="3">
+                                <input type="checkbox" name="chkChofer" ng-model="Current.Chofer" />
+                            </td>
+                            
+                        </tr>
+
+                        
+                        <tr>
+
+                            <td align="center" colspan="4" style="padding: 5px">
+
+                                <button type="button" id="btnAprobar" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="width: 120px;height: 25px;font-size: 12px;"
+                                    ng-if="Current.EstadoActulizacion == 'PENDIENTE'" ng-click="AprobarSolicitud()">
+                                    Aprobar Solicitud</button>
+                                <button type="button" id="btnLimpiar" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="width: 120px;height: 25px;font-size: 12px;"
+                                    ng-click="LimpiarClave()">
+                                    Limpiar Clave</button>
+                                <button type="button" id="btnCancelar" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="width: 120px;height: 25px;font-size: 12px;"
                                     ng-click="CancelarEdicion()">
                                     Cancelar</button>
-                                <button type="button" id="btnAlta" style="width: 150px; height: 35px; font-size: 15px"
+                                <button type="button" id="btnAlta" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="width: 120px;height: 25px;font-size: 12px;"
                                     ng-click="GrabarPersonal()">
                                     Grabar</button>
+                                
                             </td>
+
                         </tr>
                     </tbody>
                 </table>
@@ -241,6 +287,7 @@
                     ng-show="GrabacionActiva">
                     Grabando Legajo..
                 </div>
+                
                 <table id="tblDirecciones" width="97%" class="TVista" border="0" cellpadding="0"
                     cellspacing="0">
                     <thead>
@@ -320,7 +367,7 @@
                                
                                    <span ng-if="ShowLineaAsignada('I')">{{item.descLineaAsignada}}</span>
                                    <span ng-if="ShowLineaAsignada('V')">{{item.descLineaAsignadaVuelta}}</span>
-                            </td
+                            </td>
                             <td class="tdSimple" align="left" style="width: 160px">
                                 <span>{{item.descEmpresa}}</span>
                             </td>
@@ -348,7 +395,11 @@
                     </tbody>
                 </table>
             </div>
+            
+            
+
             <center>
+                <label style="font-size: small;position: absolute;display: flex;padding-top: 10px;"><input type="checkbox" id="chkEstado" ng-model="chkSolicitudesPendientes" style="margin-right: 5px;margin-top: 2px;"/> Ver Solicitudes Pendientes</label>
                 <table border="0" cellpadding="0" cellspacing="0" style="font-size: small; padding-top: 5px">
                     <tr>
                         <td colspan="6">

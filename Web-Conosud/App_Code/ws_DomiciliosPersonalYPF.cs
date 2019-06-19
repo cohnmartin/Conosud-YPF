@@ -14,7 +14,7 @@ using Entidades;
 [System.Web.Script.Services.ScriptService]
 public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
 {
-
+    private const string CLAVE_BASE = "e10adc3949ba59abbe56e057f20f883e";
     public ws_DomiciliosPersonalYPF()
     {
 
@@ -31,7 +31,7 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
             Dictionary<string, object> datos = new Dictionary<string, object>();
 
             var domicilios = (from d in dc.DomiciliosPersonal.Include("CabeceraRutas")
-                              //where d.objLineaAsignada != null
+                                  //where d.objLineaAsignada != null
                               orderby d.NombreLegajo
                               select new
                               {
@@ -52,13 +52,18 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
                                   descLineaAsignadaVuelta = d.objLineaAsignadaVuelta.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignadaVuelta.Linea + "-" + d.objLineaAsignadaVuelta.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignadaVuelta.TipoRecorrido,
                                   descEmpresa = d.objEmpresa != null ? d.objEmpresa.RazonSocial : "",
                                   Empresa = d.objEmpresa != null ? d.objEmpresa.IdEmpresa : 0,
-                                  Seleccion = false
+                                  Seleccion = false,
+                                  d.EstadoActulizacion,
+                                  d.DatosActualizacion,
+                                  d.Correo,
+                                  d.Telefono,
+                                  d.Chofer
                               }).ToList();
 
 
             var poblacion = (from d in dc.DomiciliosPersonal
-                              orderby d.Poblacion
-                              select d.Poblacion).Select(w=>w.Trim().ToUpper()).ToList().Distinct();
+                             orderby d.Poblacion
+                             select d.Poblacion).Select(w => w.Trim().ToUpper()).ToList().Distinct();
 
 
             datos.Add("Dom", domicilios);
@@ -77,7 +82,7 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
         using (EntidadesConosud dc = new EntidadesConosud())
         {
             DomiciliosPersonal current = null;
-            
+
 
 
             if (domicilio.ContainsKey("Id"))
@@ -136,11 +141,71 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
 
                 }
 
+               
                 current = new DomiciliosPersonal();
+                current.Clave = CLAVE_BASE;
                 dc.AddToDomiciliosPersonal(current);
             }
 
-            
+
+
+            if (current.Domicilio != domicilio["Domicilio"].ToString() || current.Poblacion != domicilio["Poblacion"].ToString() || current.Distrito != domicilio["Distrito"].ToString())
+            {
+                current.Latitud = null;
+                current.Longitud = null;
+            }
+            else
+            {
+                current.Latitud = domicilio.ContainsKey("Latitud") && domicilio["Latitud"] != null ? domicilio["Latitud"].ToString() : null;
+                current.Longitud = domicilio.ContainsKey("Longitud") && domicilio["Longitud"] != null ? domicilio["Longitud"].ToString() : null;
+            }
+
+            current.NombreLegajo = domicilio["NombreLegajo"].ToString();
+            current.Domicilio = domicilio["Domicilio"].ToString();
+            current.Poblacion = domicilio["Poblacion"].ToString();
+            current.Distrito = domicilio["Distrito"].ToString();
+            current.TipoTurno = domicilio.ContainsKey("TipoTurno") ? domicilio["TipoTurno"].ToString() : null;
+            current.Legajo = domicilio.ContainsKey("Legajo") ? domicilio["Legajo"].ToString() : "";
+
+            current.Telefono = domicilio.ContainsKey("Telefono") && domicilio["Telefono"] != null ? domicilio["Telefono"].ToString() : "";
+            current.Correo = domicilio.ContainsKey("Correo") && domicilio["Correo"] != null ? domicilio["Correo"].ToString() : "";
+            current.Chofer = domicilio.ContainsKey("Chofer") && domicilio["Chofer"] != null ? bool.Parse(domicilio["Chofer"].ToString()) : false;
+
+            if (domicilio.ContainsKey("LineaAsignada") && domicilio["LineaAsignada"] != null && long.Parse(domicilio["LineaAsignada"].ToString()) > 0) { current.LineaAsignada = long.Parse(domicilio["LineaAsignada"].ToString()); }
+            if (domicilio.ContainsKey("Empresa") && domicilio["Empresa"] != null && long.Parse(domicilio["Empresa"].ToString()) > 0) { current.Empresa = long.Parse(domicilio["Empresa"].ToString()); }
+
+            if (current.TipoTurno == "TURNO")
+                current.LineaAsignadaVuelta = null;
+            else
+                if (domicilio.ContainsKey("LineaAsignadaVuelta") && domicilio["LineaAsignadaVuelta"] != null && long.Parse(domicilio["LineaAsignadaVuelta"].ToString()) > 0) { current.LineaAsignadaVuelta = long.Parse(domicilio["LineaAsignadaVuelta"].ToString()); }
+
+
+            dc.SaveChanges();
+
+            return null;
+        }
+
+    }
+
+
+
+    [WebMethod]
+    public object AprobarSolicitud(IDictionary<string, object> domicilio)
+    {
+
+        using (EntidadesConosud dc = new EntidadesConosud())
+        {
+            DomiciliosPersonal current = null;
+
+            if (domicilio.ContainsKey("Id"))
+            {
+                long id = long.Parse(domicilio["Id"].ToString());
+
+                current = (from v in dc.DomiciliosPersonal
+                           where v.Id == id
+                           select v).FirstOrDefault();
+
+            }
 
             if (current.Domicilio != domicilio["Domicilio"].ToString() || current.Poblacion != domicilio["Poblacion"].ToString() || current.Distrito != domicilio["Distrito"].ToString())
             {
@@ -169,13 +234,16 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
                 if (domicilio.ContainsKey("LineaAsignadaVuelta") && domicilio["LineaAsignadaVuelta"] != null && long.Parse(domicilio["LineaAsignadaVuelta"].ToString()) > 0) { current.LineaAsignadaVuelta = long.Parse(domicilio["LineaAsignadaVuelta"].ToString()); }
 
 
+            current.EstadoActulizacion = "APROBADO";
+            current.FechaAprobacionRechazoSolicitud = DateTime.Now;
+            current.DatosActualizacion = "";
+
             dc.SaveChanges();
 
             return null;
         }
 
     }
-
 
 
 
@@ -316,5 +384,30 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
 
         }
 
+    }
+
+    [WebMethod]
+    public object LimpiarClave(IDictionary<string, object> domicilio)
+    {
+
+        using (EntidadesConosud dc = new EntidadesConosud())
+        {
+            DomiciliosPersonal current = null;
+
+            if (domicilio.ContainsKey("Id"))
+            {
+                long id = long.Parse(domicilio["Id"].ToString());
+
+                current = (from v in dc.DomiciliosPersonal
+                           where v.Id == id
+                           select v).FirstOrDefault();
+
+                current.Clave = CLAVE_BASE;
+                dc.SaveChanges();
+
+            }
+        }
+
+        return null;
     }
 }

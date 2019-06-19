@@ -180,6 +180,18 @@ public partial class GestionRutasManual : System.Web.UI.Page
                     dc.DeleteObject(item);
                 }
 
+                // Actualizo los legajos para avisar que la linea asiganada a tenido cambios en el recorrido.
+                var legajosAfectados = from d in dc.DomiciliosPersonal
+                                       where d.LineaAsignada == id || d.LineaAsignadaVuelta == id
+                                       || d.Chofer == true
+                                       select d;
+
+                foreach (var l in legajosAfectados)
+                {
+                    l.RutaConCambio += "(" + id + ")";
+                }
+
+
             }
             else
             {

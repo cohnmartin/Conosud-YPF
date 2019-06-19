@@ -263,6 +263,7 @@
       <End Role="Clasificacion" EntitySet="Clasificacion" />
       <End Role="SeguimientoAuditoria" EntitySet="SeguimientoAuditoria" />
     </AssociationSet>
+    <EntitySet Name="Checkin" EntityType="ModeloConosud.Checkin" />
   </EntityContainer>
   <EntityType Name="ArchivosAdjuntos">
     <Key>
@@ -1111,8 +1112,14 @@
     <Property Type="Int64" Name="LineaAsignadaVuelta" />
     <NavigationProperty Name="objLineaAsignadaVuelta" Relationship="ModeloConosud.FK_DomiciliosPersonal_CabeceraRutasTransportes1" FromRole="DomiciliosPersonal" ToRole="CabeceraRutasTransportes" />
     <Property Name="Chofer" Type="Boolean" />
-    <Property Name="CambiaClave" Type="Boolean" />
-    <Property Name="Clave" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EstadoActulizacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FechaSolicitudActualizacion" Type="DateTime" Precision="3" />
+    <Property Name="FechaAprobacionRechazoSolicitud" Type="DateTime" Precision="3" />
+    <Property Name="DatosActualizacion" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+    <Property Name="Clave" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="RutaConCambio" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
   </EntityType>
   <Association Name="FK_DomiciliosPersonal_CabeceraRutasTransportes">
     <End Type="ModeloConosud.CabeceraRutasTransportes" Role="CabeceraRutasTransportes" Multiplicity="0..1" />
@@ -1269,4 +1276,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="Checkin">
+    <Key>
+      <PropertyRef Name="Idcheckin" />
+    </Key>
+    <Property Name="Idcheckin" Type="Int64" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="IdUsuario" Type="Int64" Nullable="false" />
+    <Property Name="IdRecorrido" Type="Int64" Nullable="false" />
+    <Property Name="FechaHora" Type="DateTime" Precision="3" />
+    <Property Name="Latitud" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Longitud" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>

@@ -69,6 +69,17 @@
           <Property Name="Descripcion" Type="varchar" MaxLength="255" />
           <Property Name="Dialimitepresentacion" Type="int" />
         </EntityType>
+        <EntityType Name="Checkin">
+          <Key>
+            <PropertyRef Name="Idcheckin" />
+          </Key>
+          <Property Name="Idcheckin" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUsuario" Type="bigint" Nullable="false" />
+          <Property Name="IdRecorrido" Type="bigint" Nullable="false" />
+          <Property Name="FechaHora" Type="datetime" />
+          <Property Name="Latitud" Type="varchar" MaxLength="50" />
+          <Property Name="Longitud" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Clasificacion">
           <Key>
             <PropertyRef Name="IdClasificacion" />
@@ -180,8 +191,14 @@
           <Property Name="Empresa" Type="bigint" />
           <Property Name="LineaAsignadaVuelta" Type="bigint" />
           <Property Name="Chofer" Type="bit" />
-          <Property Name="CambiaClave" Type="bit" />
-          <Property Name="Clave" Type="varchar" MaxLength="10" />
+          <Property Name="Clave" Type="varchar" MaxLength="100" />
+          <Property Name="Telefono" Type="varchar" MaxLength="20" />
+          <Property Name="Correo" Type="varchar" MaxLength="50" />
+          <Property Name="EstadoActulizacion" Type="varchar" MaxLength="50" />
+          <Property Name="FechaSolicitudActualizacion" Type="datetime" />
+          <Property Name="FechaAprobacionRechazoSolicitud" Type="datetime" />
+          <Property Name="DatosActualizacion" Type="varchar" MaxLength="4000" />
+          <Property Name="RutaConCambio" Type="varchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="Empresa">
           <Key>
@@ -199,8 +216,6 @@
           <Property Name="ART" Type="bigint" />
           <Property Name="Emergencia" Type="varchar" MaxLength="5000" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Conosud.dbo.EmpresasImp' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="HojasDeRuta">
           <Key>
             <PropertyRef Name="IdHojaDeRuta" />
@@ -1208,6 +1223,7 @@ advertencia 6002: La tabla o vista 'Conosud.dbo.View_EmpresasContratos' no tiene
           <EntitySet Name="CabeceraHojasDeRuta" EntityType="Self.CabeceraHojasDeRuta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CabeceraRutasTransportes" EntityType="Self.CabeceraRutasTransportes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CategoriasItems" EntityType="Self.CategoriasItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Checkin" EntityType="Self.Checkin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clasificacion" EntityType="Self.Clasificacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComentariosGral" EntityType="Self.ComentariosGral" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContEmpLegajos" EntityType="Self.ContEmpLegajos" Schema="dbo" store:Type="Tables" />
@@ -1712,6 +1728,7 @@ FROM [dbo].[View_EmpresasContratos] AS [View_EmpresasContratos]</DefiningQuery>
             <End Role="Clasificacion" EntitySet="Clasificacion" />
             <End Role="SeguimientoAuditoria" EntitySet="SeguimientoAuditoria" />
           </AssociationSet>
+          <EntitySet Name="Checkin" EntityType="ModeloConosud.Checkin" />
           </EntityContainer>
         <EntityType Name="ArchivosAdjuntos">
           <Key>
@@ -2528,8 +2545,14 @@ FROM [dbo].[View_EmpresasContratos] AS [View_EmpresasContratos]</DefiningQuery>
           <Property Type="Int64" Name="LineaAsignadaVuelta" />
           <NavigationProperty Name="objLineaAsignadaVuelta" Relationship="ModeloConosud.FK_DomiciliosPersonal_CabeceraRutasTransportes1" FromRole="DomiciliosPersonal" ToRole="CabeceraRutasTransportes" />
           <Property Name="Chofer" Type="Boolean" />
-          <Property Name="CambiaClave" Type="Boolean" />
-          <Property Name="Clave" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EstadoActulizacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaSolicitudActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="FechaAprobacionRechazoSolicitud" Type="DateTime" Precision="3" />
+          <Property Name="DatosActualizacion" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="Clave" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RutaConCambio" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_DomiciliosPersonal_CabeceraRutasTransportes">
           <End Type="ModeloConosud.CabeceraRutasTransportes" Role="CabeceraRutasTransportes" Multiplicity="0..1" />
@@ -2686,6 +2709,17 @@ FROM [dbo].[View_EmpresasContratos] AS [View_EmpresasContratos]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Checkin">
+          <Key>
+            <PropertyRef Name="Idcheckin" />
+          </Key>
+          <Property Name="Idcheckin" Type="Int64" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="IdUsuario" Type="Int64" Nullable="false" />
+          <Property Name="IdRecorrido" Type="Int64" Nullable="false" />
+          <Property Name="FechaHora" Type="DateTime" Precision="3" />
+          <Property Name="Latitud" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Longitud" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3442,8 +3476,14 @@ FROM [dbo].[View_EmpresasContratos] AS [View_EmpresasContratos]</DefiningQuery>
           <EntitySetMapping Name="DomiciliosPersonal">
             <EntityTypeMapping TypeName="ModeloConosud.DomiciliosPersonal">
               <MappingFragment StoreEntitySet="DomiciliosPersonal">
+                <ScalarProperty Name="RutaConCambio" ColumnName="RutaConCambio" />
                 <ScalarProperty Name="Clave" ColumnName="Clave" />
-                <ScalarProperty Name="CambiaClave" ColumnName="CambiaClave" />
+                <ScalarProperty Name="DatosActualizacion" ColumnName="DatosActualizacion" />
+                <ScalarProperty Name="FechaAprobacionRechazoSolicitud" ColumnName="FechaAprobacionRechazoSolicitud" />
+                <ScalarProperty Name="FechaSolicitudActualizacion" ColumnName="FechaSolicitudActualizacion" />
+                <ScalarProperty Name="EstadoActulizacion" ColumnName="EstadoActulizacion" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
                 <ScalarProperty Name="Chofer" ColumnName="Chofer" />
                 <ScalarProperty Name="LineaAsignadaVuelta" ColumnName="LineaAsignadaVuelta" />
                 <ScalarProperty Name="Empresa" ColumnName="Empresa" />
@@ -3478,6 +3518,18 @@ FROM [dbo].[View_EmpresasContratos] AS [View_EmpresasContratos]</DefiningQuery>
                 <ScalarProperty Name="FechaRecepcion" ColumnName="FechaRecepcion" />
                 <ScalarProperty Name="Cabcera" ColumnName="Cabcera" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Checkin">
+            <EntityTypeMapping TypeName="ModeloConosud.Checkin">
+              <MappingFragment StoreEntitySet="Checkin">
+                <ScalarProperty Name="Longitud" ColumnName="Longitud" />
+                <ScalarProperty Name="Latitud" ColumnName="Latitud" />
+                <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
+                <ScalarProperty Name="IdRecorrido" ColumnName="IdRecorrido" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Idcheckin" ColumnName="Idcheckin" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4250,6 +4302,7 @@ FROM [dbo].[View_EmpresasContratos] AS [View_EmpresasContratos]</DefiningQuery>
           <ConnectorPoint PointX="25.8125" PointY="12.095358072916666" />
         </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_SeguimientoAuditoria_Clasificacion11" />
+        <EntityTypeShape EntityType="ModeloConosud.Checkin" Width="1.5" PointX="3.375" PointY="15.75" />
         </Diagram></edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

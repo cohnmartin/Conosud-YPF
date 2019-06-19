@@ -57,6 +57,29 @@ myAppModule.service('PageMethodsDomicilios', function ($http) {
         });
     };
 
+
+    this.AprobarSolicitud = function (domicilio) {
+
+        return $http({
+            method: 'POST',
+            url: 'ws_DomiciliosPersonalYPF.asmx/AprobarSolicitud',
+            data: { domicilio: domicilio },
+            contentType: 'application/json; charset=utf-8'
+        });
+    };
+   
+
+    this.LimpiarClave = function (domicilio) {
+
+        return $http({
+            method: 'POST',
+            url: 'ws_DomiciliosPersonalYPF.asmx/LimpiarClave',
+            data: { domicilio: domicilio },
+            contentType: 'application/json; charset=utf-8'
+        });
+    };
+    
+
     this.GrabarReUbicacionDomicilio = function (domicilio) {
 
         return $http({
@@ -84,6 +107,7 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
     $scope.EliminarActivo = false;
     $scope.GrabacionActiva = false;
     $scope.FuncionActiva = "aaa";
+    $scope.chkSolicitudesPendientes = false;
 
     $scope.arregloCantidad = [5, 10, 15];
     $scope.cantidadRegistros = 35;
@@ -211,6 +235,14 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
 
         }
         else {
+
+            if ($scope.chkSolicitudesPendientes == true) {
+                if (item.EstadoActulizacion == "PENDIENTE")
+                    return true;
+                else
+                    return false;
+            }
+
             return true;
         }
 
@@ -357,6 +389,19 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
 
     }
 
+    $scope.LimpiarClave = function () {
+
+        PageMethodsDomicilios.LimpiarClave($scope.Current)
+                    .then(function (response) {
+                        $scope.$digest();
+                    });
+
+        $scope.hideEdicion();
+
+    }
+    
+
+
     $scope.GrabarPersonal = function () {
 
         $scope.GrabacionActiva = true;
@@ -377,6 +422,27 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
     }
 
 
+    $scope.AprobarSolicitud = function () {
+
+        $scope.GrabacionActiva = true;
+        PageMethodsDomicilios.AprobarSolicitud($scope.Current)
+                    .then(function (response) {
+                        if (response.data.d == null) {
+                            $scope.chkSolicitudesPendientes = false;
+                            $scope.BuscarDomicilios();
+                            $scope.hideEdicion();
+                        }
+                        else {
+                            $scope.GrabacionActiva = false;
+                            alert(response.data.d);
+
+                        }
+                    });
+
+
+    }
+
+    
 
 
     $scope.hideEdicion = function () {

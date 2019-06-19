@@ -35,6 +35,8 @@
                             <asp:Label ID="lblNombreUsu" runat="server" Font-Bold="True" Font-Size="XX-Large"
                                 Text="Label"></asp:Label>
                             <br />
+                            <img runat="server" alt="imgpendiente" ID="imgpendientes" class="animate-admiracion" src="Images/Pendientes.png" />
+                            <br />
                             <asp:LinkButton ID="lbCambiarClave" runat="server" ForeColor="#804000" Font-Bold="True"
                                 Font-Names="Sand Serif" PostBackUrl="~/CambiarClave.aspx" Font-Size="Small">Cambiar clave Usuario Actual</asp:LinkButton>
                         </td>

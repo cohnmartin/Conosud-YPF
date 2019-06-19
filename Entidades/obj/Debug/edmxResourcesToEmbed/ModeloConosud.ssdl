@@ -64,6 +64,17 @@
     <Property Name="Descripcion" Type="varchar" MaxLength="255" />
     <Property Name="Dialimitepresentacion" Type="int" />
   </EntityType>
+  <EntityType Name="Checkin">
+    <Key>
+      <PropertyRef Name="Idcheckin" />
+    </Key>
+    <Property Name="Idcheckin" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdUsuario" Type="bigint" Nullable="false" />
+    <Property Name="IdRecorrido" Type="bigint" Nullable="false" />
+    <Property Name="FechaHora" Type="datetime" />
+    <Property Name="Latitud" Type="varchar" MaxLength="50" />
+    <Property Name="Longitud" Type="varchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="Clasificacion">
     <Key>
       <PropertyRef Name="IdClasificacion" />
@@ -175,8 +186,14 @@
     <Property Name="Empresa" Type="bigint" />
     <Property Name="LineaAsignadaVuelta" Type="bigint" />
     <Property Name="Chofer" Type="bit" />
-    <Property Name="CambiaClave" Type="bit" />
-    <Property Name="Clave" Type="varchar" MaxLength="10" />
+    <Property Name="Clave" Type="varchar" MaxLength="100" />
+    <Property Name="Telefono" Type="varchar" MaxLength="20" />
+    <Property Name="Correo" Type="varchar" MaxLength="50" />
+    <Property Name="EstadoActulizacion" Type="varchar" MaxLength="50" />
+    <Property Name="FechaSolicitudActualizacion" Type="datetime" />
+    <Property Name="FechaAprobacionRechazoSolicitud" Type="datetime" />
+    <Property Name="DatosActualizacion" Type="varchar" MaxLength="4000" />
+    <Property Name="RutaConCambio" Type="varchar" MaxLength="1000" />
   </EntityType>
   <EntityType Name="Empresa">
     <Key>
@@ -194,8 +211,6 @@
     <Property Name="ART" Type="bigint" />
     <Property Name="Emergencia" Type="varchar" MaxLength="5000" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Conosud.dbo.EmpresasImp' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="HojasDeRuta">
     <Key>
       <PropertyRef Name="IdHojaDeRuta" />
@@ -1203,6 +1218,7 @@ advertencia 6002: La tabla o vista 'Conosud.dbo.View_EmpresasContratos' no tiene
     <EntitySet Name="CabeceraHojasDeRuta" EntityType="Self.CabeceraHojasDeRuta" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CabeceraRutasTransportes" EntityType="Self.CabeceraRutasTransportes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CategoriasItems" EntityType="Self.CategoriasItems" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Checkin" EntityType="Self.Checkin" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Clasificacion" EntityType="Self.Clasificacion" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ComentariosGral" EntityType="Self.ComentariosGral" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ContEmpLegajos" EntityType="Self.ContEmpLegajos" Schema="dbo" store:Type="Tables" />
