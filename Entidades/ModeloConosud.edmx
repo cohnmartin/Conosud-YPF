@@ -199,6 +199,7 @@
           <Property Name="FechaAprobacionRechazoSolicitud" Type="datetime" />
           <Property Name="DatosActualizacion" Type="varchar" MaxLength="4000" />
           <Property Name="RutaConCambio" Type="varchar" MaxLength="1000" />
+          <Property Name="TipoServicio" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Empresa">
           <Key>
@@ -2553,6 +2554,7 @@ FROM [dbo].[View_EmpresasContratos] AS [View_EmpresasContratos]</DefiningQuery>
           <Property Name="DatosActualizacion" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
           <Property Name="Clave" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="RutaConCambio" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="TipoServicio" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_DomiciliosPersonal_CabeceraRutasTransportes">
           <End Type="ModeloConosud.CabeceraRutasTransportes" Role="CabeceraRutasTransportes" Multiplicity="0..1" />
@@ -3476,6 +3478,7 @@ FROM [dbo].[View_EmpresasContratos] AS [View_EmpresasContratos]</DefiningQuery>
           <EntitySetMapping Name="DomiciliosPersonal">
             <EntityTypeMapping TypeName="ModeloConosud.DomiciliosPersonal">
               <MappingFragment StoreEntitySet="DomiciliosPersonal">
+                <ScalarProperty Name="TipoServicio" ColumnName="TipoServicio" />
                 <ScalarProperty Name="RutaConCambio" ColumnName="RutaConCambio" />
                 <ScalarProperty Name="Clave" ColumnName="Clave" />
                 <ScalarProperty Name="DatosActualizacion" ColumnName="DatosActualizacion" />
@@ -3554,7 +3557,7 @@ FROM [dbo].[View_EmpresasContratos] AS [View_EmpresasContratos]</DefiningQuery>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram Name="ModeloConosud" ZoomLevel="81" xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+      <Diagram Name="ModeloConosud" ZoomLevel="100" xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
         <EntityTypeShape EntityType="ModeloConosud.ArchivosAdjuntos" Width="1.5" PointX="7.25" PointY="0.5" Height="1.5923063151041674" IsExpanded="true" />
         <EntityTypeShape EntityType="ModeloConosud.CabeceraHojasDeRuta" Width="1.5" PointX="8.125" PointY="4" Height="3.9033007812499996" IsExpanded="true" />
         <EntityTypeShape EntityType="ModeloConosud.CategoriasItems" Width="1.5" PointX="8.625" PointY="13.75" Height="1.75665364583333" IsExpanded="true" />

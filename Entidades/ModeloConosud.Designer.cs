@@ -5587,6 +5587,30 @@ namespace Entidades
         private global::System.String _RutaConCambio;
         partial void OnRutaConCambioChanging(global::System.String value);
         partial void OnRutaConCambioChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String TipoServicio
+        {
+            get
+            {
+                return _TipoServicio;
+            }
+            set
+            {
+                OnTipoServicioChanging(value);
+                ReportPropertyChanging("TipoServicio");
+                _TipoServicio = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("TipoServicio");
+                OnTipoServicioChanged();
+            }
+        }
+        private global::System.String _TipoServicio;
+        partial void OnTipoServicioChanging(global::System.String value);
+        partial void OnTipoServicioChanged();
 
         #endregion
 

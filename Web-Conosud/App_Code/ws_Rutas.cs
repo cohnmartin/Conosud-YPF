@@ -62,7 +62,11 @@ public class ws_Rutas : System.Web.Services.WebService
                              {
                                  recorrido = r.RutasTransportes.Select(w => new { w.Latitud, w.Longitud }),
                                  Empresa = r.Empresa,
+                                 TipoVehiculo = r.TipoUnidad,
+                                 Turno = r.TipoTurno,
                                  Horario = r.HorariosSalida + " - " + r.HorariosLlegada,
+                                 HorarioSalida = r.HorariosSalida,
+                                 HorarioLlegada = r.HorariosLlegada,
                                  TipoRecorrido = r.TipoRecorrido,
                                  Qr = r.Empresa.Substring(0, 3) + r.TipoTurno.Substring(0, 1) + gRes,
                                  idRecorrido = r.Id
@@ -102,11 +106,24 @@ public class ws_Rutas : System.Web.Services.WebService
                                d.Poblacion,
                                d.TipoTurno,
 
-                               descLineaAsignada = d.objLineaAsignada != null ? d.objLineaAsignada.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignada.Linea + "-" + d.objLineaAsignada.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignada.TipoRecorrido:"",
-                               idLineaIda = d.objLineaAsignada != null ? d.objLineaAsignada.Id:0,
+
+                               /*
+                                
+                                descLineaAsignada : "01-T-IDA"
+                                descEmpresaAsignada : "ANDESMAR"
+                                descLineaAsignadaVuelta : ""
+                                descEmpresaAsignadaVuelta : ""
+
+                                */
 
 
-                               descLineaAsignadaVuelta = d.objLineaAsignadaVuelta.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignadaVuelta.Linea + "-" + d.objLineaAsignadaVuelta.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignadaVuelta.TipoRecorrido,
+                               descLineaAsignada = d.objLineaAsignada.Linea + "-" + d.objLineaAsignada.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignada.TipoRecorrido,
+                               descEmpresaAsignada = d.objLineaAsignada.Empresa.Trim(),
+                               idLineaIda = d.objLineaAsignada != null ? d.objLineaAsignada.Id : 0,
+
+
+                               descLineaAsignadaVuelta = d.objLineaAsignadaVuelta.Linea + "-" + d.objLineaAsignadaVuelta.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignadaVuelta.TipoRecorrido,
+                               descEmpresaAsignadaVuelta = d.objLineaAsignadaVuelta.Empresa.Trim(),
                                idLineaVuelta = d.objLineaAsignadaVuelta != null ? d.objLineaAsignadaVuelta.Id : 0,
 
 
@@ -114,6 +131,21 @@ public class ws_Rutas : System.Web.Services.WebService
 
                                HorarioIDA = d.objLineaAsignada.HorariosSalida + " - " + d.objLineaAsignada.HorariosLlegada,
                                HorarioVUELTA = d.objLineaAsignadaVuelta != null ? d.objLineaAsignadaVuelta.HorariosSalida + " - " + d.objLineaAsignadaVuelta.HorariosLlegada : "",
+
+
+                               TipoVehiculoIDA = d.objLineaAsignada.TipoUnidad,
+                               TipoVehiculoVUELTA = d.objLineaAsignadaVuelta != null ? d.objLineaAsignadaVuelta.TipoUnidad : "",
+
+
+                               HorarioSalidaIDA = d.objLineaAsignada.HorariosSalida,
+                               HorarioSalidaVUELTA = d.objLineaAsignadaVuelta != null ? d.objLineaAsignadaVuelta.HorariosSalida : "",
+
+
+                               HorarioLlegadaIDA = d.objLineaAsignada.HorariosLlegada,
+                               HorarioLlegadaVUELTA = d.objLineaAsignadaVuelta != null ? d.objLineaAsignadaVuelta.HorariosLlegada : "",
+                               
+
+
 
                                Chofer = d.Chofer == null ? false : d.Chofer,
                                CambiaClave = d.Clave == CLAVE_BASE ? true : false,
@@ -154,12 +186,20 @@ public class ws_Rutas : System.Web.Services.WebService
                                       d.Poblacion,
                                       d.TipoTurno,
                                       d.descLineaAsignada,
+                                      d.descEmpresaAsignada,
                                       d.idLineaIda,
                                       d.descLineaAsignadaVuelta,
+                                      d.descEmpresaAsignadaVuelta,
                                       d.idLineaVuelta,
                                       d.descEmpresa,
                                       d.HorarioIDA,
                                       d.HorarioVUELTA,
+                                      d.HorarioSalidaIDA,
+                                      d.HorarioSalidaVUELTA,
+                                      d.HorarioLlegadaIDA,
+                                      d.HorarioLlegadaVUELTA,
+                                      d.TipoVehiculoIDA,
+                                      d.TipoVehiculoVUELTA,
                                       d.Chofer,
                                       d.CambiaClave,
                                       Qr1 = d.qr1 + qr1,
@@ -211,17 +251,46 @@ public class ws_Rutas : System.Web.Services.WebService
                                d.NombreLegajo,
                                d.Poblacion,
                                d.TipoTurno,
-                               descLineaAsignada = d.objLineaAsignada.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignada.Linea + "-" + d.objLineaAsignada.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignada.TipoRecorrido,
+
+
+
+                               /*
+                                
+                                descLineaAsignada : "01-T-IDA"
+                                descEmpresaAsignada : "ANDESMAR"
+                                descLineaAsignadaVuelta : ""
+                                descEmpresaAsignadaVuelta : ""
+
+                                */
+
+
+                               descLineaAsignada = d.objLineaAsignada.Linea + "-" + d.objLineaAsignada.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignada.TipoRecorrido,
+                               descEmpresaAsignada = d.objLineaAsignada.Empresa.Trim(),
                                idLineaIda = d.objLineaAsignada != null ? d.objLineaAsignada.Id : 0,
 
 
-                               descLineaAsignadaVuelta = d.objLineaAsignadaVuelta.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignadaVuelta.Linea + "-" + d.objLineaAsignadaVuelta.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignadaVuelta.TipoRecorrido,
+                               descLineaAsignadaVuelta = d.objLineaAsignadaVuelta.Linea + "-" + d.objLineaAsignadaVuelta.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignadaVuelta.TipoRecorrido,
+                               descEmpresaAsignadaVuelta = d.objLineaAsignadaVuelta.Empresa.Trim(),
                                idLineaVuelta = d.objLineaAsignadaVuelta != null ? d.objLineaAsignadaVuelta.Id : 0,
+
 
                                descEmpresa = d.objEmpresa != null ? d.objEmpresa.RazonSocial : "",
 
                                HorarioIDA = d.objLineaAsignada.HorariosSalida + " - " + d.objLineaAsignada.HorariosLlegada,
                                HorarioVUELTA = d.objLineaAsignadaVuelta != null ? d.objLineaAsignadaVuelta.HorariosSalida + " - " + d.objLineaAsignadaVuelta.HorariosLlegada : "",
+
+
+                               TipoVehiculoIDA = d.objLineaAsignada.TipoUnidad,
+                               TipoVehiculoVUELTA = d.objLineaAsignadaVuelta != null ? d.objLineaAsignadaVuelta.TipoUnidad : "",
+
+
+                               HorarioSalidaIDA = d.objLineaAsignada.HorariosSalida,
+                               HorarioSalidaVUELTA = d.objLineaAsignadaVuelta != null ? d.objLineaAsignadaVuelta.HorariosSalida : "",
+
+
+                               HorarioLlegadaIDA = d.objLineaAsignada.HorariosLlegada,
+                               HorarioLlegadaVUELTA = d.objLineaAsignadaVuelta != null ? d.objLineaAsignadaVuelta.HorariosLlegada : "",
+
 
                                Chofer = d.Chofer == null ? false : d.Chofer,
                                CambiaClave = d.Clave == CLAVE_BASE ? true : false,
@@ -261,8 +330,10 @@ public class ws_Rutas : System.Web.Services.WebService
                                   d.Poblacion,
                                   d.TipoTurno,
                                   d.descLineaAsignada,
+                                  d.descEmpresaAsignada,
                                   d.idLineaIda,
                                   d.descLineaAsignadaVuelta,
+                                  d.descEmpresaAsignadaVuelta,
                                   d.idLineaVuelta,
                                   d.descEmpresa,
                                   d.HorarioIDA,
@@ -272,7 +343,13 @@ public class ws_Rutas : System.Web.Services.WebService
                                   Qr1 = d.qr1 + qr1,
                                   Qr2 = d.qr2 + qr2,
                                   d.Telefono,
-                                  d.Correo
+                                  d.Correo,
+                                  d.HorarioSalidaIDA,
+                                  d.HorarioSalidaVUELTA,
+                                  d.HorarioLlegadaIDA,
+                                  d.HorarioLlegadaVUELTA,
+                                  d.TipoVehiculoIDA,
+                                  d.TipoVehiculoVUELTA
 
                               }).First();
 
@@ -300,6 +377,36 @@ public class ws_Rutas : System.Web.Services.WebService
             return poblacion;
 
         }
+
+    }
+
+
+    [WebMethod]
+    public object getEmpresas()
+    {
+
+        using (EntidadesConosud dc = new EntidadesConosud())
+        {
+
+            var empresas = (from d in dc.Empresa
+                            orderby d.RazonSocial
+                            select new
+                            {
+                                IdEmpresa = d.IdEmpresa,
+                                RazonSocial = d.RazonSocial
+                            }).ToList();
+
+            return empresas;
+
+        }
+
+    }
+
+
+    [WebMethod]
+    public object getTipoTurnos()
+    {
+        return new string[] { "TURNO", "DIURNO", "6x1", "VEHÍCULO ASIGNADO" };
 
     }
 
@@ -348,7 +455,9 @@ public class ws_Rutas : System.Web.Services.WebService
         string departamento,
         string localidad,
         string Telefono,
-        string Correo)
+        string Correo,
+        string Empresa,
+        string TipoTurno)
     {
 
         using (EntidadesConosud dc = new EntidadesConosud())
@@ -366,7 +475,9 @@ public class ws_Rutas : System.Web.Services.WebService
                                             + ",departamento:" + departamento
                                             + ",localidad:" + localidad
                                             + ",Telefono:" + Telefono
-                                            + ",Correo:" + Correo;
+                                            + ",Correo:" + Correo
+                                            + ",Empresa:" + Empresa
+                                            + ",TipoTurno:" + TipoTurno;
                     legajo.EstadoActulizacion = "PENDIENTE";
                     legajo.FechaSolicitudActualizacion = DateTime.Now;
                     dc.SaveChanges();

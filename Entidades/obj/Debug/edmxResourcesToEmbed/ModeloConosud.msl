@@ -810,6 +810,7 @@
     <EntitySetMapping Name="DomiciliosPersonal">
       <EntityTypeMapping TypeName="ModeloConosud.DomiciliosPersonal">
         <MappingFragment StoreEntitySet="DomiciliosPersonal">
+          <ScalarProperty Name="TipoServicio" ColumnName="TipoServicio" />
           <ScalarProperty Name="RutaConCambio" ColumnName="RutaConCambio" />
           <ScalarProperty Name="Clave" ColumnName="Clave" />
           <ScalarProperty Name="DatosActualizacion" ColumnName="DatosActualizacion" />

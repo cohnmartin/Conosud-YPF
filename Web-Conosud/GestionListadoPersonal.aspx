@@ -176,7 +176,7 @@
                         </tr>
                         <tr>
                             <td class="tdSimple" align="left" style="width: 240px;">
-                                Tipo Turno:
+                                Régimen Trabajo:
                             </td>
                             <td class="tdSimple" align="left" style="width: 65px;">
                                 <select id="Select3" ng-model="Current.TipoTurno" ng-change="checkLineaRetorno()">
@@ -184,17 +184,30 @@
                                     <option value="DIURNO">DIURNO</option>
                                     <option value="6x1">6x1</option>
                                     <option value="VEHÍCULO ASIGNADO">VEHÍCULO ASIGNADO</option>
+                                    <option value="Jefe Turno">Jefe Turno</option>
+                                    <option value="Gascon II">Gascón II</option>
                                 </select>
                             </td>
                             <td class="tdSimple" align="left" style="width: 240px;">
-                                Línea Asignada:
+                                Tipo servicio transp:
                             </td>
                             <td class="tdSimple" align="left" style="width: 220px;" >
-                                <select  id="cboRecorridosAlta" ng-model="Current.LineaAsignada" ng-options="clasif.Id as clasif.NombreAbreviado for clasif in recorridos" >
+                                <select id="Select3" ng-model="Current.TipoServicio" >
+                                    <option value="Omnibus/Minibus" selected="selected">Ómnibus/Minibús</option>
+                                    <option value="Remis">Remís</option>
+                                    <option value="Vehiculo Asignado">Vehículo Asignado</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
+                            
+                            <td class="tdSimple" align="left" style="width: 240px;">
+                                Línea Asignada:
+                            </td>
+                            <td class="tdSimple" align="left" style="width: 65px;">
+                                <select  id="cboRecorridosAlta" ng-model="Current.LineaAsignada" ng-options="clasif.Id as clasif.NombreAbreviado for clasif in recorridos" >
+                                </select>
+                            </td>
                             <td class="tdSimple" align="left" style="width: 240px;">
                                 Línea Asignada Ret:
                             </td>
@@ -202,13 +215,11 @@
                                 <select id="cboRecorridoVuelta" ng-model="Current.LineaAsignadaVuelta" ng-options="clasif.Id as clasif.NombreAbreviado for clasif in recorridos">
                                 </select>
                             </td>
-                            <td class="tdSimple" align="left" style="width: 240px;">
-                                Empresa
-                            </td>
-                            <td class="tdSimple" align="left" style="width: 250px;">
-                                <select id="cboEmpresas" ng-model="Current.Empresa" ng-options="clasif.Id as clasif.RazonSocial for clasif in empresas">
-                                </select>
-                            </td>
+
+                            
+
+
+                            
                         </tr>
 
                         <tr>
@@ -219,11 +230,11 @@
                                 <input id="Text3" type="text" ng-model="Current.Legajo" style="width: 96%" />
                             </td>
                             <td class="tdSimple" align="left" style="width: 240px;">
-                                Datos Solicitados:
+                                Empresa
                             </td>
-                            <td class="tdSimple" align="left" style="width: 310px;">
-                                <input id="Text3" type="text" ng-model="Current.DatosActualizacion" style="width: 96%" ng-if="Current.EstadoActulizacion == 'PENDIENTE'" />
-                                <label style="font-size: x-small;font-weight:bolder" ng-if="Current.EstadoActulizacion != 'PENDIENTE'" >No posee solicitud de cambio</label>
+                            <td class="tdSimple" align="left" style="width: 250px;">
+                                <select id="cboEmpresas" ng-model="Current.Empresa" ng-options="clasif.Id as clasif.RazonSocial for clasif in empresas">
+                                </select>
                             </td>
                         </tr>
 
@@ -246,10 +257,17 @@
                             <td class="tdSimple" align="left" style="width: 240px;">
                                 Es Chofer:
                             </td>
-                            <td class="tdSimple" align="left" style="width: 220px;" colspan="3">
+                            <td class="tdSimple" align="left" style="width: 220px;" >
                                 <input type="checkbox" name="chkChofer" ng-model="Current.Chofer" />
                             </td>
-                            
+                                                        <td class="tdSimple" align="left" style="width: 240px;">
+                                Datos Solicitados:
+                            </td>
+                            <td class="tdSimple" align="left" style="width: 310px;">
+                                <input id="Text3" type="text" ng-model="Current.DatosActualizacion" style="width: 96%" ng-if="Current.EstadoActulizacion == 'PENDIENTE'" />
+                                <label style="font-size: x-small;font-weight:bolder" ng-if="Current.EstadoActulizacion != 'PENDIENTE'" >No posee solicitud de cambio</label>
+                            </td>
+
                         </tr>
 
                         

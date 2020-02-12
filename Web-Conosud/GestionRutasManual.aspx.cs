@@ -85,6 +85,7 @@ public partial class GestionRutasManual : System.Web.UI.Page
         alias.Add("Distrito", "DEPARTAMENTO");
         alias.Add("Poblacion", "LOCALIDAD");
         alias.Add("TipoTurno", "REGIMEN TRABAJO");
+        alias.Add("TipoServicio", "TIPO SERVICIO");
 
 
         List<string> DatosReporte = new List<string>();

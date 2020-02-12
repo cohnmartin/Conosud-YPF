@@ -73,7 +73,6 @@ myAppModule.service('PageMethods', function ($http) {
         });
     };
 
-
     this.checkInChofer = function () {
 
         return $http({
@@ -84,6 +83,17 @@ myAppModule.service('PageMethods', function ($http) {
         });
     };
     
+
+    this.getEmpresas = function () {
+
+        return $http({
+            method: 'POST',
+            url: 'ws_Rutas.asmx/getTipoTurnos',
+            data: {},
+            contentType: 'application/json; charset=utf-8'
+        });
+    };
+
     
 
 });
@@ -195,18 +205,28 @@ myAppModule.controller('controller_consultaRecorridos', function ($scope, $mdSid
 
                     });
     };
-    
-    
-
+        
     $scope.BuscarRutasDisponibles();
    
+
+    $scope.getEmpresas = function () {
+
+        PageMethods.getEmpresas()
+                    .then(function (response) {
+
+                        $scope.recorrido = response.data.d;
+
+                    });
+    };
+
     //$scope.updatePassword();
     //$scope.getUsuario();
     //$scope.updateUser();
     //$scope.checkIn();
     //$scope.getRecorrido();
     //$scope.checkInChofer();
-    $scope.LoginApp();
+    //$scope.LoginApp();
+    //$scope.getEmpresas();
     
 });
 

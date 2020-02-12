@@ -57,7 +57,8 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
                                   d.DatosActualizacion,
                                   d.Correo,
                                   d.Telefono,
-                                  d.Chofer
+                                  d.Chofer,
+                                  d.TipoServicio
                               }).ToList();
 
 
@@ -165,11 +166,14 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
             current.Poblacion = domicilio["Poblacion"].ToString();
             current.Distrito = domicilio["Distrito"].ToString();
             current.TipoTurno = domicilio.ContainsKey("TipoTurno") ? domicilio["TipoTurno"].ToString() : null;
+            current.TipoServicio = domicilio.ContainsKey("TipoServicio") && domicilio["TipoServicio"] != null  ? domicilio["TipoServicio"].ToString() : "";
             current.Legajo = domicilio.ContainsKey("Legajo") ? domicilio["Legajo"].ToString() : "";
 
             current.Telefono = domicilio.ContainsKey("Telefono") && domicilio["Telefono"] != null ? domicilio["Telefono"].ToString() : "";
             current.Correo = domicilio.ContainsKey("Correo") && domicilio["Correo"] != null ? domicilio["Correo"].ToString() : "";
             current.Chofer = domicilio.ContainsKey("Chofer") && domicilio["Chofer"] != null ? bool.Parse(domicilio["Chofer"].ToString()) : false;
+
+            
 
             if (domicilio.ContainsKey("LineaAsignada") && domicilio["LineaAsignada"] != null && long.Parse(domicilio["LineaAsignada"].ToString()) > 0) { current.LineaAsignada = long.Parse(domicilio["LineaAsignada"].ToString()); }
             if (domicilio.ContainsKey("Empresa") && domicilio["Empresa"] != null && long.Parse(domicilio["Empresa"].ToString()) > 0) { current.Empresa = long.Parse(domicilio["Empresa"].ToString()); }
@@ -345,6 +349,7 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
                                             d.Longitud,
                                             d.LongitudReposicion,
                                             d.TipoTurno,
+                                            d.TipoServicio,
                                             LineaAsignada = d.objLineaAsignada.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignada.Linea + "-" + d.objLineaAsignada.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignada.TipoRecorrido,
                                             LineaAsignadaVuelta = d.objLineaAsignadaVuelta.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignadaVuelta.Linea + "-" + d.objLineaAsignadaVuelta.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignadaVuelta.TipoRecorrido
                                         }).ToList<dynamic>();
