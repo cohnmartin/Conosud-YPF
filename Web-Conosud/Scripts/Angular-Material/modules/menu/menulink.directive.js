@@ -4,9 +4,9 @@
   angular.module('common.directives')
     .run(['$templateCache', function ($templateCache) {
         $templateCache.put('partials/menu-link.tmpl.html',
-        '<md-button style="background-color:#0277bd !important" href="{{section.url}}" ng-class="{\'{{section.icon}}\' : true}" ui-sref-active="active" \n' +
+        '<md-button style="background-color: #0467a2 !important;" href="{{section.url}}" ng-class="{\'{{section.icon}}\' : true}" ui-sref-active="active" \n' +
         '  ui-sref="{{section.state}}" ng-click="focusSection()">\n' +
-        '  &nbsp;&nbsp;<span class="md-body-2">{{section.name}}</span>\n' +
+        '  &nbsp;&nbsp;<span class="md-body-2" style="font-size: 13px;font-family: monospace;">{{section.name}}</span>\n' +
         '  <span  class="md-visually-hidden "\n' +
         '    ng-if="isSelected()">\n' +
         '    current page\n' +

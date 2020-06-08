@@ -54,6 +54,7 @@
     <Property Name="Km" Type="decimal" Precision="18" Scale="2" />
     <Property Name="DetalleRuta" Type="varchar" MaxLength="1500" />
     <Property Name="Capacidad" Type="int" />
+    <Property Name="DestinoRuta" Type="bigint" />
   </EntityType>
   <EntityType Name="CategoriasItems">
     <Key>
@@ -612,6 +613,18 @@ advertencia 6002: La tabla o vista 'Conosud.dbo.View_EmpresasContratos' no tiene
       </Principal>
       <Dependent Role="CabeceraHojasDeRuta">
         <PropertyRef Name="UsuarioAprobador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CabeceraRutasTransportes_Empresa">
+    <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+    <End Role="CabeceraRutasTransportes" Type="Self.CabeceraRutasTransportes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empresa">
+        <PropertyRef Name="IdEmpresa" />
+      </Principal>
+      <Dependent Role="CabeceraRutasTransportes">
+        <PropertyRef Name="DestinoRuta" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1274,6 +1287,10 @@ FROM [dbo].[View_EmpresasContratos] AS [View_EmpresasContratos]</DefiningQuery>
     <AssociationSet Name="FK_CabeceraHojasDeRuta_SegUsuario" Association="Self.FK_CabeceraHojasDeRuta_SegUsuario">
       <End Role="SegUsuario" EntitySet="SegUsuario" />
       <End Role="CabeceraHojasDeRuta" EntitySet="CabeceraHojasDeRuta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CabeceraRutasTransportes_Empresa" Association="Self.FK_CabeceraRutasTransportes_Empresa">
+      <End Role="Empresa" EntitySet="Empresa" />
+      <End Role="CabeceraRutasTransportes" EntitySet="CabeceraRutasTransportes" />
     </AssociationSet>
     <AssociationSet Name="FK_Clasificacion_Clasificacion" Association="Self.FK_Clasificacion_Clasificacion">
       <End Role="Clasificacion" EntitySet="Clasificacion" />

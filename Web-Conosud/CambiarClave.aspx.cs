@@ -19,7 +19,7 @@ public partial class CambiarClave : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            (Page.Master as DefaultMasterPage).OcultarMenu();
+            //(Page.Master as DefaultMasterPage).OcultarMenu();
         }
     }
 

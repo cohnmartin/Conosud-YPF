@@ -22,13 +22,21 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
         //InitializeComponent(); 
     }
 
-    [WebMethod]
+    [WebMethod(EnableSession = true)]
     public object getDomicilios()
     {
 
         using (EntidadesConosud dc = new EntidadesConosud())
         {
             Dictionary<string, object> datos = new Dictionary<string, object>();
+
+            long IdEmpresa = 0;
+            if (Session["TipoUsuario"].ToString() == "Cliente")
+            {
+                IdEmpresa = long.Parse(Session["IdEmpresaContratista"].ToString());
+            }
+
+
 
             var domicilios = (from d in dc.DomiciliosPersonal.Include("CabeceraRutas")
                                   //where d.objLineaAsignada != null
@@ -67,9 +75,16 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
                              select d.Poblacion).Select(w => w.Trim().ToUpper()).ToList().Distinct();
 
 
-            datos.Add("Dom", domicilios);
-            datos.Add("Pob", poblacion);
+            if (IdEmpresa > 0)
+            {
+                datos.Add("Dom", domicilios.Where(w => w.Empresa == IdEmpresa));
+            }
+            else
+            {
+                datos.Add("Dom", domicilios);
+            }
 
+            datos.Add("Pob", poblacion);
             return datos;
 
         }
@@ -142,7 +157,7 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
 
                 }
 
-               
+
                 current = new DomiciliosPersonal();
                 current.Clave = CLAVE_BASE;
                 dc.AddToDomiciliosPersonal(current);
@@ -166,14 +181,14 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
             current.Poblacion = domicilio["Poblacion"].ToString();
             current.Distrito = domicilio["Distrito"].ToString();
             current.TipoTurno = domicilio.ContainsKey("TipoTurno") ? domicilio["TipoTurno"].ToString() : null;
-            current.TipoServicio = domicilio.ContainsKey("TipoServicio") && domicilio["TipoServicio"] != null  ? domicilio["TipoServicio"].ToString() : "";
+            current.TipoServicio = domicilio.ContainsKey("TipoServicio") && domicilio["TipoServicio"] != null ? domicilio["TipoServicio"].ToString() : "";
             current.Legajo = domicilio.ContainsKey("Legajo") ? domicilio["Legajo"].ToString() : "";
 
             current.Telefono = domicilio.ContainsKey("Telefono") && domicilio["Telefono"] != null ? domicilio["Telefono"].ToString() : "";
             current.Correo = domicilio.ContainsKey("Correo") && domicilio["Correo"] != null ? domicilio["Correo"].ToString() : "";
             current.Chofer = domicilio.ContainsKey("Chofer") && domicilio["Chofer"] != null ? bool.Parse(domicilio["Chofer"].ToString()) : false;
 
-            
+
 
             if (domicilio.ContainsKey("LineaAsignada") && domicilio["LineaAsignada"] != null && long.Parse(domicilio["LineaAsignada"].ToString()) > 0) { current.LineaAsignada = long.Parse(domicilio["LineaAsignada"].ToString()); }
             if (domicilio.ContainsKey("Empresa") && domicilio["Empresa"] != null && long.Parse(domicilio["Empresa"].ToString()) > 0) { current.Empresa = long.Parse(domicilio["Empresa"].ToString()); }
@@ -326,66 +341,134 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
         return true;
     }
 
-    [WebMethod]
+    [WebMethod(EnableSession = true)]
     public List<dynamic> getDomiciliosExport()
     {
 
         using (EntidadesConosud dc = new EntidadesConosud())
         {
+            long IdEmpresa = 0;
+            List<dynamic> domicilios;
 
-            List<dynamic> domicilios = (from d in dc.DomiciliosPersonal.Include("CabeceraRutas")
-                                        orderby d.NombreLegajo
-                                        select new
-                                        {
-                                            d.Legajo,
-                                            d.NombreLegajo,
-                                            d.objEmpresa.RazonSocial,
-                                            d.Domicilio,
-                                            d.Distrito,
-                                            d.Poblacion,
-                                            d.Id,
-                                            d.Latitud,
-                                            d.LatitudReposicion,
-                                            d.Longitud,
-                                            d.LongitudReposicion,
-                                            d.TipoTurno,
-                                            d.TipoServicio,
-                                            LineaAsignada = d.objLineaAsignada.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignada.Linea + "-" + d.objLineaAsignada.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignada.TipoRecorrido,
-                                            LineaAsignadaVuelta = d.objLineaAsignadaVuelta.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignadaVuelta.Linea + "-" + d.objLineaAsignadaVuelta.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignadaVuelta.TipoRecorrido
-                                        }).ToList<dynamic>();
+            if (Session["TipoUsuario"].ToString() == "Cliente")
+            {
+                IdEmpresa = long.Parse(Session["IdEmpresaContratista"].ToString());
+
+                domicilios = (from d in dc.DomiciliosPersonal.Include("CabeceraRutas")
+                              orderby d.NombreLegajo
+                              where d.objEmpresa.IdEmpresa == IdEmpresa
+                              select new
+                              {
+                                  d.Legajo,
+                                  d.NombreLegajo,
+                                  d.objEmpresa.RazonSocial,
+                                  d.Domicilio,
+                                  d.Distrito,
+                                  d.Poblacion,
+                                  d.Id,
+                                  d.Latitud,
+                                  d.LatitudReposicion,
+                                  d.Longitud,
+                                  d.LongitudReposicion,
+                                  d.TipoTurno,
+                                  d.TipoServicio,
+                                  LineaAsignada = d.objLineaAsignada.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignada.Linea + "-" + d.objLineaAsignada.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignada.TipoRecorrido,
+                                  LineaAsignadaVuelta = d.objLineaAsignadaVuelta.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignadaVuelta.Linea + "-" + d.objLineaAsignadaVuelta.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignadaVuelta.TipoRecorrido
+                              }).ToList<dynamic>();
+            }
+            else
+            {
+
+                domicilios = (from d in dc.DomiciliosPersonal.Include("CabeceraRutas")
+                              orderby d.NombreLegajo
+                              select new
+                              {
+                                  d.Legajo,
+                                  d.NombreLegajo,
+                                  d.objEmpresa.RazonSocial,
+                                  d.Domicilio,
+                                  d.Distrito,
+                                  d.Poblacion,
+                                  d.Id,
+                                  d.Latitud,
+                                  d.LatitudReposicion,
+                                  d.Longitud,
+                                  d.LongitudReposicion,
+                                  d.TipoTurno,
+                                  d.TipoServicio,
+                                  LineaAsignada = d.objLineaAsignada.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignada.Linea + "-" + d.objLineaAsignada.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignada.TipoRecorrido,
+                                  LineaAsignadaVuelta = d.objLineaAsignadaVuelta.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignadaVuelta.Linea + "-" + d.objLineaAsignadaVuelta.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignadaVuelta.TipoRecorrido
+                              }).ToList<dynamic>();
+
+            }
 
             return domicilios;
+
+
+
+
 
         }
 
     }
 
 
-    [WebMethod]
+    [WebMethod(EnableSession = true)]
     public List<dynamic> getRutasExport()
     {
 
         using (EntidadesConosud dc = new EntidadesConosud())
         {
+            long IdEmpresa = 0;
+            List<dynamic> domicilios;
 
-            List<dynamic> domicilios = (from d in dc.CabeceraRutasTransportes
-                                        where d.TipoTurno != "Temporal "
-                                        orderby d.Empresa
-                                        select new
-                                        {
-                                            d.Linea,
-                                            d.TipoTurno,
-                                            d.TipoRecorrido,
-                                            d.Turno,
-                                            d.HorariosSalida,
-                                            d.HorariosLlegada,
-                                            d.Km,
-                                            d.TipoUnidad,
-                                            d.Capacidad,
-                                            d.Empresa,
-                                            d.DetalleRuta
-                                        }).ToList<dynamic>();
+            if (Session["TipoUsuario"].ToString() == "Cliente")
+            {
+                IdEmpresa = long.Parse(Session["IdEmpresaContratista"].ToString());
+                domicilios = (from d in dc.CabeceraRutasTransportes
+                              where d.TipoTurno != "Temporal " && d.DestinoRuta == IdEmpresa
+                              orderby d.Empresa
+                              select new
+                              {
+                                  d.Linea,
+                                  d.TipoTurno,
+                                  d.TipoRecorrido,
+                                  d.Turno,
+                                  d.HorariosSalida,
+                                  d.HorariosLlegada,
+                                  d.Km,
+                                  d.TipoUnidad,
+                                  d.Capacidad,
+                                  d.Empresa,
+                                  d.DetalleRuta
+                              }).ToList<dynamic>();
+
+            }
+            else
+            {
+
+                domicilios = (from d in dc.CabeceraRutasTransportes
+                              where d.TipoTurno != "Temporal "
+                              orderby d.Empresa
+                              select new
+                              {
+                                  d.Linea,
+                                  d.TipoTurno,
+                                  d.TipoRecorrido,
+                                  d.Turno,
+                                  d.HorariosSalida,
+                                  d.HorariosLlegada,
+                                  d.Km,
+                                  d.TipoUnidad,
+                                  d.Capacidad,
+                                  d.Empresa,
+                                  d.DetalleRuta
+                              }).ToList<dynamic>();
+
+            }
+
             return domicilios;
+
 
         }
 

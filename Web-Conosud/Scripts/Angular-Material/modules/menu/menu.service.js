@@ -26,7 +26,7 @@
                                            name: found[j].Descripcion,
                                            type: 'link',
                                            state: '',
-                                           icon: 'fa fa-male',
+                                           icon: 'fa fa-cog',
                                            target: found[j].Target,
                                            url: found[j].Url,
                                        }

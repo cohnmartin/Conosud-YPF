@@ -22,6 +22,10 @@ public partial class ConsultaRutasTransportes : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
+            
+            ((MasterPage)this.Master).Titulo = "RECORRIDOS POR UBICACION";
+
+            
 
             using (EntidadesConosud dc = new EntidadesConosud())
             {
@@ -29,18 +33,18 @@ public partial class ConsultaRutasTransportes : System.Web.UI.Page
 
                 var localidades = (from d in dc.DomiciliosPersonal
                                    orderby d.Poblacion
-                                  select new
-                                  {
-                                      Id = d.Poblacion,
-                                      d.Poblacion
-                                  }).Distinct().ToList();
+                                   select new
+                                   {
+                                       Id = d.Poblacion,
+                                       d.Poblacion
+                                   }).Distinct().ToList();
 
                 cboLocalidades.DataTextField = "Poblacion";
                 cboLocalidades.DataValueField = "Id";
                 cboLocalidades.DataSource = localidades;
                 cboLocalidades.DataBind();
 
-                (Page.Master as DefaultMasterPage).OcultarSoloEncabezado();
+                //(Page.Master as DefaultMasterPage).OcultarSoloEncabezado();
             }
 
         }
@@ -151,10 +155,29 @@ public partial class ConsultaRutasTransportes : System.Web.UI.Page
             long idPuntoRegreso = 0;
 
 
-            var puntos = (from p in dc.RutasTransportes
+
+
+            // Solo se tiene en cuentas las rutas segun el tipo de usuario
+            long IdEmpresa = 0;
+            List<RutasTransportes> puntos = new List<RutasTransportes>();
+            if (HttpContext.Current.Session["TipoUsuario"].ToString() == "Cliente")
+            {
+                IdEmpresa = long.Parse(HttpContext.Current.Session["IdEmpresaContratista"].ToString());
+                puntos = (from p in dc.RutasTransportes
+                          where p.objCabecera.TipoTurno != "Temporal" && p.objCabecera.DestinoRuta == IdEmpresa
+                          && p.objCabecera.TipoTurno == TipoTurno
+                          select p).ToList();
+            }
+            else
+            {
+                puntos = (from p in dc.RutasTransportes
                           where p.objCabecera.TipoTurno != "Temporal"
                           && p.objCabecera.TipoTurno == TipoTurno
                           select p).ToList();
+
+
+            }
+
 
             List<RutasTransportes> puntosIda;
             List<RutasTransportes> puntosRegreso;
@@ -272,31 +295,34 @@ public partial class ConsultaRutasTransportes : System.Web.UI.Page
 
             if (TipoTurno == "DIURNO")
             {
-                var datosAlt = (from p in puntos.Where(w => w.Cabecera == cabeceraRegreso.Id).ToList()
-                                select new
-                                {
-                                    Key = Convert.ToDouble(p.Latitud),
-                                    Value = Convert.ToDouble(p.Longitud)
-                                }).ToList();
+                if (cabeceraRegreso != null)
+                {
+                    var datosAlt = (from p in puntos.Where(w => w.Cabecera == cabeceraRegreso.Id).ToList()
+                                    select new
+                                    {
+                                        Key = Convert.ToDouble(p.Latitud),
+                                        Value = Convert.ToDouble(p.Longitud)
+                                    }).ToList();
 
 
-                var ptosAlt = (from p in puntos.Where(w => w.Cabecera == cabeceraRegreso.Id && w.Id >= idPuntoRegreso - 0 && w.Id <= idPuntoRegreso + 0).ToList()
-                               select new
-                               {
-                                   Key = Convert.ToDouble(p.Latitud),
-                                   Value = Convert.ToDouble(p.Longitud),
-                                   id = p.Id
-                               }).ToList();
+                    var ptosAlt = (from p in puntos.Where(w => w.Cabecera == cabeceraRegreso.Id && w.Id >= idPuntoRegreso - 0 && w.Id <= idPuntoRegreso + 0).ToList()
+                                   select new
+                                   {
+                                       Key = Convert.ToDouble(p.Latitud),
+                                       Value = Convert.ToDouble(p.Longitud),
+                                       id = p.Id
+                                   }).ToList();
 
-                valores.Add("RutaAlt", datosAlt.ToList());
-                valores.Add("PuntosCercanosAlt", ptosAlt.ToList());
-                valores.Add("LineaAlt", cabeceraRegreso.Linea);
-                valores.Add("EmpresaAlt", cabeceraRegreso.Empresa);
-                valores.Add("TurnoAlt", cabeceraRegreso.Turno);
-                valores.Add("HorariosAlt", cabeceraRegreso.HorariosSalida + " - " + cabeceraIda.HorariosLlegada);
-                valores.Add("TipoUnidadAlt", cabeceraRegreso.TipoUnidad);
-                valores.Add("TipoTurnoAlt", TipoTurno);
-                valores.Add("TipoRecorridoAlt", cabeceraRegreso.TipoRecorrido);
+                    valores.Add("RutaAlt", datosAlt.ToList());
+                    valores.Add("PuntosCercanosAlt", ptosAlt.ToList());
+                    valores.Add("LineaAlt", cabeceraRegreso.Linea);
+                    valores.Add("EmpresaAlt", cabeceraRegreso.Empresa);
+                    valores.Add("TurnoAlt", cabeceraRegreso.Turno);
+                    valores.Add("HorariosAlt", cabeceraRegreso.HorariosSalida + " - " + cabeceraIda.HorariosLlegada);
+                    valores.Add("TipoUnidadAlt", cabeceraRegreso.TipoUnidad);
+                    valores.Add("TipoTurnoAlt", TipoTurno);
+                    valores.Add("TipoRecorridoAlt", cabeceraRegreso.TipoRecorrido);
+                }
             }
 
             return valores;

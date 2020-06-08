@@ -38,7 +38,7 @@ public partial class DefaultMasterPage : System.Web.UI.MasterPage
         try
         {
             if (this.Session["idusu"] == null)
-                Response.Redirect("~/Login.aspx");
+                Response.Redirect("~/LoginNew.aspx");
             else
                 Session.Timeout = 30;
 
@@ -83,7 +83,7 @@ public partial class DefaultMasterPage : System.Web.UI.MasterPage
                     RadMenu1.DataNavigateUrlField = "Url";
 
                     DataRow drSalir = dt.NewRow();
-                    drSalir["Url"] = "Login.aspx";
+                    drSalir["Url"] = "LoginNew.aspx";
                     drSalir["IdPadre"] = System.DBNull.Value;
                     drSalir["Descripcion"] = "Salir Sistema";
                     drSalir["IdSegMenu"] = "10000";
@@ -94,7 +94,7 @@ public partial class DefaultMasterPage : System.Web.UI.MasterPage
                 }
                 else
                 {
-                    Response.Redirect("Login.aspx");
+                    Response.Redirect("LoginNew.aspx");
                 }
             }
 

@@ -1,9 +1,12 @@
-﻿<%@ Page Title="" Theme="MiTema" Language="C#" MasterPageFile="~/DefaultMasterPage.master"
+﻿<%@ Page Title="" Theme="MiTema" Language="C#" MasterPageFile="~/MasterPage.master"
     AutoEventWireup="true" CodeFile="ConsultaRutasTransportes.aspx.cs" Inherits="ConsultaRutasTransportes" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiK9GD4zYZsB4nrZqxg-LcTnJ8hhAmGRk&libraries=adsense&sensor=true&language=es"></script>
     <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+    
+    <link href="Scripts/Jquery-UI/css/start/jquery-ui-1.10.3.custom.min.css" rel="stylesheet" type="text/css" />
+
     <script type="text/javascript">
 
         // DIRECCION DEL EJEMPLO
@@ -78,13 +81,15 @@
 
 
         $(document).ready(function () {
-            var width = screen.width - 30;
+            var width = screen.width - 1;
             var height = screen.height - 150;
 
             $("#master_contentplaceholder").css("width", width + 'px');
             $("#master_contentplaceholder").css("height", height + 'px');
 
             load_map();
+
+            $( "#cboDepartamentos" ).selectmenu();
                         
         });
 
@@ -583,21 +588,21 @@
                     <tr>
                         <td>
                             <asp:Label ID="Label2" runat="server" SkinID="lblConosud" Text="Calle Nro:"></asp:Label>
-                            <input type="text" maxlength="100" style="width: 40px" id="nro" value="130" />
+                            <input type="text" maxlength="100" style="width: 40px;font-size:small" id="nro" class="ui-autocomplete-input"  value="" />
                         </td>
                         <td>
                             <asp:Label ID="Label1" runat="server" SkinID="lblConosud" Text="Nombre Calle:"></asp:Label>
-                            <input type="text" maxlength="100" style="width: 220px" id="calle" value="Espejo" />
+                            <input type="text" maxlength="100" style="width: 220px;font-size:small" class="ui-autocomplete-input"  id="calle" value="Espejo" />
                         </td>
                         <td>
                             <asp:Label ID="Label17" runat="server" SkinID="lblConosud" Text="Localidad:"></asp:Label>
                             <!--input type="text" maxlength="100" style="width: 220px" id="localidad" value="" /-->
-                            <telerik:RadComboBox ID="cboLocalidades" runat="server" Skin="Sunset" Width="220px"
+                            <telerik:RadComboBox ID="cboLocalidades" runat="server"  Width="220px"  class="ui-selectmenu-button ui-button ui-widget ui-selectmenu-button-closed ui-corner-all" style="font-size:small"
                                 AllowCustomText="true" MarkFirstMatch="true" AutoPostBack="false" Mensaje="Buscando Contratos..." />
                         </td>
                         <td>
                             <asp:Label ID="Label3" runat="server" SkinID="lblConosud" Text="Departamento:"></asp:Label>
-                            <select id="cboDepartamentos">
+                            <select id="cboDepartamentos" name="cboDepartamentos" class="ui-selectmenu-button ui-button ui-widget ui-selectmenu-button-closed ui-corner-all" style="font-size:small">
                                 <option value="Mendoza" selected="selected">Capital</option>
                                 <option value="General Alvear">General Alvear</option>
                                 <option value="Godoy Cruz">Godoy Cruz</option>
@@ -620,13 +625,15 @@
                         </td>
                         <td>
                             <asp:Label ID="Label7" runat="server" SkinID="lblConosud" Text="Turno:"></asp:Label>
-                            <select id="cboTurno">
+                            <select id="cboTurno"  class="ui-selectmenu-button ui-button ui-widget ui-selectmenu-button-closed ui-corner-all" style="font-size:small">
                                 <option value="DIURNO" selected="selected">DIURNO</option>
                                 <option value="TURNO">TURNO</option>
                             </select>
                         </td>
                         <td>
-                            <input type="button" id="search" value="Ubicar" />
+                            <button type="button" id="search" value="Ubicar" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="width: 120px; height: 25px; font-size: 12px;">
+                                    Ubicar Dirección</button>
+
                         </td>
                     </tr>
                 </table>
@@ -731,16 +738,22 @@
                 </tr>
             </table>
         </div>
-        <div id='map_canvas' style="width:  95%; height:85vh; border: 1px solid black;background-color:White;margin-top: 5px">
+        <div id='map_canvas' style="width:  95%; height:74vh; border: 1px solid black;background-color:White;margin-top: 5px; margin-left:20px">
         </div>
-        <div id='DivBtnPaso2' style="display: none; padding-top: 15px">
+        <div id='DivBtnPaso2' style="display: none; padding-top: 25px">
             <table border="0" cellpadding="0" cellspacing="0" width="80%" style="text-align: left;
-                padding-top: 10px">
+                padding-top: 40px">
                 <tr>
                     <td>
-                        <asp:Label ID="Label4" runat="server" SkinID="lblConosud" Text="Si la dirección es correcta o aproximada por favor continue con el siguiente paso: "></asp:Label>
-                        <asp:Button ID="btnPaso2" runat="server" Text="Buscar Linea Transporte" Mensaje="Buscando Legajos solicitados..."
-                            OnClientClick="IrPaso2();return false;" SkinID="btnConosud" />
+                        <asp:Label ID="Label4" runat="server" SkinID="lblConosud" style="padding-left:20px"
+                            Text="Si la dirección es correcta o aproximada por favor continue con el siguiente paso: "></asp:Label>
+
+                         <button type="button" id="btnPaso2"  onclick="IrPaso2();return false;"
+                             class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="width: 170px; height: 25px; font-size: 12px;">
+                             Buscar Linea Transporte</button>
+
+
+
                     </td>
                 </tr>
             </table>

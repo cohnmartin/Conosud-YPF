@@ -35,9 +35,26 @@ public partial class GestionRutasManual : System.Web.UI.Page
             using (EntidadesConosud dc = new EntidadesConosud())
             {
 
-                var datos = (from r in dc.CabeceraRutasTransportes
-                             //where r.TipoTurno == "Temporal"
+                if (Session["TipoUsuario"].ToString() != "Cliente")
+                {
+                    var datos = (from r in dc.CabeceraRutasTransportes
+                                 select r).ToList().OrderBy(r => r.Empresa);
+
+                    Session.Add("Recorridos", datos.ToList());
+                }
+                else
+                {
+                    long IdEmpresa = long.Parse(HttpContext.Current.Session["IdEmpresaContratista"].ToString());
+
+                    var datos = (from r in dc.CabeceraRutasTransportes
+                                 where r.DestinoRuta == IdEmpresa
                              select r).ToList().OrderBy(r => r.Empresa);
+
+                    Session.Add("Recorridos", datos.ToList());
+                }
+
+
+
 
                 var empresas = (from r in dc.Empresa
                                 select new
@@ -46,7 +63,7 @@ public partial class GestionRutasManual : System.Web.UI.Page
                                     RazonSocial = r.RazonSocial
                                 }).ToList().OrderBy(r => r.RazonSocial);
 
-                Session.Add("Recorridos", datos.ToList());
+                
                 Session.Add("Empresas", empresas.ToList());
 
             }
@@ -150,7 +167,7 @@ public partial class GestionRutasManual : System.Web.UI.Page
 
 
     [WebMethod(EnableSession = true)]
-    public static object GrabarRuta(string Empresa, string HorarioS, string HorarioL, string TipoUnidad, string Turno, string Linea, string TIpoRecorrido, string TipoTurno, List<IDictionary<string, object>> datos, long id, decimal distanciaRuta, string detalle, int capacidad)
+    public static object GrabarRuta(string Empresa, string HorarioS, string HorarioL, string TipoUnidad, string Turno, string Linea, string TIpoRecorrido, string TipoTurno, List<IDictionary<string, object>> datos, long id, decimal distanciaRuta, string detalle, int capacidad, string destinoRuta)
     {
 
         using (EntidadesConosud dc = new EntidadesConosud())
@@ -175,6 +192,9 @@ public partial class GestionRutasManual : System.Web.UI.Page
                 cab.Km = distanciaRuta;
                 cab.DetalleRuta = detalle;
                 cab.Capacidad = capacidad;
+
+                if (destinoRuta!="")
+                    cab.DestinoRuta = long.Parse(destinoRuta);
 
                 foreach (var item in detalles)
                 {
@@ -208,6 +228,10 @@ public partial class GestionRutasManual : System.Web.UI.Page
                 cab.TipoRecorrido = TIpoRecorrido;
                 cab.TipoTurno = TipoTurno;
                 cab.Capacidad = capacidad;
+
+                if (destinoRuta != "")
+                    cab.DestinoRuta = long.Parse(destinoRuta);
+
                 dc.AddToCabeceraRutasTransportes(cab);
             }
 
@@ -284,7 +308,7 @@ public partial class GestionRutasManual : System.Web.UI.Page
             }).ToList());
 
             var cab = datos.First().objCabecera;
-            resultado.Add("cabecera", new { cab.Empresa, cab.HorariosLlegada, cab.HorariosSalida, cab.Linea, cab.TipoRecorrido, cab.TipoTurno, cab.TipoUnidad, cab.Turno, cab.Id, cab.Km, cab.DetalleRuta, cab.Capacidad });
+            resultado.Add("cabecera", new { cab.Empresa, cab.HorariosLlegada, cab.HorariosSalida, cab.Linea, cab.TipoRecorrido, cab.TipoTurno, cab.TipoUnidad, cab.Turno, cab.Id, cab.Km, cab.DetalleRuta, cab.Capacidad, cab.DestinoRuta });
 
             return resultado;
         }

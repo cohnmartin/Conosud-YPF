@@ -111,7 +111,7 @@ myAppModule.controller('controller_consultaRecorridos', function ($scope, $mdSid
         if (CargarRutas) {
             $scope.rutasSeleccionadas = [];
 
-            for (i = 0; i < $scope.rutasDisponibles.length - 1; i++) {
+            for (i = 0; i <= $scope.rutasDisponibles.length - 1; i++) {
                 if ($scope.rutasDisponibles[i].Selected == true) {
                     $scope.rutasSeleccionadas.push($scope.rutasDisponibles[i].Id);
 

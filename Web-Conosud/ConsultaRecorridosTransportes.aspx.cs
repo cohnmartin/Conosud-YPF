@@ -26,8 +26,8 @@ public partial class ConsultaRecorridosTransportes : System.Web.UI.Page
                                             select new
                                                 {
                                                     Id = c.Id,
-                                                    Descripcion = c.Empresa + " - LINEA " + c.Linea + " - " + c.TipoTurno + " - " + c.TipoRecorrido
-                                                }).ToList();
+                                                    Descripcion = c.Empresa + " - LINEA " + c.Linea + " - " + c.TipoTurno + " - " + c.TipoRecorrido 
+                                            }).ToList();
                 cboRecorridos.DataBind();
             }
 
@@ -50,6 +50,7 @@ public partial class ConsultaRecorridosTransportes : System.Web.UI.Page
                                  c.Empresa,
                                  Horario = c.HorariosSalida + " - " + c.HorariosLlegada,
                                  TipoRecorrido = "IDA"
+                                 
 
                              }).FirstOrDefault();
 
@@ -75,7 +76,8 @@ public partial class ConsultaRecorridosTransportes : System.Web.UI.Page
                                  recorrido = c.RutasTransportes.Select(w => new { w.Latitud, w.Longitud }),
                                  c.Empresa,
                                  Horario = c.HorariosSalida + " - " + c.HorariosLlegada,
-                                 TipoRecorrido = "IDA"
+                                 TipoRecorrido = "IDA",
+                                 EmpresaDestino = c.EmpresaDestinoRuta.RazonSocial
 
                              }).ToList();
 

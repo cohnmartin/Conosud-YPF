@@ -7,18 +7,166 @@
     <link href="Styles/stylesMenuAlt.css" rel="stylesheet" type="text/css" />
     <link href="Scripts/Jquery-UI/css/start/jquery-ui-1.10.3.custom.min.css" rel="stylesheet"
         type="text/css" />
+    <link href="Styles/fontawesome/css/all.css" rel="stylesheet" type="text/css" />
+
+
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiK9GD4zYZsB4nrZqxg-LcTnJ8hhAmGRk&libraries=adsense&sensor=true&language=es"></script>
     <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
     <script src="Scripts/Jquery-UI/js/jquery-1.9.1.js" type="text/javascript"></script>
     <script src="angular/js/angular.js" type="text/javascript"></script>
     <script src="angular/controllers/controller_Domicilios.js" type="text/javascript"></script>
+
     <style type="text/css">
-        .selectDisabled:disabled
-        {
-            
+        /* Menu circular */
+
+        .circular-menu {
+            position: fixed;
+            bottom: 1em;
+            right: 1em;
+            z-index: 99999999;
         }
-        .divCaluloKm
-        {
+
+            .circular-menu .floating-btn {
+                display: block;
+                width: 3.5em;
+                height: 3.5em;
+                border-radius: 50%;
+                background-color: hsl(4, 98%, 60%);
+                box-shadow: 0 2px 5px 0 hsla(0, 0%, 0%, .26);
+                color: hsl(0, 0%, 100%);
+                text-align: center;
+                line-height: 3.9;
+                cursor: pointer;
+                outline: 0;
+            }
+
+            .circular-menu.active .floating-btn {
+                box-shadow: inset 0 0 3px hsla(0, 0%, 0%, .3);
+            }
+
+            .circular-menu .floating-btn:active {
+                box-shadow: 0 4px 8px 0 hsla(0, 0%, 0%, .4);
+            }
+
+            .circular-menu .floating-btn i {
+                font-size: 1.3em;
+                transition: transform .2s;
+            }
+
+            .circular-menu.active .floating-btn i {
+                transform: rotate(-45deg);
+            }
+
+            .circular-menu:after {
+                display: block;
+                content: ' ';
+                width: 3.5em;
+                height: 3.5em;
+                border-radius: 50%;
+                position: absolute;
+                top: 0;
+                right: 0;
+                z-index: -2;
+                background-color: hsl(4, 98%, 60%);
+                transition: all .3s ease;
+            }
+
+            .circular-menu.active:after {
+                transform: scale3d(5.5, 5.5, 1);
+                transition-timing-function: cubic-bezier(.68, 1.55, .265, 1);
+            }
+
+            .circular-menu .items-wrapper {
+                padding: 0;
+                margin: 0;
+            }
+
+            .circular-menu .menu-item {
+                position: absolute;
+                top: .2em;
+                right: .2em;
+                z-index: -1;
+                display: block;
+                text-decoration: none;
+                color: hsl(0, 0%, 100%);
+                font-size: 1em;
+                width: 3em;
+                height: 3em;
+                border-radius: 50%;
+                text-align: center;
+                line-height: 3;
+                background-color: hsla(0,0%,0%,.1);
+                transition: transform .3s ease, background .2s ease;
+            }
+
+                .circular-menu .menu-item:hover {
+                    background-color: hsla(0,0%,0%,.3);
+                }
+
+            .circular-menu.active .menu-item {
+                transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            }
+
+                .circular-menu.active .menu-item:nth-child(1) {
+                    transform: translate3d(1em,-7em,0);
+                }
+
+                .circular-menu.active .menu-item:nth-child(2) {
+                    transform: translate3d(-3.5em,-6.3em,0);
+                }
+
+                .circular-menu.active .menu-item:nth-child(3) {
+                    transform: translate3d(-6.5em,-3.2em,0);
+                }
+
+                .circular-menu.active .menu-item:nth-child(4) {
+                    transform: translate3d(-7em,1em,0);
+                }
+
+            /**
+ * The other theme for this menu
+ */
+
+            .circular-menu.circular-menu-left {
+                right: auto;
+                left: 1em;
+            }
+
+                .circular-menu.circular-menu-left .floating-btn {
+                    background-color: hsl(217, 89%, 61%);
+                }
+
+                .circular-menu.circular-menu-left:after {
+                    background-color: hsl(217, 89%, 61%);
+                }
+
+                .circular-menu.circular-menu-left.active .floating-btn i {
+                    transform: rotate(90deg);
+                }
+
+                .circular-menu.circular-menu-left.active .menu-item:nth-child(1) {
+                    transform: translate3d(-1em,-7em,0);
+                }
+
+                .circular-menu.circular-menu-left.active .menu-item:nth-child(2) {
+                    transform: translate3d(3.5em,-6.3em,0);
+                }
+
+                .circular-menu.circular-menu-left.active .menu-item:nth-child(3) {
+                    transform: translate3d(6.5em,-3.2em,0);
+                }
+
+                .circular-menu.circular-menu-left.active .menu-item:nth-child(4) {
+                    transform: translate3d(7em,1em,0);
+                }
+    </style>
+
+
+    <style type="text/css">
+        .selectDisabled:disabled {
+        }
+
+        .divCaluloKm {
             padding-top: 3px;
             position: fixed;
             bottom: 0px;
@@ -42,8 +190,8 @@
             filter: progid:DXImageTransform.Microsoft.Alpha(opacity=60);
             z-index: 99999999;
         }
-        .divRecorrido
-        {
+
+        .divRecorrido {
             padding-top: 3px;
             position: fixed;
             top: 6px;
@@ -68,20 +216,18 @@
             filter: progid:DXImageTransform.Microsoft.Alpha(opacity=60);
             z-index: 99999999;
         }
-        label, input
-        {
+
+        label, input {
             display: block;
         }
-        
-        input.text
-        {
-            margin-bottom: 12px;
-            width: 95%;
-            padding: .4em;
-        }
-        
-        .ui-widget, .ui-widget button
-        {
+
+            input.text {
+                margin-bottom: 12px;
+                width: 95%;
+                padding: .4em;
+            }
+
+        .ui-widget, .ui-widget button {
             font-family: Verdana,Arial,sans-serif;
             font-size: 0.9em;
             z-index: 999999999;
@@ -92,27 +238,34 @@
         <ContentControls>
         </ContentControls>
     </cc1:ServerControlWindow>
-    <div id="main">
-        <ul id="navigationMenu">
-            <li id="Opc_ListadoPasajeros" onclick="UbicarPuntos(0);"><a class="DirPersonal" href="#">
-                <span>Editar Listado de Pasajeros</span> </a></li>
-            <li id="Opc_ListadoPasajerosSel" onclick="UbicarPuntos(1);"><a class="DirPersonal"
-                href="#"><span>Carga Pasajeros Seleccionados</span> </a></li>
-            <li id="Opc_Limpiar" onclick="LimpiarUbicaciones();"><a class="eliminarRuta" href="#">
-                <span>Limpiar Ubicaciones</span></a></li>
-            <li id="Opc_salir" onclick="Salir();"><a class="eliminarSel" href="#"><span>Salir</span></a></li>
-        </ul>
+
+
+    <div id="circularMenu1" class="circular-menu circular-menu-left active">
+
+        <a class="floating-btn" onclick="document.getElementById('circularMenu1').classList.toggle('active');">
+            <i class="fa fa-bars" style="margin-top: 17px;" ></i>
+        </a>
+
+        <menu class="items-wrapper" onclick="document.getElementById('circularMenu1').classList.toggle('active');">
+            <a href="#" class="menu-item fa fa-user-cog" onclick="UbicarPuntos(0);" title="Editar Listado de Pasajeros"></a>
+            <a href="#" class="menu-item fa fa-user-check" onclick="UbicarPuntos(1);" title="Carga de pasajeros seleccionados" ></a>
+            <a href="#" class="menu-item fa fa-trash-alt" onclick="LimpiarUbicaciones();" title="Limpiar ubicaciones"></a>
+            <a href="#"  onclick="Salir();" class="menu-item fa fa-home" title="Volver página principal" ></a>
+        </menu>
+
     </div>
-    <div id="map" style="height: 650px; width: 100%; margin-top: 5px; margin-left: 0px;
-        z-index: 1;">
+
+
+
+
+    <div id="map" style="height: 650px; width: 100%; margin-top: 5px; margin-left: 0px; z-index: 1;">
     </div>
-    <div id="dialog-formReposicion" title="Reposicionar Dirección" style="font-size: 62.5%;
-        display: none">
+    <div id="dialog-formReposicion" title="Reposicionar Dirección" style="font-size: 62.5%; display: none">
         <p>
-            Desea reposicionar la ubicación en el mapa del agente seleccionado?</p>
+            Desea reposicionar la ubicación en el mapa del agente seleccionado?
+        </p>
     </div>
-    <div id="dialog-DirPersonal" title="Listado de Pasajeros" style="font-size: 52.5%;
-        display: none; overflow: hidden">
+    <div id="dialog-DirPersonal" title="Listado de Pasajeros" style="font-size: 52.5%; display: none; overflow: hidden">
         <textarea id="txtDirPer" rows="5" cols="18" style="width: 95%; display: none"></textarea>
         <div id="ng-app" ng-app="myApp" ng-controller="controller_domicilios">
             <div id="tblAlta" style="position: absolute; top: 480px; display: none">
@@ -120,28 +273,23 @@
                     cellpadding="5" cellspacing="0">
                     <tbody>
                         <tr>
-                            <td colspan="4" style="background-color: #006699; font-size: 17px; color: White;
-                                font-weight: bold; padding: 3px">
-                                {{TipoAccion}}
+                            <td colspan="4" style="background-color: #006699; font-size: 17px; color: White; font-weight: bold; padding: 3px">{{TipoAccion}}
                             </td>
                         </tr>
                         <tr class="trDatos">
-                            <td class="tdSimple" align="left" style="width: 240px;">
-                                Apellido y Nombre:
+                            <td class="tdSimple" align="left" style="width: 240px;">Apellido y Nombre:
                             </td>
                             <td class="tdSimple" align="left" style="width: 310px;">
                                 <input id="Text1" type="text" ng-model="Current.NombreLegajo" style="width: 96%" />
                             </td>
-                            <td class="tdSimple" align="left" style="width: 240px;">
-                                Dirección:
+                            <td class="tdSimple" align="left" style="width: 240px;">Dirección:
                             </td>
                             <td class="tdSimple" align="left" style="width: 365px;">
                                 <input id="Text2" type="text" ng-model="Current.Domicilio" style="width: 96%" />
                             </td>
                         </tr>
                         <tr>
-                            <td class="tdSimple" align="left" style="width: 240px;">
-                                Departamento:
+                            <td class="tdSimple" align="left" style="width: 240px;">Departamento:
                             </td>
                             <td class="tdSimple" align="left" style="width: 115px;">
                                 <select id="cboDepartamentos" ng-model="Current.Distrito">
@@ -165,8 +313,7 @@
                                     <option value="TUPUNGATO">TUPUNGATO</option>
                                 </select>
                             </td>
-                            <td class="tdSimple" align="left" style="width: 240px;">
-                                Localidad
+                            <td class="tdSimple" align="left" style="width: 240px;">Localidad
                             </td>
                             <td class="tdSimple" align="left" style="width: 115px;">
                                 <select id="Select4" style="width: 95%" ng-model="Current.Poblacion">
@@ -175,8 +322,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="tdSimple" align="left" style="width: 240px;">
-                                Régimen Trabajo:
+                            <td class="tdSimple" align="left" style="width: 240px;">Régimen Trabajo:
                             </td>
                             <td class="tdSimple" align="left" style="width: 65px;">
                                 <select id="Select3" ng-model="Current.TipoTurno" ng-change="checkLineaRetorno()">
@@ -188,11 +334,10 @@
                                     <option value="Gascon II">Gascón II</option>
                                 </select>
                             </td>
-                            <td class="tdSimple" align="left" style="width: 240px;">
-                                Tipo servicio transp:
+                            <td class="tdSimple" align="left" style="width: 240px;">Tipo servicio transp:
                             </td>
-                            <td class="tdSimple" align="left" style="width: 220px;" >
-                                <select id="Select3" ng-model="Current.TipoServicio" >
+                            <td class="tdSimple" align="left" style="width: 220px;">
+                                <select id="Select3" ng-model="Current.TipoServicio">
                                     <option value="Omnibus/Minibus" selected="selected">Ómnibus/Minibús</option>
                                     <option value="Remis">Remís</option>
                                     <option value="Vehiculo Asignado">Vehículo Asignado</option>
@@ -200,37 +345,33 @@
                             </td>
                         </tr>
                         <tr>
-                            
-                            <td class="tdSimple" align="left" style="width: 240px;">
-                                Línea Asignada:
+
+                            <td class="tdSimple" align="left" style="width: 240px;">Línea Asignada:
                             </td>
                             <td class="tdSimple" align="left" style="width: 65px;">
-                                <select  id="cboRecorridosAlta" ng-model="Current.LineaAsignada" ng-options="clasif.Id as clasif.NombreAbreviado for clasif in recorridos" >
+                                <select id="cboRecorridosAlta" ng-model="Current.LineaAsignada" ng-options="clasif.Id as clasif.NombreAbreviado for clasif in recorridos">
                                 </select>
                             </td>
-                            <td class="tdSimple" align="left" style="width: 240px;">
-                                Línea Asignada Ret:
+                            <td class="tdSimple" align="left" style="width: 240px;">Línea Asignada Ret:
                             </td>
                             <td class="tdSimple" align="left" style="width: 220px;">
                                 <select id="cboRecorridoVuelta" ng-model="Current.LineaAsignadaVuelta" ng-options="clasif.Id as clasif.NombreAbreviado for clasif in recorridos">
                                 </select>
                             </td>
 
-                            
 
 
-                            
+
+
                         </tr>
 
                         <tr>
-                            <td class="tdSimple" align="left" style="width: 240px;">
-                                Legajo/DNI
+                            <td class="tdSimple" align="left" style="width: 240px;">Legajo/DNI
                             </td>
                             <td class="tdSimple" align="left" style="width: 310px;">
                                 <input id="Text3" type="text" ng-model="Current.Legajo" style="width: 96%" />
                             </td>
-                            <td class="tdSimple" align="left" style="width: 240px;">
-                                Empresa
+                            <td class="tdSimple" align="left" style="width: 240px;">Empresa
                             </td>
                             <td class="tdSimple" align="left" style="width: 250px;">
                                 <select id="cboEmpresas" ng-model="Current.Empresa" ng-options="clasif.Id as clasif.RazonSocial for clasif in empresas">
@@ -238,15 +379,13 @@
                             </td>
                         </tr>
 
-                         <tr>
-                            <td class="tdSimple" align="left" style="width: 240px;">
-                                Teléfono:
+                        <tr>
+                            <td class="tdSimple" align="left" style="width: 240px;">Teléfono:
                             </td>
                             <td class="tdSimple" align="left" style="width: 220px;">
                                 <input id="Text3" type="text" ng-model="Current.Telefono" style="width: 96%" />
                             </td>
-                            <td class="tdSimple" align="left" style="width: 240px;">
-                                Correo:
+                            <td class="tdSimple" align="left" style="width: 240px;">Correo:
                             </td>
                             <td class="tdSimple" align="left" style="width: 250px;">
                                 <input id="Text3" type="text" ng-model="Current.Correo" style="width: 96%" />
@@ -254,40 +393,38 @@
                         </tr>
 
                         <tr>
-                            <td class="tdSimple" align="left" style="width: 240px;">
-                                Es Chofer:
+                            <td class="tdSimple" align="left" style="width: 240px;">Es Chofer:
                             </td>
-                            <td class="tdSimple" align="left" style="width: 220px;" >
+                            <td class="tdSimple" align="left" style="width: 220px;">
                                 <input type="checkbox" name="chkChofer" ng-model="Current.Chofer" />
                             </td>
-                                                        <td class="tdSimple" align="left" style="width: 240px;">
-                                Datos Solicitados:
+                            <td class="tdSimple" align="left" style="width: 240px;">Datos Solicitados:
                             </td>
                             <td class="tdSimple" align="left" style="width: 310px;">
                                 <input id="Text3" type="text" ng-model="Current.DatosActualizacion" style="width: 96%" ng-if="Current.EstadoActulizacion == 'PENDIENTE'" />
-                                <label style="font-size: x-small;font-weight:bolder" ng-if="Current.EstadoActulizacion != 'PENDIENTE'" >No posee solicitud de cambio</label>
+                                <label style="font-size: x-small; font-weight: bolder" ng-if="Current.EstadoActulizacion != 'PENDIENTE'">No posee solicitud de cambio</label>
                             </td>
 
                         </tr>
 
-                        
+
                         <tr>
 
                             <td align="center" colspan="4" style="padding: 5px">
 
-                                <button type="button" id="btnAprobar" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="width: 120px;height: 25px;font-size: 12px;"
+                                <button type="button" id="btnAprobar" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="width: 120px; height: 25px; font-size: 12px;"
                                     ng-if="Current.EstadoActulizacion == 'PENDIENTE'" ng-click="AprobarSolicitud()">
                                     Aprobar Solicitud</button>
-                                <button type="button" id="btnLimpiar" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="width: 120px;height: 25px;font-size: 12px;"
+                                <button type="button" id="btnLimpiar" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="width: 120px; height: 25px; font-size: 12px;"
                                     ng-click="LimpiarClave()">
                                     Limpiar Clave</button>
-                                <button type="button" id="btnCancelar" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="width: 120px;height: 25px;font-size: 12px;"
+                                <button type="button" id="btnCancelar" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="width: 120px; height: 25px; font-size: 12px;"
                                     ng-click="CancelarEdicion()">
                                     Cancelar</button>
-                                <button type="button" id="btnAlta" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="width: 120px;height: 25px;font-size: 12px;"
+                                <button type="button" id="btnAlta" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="width: 120px; height: 25px; font-size: 12px;"
                                     ng-click="GrabarPersonal()">
                                     Grabar</button>
-                                
+
                             </td>
 
                         </tr>
@@ -295,29 +432,25 @@
                 </table>
             </div>
             <div style="overflow: scroll; height: 450px;">
-                <div style="padding-top: 15px; background-color: #006699; position: absolute; height: 50px;
-                    top: 50%; width: 250px; left: 40%; vertical-align: middle; color: White; font-size: medium"
+                <div style="padding-top: 15px; background-color: #006699; position: absolute; height: 50px; top: 50%; width: 250px; left: 40%; vertical-align: middle; color: White; font-size: medium"
                     ng-show="EliminarActivo">
                     Elimnado Legajo..
                 </div>
-                <div style="padding-top: 15px; background-color: #006699; position: absolute; height: 50px;
-                    top: 50%; width: 250px; left: 40%; vertical-align: middle; color: White; font-size: medium"
+                <div style="padding-top: 15px; background-color: #006699; position: absolute; height: 50px; top: 50%; width: 250px; left: 40%; vertical-align: middle; color: White; font-size: medium"
                     ng-show="GrabacionActiva">
                     Grabando Legajo..
                 </div>
-                
+
                 <table id="tblDirecciones" width="97%" class="TVista" border="0" cellpadding="0"
                     cellspacing="0">
                     <thead>
                         <tr>
-                            <th class="Theader">
-                                &nbsp;
+                            <th class="Theader">&nbsp;
                             </th>
                             <th class="Theader">
                                 <input type="text" ng-model="nameSearch" />
                             </th>
-                            <th class="Theader">
-                                Direccion
+                            <th class="Theader">Direccion
                             </th>
                             <th class="Theader">
                                 <select id="Select1" style="width: 95%" ng-model="textSearch">
@@ -325,8 +458,7 @@
                                     <option ng-repeat="p in Poblaciones" value="{{p}}">{{p}}</option>
                                 </select>
                             </th>
-                            <th class="Theader">
-                                Departamento
+                            <th class="Theader">Departamento
                             </th>
                             <th class="Theader">
                                 <select id="Select2" style="width: 95%" ng-model="textSearchTipo">
@@ -343,14 +475,11 @@
                                     <option ng-repeat="p in recorridos" value="{{p.Id}}">{{p.NombreAbreviado}}</option>
                                 </select>
                             </th>
-                            <th class="Theader">
-                                Empresa
+                            <th class="Theader">Empresa
                             </th>
-                            <th class="Theader">
-                                &nbsp;
+                            <th class="Theader">&nbsp;
                             </th>
-                            <th ng-show="FuncionActiva!='Seleccion'" class="Theader">
-                                &nbsp;
+                            <th ng-show="FuncionActiva!='Seleccion'" class="Theader">&nbsp;
                             </th>
                         </tr>
                     </thead>
@@ -382,9 +511,9 @@
                                 <span>{{item.TipoTurno}}</span>
                             </td>
                             <td class="tdSimple" align="left" style="width: 220px">
-                               
-                                   <span ng-if="ShowLineaAsignada('I')">{{item.descLineaAsignada}}</span>
-                                   <span ng-if="ShowLineaAsignada('V')">{{item.descLineaAsignadaVuelta}}</span>
+
+                                <span ng-if="ShowLineaAsignada('I')">{{item.descLineaAsignada}}</span>
+                                <span ng-if="ShowLineaAsignada('V')">{{item.descLineaAsignadaVuelta}}</span>
                             </td>
                             <td class="tdSimple" align="left" style="width: 160px">
                                 <span>{{item.descEmpresa}}</span>
@@ -413,11 +542,14 @@
                     </tbody>
                 </table>
             </div>
-            
-            
+
+
 
             <center>
-                <label style="font-size: small;position: absolute;display: flex;padding-top: 10px;"><input type="checkbox" id="chkEstado" ng-model="chkSolicitudesPendientes" style="margin-right: 5px;margin-top: 2px;"/> Ver Solicitudes Pendientes</label>
+                <label style="font-size: small; position: absolute; display: flex; padding-top: 10px;">
+                    <input type="checkbox" id="chkEstado" ng-model="chkSolicitudesPendientes" style="margin-right: 5px; margin-top: 2px;" />
+                    Ver Solicitudes Pendientes
+                </label>
                 <table border="0" cellpadding="0" cellspacing="0" style="font-size: small; padding-top: 5px">
                     <tr>
                         <td colspan="6">
@@ -474,6 +606,7 @@
 
         $(function () {
 
+            $(document).tooltip();
 
             $('#navigation > li').hover(
                     function () {

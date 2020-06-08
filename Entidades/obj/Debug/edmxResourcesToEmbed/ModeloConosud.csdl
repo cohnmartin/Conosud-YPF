@@ -264,6 +264,10 @@
       <End Role="SeguimientoAuditoria" EntitySet="SeguimientoAuditoria" />
     </AssociationSet>
     <EntitySet Name="Checkin" EntityType="ModeloConosud.Checkin" />
+    <AssociationSet Name="FK_CabeceraRutasTransportes_Empresa" Association="ModeloConosud.FK_CabeceraRutasTransportes_Empresa">
+      <End Role="Empresa" EntitySet="Empresa" />
+      <End Role="CabeceraRutasTransportes" EntitySet="CabeceraRutasTransportes" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="ArchivosAdjuntos">
     <Key>
@@ -401,6 +405,7 @@
     <NavigationProperty Name="DatosDeSueldos" Relationship="ModeloConosud.FK_DatosDeSueldos_Empresa" FromRole="Empresa" ToRole="DatosDeSueldos" />
     <NavigationProperty Name="VahiculosyEquipos" Relationship="ModeloConosud.FK_VahiculosyEquipos_Empresa" FromRole="Empresa" ToRole="VahiculosyEquipos" />
     <NavigationProperty Name="DomiciliosPersonal" Relationship="ModeloConosud.FK_DomiciliosPersonal_Empresa" FromRole="Empresa" ToRole="DomiciliosPersonal" />
+    <NavigationProperty Name="CabeceraRutasTransportes" Relationship="ModeloConosud.FK_CabeceraRutasTransportes_Empresa" FromRole="Empresa" ToRole="CabeceraRutasTransportes" />
   </EntityType>
   <EntityType Name="HojasDeRuta">
     <Key>
@@ -1018,6 +1023,8 @@
     <Property Type="String" Name="DetalleRuta" MaxLength="1500" Unicode="false" FixedLength="false" />
     <Property Type="Int32" Name="Capacidad" />
     <NavigationProperty Name="DomiciliosPersonal1" Relationship="ModeloConosud.FK_DomiciliosPersonal_CabeceraRutasTransportes1" FromRole="CabeceraRutasTransportes" ToRole="DomiciliosPersonal" />
+    <Property Name="DestinoRuta" Type="Int64" />
+    <NavigationProperty Name="EmpresaDestinoRuta" Relationship="ModeloConosud.FK_CabeceraRutasTransportes_Empresa" FromRole="CabeceraRutasTransportes" ToRole="Empresa" />
   </EntityType>
   <EntityType Name="RutasTransportes">
     <Key>
@@ -1288,4 +1295,16 @@
     <Property Name="Latitud" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Longitud" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
+  <Association Name="FK_CabeceraRutasTransportes_Empresa">
+    <End Type="ModeloConosud.Empresa" Role="Empresa" Multiplicity="0..1" />
+    <End Type="ModeloConosud.CabeceraRutasTransportes" Role="CabeceraRutasTransportes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empresa">
+        <PropertyRef Name="IdEmpresa" />
+      </Principal>
+      <Dependent Role="CabeceraRutasTransportes">
+        <PropertyRef Name="DestinoRuta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

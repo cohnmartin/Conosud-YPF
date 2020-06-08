@@ -781,6 +781,7 @@
     <EntitySetMapping Name="CabeceraRutasTransportes">
       <EntityTypeMapping TypeName="ModeloConosud.CabeceraRutasTransportes">
         <MappingFragment StoreEntitySet="CabeceraRutasTransportes">
+          <ScalarProperty Name="DestinoRuta" ColumnName="DestinoRuta" />
           <ScalarProperty Name="Capacidad" ColumnName="Capacidad" />
           <ScalarProperty Name="DetalleRuta" ColumnName="DetalleRuta" />
           <ScalarProperty Name="Km" ColumnName="Km" />

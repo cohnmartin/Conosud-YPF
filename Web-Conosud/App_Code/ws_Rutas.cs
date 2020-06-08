@@ -25,23 +25,45 @@ public class ws_Rutas : System.Web.Services.WebService
         //InitializeComponent(); 
     }
 
-    [WebMethod]
+    [WebMethod(EnableSession = true)]
     public object getRutas()
     {
 
+
+
         using (EntidadesConosud dc = new EntidadesConosud())
         {
-            var rutas =  (from c in dc.CabeceraRutasTransportes
-                    where c.TipoTurno != "Temporal "
-                    orderby c.Empresa, c.Linea, c.TipoTurno, c.TipoRecorrido
-                    select new
-                    {
-                        Id = c.Id,
-                        Descripcion = c.Empresa + " - LINEA " + c.Linea + " - " + c.TipoTurno + " - " + c.TipoRecorrido,
-                        Selected = false
-                    }).ToList();
+            long IdEmpresa = 0;
+            if (Session["TipoUsuario"].ToString() == "Cliente")
+            {
+                IdEmpresa = long.Parse(Session["IdEmpresaContratista"].ToString());
+                return (from c in dc.CabeceraRutasTransportes
+                        where c.TipoTurno != "Temporal " && c.DestinoRuta == IdEmpresa
+                        orderby c.Empresa, c.Linea, c.TipoTurno, c.TipoRecorrido
+                        select new
+                        {
+                            Id = c.Id,
+                            Descripcion = c.Empresa + " - LINEA " + c.Linea + " - " + c.TipoTurno + " - " + c.TipoRecorrido +" "+ c.EmpresaDestinoRuta.RazonSocial,
+                            Selected = false
+                        }).ToList();
 
-            return rutas;
+            }
+            else
+            {
+                return (from c in dc.CabeceraRutasTransportes
+                        where c.TipoTurno != "Temporal "
+                        orderby c.Empresa, c.Linea, c.TipoTurno, c.TipoRecorrido
+                        select new
+                        {
+                            Id = c.Id,
+                            Descripcion = c.Empresa + " - LINEA " + c.Linea + " - " + c.TipoTurno + " - " + c.TipoRecorrido + " " + c.EmpresaDestinoRuta.RazonSocial,
+                            Selected = false
+                        }).ToList();
+
+            }
+
+
+
 
         }
 
@@ -143,7 +165,7 @@ public class ws_Rutas : System.Web.Services.WebService
 
                                HorarioLlegadaIDA = d.objLineaAsignada.HorariosLlegada,
                                HorarioLlegadaVUELTA = d.objLineaAsignadaVuelta != null ? d.objLineaAsignadaVuelta.HorariosLlegada : "",
-                               
+
 
 
 
@@ -538,7 +560,8 @@ public class ws_Rutas : System.Web.Services.WebService
             dc.SaveChanges();
 
 
-            return new {
+            return new
+            {
                 resultado = "ok",
                 mensaje = "El checkIn se realizo con exito.",
                 CambioRecorrido = cambiaRuta

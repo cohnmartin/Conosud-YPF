@@ -1,4 +1,4 @@
-﻿<%@ Page MasterPageFile="~/DefaultMasterPage.master" Theme="MiTema" Language="C#" AutoEventWireup="true" CodeFile="CambiarClave.aspx.cs" Inherits="CambiarClave" %>
+﻿<%@ Page MasterPageFile="~/MasterPage.master" Theme="MiTema" Language="C#" AutoEventWireup="true" CodeFile="CambiarClave.aspx.cs" Inherits="CambiarClave" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server" >
 

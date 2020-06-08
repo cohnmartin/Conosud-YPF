@@ -18,17 +18,16 @@ public partial class Login : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (! this.IsPostBack)
-        {
-            //// Put user code to initialize the page here
-            Session.Abandon();
-            Application.Clear();
-            FormsAuthentication.SignOut();
-            Session.Timeout = 60;
+        Response.Redirect("~/LoginNew.aspx");
 
-           
-
-        }
+        //if (! this.IsPostBack)
+        //{
+        //    //// Put user code to initialize the page here
+        //    Session.Abandon();
+        //    Application.Clear();
+        //    FormsAuthentication.SignOut();
+        //    Session.Timeout = 60;
+        //}
     }
 
     protected void LoginButton_Click(object sender, EventArgs e)

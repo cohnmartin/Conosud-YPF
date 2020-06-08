@@ -13,11 +13,10 @@
     <script src="angular/js/angular.js" type="text/javascript"></script>
     <script src="angular/controllers/controller_Domicilios.js" type="text/javascript"></script>
     <style type="text/css">
-        .divCaluloKm
-        {
+        .divCaluloKm {
             padding-top: 3px;
             position: fixed;
-            bottom:25px;
+            bottom: 25px;
             color: White;
             display: none;
             width: 170px;
@@ -37,10 +36,10 @@
             opacity: 0.6;
             filter: progid:DXImageTransform.Microsoft.Alpha(opacity=60);
             z-index: 99999999;
-            left:12px;
+            left: 12px;
         }
-        .divRecorrido
-        {
+
+        .divRecorrido {
             padding-top: 3px;
             position: fixed;
             top: 6px;
@@ -65,20 +64,18 @@
             filter: progid:DXImageTransform.Microsoft.Alpha(opacity=60);
             z-index: 99999999;
         }
-        label, input
-        {
+
+        label, input {
             display: block;
         }
-        
-        input.text
-        {
-            margin-bottom: 12px;
-            width: 95%;
-            padding: .4em;
-        }
-        
-        .ui-widget, .ui-widget button
-        {
+
+            input.text {
+                margin-bottom: 12px;
+                width: 95%;
+                padding: .4em;
+            }
+
+        .ui-widget, .ui-widget button {
             font-family: Verdana,Arial,sans-serif;
             font-size: 0.9em;
             z-index: 999999999;
@@ -102,7 +99,7 @@
             </telerik:RadMenuItem>
             <telerik:RadMenuItem Text="Reemplazar Tramo" onclick="CargarRuta('Reemplazo');">
             </telerik:RadMenuItem>
-                        <telerik:RadMenuItem Text="Eliminar Recorrido" onclick="EliminarRuta();">
+            <telerik:RadMenuItem Text="Eliminar Recorrido" onclick="EliminarRuta();">
             </telerik:RadMenuItem>
             <telerik:RadMenuItem Text="Salir" NavigateUrl="Default.aspx">
             </telerik:RadMenuItem>
@@ -114,9 +111,11 @@
             </a></li>
             <li id="Opc_BorrarSeleccionados" onclick="BorrarSeleccionados();"><a class="eliminarSel"
                 href="#"><span>Eliminar Seleccionados</span> </a></li>
-            <li id="Opc_AgregarInicio"><a class="contact" href="#"><span><label style="display:inline-block"><input type="checkbox" id="chkAgregarInicio" style="display: inline-block;"> Agregar al inicio</label></span> </a></li>
-            <li id="Opc_GrabarCambios" onclick="GrabarRuta();"><a class="grabar" href="#"><span>
-                Guardar Recorrido</span> </a></li>
+            <li id="Opc_AgregarInicio"><a class="contact" href="#"><span>
+                <label style="display: inline-block">
+                    <input type="checkbox" id="chkAgregarInicio" style="display: inline-block;">
+                    Agregar al inicio</label></span> </a></li>
+            <li id="Opc_GrabarCambios" onclick="GrabarRuta();"><a class="grabar" href="#"><span>Guardar Recorrido</span> </a></li>
             <li id="Opc_CargarRuta" onclick="CargarRuta();"><a class="CargarRecorrido" href="#">
                 <span>Cargar Recorrido</span></a></li>
             <li id="Opc_ListadoPasajeros" onclick="UbicarPuntos(0);"><a class="DirPersonal" href="#">
@@ -125,351 +124,158 @@
                 href="#"><span>Reemplazar Tramo</span> </a></li>
         </ul>
     </div>
-    <div id="map" style="height: 650px; width: 100%; margin-top: 5px; margin-left: 0px;
-        z-index: 1;">
+    <div id="map" style="height: 650px; width: 100%; margin-top: 5px; margin-left: 0px; z-index: 1;">
     </div>
-    <div id="dialog-form" title="Guardar Recorrido" style="font-size: 65.5%; display: none">
-        <table border="0" cellpadding="0" cellspacing="4" style="text-align: left; width: 100%;
-            margin-top: 5px; border: 0px solid black;">
-            <tr>
-                <td rowspan="7" align="center" style="padding: 5px; width: 80px" valign="middle">
-                    <img src="images/autobus.jpg" alt="" width="65px" />
-                </td>
-            </tr>
-            <tr>
-                <td style="width: 100px">
-                    <asp:Label ID="Label6" runat="server" Style="font-size: x-small; font-weight: bold"
-                        Text="Empresa:"></asp:Label>
-                </td>
-                <td style="width: 220px">
-                    <select id="cboEmpresa">
-                        <option value="ANDESMAR" selected="selected">ANDESMAR</option>
-                        <option value="MARPI">MARPI</option>
-                    </select>
-                </td>
-                <td style="width: 100px">
-                    <asp:Label ID="Label8" runat="server" Style="font-size: x-small; font-weight: bold"
-                        Text="Recorrido:"></asp:Label>
-                </td>
-                <td>
-                    <select id="cboTipoRecorrido">
-                        <option value="IDA" selected="selected">IDA</option>
-                        <option value="REGRESO">REGRESO</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <asp:Label ID="Label4" runat="server" Style="font-size: x-small; font-weight: bold"
-                        Text="Línea:"></asp:Label>
-                </td>
-                <td>
-                    <input id="txtLinea" type="text" style="width: 95%" title="Formato de Información: Nro 1 (SAN JOSE - DORREGO)"
-                        class="text ui-widget-content ui-corner-all" />
-                </td>
-                <td>
-                    <asp:Label ID="Label5" runat="server" Style="font-size: x-small; font-weight: bold"
-                        Text="Turno:"></asp:Label>
-                </td>
-                <td>
-                    <input id="txtTurno" type="text" style="width: 94%" title="Formato de información: 1 Y 2 o 1 "
-                        class="text ui-widget-content ui-corner-all" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <asp:Label ID="Label10" runat="server" Style="font-size: x-small; font-weight: bold"
-                        Text="Salida:"></asp:Label>
-                </td>
-                <td>
-                    <input id="txtHorarioSalida" type="text" style="width: 95%" class="text ui-widget-content ui-corner-all" />
-                </td>
-                <td>
-                    <asp:Label ID="Label9" runat="server" Style="font-size: x-small; font-weight: bold"
-                        Text="LLegada:"></asp:Label>
-                </td>
-                <td>
-                    <input id="txtHorarioLlegada" type="text" style="width: 94%" class="text ui-widget-content ui-corner-all" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <asp:Label ID="Label12" runat="server" Style="font-size: x-small; font-weight: bold"
-                        Text="Tipo Unidad:"></asp:Label>
-                </td>
-                <td>
-                    <select id="cboTipoUnidad">
-                        <option value="MINIBUS" selected="selected">MINIBUS</option>
-                        <option value="OMNIBUS">OMNIBUS</option>
-                    </select>
-                </td>
-                <td>
-                    <asp:Label ID="Label1" runat="server" Style="font-size: x-small; font-weight: bold"
-                        Text="Tipo:"></asp:Label>
-                </td>
-                <td>
-                    <select id="cboTipoTurno">
-                        <option value="TURNO" selected="selected">TURNO</option>
-                        <option value="DIURNO">DIURNO</option>
-                        <option value="TEMPORAL">TEMPORAL</option>
-                    </select>
-                   
-                    
-                </td>
-            </tr>
-            <tr>
-                <td>
-                     <asp:Label ID="Label2" runat="server" Style="font-size: x-small; font-weight: bold;
-                        padding-right: 5px; padding-left: 0px" Text="Total Km:"></asp:Label>
-                </td>
-                <td>
-                   <asp:Label ID="lblKm" runat="server" Style="font-size: x-small;" Text="Km:"></asp:Label>
-                </td>
-                <td>
-                    <asp:Label ID="Label7" runat="server" Style="font-size: x-small; font-weight: bold"
-                        Text="Capacidad:"></asp:Label>
-                </td>
-                <td>
-                    <input id="txtCapacidad" type="text" style="width: 50%" class="text ui-widget-content ui-corner-all" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <asp:Label ID="Label11" runat="server" Style="font-size: x-small; font-weight: bold"
-                        Text="Detalle:"></asp:Label>
-                </td>
-                <td colspan="3" style="padding-top: 5px">
-                    <textarea rows="4" id="txtDetalle" style="width: 95%" class="text ui-widget-content ui-corner-all"></textarea>
-                </td>
-            </tr>
-        </table>
+
+    <div id="ng-app" ng-app="myApp" ng-controller="controller_domicilios">
+        <div id="dialog-form" title="Guardar Recorrido" style="font-size: 65.5%; display: none">
+
+            <table border="0" cellpadding="0" cellspacing="4" style="text-align: left; width: 100%; margin-top: 5px; border: 0px solid black;">
+                <tr>
+                    <td rowspan="7" align="center" style="padding: 5px; width: 80px" valign="middle">
+                        <img src="images/autobus.jpg" alt="" width="65px" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label6" runat="server" Style="font-size: x-small; font-weight: bold"
+                            Text="Empresa:"></asp:Label>
+                    </td>
+                    <td style="width: 220px">
+                        <select id="cboEmpresa">
+                            <option value="ANDESMAR" selected="selected">ANDESMAR</option>
+                            <option value="MARPI">MARPI</option>
+                        </select>
+                    </td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label8" runat="server" Style="font-size: x-small; font-weight: bold"
+                            Text="Recorrido:"></asp:Label>
+                    </td>
+                    <td>
+                        <select id="cboTipoRecorrido">
+                            <option value="IDA" selected="selected">IDA</option>
+                            <option value="REGRESO">REGRESO</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label ID="Label4" runat="server" Style="font-size: x-small; font-weight: bold"
+                            Text="Línea:"></asp:Label>
+                    </td>
+                    <td>
+                        <input id="txtLinea" type="text" style="width: 95%" title="Formato de Información: Nro 1 (SAN JOSE - DORREGO)"
+                            class="text ui-widget-content ui-corner-all" />
+                    </td>
+                    <td>
+                        <asp:Label ID="Label5" runat="server" Style="font-size: x-small; font-weight: bold"
+                            Text="Turno:"></asp:Label>
+                    </td>
+                    <td>
+                        <input id="txtTurno" type="text" style="width: 94%" title="Formato de información: 1 Y 2 o 1 "
+                            class="text ui-widget-content ui-corner-all" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label ID="Label10" runat="server" Style="font-size: x-small; font-weight: bold"
+                            Text="Salida:"></asp:Label>
+                    </td>
+                    <td>
+                        <input id="txtHorarioSalida" type="text" style="width: 95%" class="text ui-widget-content ui-corner-all" />
+                    </td>
+                    <td>
+                        <asp:Label ID="Label9" runat="server" Style="font-size: x-small; font-weight: bold"
+                            Text="LLegada:"></asp:Label>
+                    </td>
+                    <td>
+                        <input id="txtHorarioLlegada" type="text" style="width: 94%" class="text ui-widget-content ui-corner-all" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label ID="Label12" runat="server" Style="font-size: x-small; font-weight: bold"
+                            Text="Tipo Unidad:"></asp:Label>
+                    </td>
+                    <td>
+                        <select id="cboTipoUnidad">
+                            <option value="MINIBUS" selected="selected">MINIBUS</option>
+                            <option value="OMNIBUS">OMNIBUS</option>
+                        </select>
+                    </td>
+                    <td>
+                        <asp:Label ID="Label1" runat="server" Style="font-size: x-small; font-weight: bold"
+                            Text="Tipo:"></asp:Label>
+                    </td>
+                    <td>
+                        <select id="cboTipoTurno">
+                            <option value="TURNO" selected="selected">TURNO</option>
+                            <option value="DIURNO">DIURNO</option>
+                            <option value="TEMPORAL">TEMPORAL</option>
+                        </select>
+
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label ID="Label2" runat="server" Style="font-size: x-small; font-weight: bold; padding-right: 5px; padding-left: 0px"
+                            Text="Total Km:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:Label ID="lblKm" runat="server" Style="font-size: x-small;" Text="Km:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:Label ID="Label7" runat="server" Style="font-size: x-small; font-weight: bold"
+                            Text="Capacidad:"></asp:Label>
+                    </td>
+                    <td>
+                        <input id="txtCapacidad" type="text" style="width: 50%" class="text ui-widget-content ui-corner-all" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label ID="Label11" runat="server" Style="font-size: x-small; font-weight: bold"
+                            Text="Detalle:"></asp:Label>
+                    </td>
+                    <td style="padding-top: 5px">
+                        <textarea rows="4" id="txtDetalle" style="width: 95%" class="text ui-widget-content ui-corner-all"></textarea>
+                    </td>
+
+                    <td style="width: 100px">
+                        <asp:Label ID="Label3" runat="server" Style="font-size: x-small; font-weight: bold"
+                            Text="Destino:"></asp:Label>
+                    </td>
+                    <td style="width: 220px">
+                        <select id="cboDestinoRuta" >
+                        </select>
+                    </td>
+
+
+                </tr>
+            </table>
+
+        </div>
+
+
+       
     </div>
+
     <div id="dialog-formAbrir" title="Cargar Recorrido" style="font-size: 62.5%; display: none">
         <p>
-            Selecione el recorrido que desea cargar</p>
+            Selecione el recorrido que desea cargar
+        </p>
         <label style="text-align: left">
             Recorridos:</label>
         <select id="cboRecorridos" style="width: 85%">
         </select>
     </div>
-    <div id="dialog-formReposicion" title="Reposicionar Dirección" style="font-size: 62.5%;
-        display: none">
+    <div id="dialog-formReposicion" title="Reposicionar Dirección" style="font-size: 62.5%; display: none">
         <p>
-            Desea reposicionar la ubicación en el mapa del agente seleccionado?</p>
+            Desea reposicionar la ubicación en el mapa del agente seleccionado?
+        </p>
     </div>
-    <div id="dialog-DirPersonal" title="Listado de Pasajeros" style="font-size: 52.5%;
-        display: none; overflow: hidden">
-        <textarea id="txtDirPer" rows="5" cols="18" style="width: 95%; display: none"></textarea>
-        <div id="ng-app" ng-app="myApp" ng-controller="controller_domicilios">
-            <div id="tblAlta" style="position: absolute; top: 480px; display: none">
-                <table width="90%" class="TVista" border="0" style="border: 2px solid blue; background-color: White"
-                    cellpadding="5" cellspacing="0">
-                    <tbody>
-                        <tr>
-                            <td colspan="4" style="background-color: #006699; font-size: 17px; color: White;
-                                font-weight: bold; padding: 3px">
-                                {{TipoAccion}}
-                            </td>
-                        </tr>
-                        <tr class="trDatos">
-                            <td class="tdSimple" align="left" style="width: 240px;">
-                                Apellido y Nombre:
-                            </td>
-                            <td class="tdSimple" align="left" style="width: 310px;">
-                                <input id="Text1" type="text" ng-model="Current.NombreLegajo" style="width: 96%" />
-                            </td>
-                            <td class="tdSimple" align="left" style="width: 240px;">
-                                Dirección:
-                            </td>
-                            <td class="tdSimple" align="left" style="width: 365px;">
-                                <input id="Text2" type="text" ng-model="Current.Domicilio" style="width: 96%" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tdSimple" align="left" style="width: 240px;">
-                                Localidad
-                            </td>
-                            <td class="tdSimple" align="left" style="width: 115px;">
-                                <input id="Text3" type="text" ng-model="Current.Poblacion" style="width: 96%" />
-                            </td>
-                            <td class="tdSimple" align="left" style="width: 240px;">
-                                Departamento:
-                            </td>
-                            <td class="tdSimple" align="left" style="width: 115px;">
-                                <input id="Text4" type="text" ng-model="Current.Distrito" style="width: 96%" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tdSimple" align="left" style="width: 240px;">
-                                Tipo Turno:
-                            </td>
-                            <td class="tdSimple" align="left" style="width: 65px;">
-                                <select id="Select3" ng-model="Current.TipoTurno"  >
-                                    <option value="TURNO" selected="selected">TURNO</option>
-                                    <option value="DIURNO">DIURNO</option>
-                                </select>
-                            </td>
-                            <td class="tdSimple" align="left" style="width: 240px;">
-                                Línea Asignada:
-                            </td>
-                            <td class="tdSimple" align="left" style="width: 220px;">
-                                <select id="cboRecorridosAlta" ng-model="Current.LineaAsignada" ng-options="clasif.Id as clasif.NombreAbreviado for clasif in recorridos">
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tdSimple" align="left" style="width: 240px;">
-                                Empresa
-                            </td>
-                            <td class="tdSimple" align="left" style="width: 250px;" colspan="3">
-                                <select id="cboEmpresas" ng-model="Current.Empresa" ng-options="clasif.Id as clasif.RazonSocial for clasif in empresas">
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="right" colspan="4" style="padding: 5px">
-                                <button type="button" id="btnCancelar" style="width: 150px; height: 35px; font-size: 15px"
-                                    ng-click="CancelarEdicion()">
-                                    Cancelar</button>
-                                <button type="button" id="btnAlta" style="width: 150px; height: 35px; font-size: 15px"
-                                    ng-click="GrabarPersonal()">
-                                    Grabar</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div style="overflow: scroll; height: 490px;">
-                <div style="padding-top: 15px; background-color: #006699; position: absolute; height: 50px;
-                    top: 50%; width: 250px; left: 40%; vertical-align: middle; color: White; font-size: medium"
-                    ng-show="EliminarActivo">
-                    Elimnado Legajo..
-                </div>
-                <div style="padding-top: 15px; background-color: #006699; position: absolute; height: 50px;
-                    top: 50%; width: 250px; left: 40%; vertical-align: middle; color: White; font-size: medium"
-                    ng-show="GrabacionActiva">
-                    Grabando Legajo..
-                </div>
-                <table id="tblDirecciones" width="97%" class="TVista" border="0" cellpadding="0"
-                    cellspacing="0">
-                    <thead>
-                        <tr style="background-color: #006699; height: 28px">
-                            <th colspan="10">
-                                <center>
-                                    <div style="cursor: hand; width: 100%" ng-click="exportarExcel()">
-                                        <table id="Table1" width="10%" class="" border="0" cellpadding="0" cellspacing="0">
-                                            <tr>
-                                                <td style="width: 30px; background-color: #006699">
-                                                    <asp:ImageButton ID="imgExportar" ImageUrl="~/images/excel_16x16.gif" runat="server"
-                                                        Style="cursor: hand; padding-right: 1px;" />
-                                                </td>
-                                                <td style="width: 130px; background-color: #006699; text-align: left">
-                                                    <span style="color: White;">Exportar Excel</span>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </center>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th class="Theader">
-                                &nbsp;
-                            </th>
-                            <th class="Theader">
-                                Nombre
-                            </th>
-                            <th class="Theader">
-                                Direccion
-                            </th>
-                            <th class="Theader">
-                                <select id="Select1" style="width: 95%" ng-model="textSearch">
-                                    <option value="" selected="selected">Localidad</option>
-                                    <option ng-repeat="p in Poblaciones" value="{{p}}">{{p}}</option>
-                                </select>
-                            </th>
-                            <th class="Theader">
-                                Departamento
-                            </th>
-                            <th class="Theader">
-                                <select id="Select2" style="width: 95%" ng-model="textSearchTipo">
-                                    <option value="" selected="selected">Tipo</option>
-                                    <option value="TURNO">TURNO</option>
-                                    <option value="DIURNO">DIURNO</option>
-                                </select>
-                            </th>
-                            <th class="Theader">
-                                Linea Asignada
-                            </th>
-                            <th class="Theader">
-                                Empresa
-                            </th>
-                            <th class="Theader">
-                                &nbsp;
-                            </th>
-                            <th class="Theader">
-                                &nbsp;
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="trDatos" ng-repeat="item in (filteredDom = (Domicilios  | filter: { Poblacion: textSearch , TipoTurno: textSearchTipo}))  ">
-                            <td style="width: 35px" class="tdSimple" align="center">
-                                <center>
-                                    <span>
-                                        <asp:Image ng-click="Editar($event,item)" ImageUrl="~/images/edit.gif" ID="btnEditar"
-                                            runat="server" Style="cursor: hand;" />
-                                    </span>
-                                </center>
-                            </td>
-                            <td class="tdSimple" align="left">
-                                <span>{{item.NombreLegajo}}</span>
-                            </td>
-                            <td class="tdSimple" align="left" style="width: 250px">
-                                <span>{{item.Domicilio}}</span>
-                            </td>
-                            <td class="tdSimple" align="left" style="width: 110px">
-                                <span>{{item.Poblacion}}</span>
-                            </td>
-                            <td class="tdSimple" align="left" style="width: 110px">
-                                <span>{{item.Distrito}}</span>
-                            </td>
-                            <td class="tdSimple" align="left" style="width: 60px">
-                                <span>{{item.TipoTurno}}</span>
-                            </td>
-                            <td class="tdSimple" align="left" style="width: 220px">
-                                <span ng-show="Current==null || Current.Id != item.Id" id="spanLineaAsignada" ng-repeat="val in recorridos | filter:{Id: item.LineaAsignada}:true">
-                                    {{val.NombreAbreviado}}</span>
-                            </td>
-                            <td class="tdSimple" align="left" style="width: 160px">
-                                <span>{{item.descEmpresa}}</span>
-                            </td>
-                            <td style="width: 35px" class="tdSimple">
-                                <center>
-                                    <span>
-                                        <asp:Image ng-show="item.Latitud == null && item.LongitudReposicion == null" ng-click="UbicarDomicilioMapa(item);"
-                                            ImageUrl="~/images/menuges.gif" ID="Image1" runat="server" Style="cursor: hand;" />
-                                        <asp:Image ng-show="item.Latitud != null && item.LongitudReposicion == null" ng-click="MostrarUbicacion(item);"
-                                            ImageUrl="~/images/ok_16x16.gif" ID="Image2" runat="server" Style="cursor: hand;" />
-                                        <asp:Image ng-show="item.LongitudReposicion != null " ng-click="MostrarReUbicacion(item);"
-                                            ImageUrl="~/images/ok_azul.gif" ID="Image3" runat="server" Style="cursor: hand;" />
-                                    </span>
-                                </center>
-                            </td>
-                            <td style="width: 35px" class="tdSimple">
-                                <center>
-                                    <span>
-                                        <asp:Image ng-click="EliminarPersonal(item);" ImageUrl="~/images/delete.gif" ID="Image4"
-                                            runat="server" Style="cursor: hand;" />
-                                    </span>
-                                </center>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+
     <div class="divRecorrido">
         <span style="font-weight: bold" id="lblTipoAccion">Edición:</span> <span style="font-weight: bold"
             id="lblRecorrido"></span>
@@ -477,13 +283,14 @@
     <div class="divCaluloKm">
         Total Km: <span style="font-weight: bold" id="totalKm">0</span>
     </div>
-    <div id="dialog-DivEliminar" title="Recorrido" style="font-size: 62.5%; display: none;
-        overflow: hidden">
+    <div id="dialog-DivEliminar" title="Recorrido" style="font-size: 62.5%; display: none; overflow: hidden">
         <p>
-            Selecione el recorrido que desea ELIMINAR</p>
+            Selecione el recorrido que desea ELIMINAR
+        </p>
         <br />
         <p id="lblEliminar" style="color: Red; display: none">
-            ESTA SEGURO DE ELIMINAR EL RECORRIDO SELECCIONADO?</p>
+            ESTA SEGURO DE ELIMINAR EL RECORRIDO SELECCIONADO?
+        </p>
         <br />
         <select id="cboRecorridosEliminar" style="width: 95%">
         </select>
@@ -591,11 +398,13 @@
 
             PageMethods.getEmpresas(function (result) {
 
-                //                var options = $("#cboEmpresas");
-                //                for (var i = 0; i < result.length; i++) {
-                //                    options.append($("<option />").val(result[i].Id).text(result[i].RazonSocial)).css("color", "Black");
-                //                }
+                var options = $("#cboDestinoRuta");
+                for (var i = 0; i < result.length; i++) {
 
+                    if (result[i].RazonSocial.indexOf('YPF') >= 0)
+                        options.append($("<option />").val(result[i].Id).text(result[i].RazonSocial)).css("color", "Black");
+
+                }
 
                 angular.element(document.getElementById('ng-app')).scope().setEmpresas(result);
 
@@ -661,7 +470,7 @@
                 height: 210,
                 width: 430,
                 modal: true,
-                buttons: { "Abrir": AbrirRuta, Cancelar: function () { dialogAbrir.dialog("close"); }}
+                buttons: { "Abrir": AbrirRuta, Cancelar: function () { dialogAbrir.dialog("close"); } }
             });
 
         dialogDirPer = $("#dialog-DirPersonal").dialog(
@@ -723,7 +532,7 @@
             }
 
 
-            PageMethods.GrabarRuta($('#cboEmpresa').val(), $('#txtHorarioSalida').val(), $('#txtHorarioLlegada').val(), $('#cboTipoUnidad').val(), $('#txtTurno').val(), $('#txtLinea').val(), $('#cboTipoRecorrido').val(), $('#cboTipoTurno').val(), newPoints, idRecorrido, distance.toFixed(2), $('#txtDetalle').val(), $('#txtCapacidad').val(), function () { idRecorrido = 0; window.location.reload(); }, function () { alert("Error de Grabación, por favor tome contacto con el administrador."); });
+            PageMethods.GrabarRuta($('#cboEmpresa').val(), $('#txtHorarioSalida').val(), $('#txtHorarioLlegada').val(), $('#cboTipoUnidad').val(), $('#txtTurno').val(), $('#txtLinea').val(), $('#cboTipoRecorrido').val(), $('#cboTipoTurno').val(), newPoints, idRecorrido, distance.toFixed(2), $('#txtDetalle').val(), $('#txtCapacidad').val(), $('#cboDestinoRuta').val(), function () { idRecorrido = 0; window.location.reload(); }, function () { alert("Error de Grabación, por favor tome contacto con el administrador."); });
 
         }
         function ExportarRutas() {
@@ -757,6 +566,8 @@
                 $('#cboTipoTurno').val(result["cabecera"].TipoTurno);
                 $('#txtDetalle').val(result["cabecera"].DetalleRuta);
                 $('#txtCapacidad').val(result["cabecera"].Capacidad);
+                $('#cboDestinoRuta').val(result["cabecera"].DestinoRuta);
+
                 $('#<%= lblKm.ClientID %>').text(result["cabecera"].Km);
 
 
@@ -780,7 +591,7 @@
                     $("#Opc_AgregarInicio").css("display", "inline");
                     $("#lblTipoAccion").text("Modo Edición");
 
-                    
+
 
                 }
                 else {
@@ -943,7 +754,7 @@
                 markers[PosFinal].setIcon("http://www.google.com/mapfiles/ms/micons/markerX.png");
             }
 
-            flightPlanCoordinates.splice(posInicial +1 , (PosFinal - posInicial) );
+            flightPlanCoordinates.splice(posInicial + 1, (PosFinal - posInicial));
             reloadMap();
             calcularDistancia();
 

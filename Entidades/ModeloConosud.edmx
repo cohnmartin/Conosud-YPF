@@ -59,6 +59,7 @@
           <Property Name="Km" Type="decimal" Precision="18" Scale="2" />
           <Property Name="DetalleRuta" Type="varchar" MaxLength="1500" />
           <Property Name="Capacidad" Type="int" />
+          <Property Name="DestinoRuta" Type="bigint" />
         </EntityType>
         <EntityType Name="CategoriasItems">
           <Key>
@@ -617,6 +618,18 @@ advertencia 6002: La tabla o vista 'Conosud.dbo.View_EmpresasContratos' no tiene
             </Principal>
             <Dependent Role="CabeceraHojasDeRuta">
               <PropertyRef Name="UsuarioAprobador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CabeceraRutasTransportes_Empresa">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="CabeceraRutasTransportes" Type="Self.CabeceraRutasTransportes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="CabeceraRutasTransportes">
+              <PropertyRef Name="DestinoRuta" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1280,6 +1293,10 @@ FROM [dbo].[View_EmpresasContratos] AS [View_EmpresasContratos]</DefiningQuery>
             <End Role="SegUsuario" EntitySet="SegUsuario" />
             <End Role="CabeceraHojasDeRuta" EntitySet="CabeceraHojasDeRuta" />
           </AssociationSet>
+          <AssociationSet Name="FK_CabeceraRutasTransportes_Empresa" Association="Self.FK_CabeceraRutasTransportes_Empresa">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="CabeceraRutasTransportes" EntitySet="CabeceraRutasTransportes" />
+          </AssociationSet>
           <AssociationSet Name="FK_Clasificacion_Clasificacion" Association="Self.FK_Clasificacion_Clasificacion">
             <End Role="Clasificacion" EntitySet="Clasificacion" />
             <End Role="Clasificacion1" EntitySet="Clasificacion" />
@@ -1730,6 +1747,10 @@ FROM [dbo].[View_EmpresasContratos] AS [View_EmpresasContratos]</DefiningQuery>
             <End Role="SeguimientoAuditoria" EntitySet="SeguimientoAuditoria" />
           </AssociationSet>
           <EntitySet Name="Checkin" EntityType="ModeloConosud.Checkin" />
+          <AssociationSet Name="FK_CabeceraRutasTransportes_Empresa" Association="ModeloConosud.FK_CabeceraRutasTransportes_Empresa">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="CabeceraRutasTransportes" EntitySet="CabeceraRutasTransportes" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="ArchivosAdjuntos">
           <Key>
@@ -1862,7 +1883,8 @@ FROM [dbo].[View_EmpresasContratos] AS [View_EmpresasContratos]</DefiningQuery>
           <NavigationProperty Name="objART" Relationship="ModeloConosud.FK_Empresa_Clasificacion" FromRole="Empresa" ToRole="Clasificacion" />
           <NavigationProperty Name="DatosDeSueldos" Relationship="ModeloConosud.FK_DatosDeSueldos_Empresa" FromRole="Empresa" ToRole="DatosDeSueldos" />
           <NavigationProperty Name="VahiculosyEquipos" Relationship="ModeloConosud.FK_VahiculosyEquipos_Empresa" FromRole="Empresa" ToRole="VahiculosyEquipos" />
-          <NavigationProperty Name="DomiciliosPersonal" Relationship="ModeloConosud.FK_DomiciliosPersonal_Empresa" FromRole="Empresa" ToRole="DomiciliosPersonal" /></EntityType>
+          <NavigationProperty Name="DomiciliosPersonal" Relationship="ModeloConosud.FK_DomiciliosPersonal_Empresa" FromRole="Empresa" ToRole="DomiciliosPersonal" />
+          <NavigationProperty Name="CabeceraRutasTransportes" Relationship="ModeloConosud.FK_CabeceraRutasTransportes_Empresa" FromRole="Empresa" ToRole="CabeceraRutasTransportes" /></EntityType>
         <EntityType Name="HojasDeRuta">
           <Key>
             <PropertyRef Name="IdHojaDeRuta" />
@@ -2452,6 +2474,8 @@ FROM [dbo].[View_EmpresasContratos] AS [View_EmpresasContratos]</DefiningQuery>
           <Property Type="String" Name="DetalleRuta" MaxLength="1500" Unicode="false" FixedLength="false" />
           <Property Type="Int32" Name="Capacidad" />
           <NavigationProperty Name="DomiciliosPersonal1" Relationship="ModeloConosud.FK_DomiciliosPersonal_CabeceraRutasTransportes1" FromRole="CabeceraRutasTransportes" ToRole="DomiciliosPersonal" />
+          <Property Name="DestinoRuta" Type="Int64" />
+          <NavigationProperty Name="EmpresaDestinoRuta" Relationship="ModeloConosud.FK_CabeceraRutasTransportes_Empresa" FromRole="CabeceraRutasTransportes" ToRole="Empresa" />
         </EntityType>
         <EntityType Name="RutasTransportes">
           <Key>
@@ -2722,6 +2746,18 @@ FROM [dbo].[View_EmpresasContratos] AS [View_EmpresasContratos]</DefiningQuery>
           <Property Name="Latitud" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Longitud" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <Association Name="FK_CabeceraRutasTransportes_Empresa">
+          <End Type="ModeloConosud.Empresa" Role="Empresa" Multiplicity="0..1" />
+          <End Type="ModeloConosud.CabeceraRutasTransportes" Role="CabeceraRutasTransportes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="CabeceraRutasTransportes">
+              <PropertyRef Name="DestinoRuta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3449,6 +3485,7 @@ FROM [dbo].[View_EmpresasContratos] AS [View_EmpresasContratos]</DefiningQuery>
           <EntitySetMapping Name="CabeceraRutasTransportes">
             <EntityTypeMapping TypeName="ModeloConosud.CabeceraRutasTransportes">
               <MappingFragment StoreEntitySet="CabeceraRutasTransportes">
+                <ScalarProperty Name="DestinoRuta" ColumnName="DestinoRuta" />
                 <ScalarProperty Name="Capacidad" ColumnName="Capacidad" />
                 <ScalarProperty Name="DetalleRuta" ColumnName="DetalleRuta" />
                 <ScalarProperty Name="Km" ColumnName="Km" />
@@ -3551,7 +3588,7 @@ FROM [dbo].[View_EmpresasContratos] AS [View_EmpresasContratos]</DefiningQuery>
       <DesignerInfoPropertySet xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="False" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="UseLegacyProvider" Value="True" />
       </DesignerInfoPropertySet>
     </edmx:Options>
@@ -4306,6 +4343,7 @@ FROM [dbo].[View_EmpresasContratos] AS [View_EmpresasContratos]</DefiningQuery>
         </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_SeguimientoAuditoria_Clasificacion11" />
         <EntityTypeShape EntityType="ModeloConosud.Checkin" Width="1.5" PointX="3.375" PointY="15.75" />
+        <AssociationConnector Association="ModeloConosud.FK_CabeceraRutasTransportes_Empresa" />
         </Diagram></edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

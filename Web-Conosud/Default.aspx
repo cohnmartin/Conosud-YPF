@@ -1,8 +1,8 @@
-<%@ Page Language="C#" MasterPageFile="~/DefaultMasterPage.master" AutoEventWireup="true"
+<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" Theme="MiTema" AutoEventWireup="true"
     CodeFile="Default.aspx.cs" Inherits="_Default" Title="Untitled Page" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div style="height:90px">&nbsp;</div>
+    <%--<div style="height:90px">&nbsp;</div>
     <table border="0" cellpadding="0" cellspacing="0" style="background-color: Transparent;">
         <tr>
             <td style="width: 27px; height: 44px; background-repeat: no-repeat; background-color: Transparent;
@@ -63,5 +63,5 @@
                 &nbsp;
             </td>
         </tr>
-    </table>
+    </table>--%>
 </asp:Content>
