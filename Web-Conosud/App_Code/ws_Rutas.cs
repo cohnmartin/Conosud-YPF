@@ -43,7 +43,7 @@ public class ws_Rutas : System.Web.Services.WebService
                         select new
                         {
                             Id = c.Id,
-                            Descripcion = c.Empresa + " - LINEA " + c.Linea + " - " + c.TipoTurno + " - " + c.TipoRecorrido +" "+ c.EmpresaDestinoRuta.RazonSocial,
+                            Descripcion = c.Empresa + " - LINEA " + c.Linea + " - " + c.TipoTurno + " - " + c.TipoRecorrido + " " + c.EmpresaDestinoRuta.RazonSocial,
                             Selected = false
                         }).ToList();
 
@@ -525,11 +525,14 @@ public class ws_Rutas : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public object checkIn(long idUsuario, long IdRecorrido, string Latitud, string Longitud)
+    public object checkIn(long idUsuario, string QRRecorrido, string Latitud, string Longitud)
     {
 
         using (EntidadesConosud dc = new EntidadesConosud())
         {
+            long IdRecorrido = getIdFromQR(QRRecorrido);
+
+
 
             Checkin ch = new Checkin();
             dc.AddToCheckin(ch);
@@ -545,27 +548,57 @@ public class ws_Rutas : System.Web.Services.WebService
             string recorridoDesc = "(" + IdRecorrido + ")";
             var legajo = (from r in dc.DomiciliosPersonal
                           where r.Id == idUsuario
-                          && r.RutaConCambio.Contains(recorridoDesc)
                           select r).FirstOrDefault();
 
             bool cambiaRuta = false;
             if (legajo != null)
             {
+                // si el atributo RutaConCambio contiene la linea donde acaba de hacer chechik significa que se le informó
+                // que hubo cambios en el recorrido, es por eso que se limpia para no volver a informar.
+                if (legajo.RutaConCambio != null && legajo.RutaConCambio.Contains(recorridoDesc))
+                {
+                    legajo.RutaConCambio = legajo.RutaConCambio.Replace(recorridoDesc, "");
+                    cambiaRuta = true;
+                }
 
-                legajo.RutaConCambio = legajo.RutaConCambio.Replace(recorridoDesc, "");
-                cambiaRuta = true;
+                // Se verifica que la linea donde hace el checkIn es la asignada.
+                ch.CheckInValido = (legajo.LineaAsignada != null && legajo.LineaAsignada == IdRecorrido) || (legajo.LineaAsignadaVuelta != null && legajo.LineaAsignadaVuelta == IdRecorrido) ? true : false;
             }
 
 
             dc.SaveChanges();
 
-
-            return new
+            if (IdRecorrido > 0)
             {
-                resultado = "ok",
-                mensaje = "El checkIn se realizo con exito.",
-                CambioRecorrido = cambiaRuta
-            };
+                if (!ch.CheckInValido.Value)
+                {
+                    return new
+                    {
+                        resultado = "warning",
+                        mensaje = "El checkIn se realizo con exito, pero en linea incorrecta.",
+                        CambioRecorrido = cambiaRuta
+                    };
+                }
+                else
+                {
+                    return new
+                    {
+                        resultado = "ok",
+                        mensaje = "El checkIn se realizo con exito.",
+                        CambioRecorrido = cambiaRuta
+                    };
+                }
+            }
+            else
+            {
+
+                return new
+                {
+                    resultado = "error",
+                    mensaje = "El código no pertenece a ningun recorrido.",
+                    CambioRecorrido = false
+                };
+            }
 
 
         }
@@ -719,6 +752,97 @@ public class ws_Rutas : System.Web.Services.WebService
     }
 
 
+    [WebMethod(EnableSession = true)]
+    public object checkInConsult(string FDesde, string FHasta, int? Recorrido, int? Legajo)
+    {
+        using (EntidadesConosud dc = new EntidadesConosud())
+        {
+            DateTime FechaDesde = DateTime.Parse(FDesde);
+            DateTime FechaHasta = DateTime.Parse(FHasta).AddDays(1);
+
+            // LEGAJO - DNI, APELLIDO NOMBRE,EMPRESA,Fecha de registro,Hora de registro,Línea de registro
+
+            var recorridosResult = (from c in dc.Checkin
+                                        join r in dc.CabeceraRutasTransportes on c.IdRecorrido equals r.Id into cab
+                                        from r in cab.DefaultIfEmpty()
+                                    join l in dc.DomiciliosPersonal on c.IdUsuario equals l.Id
+                                    join e in dc.Empresa on l.Empresa equals e.IdEmpresa
+                                    where c.FechaHora >= FechaDesde && c.FechaHora <= FechaHasta
+                                    select new
+                                    {
+                                        c.IdRecorrido,
+                                        c.IdUsuario,
+                                        c.FechaHora,
+                                        Linea = c.IdRecorrido == 0 ? "- registro con código inválido -" : r.Empresa + " - LINEA " + r.Linea + " - " + r.TipoTurno + " - " + r.TipoRecorrido,
+                                        IdLineaAsignada = l.LineaAsignada,
+                                        IdLineaAsignadaVuelta = l.LineaAsignadaVuelta,
+                                        LineaAsignada = l.objLineaAsignada.Empresa + " - LINEA " + l.objLineaAsignada.Linea + " - " + l.objLineaAsignada.TipoTurno + " - " + l.objLineaAsignada.TipoRecorrido,
+                                        LineaAsignadaVuelta = l.objLineaAsignadaVuelta != null ? l.objLineaAsignadaVuelta.Empresa + " - LINEA " + l.objLineaAsignadaVuelta.Linea + " - " + l.objLineaAsignadaVuelta.TipoTurno + " - " + l.objLineaAsignadaVuelta.TipoRecorrido : "",
+                                        l.NombreLegajo,
+                                        l.Legajo,
+                                        e.RazonSocial,
+                                        c.CheckInValido
+                                    }).ToList();
 
 
+            if (Recorrido != null)
+                recorridosResult = recorridosResult.Where(c => 
+                    c.IdRecorrido == Recorrido || ((c.IdLineaAsignada == Recorrido || c.IdLineaAsignadaVuelta == Recorrido) && c.IdRecorrido == 0 )
+                ).ToList();
+
+
+            var result = from r in recorridosResult
+                         select new
+                         {
+
+                             r.IdRecorrido,
+                             r.IdUsuario,
+                             FechaRegistro = r.FechaHora.Value.ToShortDateString(),
+                             HoraRegistro = r.FechaHora.Value.ToShortTimeString(),
+                             r.Legajo,
+                             r.NombreLegajo,
+                             r.Linea,
+                             r.RazonSocial,
+                             CheckInValido = r.IdRecorrido == 0 ? "Codigo Incorrecto" : (!r.CheckInValido.HasValue || !r.CheckInValido.Value) ? "Linea Incorrecta" : "Linea Correcta",
+                             r.LineaAsignada,
+                             r.LineaAsignadaVuelta,
+                         };
+
+            HttpContext.Current.Session.Add("checkinConsultResult", result.ToList<dynamic>());
+            return result;
+
+        }
+
+    }
+
+    private long getIdFromQR(string QR)
+    {
+
+        using (EntidadesConosud dc = new EntidadesConosud())
+        {
+            Dictionary<string, object> datos = new Dictionary<string, object>();
+
+            var rutas = (from d in dc.CabeceraRutasTransportes
+                         select new
+                         {
+                             d.Id,
+                             qr = d.Empresa.Substring(0, 3) + d.TipoTurno.Substring(0, 1),
+                         }).ToList();
+
+
+            foreach (var r in rutas)
+            {
+                string qr1 = "";
+                ToExcelIndexCol((int)r.Id, ref qr1);
+                if (r.qr + qr1 == QR)
+                {
+                    return r.Id;
+                }
+
+            }
+
+        }
+
+        return 0;
+    }
 }

@@ -12,6 +12,8 @@
 
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiK9GD4zYZsB4nrZqxg-LcTnJ8hhAmGRk&libraries=adsense&sensor=true&language=es"></script>
     <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+
+
     <script src="Scripts/Jquery-UI/js/jquery-1.9.1.js" type="text/javascript"></script>
     <script src="angular/js/angular.js" type="text/javascript"></script>
     <script src="angular/controllers/controller_Domicilios.js" type="text/javascript"></script>
@@ -332,6 +334,8 @@
                                     <option value="VEHÍCULO ASIGNADO">VEHÍCULO ASIGNADO</option>
                                     <option value="Jefe Turno">Jefe Turno</option>
                                     <option value="Gascon II">Gascón II</option>
+                                    <option value="BCAS REMOTO NO">BCAS REMOTO NO</option>
+
                                 </select>
                             </td>
                             <td class="tdSimple" align="left" style="width: 240px;">Tipo servicio transp:
@@ -467,6 +471,7 @@
                                     <option value="DIURNO">DIURNO</option>
                                     <option value="6x1">6x1</option>
                                     <option value="VEHÍCULO ASIGNADO">VEHÍCULO ASIGNADO</option>
+                                    <option value="BCAS REMOTO NO">BCAS REMOTO NO</option>
                                 </select>
                             </th>
                             <th class="Theader">
@@ -608,47 +613,6 @@
 
             $(document).tooltip();
 
-            $('#navigation > li').hover(
-                    function () {
-                        $('div', $(this)).stop().animate({ marginLeft: 45, width: 150, backgroundColor: "white" }, 300);
-                        $('span', $(this)).stop().fadeIn(200);
-                    },
-                    function () {
-                        if ($(this)[0].id != "divRR") {
-                            $('div', $(this)).stop().animate({ 'width': '10px', 'marginLeft': '-2px', 'backgroundColor': '#336699' }, 200);
-                            $('span', $(this)).stop().fadeOut(100);
-                        }
-                        else {
-                            $('div', $(this)).stop().animate({ 'width': '10px', 'marginLeft': '-2px', 'backgroundColor': 'red' }, 200);
-                            $('span', $(this)).stop().fadeOut(100);
-                        }
-                    }
-                );
-
-
-            $(".btn-info").button();
-
-            var mapOptions = {
-                zoom: 13,
-                center: new google.maps.LatLng(-32.9223417, -68.8017413),
-                mapTypeId: google.maps.MapTypeId.te,
-                //draggableCursor: 'crosshair',
-                disableDefaultUI: true
-            };
-
-            map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-
-            flightPath = new google.maps.Polyline({
-                path: flightPlanCoordinates,
-                strokeColor: '#3399FF',
-                strokeOpacity: 1.0,
-                strokeWeight: 3,
-                clickable: true
-            });
-
-
-
             var datos = "<%=Recorridos %>";
 
             PageMethods.getRecorridos(function (result) {
@@ -673,11 +637,47 @@
             $("#master_contentplaceholder").css("height", height + 'px');
 
             $("#map").css("height", height - 50 + 'px');
+            
+            $('#navigation > li').hover(
+                    function () {
+                        $('div', $(this)).stop().animate({ marginLeft: 45, width: 150, backgroundColor: "white" }, 300);
+                        $('span', $(this)).stop().fadeIn(200);
+                    },
+                    function () {
+                        if ($(this)[0].id != "divRR") {
+                            $('div', $(this)).stop().animate({ 'width': '10px', 'marginLeft': '-2px', 'backgroundColor': '#336699' }, 200);
+                            $('span', $(this)).stop().fadeOut(100);
+                        }
+                        else {
+                            $('div', $(this)).stop().animate({ 'width': '10px', 'marginLeft': '-2px', 'backgroundColor': 'red' }, 200);
+                            $('span', $(this)).stop().fadeOut(100);
+                        }
+                    }
+                );
 
+            $(".btn-info").button();
+
+
+            var mapOptions = {
+                zoom: 13,
+                center: new google.maps.LatLng(-32.9223417, -68.8017413),
+                mapTypeId: google.maps.MapTypeId.te,
+                //draggableCursor: 'crosshair',
+                disableDefaultUI: true
+            };
+
+            map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+            flightPath = new google.maps.Polyline({
+                path: flightPlanCoordinates,
+                strokeColor: '#3399FF',
+                strokeOpacity: 1.0,
+                strokeWeight: 3,
+                clickable: true
+            });
 
             google.maps.event.addListener(map, 'click', clickOnMap);
             google.maps.event.addListener(map, 'rightclick', clickOnMap1);
-
 
 
         });

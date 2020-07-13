@@ -1294,6 +1294,7 @@
     <Property Name="FechaHora" Type="DateTime" Precision="3" />
     <Property Name="Latitud" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Longitud" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CheckInValido" Type="Boolean" />
   </EntityType>
   <Association Name="FK_CabeceraRutasTransportes_Empresa">
     <End Type="ModeloConosud.Empresa" Role="Empresa" Multiplicity="0..1" />

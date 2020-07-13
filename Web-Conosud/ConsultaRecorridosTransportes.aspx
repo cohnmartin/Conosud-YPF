@@ -30,8 +30,7 @@
     <script src="Scripts/Angular-Material/modules/menu/menulink.directive.js" type="text/javascript"></script>
 
     <script src="angular/controllers/controller_ConsultaRecorridos.js" type="text/javascript"></script>
-
-
+    
 
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiK9GD4zYZsB4nrZqxg-LcTnJ8hhAmGRk&libraries=adsense&sensor=true&language=es&libraries=geometry"></script>
     <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
@@ -40,6 +39,10 @@
     <style type="text/css">
         md-input-container .md-errors-spacer {
             min-height: 0;
+        }
+        
+        body {
+            overflow:hidden !important;
         }
     </style>
 
@@ -299,7 +302,7 @@
     </script>
 
 
-    <div id="ng-app" ng-app="myApp" ng-controller="controller_consultaRecorridos" layout="column" style="height: 500px;" ng-cloak>
+    <div id="ng-app" ng-app="conosudApp" ng-controller="controller_consultaRecorridos" layout="column" style="height: 600px;" ng-cloak>
 
         <section layout="row" flex>
 

@@ -75,6 +75,7 @@
     <Property Name="FechaHora" Type="datetime" />
     <Property Name="Latitud" Type="varchar" MaxLength="50" />
     <Property Name="Longitud" Type="varchar" MaxLength="50" />
+    <Property Name="CheckInValido" Type="bit" />
   </EntityType>
   <EntityType Name="Clasificacion">
     <Key>

@@ -80,6 +80,7 @@
           <Property Name="FechaHora" Type="datetime" />
           <Property Name="Latitud" Type="varchar" MaxLength="50" />
           <Property Name="Longitud" Type="varchar" MaxLength="50" />
+          <Property Name="CheckInValido" Type="bit" />
         </EntityType>
         <EntityType Name="Clasificacion">
           <Key>
@@ -2745,6 +2746,7 @@ FROM [dbo].[View_EmpresasContratos] AS [View_EmpresasContratos]</DefiningQuery>
           <Property Name="FechaHora" Type="DateTime" Precision="3" />
           <Property Name="Latitud" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Longitud" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CheckInValido" Type="Boolean" />
         </EntityType>
         <Association Name="FK_CabeceraRutasTransportes_Empresa">
           <End Type="ModeloConosud.Empresa" Role="Empresa" Multiplicity="0..1" />
@@ -3564,6 +3566,7 @@ FROM [dbo].[View_EmpresasContratos] AS [View_EmpresasContratos]</DefiningQuery>
           <EntitySetMapping Name="Checkin">
             <EntityTypeMapping TypeName="ModeloConosud.Checkin">
               <MappingFragment StoreEntitySet="Checkin">
+                <ScalarProperty Name="CheckInValido" ColumnName="CheckInValido" />
                 <ScalarProperty Name="Longitud" ColumnName="Longitud" />
                 <ScalarProperty Name="Latitud" ColumnName="Latitud" />
                 <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
@@ -4342,7 +4345,7 @@ FROM [dbo].[View_EmpresasContratos] AS [View_EmpresasContratos]</DefiningQuery>
           <ConnectorPoint PointX="25.8125" PointY="12.095358072916666" />
         </AssociationConnector>
         <AssociationConnector Association="ModeloConosud.FK_SeguimientoAuditoria_Clasificacion11" />
-        <EntityTypeShape EntityType="ModeloConosud.Checkin" Width="1.5" PointX="3.375" PointY="15.75" />
+        <EntityTypeShape EntityType="ModeloConosud.Checkin" Width="1.5" PointX="4" PointY="15.5" />
         <AssociationConnector Association="ModeloConosud.FK_CabeceraRutasTransportes_Empresa" />
         </Diagram></edmx:Diagrams>
   </edmx:Designer>

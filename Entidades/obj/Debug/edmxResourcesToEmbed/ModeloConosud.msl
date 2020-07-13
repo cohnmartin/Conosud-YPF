@@ -860,6 +860,7 @@
     <EntitySetMapping Name="Checkin">
       <EntityTypeMapping TypeName="ModeloConosud.Checkin">
         <MappingFragment StoreEntitySet="Checkin">
+          <ScalarProperty Name="CheckInValido" ColumnName="CheckInValido" />
           <ScalarProperty Name="Longitud" ColumnName="Longitud" />
           <ScalarProperty Name="Latitud" ColumnName="Latitud" />
           <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />

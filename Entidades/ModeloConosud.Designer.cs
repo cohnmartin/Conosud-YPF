@@ -2592,6 +2592,30 @@ namespace Entidades
         private global::System.String _Longitud;
         partial void OnLongitudChanging(global::System.String value);
         partial void OnLongitudChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> CheckInValido
+        {
+            get
+            {
+                return _CheckInValido;
+            }
+            set
+            {
+                OnCheckInValidoChanging(value);
+                ReportPropertyChanging("CheckInValido");
+                _CheckInValido = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CheckInValido");
+                OnCheckInValidoChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _CheckInValido;
+        partial void OnCheckInValidoChanging(Nullable<global::System.Boolean> value);
+        partial void OnCheckInValidoChanged();
 
         #endregion
 

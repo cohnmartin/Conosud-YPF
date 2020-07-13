@@ -2,7 +2,6 @@ F:\Martin\Conosud\Source Git\Conosud-YPF\Entidades\bin\Debug\Entidades.dll.confi
 F:\Martin\Conosud\Source Git\Conosud-YPF\Entidades\bin\Debug\Entidades.dll
 F:\Martin\Conosud\Source Git\Conosud-YPF\Entidades\bin\Debug\Entidades.pdb
 F:\Martin\Conosud\Source Git\Conosud-YPF\Entidades\bin\Debug\Telerik.Reporting.dll
-F:\Martin\Conosud\Source Git\Conosud-YPF\Entidades\obj\Debug\Entidades.csprojResolveAssemblyReference.cache
 F:\Martin\Conosud\Source Git\Conosud-YPF\Entidades\obj\Debug\Entidades.CredencialVehiculosEventuales.resources
 F:\Martin\Conosud\Source Git\Conosud-YPF\Entidades\obj\Debug\Entidades.CredencialVisita.resources
 F:\Martin\Conosud\Source Git\Conosud-YPF\Entidades\obj\Debug\Entidades.CredencialVehiculos.resources

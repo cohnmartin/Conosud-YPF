@@ -443,6 +443,8 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
                                   d.DetalleRuta
                               }).ToList<dynamic>();
 
+                return domicilios;
+
             }
             else
             {
@@ -452,6 +454,7 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
                               orderby d.Empresa
                               select new
                               {
+                                  d.Id,
                                   d.Linea,
                                   d.TipoTurno,
                                   d.TipoRecorrido,
@@ -462,14 +465,40 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
                                   d.TipoUnidad,
                                   d.Capacidad,
                                   d.Empresa,
-                                  d.DetalleRuta
+                                  d.DetalleRuta,
+                                  Qr = d.Empresa.Substring(0, 3) + d.TipoTurno.Substring(0, 1),
                               }).ToList<dynamic>();
 
+                List<dynamic> result = new List<dynamic>();
+
+                ws_Rutas ws = new ws_Rutas();
+                foreach (var d in domicilios)
+                {
+                    string gRes = "";
+                    ws.ToExcelIndexCol((int)d.Id, ref gRes);
+
+
+                    result.Add(new
+                    {
+                        d.Linea,
+                        d.TipoTurno,
+                        d.TipoRecorrido,
+                        d.Turno,
+                        d.HorariosSalida,
+                        d.HorariosLlegada,
+                        d.Km,
+                        d.TipoUnidad,
+                        d.Capacidad,
+                        d.Empresa,
+                        d.DetalleRuta,
+                        Qr = d.Qr + gRes
+                    });
+
+                }
+
+                return result;
+
             }
-
-            return domicilios;
-
-
         }
 
     }

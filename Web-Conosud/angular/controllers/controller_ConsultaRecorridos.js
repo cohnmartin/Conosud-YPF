@@ -1,8 +1,16 @@
 ﻿
-var myAppModule = angular.module('myApp', ['ngMaterial']);
+//var modulYPF = angular.module('conosudApp', ['ui.bootstrap', 'ngAnimate', 'ngMaterial', 'ngResource', 'common.directives']);
+//var myAppModule = angular.module('myApp', ['ngMaterial']);
 
-myAppModule.service('PageMethods', function ($http) {
+//myAppModule.service('PageMethods', function ($http) {
 
+modulYPF.config(function ($mdDateLocaleProvider) {
+    $mdDateLocaleProvider.formatDate = function (date) {
+        return moment(date).format('DD-MM-YYYY');
+    };
+});
+
+modulYPF.service('PageMethods', function ($http) {
     this.getRutas = function () {
 
         return $http({
@@ -18,7 +26,7 @@ myAppModule.service('PageMethods', function ($http) {
         return $http({
             method: 'POST',
             url: 'ws_Rutas.asmx/getRecorrido',
-            data: {ruta:"131"},
+            data: {ruta:"139"},
             contentType: 'application/json; charset=utf-8'
         });
     };
@@ -68,7 +76,7 @@ myAppModule.service('PageMethods', function ($http) {
         return $http({
             method: 'POST',
             url: 'ws_Rutas.asmx/checkIn',
-            data: { idUsuario: "267", IdRecorrido: "13", Latitud: "", Longitud: "" },
+            data: { idUsuario: "267", QRRecorrido: "ANDTEA", Latitud: "", Longitud: "" },
             contentType: 'application/json; charset=utf-8'
         });
     };
@@ -95,14 +103,29 @@ myAppModule.service('PageMethods', function ($http) {
     };
 
     
+    //checkInConsult($scope.rutasSeleccionada, $scope.fechaDesde, $scope.fechaHasta)
+    this.checkInConsult = function (IdRecorrido,Fd,Fh) {
+
+        return $http({
+            method: 'POST',
+            url: 'ws_Rutas.asmx/checkInConsult',
+            data: { FDesde: Fd, FHasta: Fh, Recorrido: IdRecorrido, Legajo: "" },
+            contentType: 'application/json; charset=utf-8'
+        });
+    };
+    
 
 });
 
-myAppModule.controller('controller_consultaRecorridos', function ($scope, $mdSidenav, PageMethods) {
+modulYPF.controller('controller_consultaRecorridos', function ($scope, $mdSidenav, PageMethods) {
 
-
+    $scope.checkInResultConsult;
     $scope.rutasDisponibles;
     $scope.rutasSeleccionadas=[];
+
+    $scope.rutasSeleccionada;
+    $scope.fechaDesde;
+    $scope.fechaHasta;
 
     $scope.toggleLeft = function (CargarRutas) {
 
@@ -175,6 +198,15 @@ myAppModule.controller('controller_consultaRecorridos', function ($scope, $mdSid
                     });
     };
 
+    $scope.getEmpresas = function () {
+
+        PageMethods.getEmpresas()
+                    .then(function (response) {
+
+                        $scope.recorrido = response.data.d;
+
+                    });
+    };
 
     $scope.updateUser = function () {
 
@@ -205,19 +237,37 @@ myAppModule.controller('controller_consultaRecorridos', function ($scope, $mdSid
 
                     });
     };
-        
-    $scope.BuscarRutasDisponibles();
-   
 
-    $scope.getEmpresas = function () {
+    $scope.exportarExcelCheckIn = function () {
 
-        PageMethods.getEmpresas()
+        document.getElementById(Constants.controlbtnExportar).click();
+
+    };
+
+    $scope.checkInConsult = function () {
+
+        if ($scope.rutasSeleccionada == undefined ||
+            $scope.fechaDesde == undefined||
+            $scope.fechaHasta == undefined)
+        {
+            alertify.error("Debe cargar TODOS los datos del filtro", 2);
+
+            //alertify.warning("Debe cargar TODOS los datos del filtro");
+            return;
+        }
+
+        PageMethods.checkInConsult($scope.rutasSeleccionada,$scope.fechaDesde,$scope.fechaHasta)
                     .then(function (response) {
 
-                        $scope.recorrido = response.data.d;
-
+                        $scope.checkInResultConsult = response.data.d;
+                        if ($scope.checkInResultConsult.length == 0)
+                            alertify.error("No se encontraron resultados con el filtro seleccionado", 2);
                     });
     };
+
+    // Metodo inicial de la pagina.    
+    $scope.BuscarRutasDisponibles();
+   
 
     //$scope.updatePassword();
     //$scope.getUsuario();
@@ -227,6 +277,6 @@ myAppModule.controller('controller_consultaRecorridos', function ($scope, $mdSid
     //$scope.checkInChofer();
     //$scope.LoginApp();
     //$scope.getEmpresas();
-    
+    //$scope.checkInConsult();
 });
 
