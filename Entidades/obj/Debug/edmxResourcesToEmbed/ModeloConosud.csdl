@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="ModeloConosud" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+<Schema Namespace="ModeloConosud" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
   <EntityContainer Name="EntidadesConosud" a:LazyLoadingEnabled="true" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
     <EntitySet Name="ArchivosAdjuntos" EntityType="ModeloConosud.ArchivosAdjuntos" />
     <EntitySet Name="CabeceraHojasDeRuta" EntityType="ModeloConosud.CabeceraHojasDeRuta" />
@@ -268,6 +268,10 @@
       <End Role="Empresa" EntitySet="Empresa" />
       <End Role="CabeceraRutasTransportes" EntitySet="CabeceraRutasTransportes" />
     </AssociationSet>
+    <AssociationSet Name="FK_DomiciliosPersonal_Empresa_Destino" Association="ModeloConosud.FK_DomiciliosPersonal_Empresa_Destino">
+      <End Role="Empresa" EntitySet="Empresa" />
+      <End Role="DomiciliosPersonal" EntitySet="DomiciliosPersonal" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="ArchivosAdjuntos">
     <Key>
@@ -406,6 +410,7 @@
     <NavigationProperty Name="VahiculosyEquipos" Relationship="ModeloConosud.FK_VahiculosyEquipos_Empresa" FromRole="Empresa" ToRole="VahiculosyEquipos" />
     <NavigationProperty Name="DomiciliosPersonal" Relationship="ModeloConosud.FK_DomiciliosPersonal_Empresa" FromRole="Empresa" ToRole="DomiciliosPersonal" />
     <NavigationProperty Name="CabeceraRutasTransportes" Relationship="ModeloConosud.FK_CabeceraRutasTransportes_Empresa" FromRole="Empresa" ToRole="CabeceraRutasTransportes" />
+    <NavigationProperty Name="DomiciliosPersonals1" Relationship="ModeloConosud.FK_DomiciliosPersonal_Empresa_Destino" FromRole="Empresa" ToRole="DomiciliosPersonal" />
   </EntityType>
   <EntityType Name="HojasDeRuta">
     <Key>
@@ -1128,6 +1133,10 @@
     <Property Name="Clave" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="RutaConCambio" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
     <Property Name="TipoServicio" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="DestinoRuta" Type="Int64" />
+    <NavigationProperty Name="objDestinoPasajero" Relationship="ModeloConosud.FK_DomiciliosPersonal_Empresa_Destino" FromRole="DomiciliosPersonal" ToRole="Empresa" />
+    <Property Name="UbicacionTrabajo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Activo" Type="Boolean" />
   </EntityType>
   <Association Name="FK_DomiciliosPersonal_CabeceraRutasTransportes">
     <End Type="ModeloConosud.CabeceraRutasTransportes" Role="CabeceraRutasTransportes" Multiplicity="0..1" />
@@ -1304,6 +1313,18 @@
         <PropertyRef Name="IdEmpresa" />
       </Principal>
       <Dependent Role="CabeceraRutasTransportes">
+        <PropertyRef Name="DestinoRuta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DomiciliosPersonal_Empresa_Destino">
+    <End Type="ModeloConosud.Empresa" Role="Empresa" Multiplicity="0..1" />
+    <End Type="ModeloConosud.DomiciliosPersonal" Role="DomiciliosPersonal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empresa">
+        <PropertyRef Name="IdEmpresa" />
+      </Principal>
+      <Dependent Role="DomiciliosPersonal">
         <PropertyRef Name="DestinoRuta" />
       </Dependent>
     </ReferentialConstraint>

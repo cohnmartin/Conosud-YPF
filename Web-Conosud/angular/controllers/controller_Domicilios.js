@@ -278,10 +278,10 @@ myAppModule.controller('controller_domicilios', function ($scope, PageMethodsDom
             if ($scope.Domicilios[i].Seleccion) {
                 if ($scope.Domicilios[i].Latitud != null || $scope.Domicilios[i].LatitudReposicion != null) {
                     if ($scope.Domicilios[i].LatitudReposicion == null) {
-                        MostrarUbicacionMapa($scope.Domicilios[i].Latitud + '', $scope.Domicilios[i].Longitud + '', $scope.Domicilios[i].Domicilio + ' ' + $scope.Domicilios[i].Distrito + ' ' + $scope.Domicilios[i].Poblacion);
+                        MostrarUbicacionMapa($scope.Domicilios[i].Latitud + '', $scope.Domicilios[i].Longitud + '', $scope.Domicilios[i].NombreLegajo + ' - ' + $scope.Domicilios[i].Domicilio + ' ' + $scope.Domicilios[i].Distrito + ' ' + $scope.Domicilios[i].Poblacion);
                     }
                     else {
-                        MostrarUbicacionMapa($scope.Domicilios[i].LatitudReposicion + '', $scope.Domicilios[i].LongitudReposicion + '', $scope.Domicilios[i].Domicilio + ' ' + $scope.Domicilios[i].Distrito + ' ' + $scope.Domicilios[i].Poblacion);
+                        MostrarUbicacionMapa($scope.Domicilios[i].LatitudReposicion + '', $scope.Domicilios[i].LongitudReposicion + '', $scope.Domicilios[i].NombreLegajo + ' - ' + $scope.Domicilios[i].Domicilio + ' ' + $scope.Domicilios[i].Distrito + ' ' + $scope.Domicilios[i].Poblacion);
                     }
                 }
             }

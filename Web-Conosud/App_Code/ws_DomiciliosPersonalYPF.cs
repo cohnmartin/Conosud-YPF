@@ -66,7 +66,10 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
                                   d.Correo,
                                   d.Telefono,
                                   d.Chofer,
-                                  d.TipoServicio
+                                  d.TipoServicio,
+                                  d.DestinoRuta,
+                                  d.UbicacionTrabajo,
+                                  d.Activo
                               }).ToList();
 
 
@@ -77,7 +80,7 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
 
             if (IdEmpresa > 0)
             {
-                datos.Add("Dom", domicilios.Where(w => w.Empresa == IdEmpresa));
+                datos.Add("Dom", domicilios.Where(w => w.DestinoRuta == IdEmpresa));
             }
             else
             {
@@ -98,7 +101,7 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
         using (EntidadesConosud dc = new EntidadesConosud())
         {
             DomiciliosPersonal current = null;
-
+            long? valorNull = null;
 
 
             if (domicilio.ContainsKey("Id"))
@@ -182,11 +185,17 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
             current.Distrito = domicilio["Distrito"].ToString();
             current.TipoTurno = domicilio.ContainsKey("TipoTurno") ? domicilio["TipoTurno"].ToString() : null;
             current.TipoServicio = domicilio.ContainsKey("TipoServicio") && domicilio["TipoServicio"] != null ? domicilio["TipoServicio"].ToString() : "";
+            current.DestinoRuta = domicilio.ContainsKey("DestinoRuta") && domicilio["DestinoRuta"] != null ? long.Parse(domicilio["DestinoRuta"].ToString()) : valorNull;
+            current.UbicacionTrabajo = domicilio.ContainsKey("UbicacionTrabajo") && domicilio["UbicacionTrabajo"] != null ? domicilio["DestinoRuta"].ToString() : "REFINERIA";
+ 
+
             current.Legajo = domicilio.ContainsKey("Legajo") ? domicilio["Legajo"].ToString() : "";
 
             current.Telefono = domicilio.ContainsKey("Telefono") && domicilio["Telefono"] != null ? domicilio["Telefono"].ToString() : "";
             current.Correo = domicilio.ContainsKey("Correo") && domicilio["Correo"] != null ? domicilio["Correo"].ToString() : "";
             current.Chofer = domicilio.ContainsKey("Chofer") && domicilio["Chofer"] != null ? bool.Parse(domicilio["Chofer"].ToString()) : false;
+            current.Activo = domicilio.ContainsKey("Activo") && domicilio["Activo"] != null ? bool.Parse(domicilio["Activo"].ToString()) : false;
+
 
 
 
@@ -373,7 +382,10 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
                                   d.TipoTurno,
                                   d.TipoServicio,
                                   LineaAsignada = d.objLineaAsignada.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignada.Linea + "-" + d.objLineaAsignada.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignada.TipoRecorrido,
-                                  LineaAsignadaVuelta = d.objLineaAsignadaVuelta.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignadaVuelta.Linea + "-" + d.objLineaAsignadaVuelta.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignadaVuelta.TipoRecorrido
+                                  LineaAsignadaVuelta = d.objLineaAsignadaVuelta.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignadaVuelta.Linea + "-" + d.objLineaAsignadaVuelta.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignadaVuelta.TipoRecorrido,
+                                  DestinoRuta =  d.objDestinoPasajero.RazonSocial,
+                                  d.UbicacionTrabajo,
+                                  Activo = d.Activo == true ? "SI": "NO"
                               }).ToList<dynamic>();
             }
             else
@@ -397,7 +409,10 @@ public class ws_DomiciliosPersonalYPF : System.Web.Services.WebService
                                   d.TipoTurno,
                                   d.TipoServicio,
                                   LineaAsignada = d.objLineaAsignada.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignada.Linea + "-" + d.objLineaAsignada.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignada.TipoRecorrido,
-                                  LineaAsignadaVuelta = d.objLineaAsignadaVuelta.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignadaVuelta.Linea + "-" + d.objLineaAsignadaVuelta.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignadaVuelta.TipoRecorrido
+                                  LineaAsignadaVuelta = d.objLineaAsignadaVuelta.Empresa.Substring(0, 3) + " - L:" + d.objLineaAsignadaVuelta.Linea + "-" + d.objLineaAsignadaVuelta.TipoTurno.Substring(0, 1) + "-" + d.objLineaAsignadaVuelta.TipoRecorrido,
+                                  DestinoRuta = d.objDestinoPasajero.RazonSocial,
+                                  d.UbicacionTrabajo,
+                                  Activo = d.Activo == true ? "SI" : "NO"
                               }).ToList<dynamic>();
 
             }

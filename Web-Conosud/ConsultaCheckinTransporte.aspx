@@ -58,6 +58,9 @@
             display: none !important;
             min-height: 0xp !important;
         }
+
+        .tableFixHead { overflow-y: auto !important; height: 300px !important; }
+
     </style>
 
     <div ng-controller="controller_consultaRecorridos">
@@ -81,7 +84,7 @@
                                  <th>
                                     <md-input-container class="md-block flex-gt-sm flat-input" >
                                         <label>Recorrido</label>
-                                        <md-select ng-model="rutasSeleccionada" class="md-no-underline" required>
+                                        <md-select ng-model="rutasSeleccionada" class="md-no-underline" >
                                           <md-option ng-repeat="ruta in rutasDisponibles" value="{{ruta.Id}}">{{ruta.Descripcion}}</md-option>
                                         </md-select>
                                      </md-input-container>
@@ -105,8 +108,8 @@
                       
                             
             </table>
-        
-                    <table id="data" class="table table-striped table-bordered table-hover table-condensed " style="font-size:11px !important;background-color:White !important;width:98% !important;" >
+        <div style="overflow-y: auto !important;height: 400px !important; ">
+                    <table id="data" class="table table-striped table-bordered table-hover table-condensed " style="font-size:11px !important;background-color:White !important;width:100% !important;" >
                         <thead>
                              <tr>
                                 <th>
@@ -154,6 +157,7 @@
                         </tbody>
                             
             </table>
-        </md-content>
+        </div>
+            </md-content>
    </div>
 </asp:Content>

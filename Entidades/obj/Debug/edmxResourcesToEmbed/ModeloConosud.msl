@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ModeloConosudStoreContainer" CdmEntityContainer="EntidadesConosud">
     <EntitySetMapping Name="ArchivosAdjuntos">
       <EntityTypeMapping TypeName="IsTypeOf(ModeloConosud.ArchivosAdjuntos)">
@@ -811,6 +811,9 @@
     <EntitySetMapping Name="DomiciliosPersonal">
       <EntityTypeMapping TypeName="ModeloConosud.DomiciliosPersonal">
         <MappingFragment StoreEntitySet="DomiciliosPersonal">
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+          <ScalarProperty Name="UbicacionTrabajo" ColumnName="UbicacionTrabajo" />
+          <ScalarProperty Name="DestinoRuta" ColumnName="DestinoRuta" />
           <ScalarProperty Name="TipoServicio" ColumnName="TipoServicio" />
           <ScalarProperty Name="RutaConCambio" ColumnName="RutaConCambio" />
           <ScalarProperty Name="Clave" ColumnName="Clave" />

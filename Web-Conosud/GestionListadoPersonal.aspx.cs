@@ -34,10 +34,20 @@ public partial class GestionListadoPersonal : System.Web.UI.Page
 
             using (EntidadesConosud dc = new EntidadesConosud())
             {
+                long IdEmpresa = 0;
+                if (HttpContext.Current.Session["TipoUsuario"].ToString() == "Cliente")
+                {
+                    IdEmpresa = long.Parse(HttpContext.Current.Session["IdEmpresaContratista"].ToString());
+                }
+
 
                 var datos = (from r in dc.CabeceraRutasTransportes
                              //where r.TipoTurno == "Temporal"
                              select r).ToList().OrderBy(r => r.Empresa);
+
+                Session.Add("Recorridos", datos.ToList());
+
+
 
                 var empresas = (from r in dc.Empresa
                                 select new
@@ -46,10 +56,9 @@ public partial class GestionListadoPersonal : System.Web.UI.Page
                                     RazonSocial = r.RazonSocial
                                 }).ToList().OrderBy(r => r.RazonSocial);
 
-                Session.Add("Recorridos", datos.ToList());
                 Session.Add("Empresas", empresas.ToList());
 
-
+         
             }
 
 
@@ -60,7 +69,8 @@ public partial class GestionListadoPersonal : System.Web.UI.Page
     [WebMethod(EnableSession = true)]
     public static object getEmpresas()
     {
-        return HttpContext.Current.Session["Empresas"];
+        
+            return HttpContext.Current.Session["Empresas"];
 
     }
 
@@ -68,17 +78,39 @@ public partial class GestionListadoPersonal : System.Web.UI.Page
     public static object getRecorridos()
     {
         int res;
-        return (from r in (HttpContext.Current.Session["Recorridos"] as List<CabeceraRutasTransportes>)
-                select new
-                {
-                    Id = r.Id,
-                    Nombre = r.Empresa + " - LINEA " + r.Linea + " - " + r.TipoTurno + " - " + r.TipoRecorrido,
-                    linea = int.TryParse(r.Linea, out res) ? Convert.ToInt32(r.Linea) : 1000,
-                    empresa = r.Empresa,
-                    NombreAbreviado = r.Empresa.Substring(0, 3) + " - L:" + r.Linea + "-" + 
-                    (r.TipoTurno.Trim().ToUpper() == "TEMPORAL" ? "TMP" : r.TipoTurno.Substring(0, 1)) + "-" + r.TipoRecorrido
-                }).ToList().OrderBy(w => w.empresa).ThenBy(w => w.linea);
+        long IdEmpresa = 0;
+        if (HttpContext.Current.Session["TipoUsuario"].ToString() == "Cliente")
+        {
+            IdEmpresa = long.Parse(HttpContext.Current.Session["IdEmpresaContratista"].ToString());
+        }
 
+        if (IdEmpresa == 0)
+        {
+            return (from r in (HttpContext.Current.Session["Recorridos"] as List<CabeceraRutasTransportes>)
+                    select new
+                    {
+                        Id = r.Id,
+                        Nombre = r.Empresa + " - LINEA " + r.Linea + " - " + r.TipoTurno + " - " + r.TipoRecorrido,
+                        linea = int.TryParse(r.Linea, out res) ? Convert.ToInt32(r.Linea) : 1000,
+                        empresa = r.Empresa,
+                        NombreAbreviado = r.Empresa.Substring(0, 3) + " - L:" + r.Linea + "-" +
+                        (r.TipoTurno.Trim().ToUpper() == "TEMPORAL" ? "TMP" : r.TipoTurno.Substring(0, 1)) + "-" + r.TipoRecorrido
+                    }).ToList().OrderBy(w => w.empresa).ThenBy(w => w.linea);
+        }
+        else
+        {
+            return (from r in (HttpContext.Current.Session["Recorridos"] as List<CabeceraRutasTransportes>)
+                    where r.DestinoRuta == IdEmpresa
+                    select new
+                    {
+                        Id = r.Id,
+                        Nombre = r.Empresa + " - LINEA " + r.Linea + " - " + r.TipoTurno + " - " + r.TipoRecorrido,
+                        linea = int.TryParse(r.Linea, out res) ? Convert.ToInt32(r.Linea) : 1000,
+                        empresa = r.Empresa,
+                        NombreAbreviado = r.Empresa.Substring(0, 3) + " - L:" + r.Linea + "-" +
+                        (r.TipoTurno.Trim().ToUpper() == "TEMPORAL" ? "TMP" : r.TipoTurno.Substring(0, 1)) + "-" + r.TipoRecorrido
+                    }).ToList().OrderBy(w => w.empresa).ThenBy(w => w.linea);
+        }
 
     }
 }

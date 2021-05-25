@@ -73,7 +73,8 @@ public partial class ConsultaRecorridosTransportes : System.Web.UI.Page
                              where ids.Contains(c.Id)
                              select new
                              {
-                                 recorrido = c.RutasTransportes.Select(w => new { w.Latitud, w.Longitud }),
+                                 /// Es importante que los puntos de las rutas vengan ordenas siempre igual.-
+                                 recorrido = c.RutasTransportes.OrderBy(w=>w.Id).Select(w => new { w.Latitud, w.Longitud }),
                                  c.Empresa,
                                  Horario = c.HorariosSalida + " - " + c.HorariosLlegada,
                                  TipoRecorrido = "IDA",

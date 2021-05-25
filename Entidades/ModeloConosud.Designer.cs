@@ -77,6 +77,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("ModeloConosud", "FK_VehiculosYPF_TipoVehiculo", "Clasificacion", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Entidades.Clasificacion), "VehiculosYPF", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Entidades.VehiculosYPF), true)]
 [assembly: EdmRelationshipAttribute("ModeloConosud", "FK_SeguimientoAuditoria_Clasificacion11", "Clasificacion", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Entidades.Clasificacion), "SeguimientoAuditoria", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Entidades.SeguimientoAuditoria), true)]
 [assembly: EdmRelationshipAttribute("ModeloConosud", "FK_CabeceraRutasTransportes_Empresa", "Empresa", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Entidades.Empresa), "CabeceraRutasTransportes", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Entidades.CabeceraRutasTransportes), true)]
+[assembly: EdmRelationshipAttribute("ModeloConosud", "FK_DomiciliosPersonal_Empresa_Destino", "Empresa", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Entidades.Empresa), "DomiciliosPersonal", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Entidades.DomiciliosPersonal), true)]
 
 #endregion
 
@@ -1007,7 +1008,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -1026,7 +1027,7 @@ namespace Entidades
                 {
                     OnIdArchivoAdjuntoChanging(value);
                     ReportPropertyChanging("IdArchivoAdjunto");
-                    _IdArchivoAdjunto = StructuralObject.SetValidValue(value);
+                    _IdArchivoAdjunto = StructuralObject.SetValidValue(value, "IdArchivoAdjunto");
                     ReportPropertyChanged("IdArchivoAdjunto");
                     OnIdArchivoAdjuntoChanged();
                 }
@@ -1051,7 +1052,7 @@ namespace Entidades
             {
                 OnNombreArchivoChanging(value);
                 ReportPropertyChanging("NombreArchivo");
-                _NombreArchivo = StructuralObject.SetValidValue(value, false);
+                _NombreArchivo = StructuralObject.SetValidValue(value, false, "NombreArchivo");
                 ReportPropertyChanged("NombreArchivo");
                 OnNombreArchivoChanged();
             }
@@ -1075,7 +1076,7 @@ namespace Entidades
             {
                 OnFechaAdjuntoChanging(value);
                 ReportPropertyChanging("FechaAdjunto");
-                _FechaAdjunto = StructuralObject.SetValidValue(value);
+                _FechaAdjunto = StructuralObject.SetValidValue(value, "FechaAdjunto");
                 ReportPropertyChanged("FechaAdjunto");
                 OnFechaAdjuntoChanged();
             }
@@ -1086,7 +1087,6 @@ namespace Entidades
 
         #endregion
 
-    
         #region Propiedades de navegación
     
         /// <summary>
@@ -1154,7 +1154,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -1173,7 +1173,7 @@ namespace Entidades
                 {
                     OnIdArchivoSueldosChanging(value);
                     ReportPropertyChanging("IdArchivoSueldos");
-                    _IdArchivoSueldos = StructuralObject.SetValidValue(value);
+                    _IdArchivoSueldos = StructuralObject.SetValidValue(value, "IdArchivoSueldos");
                     ReportPropertyChanged("IdArchivoSueldos");
                     OnIdArchivoSueldosChanged();
                 }
@@ -1198,7 +1198,7 @@ namespace Entidades
             {
                 OnNombreChanging(value);
                 ReportPropertyChanging("Nombre");
-                _Nombre = StructuralObject.SetValidValue(value, true);
+                _Nombre = StructuralObject.SetValidValue(value, true, "Nombre");
                 ReportPropertyChanged("Nombre");
                 OnNombreChanged();
             }
@@ -1222,7 +1222,7 @@ namespace Entidades
             {
                 OnFechaCreacionChanging(value);
                 ReportPropertyChanging("FechaCreacion");
-                _FechaCreacion = StructuralObject.SetValidValue(value);
+                _FechaCreacion = StructuralObject.SetValidValue(value, "FechaCreacion");
                 ReportPropertyChanged("FechaCreacion");
                 OnFechaCreacionChanged();
             }
@@ -1233,7 +1233,6 @@ namespace Entidades
 
         #endregion
 
-    
         #region Propiedades de navegación
     
         /// <summary>
@@ -1327,7 +1326,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -1346,7 +1345,7 @@ namespace Entidades
                 {
                     OnIdCabeceraHojasDeRutaChanging(value);
                     ReportPropertyChanging("IdCabeceraHojasDeRuta");
-                    _IdCabeceraHojasDeRuta = StructuralObject.SetValidValue(value);
+                    _IdCabeceraHojasDeRuta = StructuralObject.SetValidValue(value, "IdCabeceraHojasDeRuta");
                     ReportPropertyChanged("IdCabeceraHojasDeRuta");
                     OnIdCabeceraHojasDeRutaChanged();
                 }
@@ -1371,7 +1370,7 @@ namespace Entidades
             {
                 OnFechaAprobacionChanging(value);
                 ReportPropertyChanging("FechaAprobacion");
-                _FechaAprobacion = StructuralObject.SetValidValue(value);
+                _FechaAprobacion = StructuralObject.SetValidValue(value, "FechaAprobacion");
                 ReportPropertyChanged("FechaAprobacion");
                 OnFechaAprobacionChanged();
             }
@@ -1395,7 +1394,7 @@ namespace Entidades
             {
                 OnPeriodoChanging(value);
                 ReportPropertyChanging("Periodo");
-                _Periodo = StructuralObject.SetValidValue(value);
+                _Periodo = StructuralObject.SetValidValue(value, "Periodo");
                 ReportPropertyChanged("Periodo");
                 OnPeriodoChanged();
             }
@@ -1419,7 +1418,7 @@ namespace Entidades
             {
                 OnNroCarpetaChanging(value);
                 ReportPropertyChanging("NroCarpeta");
-                _NroCarpeta = StructuralObject.SetValidValue(value);
+                _NroCarpeta = StructuralObject.SetValidValue(value, "NroCarpeta");
                 ReportPropertyChanged("NroCarpeta");
                 OnNroCarpetaChanged();
             }
@@ -1443,7 +1442,7 @@ namespace Entidades
             {
                 OnPublicarChanging(value);
                 ReportPropertyChanging("Publicar");
-                _Publicar = StructuralObject.SetValidValue(value);
+                _Publicar = StructuralObject.SetValidValue(value, "Publicar");
                 ReportPropertyChanged("Publicar");
                 OnPublicarChanged();
             }
@@ -1467,7 +1466,7 @@ namespace Entidades
             {
                 OnEstimacionChanging(value);
                 ReportPropertyChanging("Estimacion");
-                _Estimacion = StructuralObject.SetValidValue(value, true);
+                _Estimacion = StructuralObject.SetValidValue(value, true, "Estimacion");
                 ReportPropertyChanged("Estimacion");
                 OnEstimacionChanged();
             }
@@ -1491,7 +1490,7 @@ namespace Entidades
             {
                 OnFechaEstimacionChanging(value);
                 ReportPropertyChanging("FechaEstimacion");
-                _FechaEstimacion = StructuralObject.SetValidValue(value);
+                _FechaEstimacion = StructuralObject.SetValidValue(value, "FechaEstimacion");
                 ReportPropertyChanged("FechaEstimacion");
                 OnFechaEstimacionChanged();
             }
@@ -1515,7 +1514,7 @@ namespace Entidades
             {
                 OnFechaAprobacionSinLegajosChanging(value);
                 ReportPropertyChanging("FechaAprobacionSinLegajos");
-                _FechaAprobacionSinLegajos = StructuralObject.SetValidValue(value);
+                _FechaAprobacionSinLegajos = StructuralObject.SetValidValue(value, "FechaAprobacionSinLegajos");
                 ReportPropertyChanged("FechaAprobacionSinLegajos");
                 OnFechaAprobacionSinLegajosChanged();
             }
@@ -1539,7 +1538,7 @@ namespace Entidades
             {
                 OnPresentoSueldoChanging(value);
                 ReportPropertyChanging("PresentoSueldo");
-                _PresentoSueldo = StructuralObject.SetValidValue(value);
+                _PresentoSueldo = StructuralObject.SetValidValue(value, "PresentoSueldo");
                 ReportPropertyChanged("PresentoSueldo");
                 OnPresentoSueldoChanged();
             }
@@ -1563,7 +1562,7 @@ namespace Entidades
             {
                 OnEsFueraTerminoChanging(value);
                 ReportPropertyChanging("EsFueraTermino");
-                _EsFueraTermino = StructuralObject.SetValidValue(value);
+                _EsFueraTermino = StructuralObject.SetValidValue(value, "EsFueraTermino");
                 ReportPropertyChanged("EsFueraTermino");
                 OnEsFueraTerminoChanged();
             }
@@ -1587,7 +1586,7 @@ namespace Entidades
             {
                 OnFechaUltimaPubicacionChanging(value);
                 ReportPropertyChanging("FechaUltimaPubicacion");
-                _FechaUltimaPubicacion = StructuralObject.SetValidValue(value);
+                _FechaUltimaPubicacion = StructuralObject.SetValidValue(value, "FechaUltimaPubicacion");
                 ReportPropertyChanged("FechaUltimaPubicacion");
                 OnFechaUltimaPubicacionChanged();
             }
@@ -1611,7 +1610,7 @@ namespace Entidades
             {
                 OnEstadoAlCierreChanging(value);
                 ReportPropertyChanging("EstadoAlCierre");
-                _EstadoAlCierre = StructuralObject.SetValidValue(value, true);
+                _EstadoAlCierre = StructuralObject.SetValidValue(value, true, "EstadoAlCierre");
                 ReportPropertyChanged("EstadoAlCierre");
                 OnEstadoAlCierreChanged();
             }
@@ -1622,7 +1621,6 @@ namespace Entidades
 
         #endregion
 
-    
         #region Propiedades de navegación
     
         /// <summary>
@@ -1832,7 +1830,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -1851,7 +1849,7 @@ namespace Entidades
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -1876,7 +1874,7 @@ namespace Entidades
             {
                 OnEmpresaChanging(value);
                 ReportPropertyChanging("Empresa");
-                _Empresa = StructuralObject.SetValidValue(value, true);
+                _Empresa = StructuralObject.SetValidValue(value, true, "Empresa");
                 ReportPropertyChanged("Empresa");
                 OnEmpresaChanged();
             }
@@ -1900,7 +1898,7 @@ namespace Entidades
             {
                 OnLineaChanging(value);
                 ReportPropertyChanging("Linea");
-                _Linea = StructuralObject.SetValidValue(value, true);
+                _Linea = StructuralObject.SetValidValue(value, true, "Linea");
                 ReportPropertyChanged("Linea");
                 OnLineaChanged();
             }
@@ -1924,7 +1922,7 @@ namespace Entidades
             {
                 OnTurnoChanging(value);
                 ReportPropertyChanging("Turno");
-                _Turno = StructuralObject.SetValidValue(value, true);
+                _Turno = StructuralObject.SetValidValue(value, true, "Turno");
                 ReportPropertyChanged("Turno");
                 OnTurnoChanged();
             }
@@ -1948,7 +1946,7 @@ namespace Entidades
             {
                 OnTipoUnidadChanging(value);
                 ReportPropertyChanging("TipoUnidad");
-                _TipoUnidad = StructuralObject.SetValidValue(value, true);
+                _TipoUnidad = StructuralObject.SetValidValue(value, true, "TipoUnidad");
                 ReportPropertyChanged("TipoUnidad");
                 OnTipoUnidadChanged();
             }
@@ -1972,7 +1970,7 @@ namespace Entidades
             {
                 OnHorariosSalidaChanging(value);
                 ReportPropertyChanging("HorariosSalida");
-                _HorariosSalida = StructuralObject.SetValidValue(value, true);
+                _HorariosSalida = StructuralObject.SetValidValue(value, true, "HorariosSalida");
                 ReportPropertyChanged("HorariosSalida");
                 OnHorariosSalidaChanged();
             }
@@ -1996,7 +1994,7 @@ namespace Entidades
             {
                 OnHorariosLlegadaChanging(value);
                 ReportPropertyChanging("HorariosLlegada");
-                _HorariosLlegada = StructuralObject.SetValidValue(value, true);
+                _HorariosLlegada = StructuralObject.SetValidValue(value, true, "HorariosLlegada");
                 ReportPropertyChanged("HorariosLlegada");
                 OnHorariosLlegadaChanged();
             }
@@ -2020,7 +2018,7 @@ namespace Entidades
             {
                 OnTipoRecorridoChanging(value);
                 ReportPropertyChanging("TipoRecorrido");
-                _TipoRecorrido = StructuralObject.SetValidValue(value, true);
+                _TipoRecorrido = StructuralObject.SetValidValue(value, true, "TipoRecorrido");
                 ReportPropertyChanged("TipoRecorrido");
                 OnTipoRecorridoChanged();
             }
@@ -2044,7 +2042,7 @@ namespace Entidades
             {
                 OnTipoTurnoChanging(value);
                 ReportPropertyChanging("TipoTurno");
-                _TipoTurno = StructuralObject.SetValidValue(value, true);
+                _TipoTurno = StructuralObject.SetValidValue(value, true, "TipoTurno");
                 ReportPropertyChanged("TipoTurno");
                 OnTipoTurnoChanged();
             }
@@ -2068,7 +2066,7 @@ namespace Entidades
             {
                 OnKmChanging(value);
                 ReportPropertyChanging("Km");
-                _Km = StructuralObject.SetValidValue(value);
+                _Km = StructuralObject.SetValidValue(value, "Km");
                 ReportPropertyChanged("Km");
                 OnKmChanged();
             }
@@ -2092,7 +2090,7 @@ namespace Entidades
             {
                 OnDetalleRutaChanging(value);
                 ReportPropertyChanging("DetalleRuta");
-                _DetalleRuta = StructuralObject.SetValidValue(value, true);
+                _DetalleRuta = StructuralObject.SetValidValue(value, true, "DetalleRuta");
                 ReportPropertyChanged("DetalleRuta");
                 OnDetalleRutaChanged();
             }
@@ -2116,7 +2114,7 @@ namespace Entidades
             {
                 OnCapacidadChanging(value);
                 ReportPropertyChanging("Capacidad");
-                _Capacidad = StructuralObject.SetValidValue(value);
+                _Capacidad = StructuralObject.SetValidValue(value, "Capacidad");
                 ReportPropertyChanged("Capacidad");
                 OnCapacidadChanged();
             }
@@ -2140,7 +2138,7 @@ namespace Entidades
             {
                 OnDestinoRutaChanging(value);
                 ReportPropertyChanging("DestinoRuta");
-                _DestinoRuta = StructuralObject.SetValidValue(value);
+                _DestinoRuta = StructuralObject.SetValidValue(value, "DestinoRuta");
                 ReportPropertyChanged("DestinoRuta");
                 OnDestinoRutaChanged();
             }
@@ -2151,7 +2149,6 @@ namespace Entidades
 
         #endregion
 
-    
         #region Propiedades de navegación
     
         /// <summary>
@@ -2285,7 +2282,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -2304,7 +2301,7 @@ namespace Entidades
                 {
                     OnIdCategoriaChanging(value);
                     ReportPropertyChanging("IdCategoria");
-                    _IdCategoria = StructuralObject.SetValidValue(value);
+                    _IdCategoria = StructuralObject.SetValidValue(value, "IdCategoria");
                     ReportPropertyChanged("IdCategoria");
                     OnIdCategoriaChanged();
                 }
@@ -2329,7 +2326,7 @@ namespace Entidades
             {
                 OnNombreChanging(value);
                 ReportPropertyChanging("Nombre");
-                _Nombre = StructuralObject.SetValidValue(value, true);
+                _Nombre = StructuralObject.SetValidValue(value, true, "Nombre");
                 ReportPropertyChanged("Nombre");
                 OnNombreChanged();
             }
@@ -2353,7 +2350,7 @@ namespace Entidades
             {
                 OnDescripcionChanging(value);
                 ReportPropertyChanging("Descripcion");
-                _Descripcion = StructuralObject.SetValidValue(value, true);
+                _Descripcion = StructuralObject.SetValidValue(value, true, "Descripcion");
                 ReportPropertyChanged("Descripcion");
                 OnDescripcionChanged();
             }
@@ -2377,7 +2374,7 @@ namespace Entidades
             {
                 OnDialimitepresentacionChanging(value);
                 ReportPropertyChanging("Dialimitepresentacion");
-                _Dialimitepresentacion = StructuralObject.SetValidValue(value);
+                _Dialimitepresentacion = StructuralObject.SetValidValue(value, "Dialimitepresentacion");
                 ReportPropertyChanged("Dialimitepresentacion");
                 OnDialimitepresentacionChanged();
             }
@@ -2388,7 +2385,6 @@ namespace Entidades
 
         #endregion
 
-    
         #region Propiedades de navegación
     
         /// <summary>
@@ -2444,7 +2440,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -2463,7 +2459,7 @@ namespace Entidades
                 {
                     OnIdcheckinChanging(value);
                     ReportPropertyChanging("Idcheckin");
-                    _Idcheckin = StructuralObject.SetValidValue(value);
+                    _Idcheckin = StructuralObject.SetValidValue(value, "Idcheckin");
                     ReportPropertyChanged("Idcheckin");
                     OnIdcheckinChanged();
                 }
@@ -2488,7 +2484,7 @@ namespace Entidades
             {
                 OnIdUsuarioChanging(value);
                 ReportPropertyChanging("IdUsuario");
-                _IdUsuario = StructuralObject.SetValidValue(value);
+                _IdUsuario = StructuralObject.SetValidValue(value, "IdUsuario");
                 ReportPropertyChanged("IdUsuario");
                 OnIdUsuarioChanged();
             }
@@ -2512,7 +2508,7 @@ namespace Entidades
             {
                 OnIdRecorridoChanging(value);
                 ReportPropertyChanging("IdRecorrido");
-                _IdRecorrido = StructuralObject.SetValidValue(value);
+                _IdRecorrido = StructuralObject.SetValidValue(value, "IdRecorrido");
                 ReportPropertyChanged("IdRecorrido");
                 OnIdRecorridoChanged();
             }
@@ -2536,7 +2532,7 @@ namespace Entidades
             {
                 OnFechaHoraChanging(value);
                 ReportPropertyChanging("FechaHora");
-                _FechaHora = StructuralObject.SetValidValue(value);
+                _FechaHora = StructuralObject.SetValidValue(value, "FechaHora");
                 ReportPropertyChanged("FechaHora");
                 OnFechaHoraChanged();
             }
@@ -2560,7 +2556,7 @@ namespace Entidades
             {
                 OnLatitudChanging(value);
                 ReportPropertyChanging("Latitud");
-                _Latitud = StructuralObject.SetValidValue(value, true);
+                _Latitud = StructuralObject.SetValidValue(value, true, "Latitud");
                 ReportPropertyChanged("Latitud");
                 OnLatitudChanged();
             }
@@ -2584,7 +2580,7 @@ namespace Entidades
             {
                 OnLongitudChanging(value);
                 ReportPropertyChanging("Longitud");
-                _Longitud = StructuralObject.SetValidValue(value, true);
+                _Longitud = StructuralObject.SetValidValue(value, true, "Longitud");
                 ReportPropertyChanged("Longitud");
                 OnLongitudChanged();
             }
@@ -2608,7 +2604,7 @@ namespace Entidades
             {
                 OnCheckInValidoChanging(value);
                 ReportPropertyChanging("CheckInValido");
-                _CheckInValido = StructuralObject.SetValidValue(value);
+                _CheckInValido = StructuralObject.SetValidValue(value, "CheckInValido");
                 ReportPropertyChanged("CheckInValido");
                 OnCheckInValidoChanged();
             }
@@ -2619,7 +2615,6 @@ namespace Entidades
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -2645,7 +2640,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -2664,7 +2659,7 @@ namespace Entidades
                 {
                     OnIdClasificacionChanging(value);
                     ReportPropertyChanging("IdClasificacion");
-                    _IdClasificacion = StructuralObject.SetValidValue(value);
+                    _IdClasificacion = StructuralObject.SetValidValue(value, "IdClasificacion");
                     ReportPropertyChanged("IdClasificacion");
                     OnIdClasificacionChanged();
                 }
@@ -2689,7 +2684,7 @@ namespace Entidades
             {
                 OnDescripcionChanging(value);
                 ReportPropertyChanging("Descripcion");
-                _Descripcion = StructuralObject.SetValidValue(value, true);
+                _Descripcion = StructuralObject.SetValidValue(value, true, "Descripcion");
                 ReportPropertyChanged("Descripcion");
                 OnDescripcionChanged();
             }
@@ -2713,7 +2708,7 @@ namespace Entidades
             {
                 OnCodigoChanging(value);
                 ReportPropertyChanging("Codigo");
-                _Codigo = StructuralObject.SetValidValue(value, true);
+                _Codigo = StructuralObject.SetValidValue(value, true, "Codigo");
                 ReportPropertyChanged("Codigo");
                 OnCodigoChanged();
             }
@@ -2737,7 +2732,7 @@ namespace Entidades
             {
                 OnTipoChanging(value);
                 ReportPropertyChanging("Tipo");
-                _Tipo = StructuralObject.SetValidValue(value, true);
+                _Tipo = StructuralObject.SetValidValue(value, true, "Tipo");
                 ReportPropertyChanged("Tipo");
                 OnTipoChanged();
             }
@@ -2748,7 +2743,6 @@ namespace Entidades
 
         #endregion
 
-    
         #region Propiedades de navegación
     
         /// <summary>
@@ -3300,7 +3294,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -3319,7 +3313,7 @@ namespace Entidades
                 {
                     OnIdComentarioGralChanging(value);
                     ReportPropertyChanging("IdComentarioGral");
-                    _IdComentarioGral = StructuralObject.SetValidValue(value);
+                    _IdComentarioGral = StructuralObject.SetValidValue(value, "IdComentarioGral");
                     ReportPropertyChanged("IdComentarioGral");
                     OnIdComentarioGralChanged();
                 }
@@ -3344,7 +3338,7 @@ namespace Entidades
             {
                 OnComentarioChanging(value);
                 ReportPropertyChanging("Comentario");
-                _Comentario = StructuralObject.SetValidValue(value, true);
+                _Comentario = StructuralObject.SetValidValue(value, true, "Comentario");
                 ReportPropertyChanged("Comentario");
                 OnComentarioChanged();
             }
@@ -3355,7 +3349,6 @@ namespace Entidades
 
         #endregion
 
-    
         #region Propiedades de navegación
     
         /// <summary>
@@ -3461,7 +3454,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -3480,7 +3473,7 @@ namespace Entidades
                 {
                     OnIdContEmpLegajosChanging(value);
                     ReportPropertyChanging("IdContEmpLegajos");
-                    _IdContEmpLegajos = StructuralObject.SetValidValue(value);
+                    _IdContEmpLegajos = StructuralObject.SetValidValue(value, "IdContEmpLegajos");
                     ReportPropertyChanged("IdContEmpLegajos");
                     OnIdContEmpLegajosChanged();
                 }
@@ -3505,7 +3498,7 @@ namespace Entidades
             {
                 OnPresentoSueldoChanging(value);
                 ReportPropertyChanging("PresentoSueldo");
-                _PresentoSueldo = StructuralObject.SetValidValue(value);
+                _PresentoSueldo = StructuralObject.SetValidValue(value, "PresentoSueldo");
                 ReportPropertyChanged("PresentoSueldo");
                 OnPresentoSueldoChanged();
             }
@@ -3529,7 +3522,7 @@ namespace Entidades
             {
                 OnFechaTramiteBajaChanging(value);
                 ReportPropertyChanging("FechaTramiteBaja");
-                _FechaTramiteBaja = StructuralObject.SetValidValue(value);
+                _FechaTramiteBaja = StructuralObject.SetValidValue(value, "FechaTramiteBaja");
                 ReportPropertyChanged("FechaTramiteBaja");
                 OnFechaTramiteBajaChanged();
             }
@@ -3540,7 +3533,6 @@ namespace Entidades
 
         #endregion
 
-    
         #region Propiedades de navegación
     
         /// <summary>
@@ -3684,7 +3676,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -3703,7 +3695,7 @@ namespace Entidades
                 {
                     OnIdContratoChanging(value);
                     ReportPropertyChanging("IdContrato");
-                    _IdContrato = StructuralObject.SetValidValue(value);
+                    _IdContrato = StructuralObject.SetValidValue(value, "IdContrato");
                     ReportPropertyChanged("IdContrato");
                     OnIdContratoChanged();
                 }
@@ -3728,7 +3720,7 @@ namespace Entidades
             {
                 OnCodigoChanging(value);
                 ReportPropertyChanging("Codigo");
-                _Codigo = StructuralObject.SetValidValue(value, true);
+                _Codigo = StructuralObject.SetValidValue(value, true, "Codigo");
                 ReportPropertyChanged("Codigo");
                 OnCodigoChanged();
             }
@@ -3752,7 +3744,7 @@ namespace Entidades
             {
                 OnServicioChanging(value);
                 ReportPropertyChanging("Servicio");
-                _Servicio = StructuralObject.SetValidValue(value, true);
+                _Servicio = StructuralObject.SetValidValue(value, true, "Servicio");
                 ReportPropertyChanged("Servicio");
                 OnServicioChanged();
             }
@@ -3776,7 +3768,7 @@ namespace Entidades
             {
                 OnFechaInicioChanging(value);
                 ReportPropertyChanging("FechaInicio");
-                _FechaInicio = StructuralObject.SetValidValue(value);
+                _FechaInicio = StructuralObject.SetValidValue(value, "FechaInicio");
                 ReportPropertyChanged("FechaInicio");
                 OnFechaInicioChanged();
             }
@@ -3800,7 +3792,7 @@ namespace Entidades
             {
                 OnFechaVencimientoChanging(value);
                 ReportPropertyChanging("FechaVencimiento");
-                _FechaVencimiento = StructuralObject.SetValidValue(value);
+                _FechaVencimiento = StructuralObject.SetValidValue(value, "FechaVencimiento");
                 ReportPropertyChanged("FechaVencimiento");
                 OnFechaVencimientoChanged();
             }
@@ -3824,7 +3816,7 @@ namespace Entidades
             {
                 OnProrrogaChanging(value);
                 ReportPropertyChanging("Prorroga");
-                _Prorroga = StructuralObject.SetValidValue(value);
+                _Prorroga = StructuralObject.SetValidValue(value, "Prorroga");
                 ReportPropertyChanged("Prorroga");
                 OnProrrogaChanged();
             }
@@ -3835,7 +3827,6 @@ namespace Entidades
 
         #endregion
 
-    
         #region Propiedades de navegación
     
         /// <summary>
@@ -4045,7 +4036,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -4064,7 +4055,7 @@ namespace Entidades
                 {
                     OnIdContratoEmpresasChanging(value);
                     ReportPropertyChanging("IdContratoEmpresas");
-                    _IdContratoEmpresas = StructuralObject.SetValidValue(value);
+                    _IdContratoEmpresas = StructuralObject.SetValidValue(value, "IdContratoEmpresas");
                     ReportPropertyChanged("IdContratoEmpresas");
                     OnIdContratoEmpresasChanged();
                 }
@@ -4089,7 +4080,7 @@ namespace Entidades
             {
                 OnEsContratistaChanging(value);
                 ReportPropertyChanging("EsContratista");
-                _EsContratista = StructuralObject.SetValidValue(value);
+                _EsContratista = StructuralObject.SetValidValue(value, "EsContratista");
                 ReportPropertyChanged("EsContratista");
                 OnEsContratistaChanged();
             }
@@ -4113,7 +4104,7 @@ namespace Entidades
             {
                 OnComentarioChanging(value);
                 ReportPropertyChanging("Comentario");
-                _Comentario = StructuralObject.SetValidValue(value, true);
+                _Comentario = StructuralObject.SetValidValue(value, true, "Comentario");
                 ReportPropertyChanged("Comentario");
                 OnComentarioChanged();
             }
@@ -4124,7 +4115,6 @@ namespace Entidades
 
         #endregion
 
-    
         #region Propiedades de navegación
     
         /// <summary>
@@ -4320,7 +4310,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -4337,7 +4327,7 @@ namespace Entidades
             {
                 OnCodigoChanging(value);
                 ReportPropertyChanging("Codigo");
-                _Codigo = StructuralObject.SetValidValue(value, true);
+                _Codigo = StructuralObject.SetValidValue(value, true, "Codigo");
                 ReportPropertyChanged("Codigo");
                 OnCodigoChanged();
             }
@@ -4361,7 +4351,7 @@ namespace Entidades
             {
                 OnServicioChanging(value);
                 ReportPropertyChanging("Servicio");
-                _Servicio = StructuralObject.SetValidValue(value, true);
+                _Servicio = StructuralObject.SetValidValue(value, true, "Servicio");
                 ReportPropertyChanged("Servicio");
                 OnServicioChanged();
             }
@@ -4385,7 +4375,7 @@ namespace Entidades
             {
                 OnFechaInicioChanging(value);
                 ReportPropertyChanging("FechaInicio");
-                _FechaInicio = StructuralObject.SetValidValue(value, true);
+                _FechaInicio = StructuralObject.SetValidValue(value, true, "FechaInicio");
                 ReportPropertyChanged("FechaInicio");
                 OnFechaInicioChanged();
             }
@@ -4409,7 +4399,7 @@ namespace Entidades
             {
                 OnFechaVencimientoChanging(value);
                 ReportPropertyChanging("FechaVencimiento");
-                _FechaVencimiento = StructuralObject.SetValidValue(value, true);
+                _FechaVencimiento = StructuralObject.SetValidValue(value, true, "FechaVencimiento");
                 ReportPropertyChanged("FechaVencimiento");
                 OnFechaVencimientoChanged();
             }
@@ -4433,7 +4423,7 @@ namespace Entidades
             {
                 OnProrrogaChanging(value);
                 ReportPropertyChanging("Prorroga");
-                _Prorroga = StructuralObject.SetValidValue(value);
+                _Prorroga = StructuralObject.SetValidValue(value, "Prorroga");
                 ReportPropertyChanged("Prorroga");
                 OnProrrogaChanged();
             }
@@ -4457,7 +4447,7 @@ namespace Entidades
             {
                 OnTipoContratoChanging(value);
                 ReportPropertyChanging("TipoContrato");
-                _TipoContrato = StructuralObject.SetValidValue(value, true);
+                _TipoContrato = StructuralObject.SetValidValue(value, true, "TipoContrato");
                 ReportPropertyChanged("TipoContrato");
                 OnTipoContratoChanged();
             }
@@ -4481,7 +4471,7 @@ namespace Entidades
             {
                 OnContratadoPorChanging(value);
                 ReportPropertyChanging("ContratadoPor");
-                _ContratadoPor = StructuralObject.SetValidValue(value, true);
+                _ContratadoPor = StructuralObject.SetValidValue(value, true, "ContratadoPor");
                 ReportPropertyChanged("ContratadoPor");
                 OnContratadoPorChanged();
             }
@@ -4505,7 +4495,7 @@ namespace Entidades
             {
                 OnCUIT_FKChanging(value);
                 ReportPropertyChanging("CUIT_FK");
-                _CUIT_FK = StructuralObject.SetValidValue(value, false);
+                _CUIT_FK = StructuralObject.SetValidValue(value, false, "CUIT_FK");
                 ReportPropertyChanged("CUIT_FK");
                 OnCUIT_FKChanged();
             }
@@ -4531,7 +4521,7 @@ namespace Entidades
                 {
                     OnIDChanging(value);
                     ReportPropertyChanging("ID");
-                    _ID = StructuralObject.SetValidValue(value);
+                    _ID = StructuralObject.SetValidValue(value, "ID");
                     ReportPropertyChanged("ID");
                     OnIDChanged();
                 }
@@ -4543,7 +4533,6 @@ namespace Entidades
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -4569,7 +4558,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -4588,7 +4577,7 @@ namespace Entidades
                 {
                     OnIdDatosSueldosChanging(value);
                     ReportPropertyChanging("IdDatosSueldos");
-                    _IdDatosSueldos = StructuralObject.SetValidValue(value);
+                    _IdDatosSueldos = StructuralObject.SetValidValue(value, "IdDatosSueldos");
                     ReportPropertyChanged("IdDatosSueldos");
                     OnIdDatosSueldosChanged();
                 }
@@ -4613,7 +4602,7 @@ namespace Entidades
             {
                 OnPeriodoChanging(value);
                 ReportPropertyChanging("Periodo");
-                _Periodo = StructuralObject.SetValidValue(value);
+                _Periodo = StructuralObject.SetValidValue(value, "Periodo");
                 ReportPropertyChanged("Periodo");
                 OnPeriodoChanged();
             }
@@ -4637,7 +4626,7 @@ namespace Entidades
             {
                 OnBasico_ValorHoraChanging(value);
                 ReportPropertyChanging("Basico_ValorHora");
-                _Basico_ValorHora = StructuralObject.SetValidValue(value);
+                _Basico_ValorHora = StructuralObject.SetValidValue(value, "Basico_ValorHora");
                 ReportPropertyChanged("Basico_ValorHora");
                 OnBasico_ValorHoraChanged();
             }
@@ -4661,7 +4650,7 @@ namespace Entidades
             {
                 OnBasicoLiquidadoChanging(value);
                 ReportPropertyChanging("BasicoLiquidado");
-                _BasicoLiquidado = StructuralObject.SetValidValue(value);
+                _BasicoLiquidado = StructuralObject.SetValidValue(value, "BasicoLiquidado");
                 ReportPropertyChanged("BasicoLiquidado");
                 OnBasicoLiquidadoChanged();
             }
@@ -4685,7 +4674,7 @@ namespace Entidades
             {
                 OnHorasExtrasChanging(value);
                 ReportPropertyChanging("HorasExtras");
-                _HorasExtras = StructuralObject.SetValidValue(value);
+                _HorasExtras = StructuralObject.SetValidValue(value, "HorasExtras");
                 ReportPropertyChanged("HorasExtras");
                 OnHorasExtrasChanged();
             }
@@ -4709,7 +4698,7 @@ namespace Entidades
             {
                 OnAdicionalesRemunerativosChanging(value);
                 ReportPropertyChanging("AdicionalesRemunerativos");
-                _AdicionalesRemunerativos = StructuralObject.SetValidValue(value);
+                _AdicionalesRemunerativos = StructuralObject.SetValidValue(value, "AdicionalesRemunerativos");
                 ReportPropertyChanged("AdicionalesRemunerativos");
                 OnAdicionalesRemunerativosChanged();
             }
@@ -4733,7 +4722,7 @@ namespace Entidades
             {
                 OnVacacionesChanging(value);
                 ReportPropertyChanging("Vacaciones");
-                _Vacaciones = StructuralObject.SetValidValue(value);
+                _Vacaciones = StructuralObject.SetValidValue(value, "Vacaciones");
                 ReportPropertyChanged("Vacaciones");
                 OnVacacionesChanged();
             }
@@ -4757,7 +4746,7 @@ namespace Entidades
             {
                 OnSACChanging(value);
                 ReportPropertyChanging("SAC");
-                _SAC = StructuralObject.SetValidValue(value);
+                _SAC = StructuralObject.SetValidValue(value, "SAC");
                 ReportPropertyChanged("SAC");
                 OnSACChanged();
             }
@@ -4781,7 +4770,7 @@ namespace Entidades
             {
                 OnTotalBrutoChanging(value);
                 ReportPropertyChanging("TotalBruto");
-                _TotalBruto = StructuralObject.SetValidValue(value);
+                _TotalBruto = StructuralObject.SetValidValue(value, "TotalBruto");
                 ReportPropertyChanged("TotalBruto");
                 OnTotalBrutoChanged();
             }
@@ -4805,7 +4794,7 @@ namespace Entidades
             {
                 OnAsignacionFamiliarChanging(value);
                 ReportPropertyChanging("AsignacionFamiliar");
-                _AsignacionFamiliar = StructuralObject.SetValidValue(value);
+                _AsignacionFamiliar = StructuralObject.SetValidValue(value, "AsignacionFamiliar");
                 ReportPropertyChanged("AsignacionFamiliar");
                 OnAsignacionFamiliarChanged();
             }
@@ -4829,7 +4818,7 @@ namespace Entidades
             {
                 OnAdicionalesNORemunerativosChanging(value);
                 ReportPropertyChanging("AdicionalesNORemunerativos");
-                _AdicionalesNORemunerativos = StructuralObject.SetValidValue(value);
+                _AdicionalesNORemunerativos = StructuralObject.SetValidValue(value, "AdicionalesNORemunerativos");
                 ReportPropertyChanged("AdicionalesNORemunerativos");
                 OnAdicionalesNORemunerativosChanged();
             }
@@ -4853,7 +4842,7 @@ namespace Entidades
             {
                 OnDescuentosChanging(value);
                 ReportPropertyChanging("Descuentos");
-                _Descuentos = StructuralObject.SetValidValue(value);
+                _Descuentos = StructuralObject.SetValidValue(value, "Descuentos");
                 ReportPropertyChanged("Descuentos");
                 OnDescuentosChanged();
             }
@@ -4877,7 +4866,7 @@ namespace Entidades
             {
                 OnTotalNetoChanging(value);
                 ReportPropertyChanging("TotalNeto");
-                _TotalNeto = StructuralObject.SetValidValue(value);
+                _TotalNeto = StructuralObject.SetValidValue(value, "TotalNeto");
                 ReportPropertyChanged("TotalNeto");
                 OnTotalNetoChanged();
             }
@@ -4901,7 +4890,7 @@ namespace Entidades
             {
                 OnCategoriaCCTChanging(value);
                 ReportPropertyChanging("CategoriaCCT");
-                _CategoriaCCT = StructuralObject.SetValidValue(value, true);
+                _CategoriaCCT = StructuralObject.SetValidValue(value, true, "CategoriaCCT");
                 ReportPropertyChanged("CategoriaCCT");
                 OnCategoriaCCTChanged();
             }
@@ -4925,7 +4914,7 @@ namespace Entidades
             {
                 OnFuncionCCTChanging(value);
                 ReportPropertyChanging("FuncionCCT");
-                _FuncionCCT = StructuralObject.SetValidValue(value, true);
+                _FuncionCCT = StructuralObject.SetValidValue(value, true, "FuncionCCT");
                 ReportPropertyChanged("FuncionCCT");
                 OnFuncionCCTChanged();
             }
@@ -4936,7 +4925,6 @@ namespace Entidades
 
         #endregion
 
-    
         #region Propiedades de navegación
     
         /// <summary>
@@ -5118,7 +5106,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -5137,7 +5125,7 @@ namespace Entidades
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -5162,7 +5150,7 @@ namespace Entidades
             {
                 OnLegajoChanging(value);
                 ReportPropertyChanging("Legajo");
-                _Legajo = StructuralObject.SetValidValue(value, true);
+                _Legajo = StructuralObject.SetValidValue(value, true, "Legajo");
                 ReportPropertyChanged("Legajo");
                 OnLegajoChanged();
             }
@@ -5186,7 +5174,7 @@ namespace Entidades
             {
                 OnNombreLegajoChanging(value);
                 ReportPropertyChanging("NombreLegajo");
-                _NombreLegajo = StructuralObject.SetValidValue(value, true);
+                _NombreLegajo = StructuralObject.SetValidValue(value, true, "NombreLegajo");
                 ReportPropertyChanged("NombreLegajo");
                 OnNombreLegajoChanged();
             }
@@ -5210,7 +5198,7 @@ namespace Entidades
             {
                 OnDomicilioChanging(value);
                 ReportPropertyChanging("Domicilio");
-                _Domicilio = StructuralObject.SetValidValue(value, true);
+                _Domicilio = StructuralObject.SetValidValue(value, true, "Domicilio");
                 ReportPropertyChanged("Domicilio");
                 OnDomicilioChanged();
             }
@@ -5234,7 +5222,7 @@ namespace Entidades
             {
                 OnPoblacionChanging(value);
                 ReportPropertyChanging("Poblacion");
-                _Poblacion = StructuralObject.SetValidValue(value, true);
+                _Poblacion = StructuralObject.SetValidValue(value, true, "Poblacion");
                 ReportPropertyChanged("Poblacion");
                 OnPoblacionChanged();
             }
@@ -5258,7 +5246,7 @@ namespace Entidades
             {
                 OnDistritoChanging(value);
                 ReportPropertyChanging("Distrito");
-                _Distrito = StructuralObject.SetValidValue(value, true);
+                _Distrito = StructuralObject.SetValidValue(value, true, "Distrito");
                 ReportPropertyChanged("Distrito");
                 OnDistritoChanged();
             }
@@ -5282,7 +5270,7 @@ namespace Entidades
             {
                 OnTipoTurnoChanging(value);
                 ReportPropertyChanging("TipoTurno");
-                _TipoTurno = StructuralObject.SetValidValue(value, true);
+                _TipoTurno = StructuralObject.SetValidValue(value, true, "TipoTurno");
                 ReportPropertyChanged("TipoTurno");
                 OnTipoTurnoChanged();
             }
@@ -5306,7 +5294,7 @@ namespace Entidades
             {
                 OnLatitudChanging(value);
                 ReportPropertyChanging("Latitud");
-                _Latitud = StructuralObject.SetValidValue(value, true);
+                _Latitud = StructuralObject.SetValidValue(value, true, "Latitud");
                 ReportPropertyChanged("Latitud");
                 OnLatitudChanged();
             }
@@ -5330,7 +5318,7 @@ namespace Entidades
             {
                 OnLongitudChanging(value);
                 ReportPropertyChanging("Longitud");
-                _Longitud = StructuralObject.SetValidValue(value, true);
+                _Longitud = StructuralObject.SetValidValue(value, true, "Longitud");
                 ReportPropertyChanged("Longitud");
                 OnLongitudChanged();
             }
@@ -5354,7 +5342,7 @@ namespace Entidades
             {
                 OnLatitudReposicionChanging(value);
                 ReportPropertyChanging("LatitudReposicion");
-                _LatitudReposicion = StructuralObject.SetValidValue(value, true);
+                _LatitudReposicion = StructuralObject.SetValidValue(value, true, "LatitudReposicion");
                 ReportPropertyChanged("LatitudReposicion");
                 OnLatitudReposicionChanged();
             }
@@ -5378,7 +5366,7 @@ namespace Entidades
             {
                 OnLongitudReposicionChanging(value);
                 ReportPropertyChanging("LongitudReposicion");
-                _LongitudReposicion = StructuralObject.SetValidValue(value, true);
+                _LongitudReposicion = StructuralObject.SetValidValue(value, true, "LongitudReposicion");
                 ReportPropertyChanged("LongitudReposicion");
                 OnLongitudReposicionChanged();
             }
@@ -5402,7 +5390,7 @@ namespace Entidades
             {
                 OnLineaAsignadaChanging(value);
                 ReportPropertyChanging("LineaAsignada");
-                _LineaAsignada = StructuralObject.SetValidValue(value);
+                _LineaAsignada = StructuralObject.SetValidValue(value, "LineaAsignada");
                 ReportPropertyChanged("LineaAsignada");
                 OnLineaAsignadaChanged();
             }
@@ -5426,7 +5414,7 @@ namespace Entidades
             {
                 OnEmpresaChanging(value);
                 ReportPropertyChanging("Empresa");
-                _Empresa = StructuralObject.SetValidValue(value);
+                _Empresa = StructuralObject.SetValidValue(value, "Empresa");
                 ReportPropertyChanged("Empresa");
                 OnEmpresaChanged();
             }
@@ -5450,7 +5438,7 @@ namespace Entidades
             {
                 OnLineaAsignadaVueltaChanging(value);
                 ReportPropertyChanging("LineaAsignadaVuelta");
-                _LineaAsignadaVuelta = StructuralObject.SetValidValue(value);
+                _LineaAsignadaVuelta = StructuralObject.SetValidValue(value, "LineaAsignadaVuelta");
                 ReportPropertyChanged("LineaAsignadaVuelta");
                 OnLineaAsignadaVueltaChanged();
             }
@@ -5474,7 +5462,7 @@ namespace Entidades
             {
                 OnChoferChanging(value);
                 ReportPropertyChanging("Chofer");
-                _Chofer = StructuralObject.SetValidValue(value);
+                _Chofer = StructuralObject.SetValidValue(value, "Chofer");
                 ReportPropertyChanged("Chofer");
                 OnChoferChanged();
             }
@@ -5498,7 +5486,7 @@ namespace Entidades
             {
                 OnTelefonoChanging(value);
                 ReportPropertyChanging("Telefono");
-                _Telefono = StructuralObject.SetValidValue(value, true);
+                _Telefono = StructuralObject.SetValidValue(value, true, "Telefono");
                 ReportPropertyChanged("Telefono");
                 OnTelefonoChanged();
             }
@@ -5522,7 +5510,7 @@ namespace Entidades
             {
                 OnCorreoChanging(value);
                 ReportPropertyChanging("Correo");
-                _Correo = StructuralObject.SetValidValue(value, true);
+                _Correo = StructuralObject.SetValidValue(value, true, "Correo");
                 ReportPropertyChanged("Correo");
                 OnCorreoChanged();
             }
@@ -5546,7 +5534,7 @@ namespace Entidades
             {
                 OnEstadoActulizacionChanging(value);
                 ReportPropertyChanging("EstadoActulizacion");
-                _EstadoActulizacion = StructuralObject.SetValidValue(value, true);
+                _EstadoActulizacion = StructuralObject.SetValidValue(value, true, "EstadoActulizacion");
                 ReportPropertyChanged("EstadoActulizacion");
                 OnEstadoActulizacionChanged();
             }
@@ -5570,7 +5558,7 @@ namespace Entidades
             {
                 OnFechaSolicitudActualizacionChanging(value);
                 ReportPropertyChanging("FechaSolicitudActualizacion");
-                _FechaSolicitudActualizacion = StructuralObject.SetValidValue(value);
+                _FechaSolicitudActualizacion = StructuralObject.SetValidValue(value, "FechaSolicitudActualizacion");
                 ReportPropertyChanged("FechaSolicitudActualizacion");
                 OnFechaSolicitudActualizacionChanged();
             }
@@ -5594,7 +5582,7 @@ namespace Entidades
             {
                 OnFechaAprobacionRechazoSolicitudChanging(value);
                 ReportPropertyChanging("FechaAprobacionRechazoSolicitud");
-                _FechaAprobacionRechazoSolicitud = StructuralObject.SetValidValue(value);
+                _FechaAprobacionRechazoSolicitud = StructuralObject.SetValidValue(value, "FechaAprobacionRechazoSolicitud");
                 ReportPropertyChanged("FechaAprobacionRechazoSolicitud");
                 OnFechaAprobacionRechazoSolicitudChanged();
             }
@@ -5618,7 +5606,7 @@ namespace Entidades
             {
                 OnDatosActualizacionChanging(value);
                 ReportPropertyChanging("DatosActualizacion");
-                _DatosActualizacion = StructuralObject.SetValidValue(value, true);
+                _DatosActualizacion = StructuralObject.SetValidValue(value, true, "DatosActualizacion");
                 ReportPropertyChanged("DatosActualizacion");
                 OnDatosActualizacionChanged();
             }
@@ -5642,7 +5630,7 @@ namespace Entidades
             {
                 OnClaveChanging(value);
                 ReportPropertyChanging("Clave");
-                _Clave = StructuralObject.SetValidValue(value, true);
+                _Clave = StructuralObject.SetValidValue(value, true, "Clave");
                 ReportPropertyChanged("Clave");
                 OnClaveChanged();
             }
@@ -5666,7 +5654,7 @@ namespace Entidades
             {
                 OnRutaConCambioChanging(value);
                 ReportPropertyChanging("RutaConCambio");
-                _RutaConCambio = StructuralObject.SetValidValue(value, true);
+                _RutaConCambio = StructuralObject.SetValidValue(value, true, "RutaConCambio");
                 ReportPropertyChanged("RutaConCambio");
                 OnRutaConCambioChanged();
             }
@@ -5690,7 +5678,7 @@ namespace Entidades
             {
                 OnTipoServicioChanging(value);
                 ReportPropertyChanging("TipoServicio");
-                _TipoServicio = StructuralObject.SetValidValue(value, true);
+                _TipoServicio = StructuralObject.SetValidValue(value, true, "TipoServicio");
                 ReportPropertyChanged("TipoServicio");
                 OnTipoServicioChanged();
             }
@@ -5698,10 +5686,81 @@ namespace Entidades
         private global::System.String _TipoServicio;
         partial void OnTipoServicioChanging(global::System.String value);
         partial void OnTipoServicioChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> DestinoRuta
+        {
+            get
+            {
+                return _DestinoRuta;
+            }
+            set
+            {
+                OnDestinoRutaChanging(value);
+                ReportPropertyChanging("DestinoRuta");
+                _DestinoRuta = StructuralObject.SetValidValue(value, "DestinoRuta");
+                ReportPropertyChanged("DestinoRuta");
+                OnDestinoRutaChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _DestinoRuta;
+        partial void OnDestinoRutaChanging(Nullable<global::System.Int64> value);
+        partial void OnDestinoRutaChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String UbicacionTrabajo
+        {
+            get
+            {
+                return _UbicacionTrabajo;
+            }
+            set
+            {
+                OnUbicacionTrabajoChanging(value);
+                ReportPropertyChanging("UbicacionTrabajo");
+                _UbicacionTrabajo = StructuralObject.SetValidValue(value, true, "UbicacionTrabajo");
+                ReportPropertyChanged("UbicacionTrabajo");
+                OnUbicacionTrabajoChanged();
+            }
+        }
+        private global::System.String _UbicacionTrabajo;
+        partial void OnUbicacionTrabajoChanging(global::System.String value);
+        partial void OnUbicacionTrabajoChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> Activo
+        {
+            get
+            {
+                return _Activo;
+            }
+            set
+            {
+                OnActivoChanging(value);
+                ReportPropertyChanging("Activo");
+                _Activo = StructuralObject.SetValidValue(value, "Activo");
+                ReportPropertyChanged("Activo");
+                OnActivoChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _Activo;
+        partial void OnActivoChanging(Nullable<global::System.Boolean> value);
+        partial void OnActivoChanged();
 
         #endregion
 
-    
         #region Propiedades de navegación
     
         /// <summary>
@@ -5817,6 +5876,44 @@ namespace Entidades
                 }
             }
         }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ModeloConosud", "FK_DomiciliosPersonal_Empresa_Destino", "Empresa")]
+        public Empresa objDestinoPasajero
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Empresa>("ModeloConosud.FK_DomiciliosPersonal_Empresa_Destino", "Empresa").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Empresa>("ModeloConosud.FK_DomiciliosPersonal_Empresa_Destino", "Empresa").Value = value;
+            }
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Empresa> objDestinoPasajeroReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Empresa>("ModeloConosud.FK_DomiciliosPersonal_Empresa_Destino", "Empresa");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Empresa>("ModeloConosud.FK_DomiciliosPersonal_Empresa_Destino", "Empresa", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -5845,7 +5942,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -5864,7 +5961,7 @@ namespace Entidades
                 {
                     OnIdEmpresaChanging(value);
                     ReportPropertyChanging("IdEmpresa");
-                    _IdEmpresa = StructuralObject.SetValidValue(value);
+                    _IdEmpresa = StructuralObject.SetValidValue(value, "IdEmpresa");
                     ReportPropertyChanged("IdEmpresa");
                     OnIdEmpresaChanged();
                 }
@@ -5889,7 +5986,7 @@ namespace Entidades
             {
                 OnRazonSocialChanging(value);
                 ReportPropertyChanging("RazonSocial");
-                _RazonSocial = StructuralObject.SetValidValue(value, true);
+                _RazonSocial = StructuralObject.SetValidValue(value, true, "RazonSocial");
                 ReportPropertyChanged("RazonSocial");
                 OnRazonSocialChanged();
             }
@@ -5913,7 +6010,7 @@ namespace Entidades
             {
                 OnCUITChanging(value);
                 ReportPropertyChanging("CUIT");
-                _CUIT = StructuralObject.SetValidValue(value, true);
+                _CUIT = StructuralObject.SetValidValue(value, true, "CUIT");
                 ReportPropertyChanged("CUIT");
                 OnCUITChanged();
             }
@@ -5937,7 +6034,7 @@ namespace Entidades
             {
                 OnFechaAltaChanging(value);
                 ReportPropertyChanging("FechaAlta");
-                _FechaAlta = StructuralObject.SetValidValue(value);
+                _FechaAlta = StructuralObject.SetValidValue(value, "FechaAlta");
                 ReportPropertyChanged("FechaAlta");
                 OnFechaAltaChanged();
             }
@@ -5961,7 +6058,7 @@ namespace Entidades
             {
                 OnRepresentanteTecnicoChanging(value);
                 ReportPropertyChanging("RepresentanteTecnico");
-                _RepresentanteTecnico = StructuralObject.SetValidValue(value, true);
+                _RepresentanteTecnico = StructuralObject.SetValidValue(value, true, "RepresentanteTecnico");
                 ReportPropertyChanged("RepresentanteTecnico");
                 OnRepresentanteTecnicoChanged();
             }
@@ -5985,7 +6082,7 @@ namespace Entidades
             {
                 OnPrestacionEmergenciaChanging(value);
                 ReportPropertyChanging("PrestacionEmergencia");
-                _PrestacionEmergencia = StructuralObject.SetValidValue(value, true);
+                _PrestacionEmergencia = StructuralObject.SetValidValue(value, true, "PrestacionEmergencia");
                 ReportPropertyChanged("PrestacionEmergencia");
                 OnPrestacionEmergenciaChanged();
             }
@@ -6009,7 +6106,7 @@ namespace Entidades
             {
                 OnDireccionChanging(value);
                 ReportPropertyChanging("Direccion");
-                _Direccion = StructuralObject.SetValidValue(value, true);
+                _Direccion = StructuralObject.SetValidValue(value, true, "Direccion");
                 ReportPropertyChanged("Direccion");
                 OnDireccionChanged();
             }
@@ -6033,7 +6130,7 @@ namespace Entidades
             {
                 OnTelefonoChanging(value);
                 ReportPropertyChanging("Telefono");
-                _Telefono = StructuralObject.SetValidValue(value, true);
+                _Telefono = StructuralObject.SetValidValue(value, true, "Telefono");
                 ReportPropertyChanged("Telefono");
                 OnTelefonoChanged();
             }
@@ -6057,7 +6154,7 @@ namespace Entidades
             {
                 OnCorreoElectronicoChanging(value);
                 ReportPropertyChanging("CorreoElectronico");
-                _CorreoElectronico = StructuralObject.SetValidValue(value, true);
+                _CorreoElectronico = StructuralObject.SetValidValue(value, true, "CorreoElectronico");
                 ReportPropertyChanged("CorreoElectronico");
                 OnCorreoElectronicoChanged();
             }
@@ -6081,7 +6178,7 @@ namespace Entidades
             {
                 OnEmergenciaChanging(value);
                 ReportPropertyChanging("Emergencia");
-                _Emergencia = StructuralObject.SetValidValue(value, true);
+                _Emergencia = StructuralObject.SetValidValue(value, true, "Emergencia");
                 ReportPropertyChanged("Emergencia");
                 OnEmergenciaChanged();
             }
@@ -6092,7 +6189,6 @@ namespace Entidades
 
         #endregion
 
-    
         #region Propiedades de navegación
     
         /// <summary>
@@ -6264,6 +6360,28 @@ namespace Entidades
                 }
             }
         }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ModeloConosud", "FK_DomiciliosPersonal_Empresa_Destino", "DomiciliosPersonal")]
+        public EntityCollection<DomiciliosPersonal> DomiciliosPersonals1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DomiciliosPersonal>("ModeloConosud.FK_DomiciliosPersonal_Empresa_Destino", "DomiciliosPersonal");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DomiciliosPersonal>("ModeloConosud.FK_DomiciliosPersonal_Empresa_Destino", "DomiciliosPersonal", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -6292,7 +6410,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -6311,7 +6429,7 @@ namespace Entidades
                 {
                     OnIdHojaDeRutaChanging(value);
                     ReportPropertyChanging("IdHojaDeRuta");
-                    _IdHojaDeRuta = StructuralObject.SetValidValue(value);
+                    _IdHojaDeRuta = StructuralObject.SetValidValue(value, "IdHojaDeRuta");
                     ReportPropertyChanged("IdHojaDeRuta");
                     OnIdHojaDeRutaChanged();
                 }
@@ -6336,7 +6454,7 @@ namespace Entidades
             {
                 OnHojaComentarioChanging(value);
                 ReportPropertyChanging("HojaComentario");
-                _HojaComentario = StructuralObject.SetValidValue(value, true);
+                _HojaComentario = StructuralObject.SetValidValue(value, true, "HojaComentario");
                 ReportPropertyChanged("HojaComentario");
                 OnHojaComentarioChanged();
             }
@@ -6360,7 +6478,7 @@ namespace Entidades
             {
                 OnHojaFechaControladoChanging(value);
                 ReportPropertyChanging("HojaFechaControlado");
-                _HojaFechaControlado = StructuralObject.SetValidValue(value);
+                _HojaFechaControlado = StructuralObject.SetValidValue(value, "HojaFechaControlado");
                 ReportPropertyChanged("HojaFechaControlado");
                 OnHojaFechaControladoChanged();
             }
@@ -6384,7 +6502,7 @@ namespace Entidades
             {
                 OnHojaAprobadoChanging(value);
                 ReportPropertyChanging("HojaAprobado");
-                _HojaAprobado = StructuralObject.SetValidValue(value);
+                _HojaAprobado = StructuralObject.SetValidValue(value, "HojaAprobado");
                 ReportPropertyChanged("HojaAprobado");
                 OnHojaAprobadoChanged();
             }
@@ -6408,7 +6526,7 @@ namespace Entidades
             {
                 OnHojaFechaAprobacionChanging(value);
                 ReportPropertyChanging("HojaFechaAprobacion");
-                _HojaFechaAprobacion = StructuralObject.SetValidValue(value);
+                _HojaFechaAprobacion = StructuralObject.SetValidValue(value, "HojaFechaAprobacion");
                 ReportPropertyChanged("HojaFechaAprobacion");
                 OnHojaFechaAprobacionChanged();
             }
@@ -6432,7 +6550,7 @@ namespace Entidades
             {
                 OnDocComentarioChanging(value);
                 ReportPropertyChanging("DocComentario");
-                _DocComentario = StructuralObject.SetValidValue(value, true);
+                _DocComentario = StructuralObject.SetValidValue(value, true, "DocComentario");
                 ReportPropertyChanged("DocComentario");
                 OnDocComentarioChanged();
             }
@@ -6456,7 +6574,7 @@ namespace Entidades
             {
                 OnDocFechaEntregaChanging(value);
                 ReportPropertyChanging("DocFechaEntrega");
-                _DocFechaEntrega = StructuralObject.SetValidValue(value);
+                _DocFechaEntrega = StructuralObject.SetValidValue(value, "DocFechaEntrega");
                 ReportPropertyChanged("DocFechaEntrega");
                 OnDocFechaEntregaChanged();
             }
@@ -6480,7 +6598,7 @@ namespace Entidades
             {
                 OnAuditadoPorChanging(value);
                 ReportPropertyChanging("AuditadoPor");
-                _AuditadoPor = StructuralObject.SetValidValue(value, true);
+                _AuditadoPor = StructuralObject.SetValidValue(value, true, "AuditadoPor");
                 ReportPropertyChanged("AuditadoPor");
                 OnAuditadoPorChanged();
             }
@@ -6504,7 +6622,7 @@ namespace Entidades
             {
                 OnAuditoriaTerminadaChanging(value);
                 ReportPropertyChanging("AuditoriaTerminada");
-                _AuditoriaTerminada = StructuralObject.SetValidValue(value);
+                _AuditoriaTerminada = StructuralObject.SetValidValue(value, "AuditoriaTerminada");
                 ReportPropertyChanged("AuditoriaTerminada");
                 OnAuditoriaTerminadaChanged();
             }
@@ -6515,7 +6633,6 @@ namespace Entidades
 
         #endregion
 
-    
         #region Propiedades de navegación
     
         /// <summary>
@@ -6621,7 +6738,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -6640,7 +6757,7 @@ namespace Entidades
                 {
                     OnIdInfoPlanTrabajoChanging(value);
                     ReportPropertyChanging("IdInfoPlanTrabajo");
-                    _IdInfoPlanTrabajo = StructuralObject.SetValidValue(value);
+                    _IdInfoPlanTrabajo = StructuralObject.SetValidValue(value, "IdInfoPlanTrabajo");
                     ReportPropertyChanged("IdInfoPlanTrabajo");
                     OnIdInfoPlanTrabajoChanged();
                 }
@@ -6665,7 +6782,7 @@ namespace Entidades
             {
                 OnPeriodoChanging(value);
                 ReportPropertyChanging("Periodo");
-                _Periodo = StructuralObject.SetValidValue(value, true);
+                _Periodo = StructuralObject.SetValidValue(value, true, "Periodo");
                 ReportPropertyChanged("Periodo");
                 OnPeriodoChanged();
             }
@@ -6689,7 +6806,7 @@ namespace Entidades
             {
                 OnUOCRAChanging(value);
                 ReportPropertyChanging("UOCRA");
-                _UOCRA = StructuralObject.SetValidValue(value);
+                _UOCRA = StructuralObject.SetValidValue(value, "UOCRA");
                 ReportPropertyChanged("UOCRA");
                 OnUOCRAChanged();
             }
@@ -6713,7 +6830,7 @@ namespace Entidades
             {
                 OnOTROSChanging(value);
                 ReportPropertyChanging("OTROS");
-                _OTROS = StructuralObject.SetValidValue(value);
+                _OTROS = StructuralObject.SetValidValue(value, "OTROS");
                 ReportPropertyChanged("OTROS");
                 OnOTROSChanged();
             }
@@ -6737,7 +6854,7 @@ namespace Entidades
             {
                 OnINDEPENDIENTESChanging(value);
                 ReportPropertyChanging("INDEPENDIENTES");
-                _INDEPENDIENTES = StructuralObject.SetValidValue(value);
+                _INDEPENDIENTES = StructuralObject.SetValidValue(value, "INDEPENDIENTES");
                 ReportPropertyChanged("INDEPENDIENTES");
                 OnINDEPENDIENTESChanged();
             }
@@ -6761,7 +6878,7 @@ namespace Entidades
             {
                 OnContratoChanging(value);
                 ReportPropertyChanging("Contrato");
-                _Contrato = StructuralObject.SetValidValue(value, true);
+                _Contrato = StructuralObject.SetValidValue(value, true, "Contrato");
                 ReportPropertyChanged("Contrato");
                 OnContratoChanged();
             }
@@ -6785,7 +6902,7 @@ namespace Entidades
             {
                 OnEmpresaChanging(value);
                 ReportPropertyChanging("Empresa");
-                _Empresa = StructuralObject.SetValidValue(value, true);
+                _Empresa = StructuralObject.SetValidValue(value, true, "Empresa");
                 ReportPropertyChanged("Empresa");
                 OnEmpresaChanged();
             }
@@ -6796,7 +6913,6 @@ namespace Entidades
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -6822,7 +6938,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -6841,7 +6957,7 @@ namespace Entidades
                 {
                     OnIdIngresoEventualChanging(value);
                     ReportPropertyChanging("IdIngresoEventual");
-                    _IdIngresoEventual = StructuralObject.SetValidValue(value);
+                    _IdIngresoEventual = StructuralObject.SetValidValue(value, "IdIngresoEventual");
                     ReportPropertyChanged("IdIngresoEventual");
                     OnIdIngresoEventualChanged();
                 }
@@ -6866,7 +6982,7 @@ namespace Entidades
             {
                 OnFechaSolicitudChanging(value);
                 ReportPropertyChanging("FechaSolicitud");
-                _FechaSolicitud = StructuralObject.SetValidValue(value);
+                _FechaSolicitud = StructuralObject.SetValidValue(value, "FechaSolicitud");
                 ReportPropertyChanged("FechaSolicitud");
                 OnFechaSolicitudChanged();
             }
@@ -6890,7 +7006,7 @@ namespace Entidades
             {
                 OnApellidoNombreChanging(value);
                 ReportPropertyChanging("ApellidoNombre");
-                _ApellidoNombre = StructuralObject.SetValidValue(value, true);
+                _ApellidoNombre = StructuralObject.SetValidValue(value, true, "ApellidoNombre");
                 ReportPropertyChanged("ApellidoNombre");
                 OnApellidoNombreChanged();
             }
@@ -6914,7 +7030,7 @@ namespace Entidades
             {
                 OnDNIChanging(value);
                 ReportPropertyChanging("DNI");
-                _DNI = StructuralObject.SetValidValue(value, true);
+                _DNI = StructuralObject.SetValidValue(value, true, "DNI");
                 ReportPropertyChanged("DNI");
                 OnDNIChanged();
             }
@@ -6938,7 +7054,7 @@ namespace Entidades
             {
                 OnEmpresaChanging(value);
                 ReportPropertyChanging("Empresa");
-                _Empresa = StructuralObject.SetValidValue(value, true);
+                _Empresa = StructuralObject.SetValidValue(value, true, "Empresa");
                 ReportPropertyChanged("Empresa");
                 OnEmpresaChanged();
             }
@@ -6962,7 +7078,7 @@ namespace Entidades
             {
                 OnContratoChanging(value);
                 ReportPropertyChanging("Contrato");
-                _Contrato = StructuralObject.SetValidValue(value, true);
+                _Contrato = StructuralObject.SetValidValue(value, true, "Contrato");
                 ReportPropertyChanged("Contrato");
                 OnContratoChanged();
             }
@@ -6986,7 +7102,7 @@ namespace Entidades
             {
                 OnActividadChanging(value);
                 ReportPropertyChanging("Actividad");
-                _Actividad = StructuralObject.SetValidValue(value, true);
+                _Actividad = StructuralObject.SetValidValue(value, true, "Actividad");
                 ReportPropertyChanged("Actividad");
                 OnActividadChanged();
             }
@@ -7010,7 +7126,7 @@ namespace Entidades
             {
                 OnCitadoporChanging(value);
                 ReportPropertyChanging("Citadopor");
-                _Citadopor = StructuralObject.SetValidValue(value, true);
+                _Citadopor = StructuralObject.SetValidValue(value, true, "Citadopor");
                 ReportPropertyChanged("Citadopor");
                 OnCitadoporChanged();
             }
@@ -7034,7 +7150,7 @@ namespace Entidades
             {
                 OnFechaIngreso1Changing(value);
                 ReportPropertyChanging("FechaIngreso1");
-                _FechaIngreso1 = StructuralObject.SetValidValue(value);
+                _FechaIngreso1 = StructuralObject.SetValidValue(value, "FechaIngreso1");
                 ReportPropertyChanged("FechaIngreso1");
                 OnFechaIngreso1Changed();
             }
@@ -7058,7 +7174,7 @@ namespace Entidades
             {
                 OnFechaIngreso2Changing(value);
                 ReportPropertyChanging("FechaIngreso2");
-                _FechaIngreso2 = StructuralObject.SetValidValue(value);
+                _FechaIngreso2 = StructuralObject.SetValidValue(value, "FechaIngreso2");
                 ReportPropertyChanged("FechaIngreso2");
                 OnFechaIngreso2Changed();
             }
@@ -7082,7 +7198,7 @@ namespace Entidades
             {
                 OnFechaIngreso3Changing(value);
                 ReportPropertyChanging("FechaIngreso3");
-                _FechaIngreso3 = StructuralObject.SetValidValue(value);
+                _FechaIngreso3 = StructuralObject.SetValidValue(value, "FechaIngreso3");
                 ReportPropertyChanged("FechaIngreso3");
                 OnFechaIngreso3Changed();
             }
@@ -7106,7 +7222,7 @@ namespace Entidades
             {
                 OnFechaIngreso4Changing(value);
                 ReportPropertyChanging("FechaIngreso4");
-                _FechaIngreso4 = StructuralObject.SetValidValue(value);
+                _FechaIngreso4 = StructuralObject.SetValidValue(value, "FechaIngreso4");
                 ReportPropertyChanged("FechaIngreso4");
                 OnFechaIngreso4Changed();
             }
@@ -7130,7 +7246,7 @@ namespace Entidades
             {
                 OnFechaIngreso5Changing(value);
                 ReportPropertyChanging("FechaIngreso5");
-                _FechaIngreso5 = StructuralObject.SetValidValue(value);
+                _FechaIngreso5 = StructuralObject.SetValidValue(value, "FechaIngreso5");
                 ReportPropertyChanged("FechaIngreso5");
                 OnFechaIngreso5Changed();
             }
@@ -7141,7 +7257,6 @@ namespace Entidades
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -7167,7 +7282,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -7186,7 +7301,7 @@ namespace Entidades
                 {
                     OnIdInstructivoChanging(value);
                     ReportPropertyChanging("IdInstructivo");
-                    _IdInstructivo = StructuralObject.SetValidValue(value);
+                    _IdInstructivo = StructuralObject.SetValidValue(value, "IdInstructivo");
                     ReportPropertyChanged("IdInstructivo");
                     OnIdInstructivoChanged();
                 }
@@ -7211,7 +7326,7 @@ namespace Entidades
             {
                 OnNombreFisicoChanging(value);
                 ReportPropertyChanging("NombreFisico");
-                _NombreFisico = StructuralObject.SetValidValue(value, true);
+                _NombreFisico = StructuralObject.SetValidValue(value, true, "NombreFisico");
                 ReportPropertyChanged("NombreFisico");
                 OnNombreFisicoChanged();
             }
@@ -7235,7 +7350,7 @@ namespace Entidades
             {
                 OnNombreAliasChanging(value);
                 ReportPropertyChanging("NombreAlias");
-                _NombreAlias = StructuralObject.SetValidValue(value, true);
+                _NombreAlias = StructuralObject.SetValidValue(value, true, "NombreAlias");
                 ReportPropertyChanged("NombreAlias");
                 OnNombreAliasChanged();
             }
@@ -7259,7 +7374,7 @@ namespace Entidades
             {
                 OnFechaChanging(value);
                 ReportPropertyChanging("Fecha");
-                _Fecha = StructuralObject.SetValidValue(value);
+                _Fecha = StructuralObject.SetValidValue(value, "Fecha");
                 ReportPropertyChanged("Fecha");
                 OnFechaChanged();
             }
@@ -7283,7 +7398,7 @@ namespace Entidades
             {
                 OnDescripcionChanging(value);
                 ReportPropertyChanging("Descripcion");
-                _Descripcion = StructuralObject.SetValidValue(value, true);
+                _Descripcion = StructuralObject.SetValidValue(value, true, "Descripcion");
                 ReportPropertyChanged("Descripcion");
                 OnDescripcionChanged();
             }
@@ -7294,7 +7409,6 @@ namespace Entidades
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -7320,7 +7434,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -7339,7 +7453,7 @@ namespace Entidades
                 {
                     OnIdLegajosChanging(value);
                     ReportPropertyChanging("IdLegajos");
-                    _IdLegajos = StructuralObject.SetValidValue(value);
+                    _IdLegajos = StructuralObject.SetValidValue(value, "IdLegajos");
                     ReportPropertyChanged("IdLegajos");
                     OnIdLegajosChanged();
                 }
@@ -7364,7 +7478,7 @@ namespace Entidades
             {
                 OnApellidoChanging(value);
                 ReportPropertyChanging("Apellido");
-                _Apellido = StructuralObject.SetValidValue(value, true);
+                _Apellido = StructuralObject.SetValidValue(value, true, "Apellido");
                 ReportPropertyChanged("Apellido");
                 OnApellidoChanged();
             }
@@ -7388,7 +7502,7 @@ namespace Entidades
             {
                 OnNombreChanging(value);
                 ReportPropertyChanging("Nombre");
-                _Nombre = StructuralObject.SetValidValue(value, true);
+                _Nombre = StructuralObject.SetValidValue(value, true, "Nombre");
                 ReportPropertyChanged("Nombre");
                 OnNombreChanged();
             }
@@ -7412,7 +7526,7 @@ namespace Entidades
             {
                 OnNroDocChanging(value);
                 ReportPropertyChanging("NroDoc");
-                _NroDoc = StructuralObject.SetValidValue(value, true);
+                _NroDoc = StructuralObject.SetValidValue(value, true, "NroDoc");
                 ReportPropertyChanged("NroDoc");
                 OnNroDocChanged();
             }
@@ -7436,7 +7550,7 @@ namespace Entidades
             {
                 OnFechaNacimientoChanging(value);
                 ReportPropertyChanging("FechaNacimiento");
-                _FechaNacimiento = StructuralObject.SetValidValue(value);
+                _FechaNacimiento = StructuralObject.SetValidValue(value, "FechaNacimiento");
                 ReportPropertyChanged("FechaNacimiento");
                 OnFechaNacimientoChanged();
             }
@@ -7460,7 +7574,7 @@ namespace Entidades
             {
                 OnSexoChanging(value);
                 ReportPropertyChanging("Sexo");
-                _Sexo = StructuralObject.SetValidValue(value);
+                _Sexo = StructuralObject.SetValidValue(value, "Sexo");
                 ReportPropertyChanged("Sexo");
                 OnSexoChanged();
             }
@@ -7484,7 +7598,7 @@ namespace Entidades
             {
                 OnCUILChanging(value);
                 ReportPropertyChanging("CUIL");
-                _CUIL = StructuralObject.SetValidValue(value, true);
+                _CUIL = StructuralObject.SetValidValue(value, true, "CUIL");
                 ReportPropertyChanged("CUIL");
                 OnCUILChanged();
             }
@@ -7508,7 +7622,7 @@ namespace Entidades
             {
                 OnDireccionChanging(value);
                 ReportPropertyChanging("Direccion");
-                _Direccion = StructuralObject.SetValidValue(value, true);
+                _Direccion = StructuralObject.SetValidValue(value, true, "Direccion");
                 ReportPropertyChanged("Direccion");
                 OnDireccionChanged();
             }
@@ -7532,7 +7646,7 @@ namespace Entidades
             {
                 OnCodigoPostalChanging(value);
                 ReportPropertyChanging("CodigoPostal");
-                _CodigoPostal = StructuralObject.SetValidValue(value, true);
+                _CodigoPostal = StructuralObject.SetValidValue(value, true, "CodigoPostal");
                 ReportPropertyChanged("CodigoPostal");
                 OnCodigoPostalChanged();
             }
@@ -7556,7 +7670,7 @@ namespace Entidades
             {
                 OnTelefonoFijoChanging(value);
                 ReportPropertyChanging("TelefonoFijo");
-                _TelefonoFijo = StructuralObject.SetValidValue(value, true);
+                _TelefonoFijo = StructuralObject.SetValidValue(value, true, "TelefonoFijo");
                 ReportPropertyChanged("TelefonoFijo");
                 OnTelefonoFijoChanged();
             }
@@ -7580,7 +7694,7 @@ namespace Entidades
             {
                 OnCorreoElectronicoChanging(value);
                 ReportPropertyChanging("CorreoElectronico");
-                _CorreoElectronico = StructuralObject.SetValidValue(value, true);
+                _CorreoElectronico = StructuralObject.SetValidValue(value, true, "CorreoElectronico");
                 ReportPropertyChanged("CorreoElectronico");
                 OnCorreoElectronicoChanged();
             }
@@ -7604,7 +7718,7 @@ namespace Entidades
             {
                 OnFechaIngreosChanging(value);
                 ReportPropertyChanging("FechaIngreos");
-                _FechaIngreos = StructuralObject.SetValidValue(value);
+                _FechaIngreos = StructuralObject.SetValidValue(value, "FechaIngreos");
                 ReportPropertyChanged("FechaIngreos");
                 OnFechaIngreosChanged();
             }
@@ -7628,7 +7742,7 @@ namespace Entidades
             {
                 OnLineaAsignadaChanging(value);
                 ReportPropertyChanging("LineaAsignada");
-                _LineaAsignada = StructuralObject.SetValidValue(value);
+                _LineaAsignada = StructuralObject.SetValidValue(value, "LineaAsignada");
                 ReportPropertyChanged("LineaAsignada");
                 OnLineaAsignadaChanged();
             }
@@ -7639,7 +7753,6 @@ namespace Entidades
 
         #endregion
 
-    
         #region Propiedades de navegación
     
         /// <summary>
@@ -7903,7 +8016,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -7922,7 +8035,7 @@ namespace Entidades
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -7947,7 +8060,7 @@ namespace Entidades
             {
                 OnNroContratoChanging(value);
                 ReportPropertyChanging("NroContrato");
-                _NroContrato = StructuralObject.SetValidValue(value, true);
+                _NroContrato = StructuralObject.SetValidValue(value, true, "NroContrato");
                 ReportPropertyChanged("NroContrato");
                 OnNroContratoChanged();
             }
@@ -7971,7 +8084,7 @@ namespace Entidades
             {
                 OnFechaIngresoChanging(value);
                 ReportPropertyChanging("FechaIngreso");
-                _FechaIngreso = StructuralObject.SetValidValue(value);
+                _FechaIngreso = StructuralObject.SetValidValue(value, "FechaIngreso");
                 ReportPropertyChanged("FechaIngreso");
                 OnFechaIngresoChanged();
             }
@@ -7995,7 +8108,7 @@ namespace Entidades
             {
                 OnContratistaChanging(value);
                 ReportPropertyChanging("Contratista");
-                _Contratista = StructuralObject.SetValidValue(value, true);
+                _Contratista = StructuralObject.SetValidValue(value, true, "Contratista");
                 ReportPropertyChanged("Contratista");
                 OnContratistaChanged();
             }
@@ -8019,7 +8132,7 @@ namespace Entidades
             {
                 OnApellidoChanging(value);
                 ReportPropertyChanging("Apellido");
-                _Apellido = StructuralObject.SetValidValue(value, true);
+                _Apellido = StructuralObject.SetValidValue(value, true, "Apellido");
                 ReportPropertyChanged("Apellido");
                 OnApellidoChanged();
             }
@@ -8043,7 +8156,7 @@ namespace Entidades
             {
                 OnNombreChanging(value);
                 ReportPropertyChanging("Nombre");
-                _Nombre = StructuralObject.SetValidValue(value, true);
+                _Nombre = StructuralObject.SetValidValue(value, true, "Nombre");
                 ReportPropertyChanged("Nombre");
                 OnNombreChanged();
             }
@@ -8067,7 +8180,7 @@ namespace Entidades
             {
                 OnTipo_DocumentoChanging(value);
                 ReportPropertyChanging("Tipo_Documento");
-                _Tipo_Documento = StructuralObject.SetValidValue(value, true);
+                _Tipo_Documento = StructuralObject.SetValidValue(value, true, "Tipo_Documento");
                 ReportPropertyChanged("Tipo_Documento");
                 OnTipo_DocumentoChanged();
             }
@@ -8091,7 +8204,7 @@ namespace Entidades
             {
                 OnNroDocChanging(value);
                 ReportPropertyChanging("NroDoc");
-                _NroDoc = StructuralObject.SetValidValue(value);
+                _NroDoc = StructuralObject.SetValidValue(value, "NroDoc");
                 ReportPropertyChanged("NroDoc");
                 OnNroDocChanged();
             }
@@ -8115,7 +8228,7 @@ namespace Entidades
             {
                 OnFechaNacimientoChanging(value);
                 ReportPropertyChanging("FechaNacimiento");
-                _FechaNacimiento = StructuralObject.SetValidValue(value, true);
+                _FechaNacimiento = StructuralObject.SetValidValue(value, true, "FechaNacimiento");
                 ReportPropertyChanged("FechaNacimiento");
                 OnFechaNacimientoChanged();
             }
@@ -8139,7 +8252,7 @@ namespace Entidades
             {
                 OnCUILChanging(value);
                 ReportPropertyChanging("CUIL");
-                _CUIL = StructuralObject.SetValidValue(value, true);
+                _CUIL = StructuralObject.SetValidValue(value, true, "CUIL");
                 ReportPropertyChanged("CUIL");
                 OnCUILChanged();
             }
@@ -8163,7 +8276,7 @@ namespace Entidades
             {
                 OnDireccionChanging(value);
                 ReportPropertyChanging("Direccion");
-                _Direccion = StructuralObject.SetValidValue(value, true);
+                _Direccion = StructuralObject.SetValidValue(value, true, "Direccion");
                 ReportPropertyChanged("Direccion");
                 OnDireccionChanged();
             }
@@ -8187,7 +8300,7 @@ namespace Entidades
             {
                 OnCodigoPostalChanging(value);
                 ReportPropertyChanging("CodigoPostal");
-                _CodigoPostal = StructuralObject.SetValidValue(value, true);
+                _CodigoPostal = StructuralObject.SetValidValue(value, true, "CodigoPostal");
                 ReportPropertyChanged("CodigoPostal");
                 OnCodigoPostalChanged();
             }
@@ -8211,7 +8324,7 @@ namespace Entidades
             {
                 OnTelefonoFijoChanging(value);
                 ReportPropertyChanging("TelefonoFijo");
-                _TelefonoFijo = StructuralObject.SetValidValue(value, true);
+                _TelefonoFijo = StructuralObject.SetValidValue(value, true, "TelefonoFijo");
                 ReportPropertyChanged("TelefonoFijo");
                 OnTelefonoFijoChanged();
             }
@@ -8235,7 +8348,7 @@ namespace Entidades
             {
                 OnCorreoElectronicoChanging(value);
                 ReportPropertyChanging("CorreoElectronico");
-                _CorreoElectronico = StructuralObject.SetValidValue(value, true);
+                _CorreoElectronico = StructuralObject.SetValidValue(value, true, "CorreoElectronico");
                 ReportPropertyChanged("CorreoElectronico");
                 OnCorreoElectronicoChanged();
             }
@@ -8259,7 +8372,7 @@ namespace Entidades
             {
                 OnEstadoCivilChanging(value);
                 ReportPropertyChanging("EstadoCivil");
-                _EstadoCivil = StructuralObject.SetValidValue(value, true);
+                _EstadoCivil = StructuralObject.SetValidValue(value, true, "EstadoCivil");
                 ReportPropertyChanged("EstadoCivil");
                 OnEstadoCivilChanged();
             }
@@ -8283,7 +8396,7 @@ namespace Entidades
             {
                 OnNacionalidadChanging(value);
                 ReportPropertyChanging("Nacionalidad");
-                _Nacionalidad = StructuralObject.SetValidValue(value, true);
+                _Nacionalidad = StructuralObject.SetValidValue(value, true, "Nacionalidad");
                 ReportPropertyChanged("Nacionalidad");
                 OnNacionalidadChanged();
             }
@@ -8307,7 +8420,7 @@ namespace Entidades
             {
                 OnProvinciaChanging(value);
                 ReportPropertyChanging("Provincia");
-                _Provincia = StructuralObject.SetValidValue(value, true);
+                _Provincia = StructuralObject.SetValidValue(value, true, "Provincia");
                 ReportPropertyChanged("Provincia");
                 OnProvinciaChanged();
             }
@@ -8331,7 +8444,7 @@ namespace Entidades
             {
                 OnConvenioChanging(value);
                 ReportPropertyChanging("Convenio");
-                _Convenio = StructuralObject.SetValidValue(value, true);
+                _Convenio = StructuralObject.SetValidValue(value, true, "Convenio");
                 ReportPropertyChanged("Convenio");
                 OnConvenioChanged();
             }
@@ -8342,7 +8455,6 @@ namespace Entidades
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -8368,7 +8480,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -8385,7 +8497,7 @@ namespace Entidades
             {
                 OnTipoChanging(value);
                 ReportPropertyChanging("Tipo");
-                _Tipo = StructuralObject.SetValidValue(value, true);
+                _Tipo = StructuralObject.SetValidValue(value, true, "Tipo");
                 ReportPropertyChanged("Tipo");
                 OnTipoChanged();
             }
@@ -8409,7 +8521,7 @@ namespace Entidades
             {
                 OnEmpresaChanging(value);
                 ReportPropertyChanging("Empresa");
-                _Empresa = StructuralObject.SetValidValue(value, true);
+                _Empresa = StructuralObject.SetValidValue(value, true, "Empresa");
                 ReportPropertyChanged("Empresa");
                 OnEmpresaChanged();
             }
@@ -8435,7 +8547,7 @@ namespace Entidades
                 {
                     OnPatenteChanging(value);
                     ReportPropertyChanging("Patente");
-                    _Patente = StructuralObject.SetValidValue(value, false);
+                    _Patente = StructuralObject.SetValidValue(value, false, "Patente");
                     ReportPropertyChanged("Patente");
                     OnPatenteChanged();
                 }
@@ -8460,7 +8572,7 @@ namespace Entidades
             {
                 OnFechaFabricacionChanging(value);
                 ReportPropertyChanging("FechaFabricacion");
-                _FechaFabricacion = StructuralObject.SetValidValue(value, true);
+                _FechaFabricacion = StructuralObject.SetValidValue(value, true, "FechaFabricacion");
                 ReportPropertyChanged("FechaFabricacion");
                 OnFechaFabricacionChanged();
             }
@@ -8484,7 +8596,7 @@ namespace Entidades
             {
                 OnTipoUnidadChanging(value);
                 ReportPropertyChanging("TipoUnidad");
-                _TipoUnidad = StructuralObject.SetValidValue(value, true);
+                _TipoUnidad = StructuralObject.SetValidValue(value, true, "TipoUnidad");
                 ReportPropertyChanged("TipoUnidad");
                 OnTipoUnidadChanged();
             }
@@ -8508,7 +8620,7 @@ namespace Entidades
             {
                 OnMarcaChanging(value);
                 ReportPropertyChanging("Marca");
-                _Marca = StructuralObject.SetValidValue(value, true);
+                _Marca = StructuralObject.SetValidValue(value, true, "Marca");
                 ReportPropertyChanged("Marca");
                 OnMarcaChanged();
             }
@@ -8532,7 +8644,7 @@ namespace Entidades
             {
                 OnTitularChanging(value);
                 ReportPropertyChanging("Titular");
-                _Titular = StructuralObject.SetValidValue(value, true);
+                _Titular = StructuralObject.SetValidValue(value, true, "Titular");
                 ReportPropertyChanged("Titular");
                 OnTitularChanged();
             }
@@ -8556,7 +8668,7 @@ namespace Entidades
             {
                 OnContratoChanging(value);
                 ReportPropertyChanging("Contrato");
-                _Contrato = StructuralObject.SetValidValue(value, true);
+                _Contrato = StructuralObject.SetValidValue(value, true, "Contrato");
                 ReportPropertyChanged("Contrato");
                 OnContratoChanged();
             }
@@ -8580,7 +8692,7 @@ namespace Entidades
             {
                 OnNroPolizaChanging(value);
                 ReportPropertyChanging("NroPoliza");
-                _NroPoliza = StructuralObject.SetValidValue(value, true);
+                _NroPoliza = StructuralObject.SetValidValue(value, true, "NroPoliza");
                 ReportPropertyChanged("NroPoliza");
                 OnNroPolizaChanged();
             }
@@ -8604,7 +8716,7 @@ namespace Entidades
             {
                 OnCiaSeguroChanging(value);
                 ReportPropertyChanging("CiaSeguro");
-                _CiaSeguro = StructuralObject.SetValidValue(value, true);
+                _CiaSeguro = StructuralObject.SetValidValue(value, true, "CiaSeguro");
                 ReportPropertyChanged("CiaSeguro");
                 OnCiaSeguroChanged();
             }
@@ -8628,7 +8740,7 @@ namespace Entidades
             {
                 OnFechaHabilitacionCENTChanging(value);
                 ReportPropertyChanging("FechaHabilitacionCENT");
-                _FechaHabilitacionCENT = StructuralObject.SetValidValue(value, true);
+                _FechaHabilitacionCENT = StructuralObject.SetValidValue(value, true, "FechaHabilitacionCENT");
                 ReportPropertyChanged("FechaHabilitacionCENT");
                 OnFechaHabilitacionCENTChanged();
             }
@@ -8652,7 +8764,7 @@ namespace Entidades
             {
                 OnFechaPolizaChanging(value);
                 ReportPropertyChanging("FechaPoliza");
-                _FechaPoliza = StructuralObject.SetValidValue(value, true);
+                _FechaPoliza = StructuralObject.SetValidValue(value, true, "FechaPoliza");
                 ReportPropertyChanged("FechaPoliza");
                 OnFechaPolizaChanged();
             }
@@ -8676,7 +8788,7 @@ namespace Entidades
             {
                 OnFechaVencimientoCredencialChanging(value);
                 ReportPropertyChanging("FechaVencimientoCredencial");
-                _FechaVencimientoCredencial = StructuralObject.SetValidValue(value, true);
+                _FechaVencimientoCredencial = StructuralObject.SetValidValue(value, true, "FechaVencimientoCredencial");
                 ReportPropertyChanged("FechaVencimientoCredencial");
                 OnFechaVencimientoCredencialChanged();
             }
@@ -8687,7 +8799,6 @@ namespace Entidades
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -8713,7 +8824,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -8732,7 +8843,7 @@ namespace Entidades
                 {
                     OnIdPlantillaChanging(value);
                     ReportPropertyChanging("IdPlantilla");
-                    _IdPlantilla = StructuralObject.SetValidValue(value);
+                    _IdPlantilla = StructuralObject.SetValidValue(value, "IdPlantilla");
                     ReportPropertyChanged("IdPlantilla");
                     OnIdPlantillaChanged();
                 }
@@ -8757,7 +8868,7 @@ namespace Entidades
             {
                 OnDescripcionChanging(value);
                 ReportPropertyChanging("Descripcion");
-                _Descripcion = StructuralObject.SetValidValue(value, true);
+                _Descripcion = StructuralObject.SetValidValue(value, true, "Descripcion");
                 ReportPropertyChanged("Descripcion");
                 OnDescripcionChanged();
             }
@@ -8781,7 +8892,7 @@ namespace Entidades
             {
                 OnCodigoChanging(value);
                 ReportPropertyChanging("Codigo");
-                _Codigo = StructuralObject.SetValidValue(value, true);
+                _Codigo = StructuralObject.SetValidValue(value, true, "Codigo");
                 ReportPropertyChanged("Codigo");
                 OnCodigoChanged();
             }
@@ -8805,7 +8916,7 @@ namespace Entidades
             {
                 OnRiesgoChanging(value);
                 ReportPropertyChanging("Riesgo");
-                _Riesgo = StructuralObject.SetValidValue(value, true);
+                _Riesgo = StructuralObject.SetValidValue(value, true, "Riesgo");
                 ReportPropertyChanged("Riesgo");
                 OnRiesgoChanged();
             }
@@ -8829,7 +8940,7 @@ namespace Entidades
             {
                 OnGradoChanging(value);
                 ReportPropertyChanging("Grado");
-                _Grado = StructuralObject.SetValidValue(value);
+                _Grado = StructuralObject.SetValidValue(value, "Grado");
                 ReportPropertyChanged("Grado");
                 OnGradoChanged();
             }
@@ -8853,7 +8964,7 @@ namespace Entidades
             {
                 OnFornulaPlanTrabajoChanging(value);
                 ReportPropertyChanging("FornulaPlanTrabajo");
-                _FornulaPlanTrabajo = StructuralObject.SetValidValue(value, true);
+                _FornulaPlanTrabajo = StructuralObject.SetValidValue(value, true, "FornulaPlanTrabajo");
                 ReportPropertyChanged("FornulaPlanTrabajo");
                 OnFornulaPlanTrabajoChanged();
             }
@@ -8864,7 +8975,6 @@ namespace Entidades
 
         #endregion
 
-    
         #region Propiedades de navegación
     
         /// <summary>
@@ -8998,7 +9108,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -9017,7 +9127,7 @@ namespace Entidades
                 {
                     OnIdRolPlanillaChanging(value);
                     ReportPropertyChanging("IdRolPlanilla");
-                    _IdRolPlanilla = StructuralObject.SetValidValue(value);
+                    _IdRolPlanilla = StructuralObject.SetValidValue(value, "IdRolPlanilla");
                     ReportPropertyChanged("IdRolPlanilla");
                     OnIdRolPlanillaChanged();
                 }
@@ -9029,7 +9139,6 @@ namespace Entidades
 
         #endregion
 
-    
         #region Propiedades de navegación
     
         /// <summary>
@@ -9135,7 +9244,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -9154,7 +9263,7 @@ namespace Entidades
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -9179,7 +9288,7 @@ namespace Entidades
             {
                 OnLatitudChanging(value);
                 ReportPropertyChanging("Latitud");
-                _Latitud = StructuralObject.SetValidValue(value, true);
+                _Latitud = StructuralObject.SetValidValue(value, true, "Latitud");
                 ReportPropertyChanged("Latitud");
                 OnLatitudChanged();
             }
@@ -9203,7 +9312,7 @@ namespace Entidades
             {
                 OnLongitudChanging(value);
                 ReportPropertyChanging("Longitud");
-                _Longitud = StructuralObject.SetValidValue(value, true);
+                _Longitud = StructuralObject.SetValidValue(value, true, "Longitud");
                 ReportPropertyChanged("Longitud");
                 OnLongitudChanged();
             }
@@ -9227,7 +9336,7 @@ namespace Entidades
             {
                 OnDepartamentoChanging(value);
                 ReportPropertyChanging("Departamento");
-                _Departamento = StructuralObject.SetValidValue(value, true);
+                _Departamento = StructuralObject.SetValidValue(value, true, "Departamento");
                 ReportPropertyChanged("Departamento");
                 OnDepartamentoChanged();
             }
@@ -9251,7 +9360,7 @@ namespace Entidades
             {
                 OnCabeceraChanging(value);
                 ReportPropertyChanging("Cabecera");
-                _Cabecera = StructuralObject.SetValidValue(value);
+                _Cabecera = StructuralObject.SetValidValue(value, "Cabecera");
                 ReportPropertyChanged("Cabecera");
                 OnCabeceraChanged();
             }
@@ -9262,7 +9371,6 @@ namespace Entidades
 
         #endregion
 
-    
         #region Propiedades de navegación
     
         /// <summary>
@@ -9334,7 +9442,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -9353,7 +9461,7 @@ namespace Entidades
                 {
                     OnIdSegMenuChanging(value);
                     ReportPropertyChanging("IdSegMenu");
-                    _IdSegMenu = StructuralObject.SetValidValue(value);
+                    _IdSegMenu = StructuralObject.SetValidValue(value, "IdSegMenu");
                     ReportPropertyChanged("IdSegMenu");
                     OnIdSegMenuChanged();
                 }
@@ -9378,7 +9486,7 @@ namespace Entidades
             {
                 OnDescripcionChanging(value);
                 ReportPropertyChanging("Descripcion");
-                _Descripcion = StructuralObject.SetValidValue(value, false);
+                _Descripcion = StructuralObject.SetValidValue(value, false, "Descripcion");
                 ReportPropertyChanged("Descripcion");
                 OnDescripcionChanged();
             }
@@ -9402,7 +9510,7 @@ namespace Entidades
             {
                 OnPosicionChanging(value);
                 ReportPropertyChanging("Posicion");
-                _Posicion = StructuralObject.SetValidValue(value);
+                _Posicion = StructuralObject.SetValidValue(value, "Posicion");
                 ReportPropertyChanged("Posicion");
                 OnPosicionChanged();
             }
@@ -9426,7 +9534,7 @@ namespace Entidades
             {
                 OnIconoChanging(value);
                 ReportPropertyChanging("Icono");
-                _Icono = StructuralObject.SetValidValue(value, true);
+                _Icono = StructuralObject.SetValidValue(value, true, "Icono");
                 ReportPropertyChanged("Icono");
                 OnIconoChanged();
             }
@@ -9450,7 +9558,7 @@ namespace Entidades
             {
                 OnUrlChanging(value);
                 ReportPropertyChanging("Url");
-                _Url = StructuralObject.SetValidValue(value, true);
+                _Url = StructuralObject.SetValidValue(value, true, "Url");
                 ReportPropertyChanged("Url");
                 OnUrlChanged();
             }
@@ -9474,7 +9582,7 @@ namespace Entidades
             {
                 OnTargetChanging(value);
                 ReportPropertyChanging("Target");
-                _Target = StructuralObject.SetValidValue(value, true);
+                _Target = StructuralObject.SetValidValue(value, true, "Target");
                 ReportPropertyChanged("Target");
                 OnTargetChanged();
             }
@@ -9485,7 +9593,6 @@ namespace Entidades
 
         #endregion
 
-    
         #region Propiedades de navegación
     
         /// <summary>
@@ -9597,7 +9704,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -9616,7 +9723,7 @@ namespace Entidades
                 {
                     OnIdSegRolChanging(value);
                     ReportPropertyChanging("IdSegRol");
-                    _IdSegRol = StructuralObject.SetValidValue(value);
+                    _IdSegRol = StructuralObject.SetValidValue(value, "IdSegRol");
                     ReportPropertyChanged("IdSegRol");
                     OnIdSegRolChanged();
                 }
@@ -9641,7 +9748,7 @@ namespace Entidades
             {
                 OnDescripcionChanging(value);
                 ReportPropertyChanging("Descripcion");
-                _Descripcion = StructuralObject.SetValidValue(value, true);
+                _Descripcion = StructuralObject.SetValidValue(value, true, "Descripcion");
                 ReportPropertyChanged("Descripcion");
                 OnDescripcionChanged();
             }
@@ -9652,7 +9759,6 @@ namespace Entidades
 
         #endregion
 
-    
         #region Propiedades de navegación
     
         /// <summary>
@@ -9754,7 +9860,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -9773,7 +9879,7 @@ namespace Entidades
                 {
                     OnIdSegRolMenuChanging(value);
                     ReportPropertyChanging("IdSegRolMenu");
-                    _IdSegRolMenu = StructuralObject.SetValidValue(value);
+                    _IdSegRolMenu = StructuralObject.SetValidValue(value, "IdSegRolMenu");
                     ReportPropertyChanged("IdSegRolMenu");
                     OnIdSegRolMenuChanged();
                 }
@@ -9798,7 +9904,7 @@ namespace Entidades
             {
                 OnLecturaChanging(value);
                 ReportPropertyChanging("Lectura");
-                _Lectura = StructuralObject.SetValidValue(value);
+                _Lectura = StructuralObject.SetValidValue(value, "Lectura");
                 ReportPropertyChanged("Lectura");
                 OnLecturaChanged();
             }
@@ -9822,7 +9928,7 @@ namespace Entidades
             {
                 OnModificacionChanging(value);
                 ReportPropertyChanging("Modificacion");
-                _Modificacion = StructuralObject.SetValidValue(value);
+                _Modificacion = StructuralObject.SetValidValue(value, "Modificacion");
                 ReportPropertyChanged("Modificacion");
                 OnModificacionChanged();
             }
@@ -9846,7 +9952,7 @@ namespace Entidades
             {
                 OnCreacionChanging(value);
                 ReportPropertyChanging("Creacion");
-                _Creacion = StructuralObject.SetValidValue(value);
+                _Creacion = StructuralObject.SetValidValue(value, "Creacion");
                 ReportPropertyChanged("Creacion");
                 OnCreacionChanged();
             }
@@ -9857,7 +9963,6 @@ namespace Entidades
 
         #endregion
 
-    
         #region Propiedades de navegación
     
         /// <summary>
@@ -9967,7 +10072,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -9986,7 +10091,7 @@ namespace Entidades
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -10011,7 +10116,7 @@ namespace Entidades
             {
                 OnCabceraChanging(value);
                 ReportPropertyChanging("Cabcera");
-                _Cabcera = StructuralObject.SetValidValue(value);
+                _Cabcera = StructuralObject.SetValidValue(value, "Cabcera");
                 ReportPropertyChanged("Cabcera");
                 OnCabceraChanged();
             }
@@ -10035,7 +10140,7 @@ namespace Entidades
             {
                 OnFechaRecepcionChanging(value);
                 ReportPropertyChanging("FechaRecepcion");
-                _FechaRecepcion = StructuralObject.SetValidValue(value);
+                _FechaRecepcion = StructuralObject.SetValidValue(value, "FechaRecepcion");
                 ReportPropertyChanged("FechaRecepcion");
                 OnFechaRecepcionChanged();
             }
@@ -10059,7 +10164,7 @@ namespace Entidades
             {
                 OnFechaAsignacionChanging(value);
                 ReportPropertyChanging("FechaAsignacion");
-                _FechaAsignacion = StructuralObject.SetValidValue(value);
+                _FechaAsignacion = StructuralObject.SetValidValue(value, "FechaAsignacion");
                 ReportPropertyChanged("FechaAsignacion");
                 OnFechaAsignacionChanged();
             }
@@ -10083,7 +10188,7 @@ namespace Entidades
             {
                 OnAuditorAsignadoChanging(value);
                 ReportPropertyChanging("AuditorAsignado");
-                _AuditorAsignado = StructuralObject.SetValidValue(value);
+                _AuditorAsignado = StructuralObject.SetValidValue(value, "AuditorAsignado");
                 ReportPropertyChanged("AuditorAsignado");
                 OnAuditorAsignadoChanged();
             }
@@ -10107,7 +10212,7 @@ namespace Entidades
             {
                 OnFechaResultadoChanging(value);
                 ReportPropertyChanging("FechaResultado");
-                _FechaResultado = StructuralObject.SetValidValue(value);
+                _FechaResultado = StructuralObject.SetValidValue(value, "FechaResultado");
                 ReportPropertyChanged("FechaResultado");
                 OnFechaResultadoChanged();
             }
@@ -10131,7 +10236,7 @@ namespace Entidades
             {
                 OnResultadoChanging(value);
                 ReportPropertyChanging("Resultado");
-                _Resultado = StructuralObject.SetValidValue(value);
+                _Resultado = StructuralObject.SetValidValue(value, "Resultado");
                 ReportPropertyChanged("Resultado");
                 OnResultadoChanged();
             }
@@ -10155,7 +10260,7 @@ namespace Entidades
             {
                 OnFechaRetencionChanging(value);
                 ReportPropertyChanging("FechaRetencion");
-                _FechaRetencion = StructuralObject.SetValidValue(value);
+                _FechaRetencion = StructuralObject.SetValidValue(value, "FechaRetencion");
                 ReportPropertyChanged("FechaRetencion");
                 OnFechaRetencionChanged();
             }
@@ -10179,7 +10284,7 @@ namespace Entidades
             {
                 OnRetencionChanging(value);
                 ReportPropertyChanging("Retencion");
-                _Retencion = StructuralObject.SetValidValue(value);
+                _Retencion = StructuralObject.SetValidValue(value, "Retencion");
                 ReportPropertyChanged("Retencion");
                 OnRetencionChanged();
             }
@@ -10203,7 +10308,7 @@ namespace Entidades
             {
                 OnFechaAsignacionInterinoChanging(value);
                 ReportPropertyChanging("FechaAsignacionInterino");
-                _FechaAsignacionInterino = StructuralObject.SetValidValue(value);
+                _FechaAsignacionInterino = StructuralObject.SetValidValue(value, "FechaAsignacionInterino");
                 ReportPropertyChanged("FechaAsignacionInterino");
                 OnFechaAsignacionInterinoChanged();
             }
@@ -10227,7 +10332,7 @@ namespace Entidades
             {
                 OnAudtorInterinoChanging(value);
                 ReportPropertyChanging("AudtorInterino");
-                _AudtorInterino = StructuralObject.SetValidValue(value);
+                _AudtorInterino = StructuralObject.SetValidValue(value, "AudtorInterino");
                 ReportPropertyChanged("AudtorInterino");
                 OnAudtorInterinoChanged();
             }
@@ -10251,7 +10356,7 @@ namespace Entidades
             {
                 OnNroPresentacionChanging(value);
                 ReportPropertyChanging("NroPresentacion");
-                _NroPresentacion = StructuralObject.SetValidValue(value);
+                _NroPresentacion = StructuralObject.SetValidValue(value, "NroPresentacion");
                 ReportPropertyChanged("NroPresentacion");
                 OnNroPresentacionChanged();
             }
@@ -10275,7 +10380,7 @@ namespace Entidades
             {
                 OnPublicadoChanging(value);
                 ReportPropertyChanging("Publicado");
-                _Publicado = StructuralObject.SetValidValue(value);
+                _Publicado = StructuralObject.SetValidValue(value, "Publicado");
                 ReportPropertyChanged("Publicado");
                 OnPublicadoChanged();
             }
@@ -10286,7 +10391,6 @@ namespace Entidades
 
         #endregion
 
-    
         #region Propiedades de navegación
     
         /// <summary>
@@ -10510,7 +10614,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -10529,7 +10633,7 @@ namespace Entidades
                 {
                     OnIdSegUsuarioChanging(value);
                     ReportPropertyChanging("IdSegUsuario");
-                    _IdSegUsuario = StructuralObject.SetValidValue(value);
+                    _IdSegUsuario = StructuralObject.SetValidValue(value, "IdSegUsuario");
                     ReportPropertyChanged("IdSegUsuario");
                     OnIdSegUsuarioChanged();
                 }
@@ -10554,7 +10658,7 @@ namespace Entidades
             {
                 OnPasswordChanging(value);
                 ReportPropertyChanging("Password");
-                _Password = StructuralObject.SetValidValue(value, false);
+                _Password = StructuralObject.SetValidValue(value, false, "Password");
                 ReportPropertyChanged("Password");
                 OnPasswordChanged();
             }
@@ -10578,7 +10682,7 @@ namespace Entidades
             {
                 OnLoginChanging(value);
                 ReportPropertyChanging("Login");
-                _Login = StructuralObject.SetValidValue(value, false);
+                _Login = StructuralObject.SetValidValue(value, false, "Login");
                 ReportPropertyChanged("Login");
                 OnLoginChanged();
             }
@@ -10589,7 +10693,6 @@ namespace Entidades
 
         #endregion
 
-    
         #region Propiedades de navegación
     
         /// <summary>
@@ -10767,7 +10870,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -10786,7 +10889,7 @@ namespace Entidades
                 {
                     OnIdSegUsuarioRolChanging(value);
                     ReportPropertyChanging("IdSegUsuarioRol");
-                    _IdSegUsuarioRol = StructuralObject.SetValidValue(value);
+                    _IdSegUsuarioRol = StructuralObject.SetValidValue(value, "IdSegUsuarioRol");
                     ReportPropertyChanged("IdSegUsuarioRol");
                     OnIdSegUsuarioRolChanged();
                 }
@@ -10798,7 +10901,6 @@ namespace Entidades
 
         #endregion
 
-    
         #region Propiedades de navegación
     
         /// <summary>
@@ -10904,7 +11006,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -10923,7 +11025,7 @@ namespace Entidades
                 {
                     OnIdVehiculoEquipoChanging(value);
                     ReportPropertyChanging("IdVehiculoEquipo");
-                    _IdVehiculoEquipo = StructuralObject.SetValidValue(value);
+                    _IdVehiculoEquipo = StructuralObject.SetValidValue(value, "IdVehiculoEquipo");
                     ReportPropertyChanged("IdVehiculoEquipo");
                     OnIdVehiculoEquipoChanged();
                 }
@@ -10948,7 +11050,7 @@ namespace Entidades
             {
                 OnPatenteChanging(value);
                 ReportPropertyChanging("Patente");
-                _Patente = StructuralObject.SetValidValue(value, true);
+                _Patente = StructuralObject.SetValidValue(value, true, "Patente");
                 ReportPropertyChanged("Patente");
                 OnPatenteChanged();
             }
@@ -10972,7 +11074,7 @@ namespace Entidades
             {
                 OnTipoUnidadChanging(value);
                 ReportPropertyChanging("TipoUnidad");
-                _TipoUnidad = StructuralObject.SetValidValue(value);
+                _TipoUnidad = StructuralObject.SetValidValue(value, "TipoUnidad");
                 ReportPropertyChanged("TipoUnidad");
                 OnTipoUnidadChanged();
             }
@@ -10996,7 +11098,7 @@ namespace Entidades
             {
                 OnNroChasisChanging(value);
                 ReportPropertyChanging("NroChasis");
-                _NroChasis = StructuralObject.SetValidValue(value, true);
+                _NroChasis = StructuralObject.SetValidValue(value, true, "NroChasis");
                 ReportPropertyChanged("NroChasis");
                 OnNroChasisChanged();
             }
@@ -11020,7 +11122,7 @@ namespace Entidades
             {
                 OnCapacidadCargaChanging(value);
                 ReportPropertyChanging("CapacidadCarga");
-                _CapacidadCarga = StructuralObject.SetValidValue(value, true);
+                _CapacidadCarga = StructuralObject.SetValidValue(value, true, "CapacidadCarga");
                 ReportPropertyChanged("CapacidadCarga");
                 OnCapacidadCargaChanged();
             }
@@ -11044,7 +11146,7 @@ namespace Entidades
             {
                 OnFechaFabricacionChanging(value);
                 ReportPropertyChanging("FechaFabricacion");
-                _FechaFabricacion = StructuralObject.SetValidValue(value);
+                _FechaFabricacion = StructuralObject.SetValidValue(value, "FechaFabricacion");
                 ReportPropertyChanged("FechaFabricacion");
                 OnFechaFabricacionChanged();
             }
@@ -11068,7 +11170,7 @@ namespace Entidades
             {
                 OnMarcaChanging(value);
                 ReportPropertyChanging("Marca");
-                _Marca = StructuralObject.SetValidValue(value, true);
+                _Marca = StructuralObject.SetValidValue(value, true, "Marca");
                 ReportPropertyChanged("Marca");
                 OnMarcaChanged();
             }
@@ -11092,7 +11194,7 @@ namespace Entidades
             {
                 OnModeloChanging(value);
                 ReportPropertyChanging("Modelo");
-                _Modelo = StructuralObject.SetValidValue(value, true);
+                _Modelo = StructuralObject.SetValidValue(value, true, "Modelo");
                 ReportPropertyChanged("Modelo");
                 OnModeloChanged();
             }
@@ -11116,7 +11218,7 @@ namespace Entidades
             {
                 OnNroMotorChanging(value);
                 ReportPropertyChanging("NroMotor");
-                _NroMotor = StructuralObject.SetValidValue(value, true);
+                _NroMotor = StructuralObject.SetValidValue(value, true, "NroMotor");
                 ReportPropertyChanged("NroMotor");
                 OnNroMotorChanged();
             }
@@ -11140,7 +11242,7 @@ namespace Entidades
             {
                 OnNroHabilitacionChanging(value);
                 ReportPropertyChanging("NroHabilitacion");
-                _NroHabilitacion = StructuralObject.SetValidValue(value, true);
+                _NroHabilitacion = StructuralObject.SetValidValue(value, true, "NroHabilitacion");
                 ReportPropertyChanged("NroHabilitacion");
                 OnNroHabilitacionChanged();
             }
@@ -11164,7 +11266,7 @@ namespace Entidades
             {
                 OnFechaHabilitacionChanging(value);
                 ReportPropertyChanging("FechaHabilitacion");
-                _FechaHabilitacion = StructuralObject.SetValidValue(value);
+                _FechaHabilitacion = StructuralObject.SetValidValue(value, "FechaHabilitacion");
                 ReportPropertyChanged("FechaHabilitacion");
                 OnFechaHabilitacionChanged();
             }
@@ -11188,7 +11290,7 @@ namespace Entidades
             {
                 OnFechaVencimientoHabilitacionChanging(value);
                 ReportPropertyChanging("FechaVencimientoHabilitacion");
-                _FechaVencimientoHabilitacion = StructuralObject.SetValidValue(value);
+                _FechaVencimientoHabilitacion = StructuralObject.SetValidValue(value, "FechaVencimientoHabilitacion");
                 ReportPropertyChanged("FechaVencimientoHabilitacion");
                 OnFechaVencimientoHabilitacionChanged();
             }
@@ -11212,7 +11314,7 @@ namespace Entidades
             {
                 OnEsPropioChanging(value);
                 ReportPropertyChanging("EsPropio");
-                _EsPropio = StructuralObject.SetValidValue(value);
+                _EsPropio = StructuralObject.SetValidValue(value, "EsPropio");
                 ReportPropertyChanged("EsPropio");
                 OnEsPropioChanged();
             }
@@ -11236,7 +11338,7 @@ namespace Entidades
             {
                 OnNombreTitularChanging(value);
                 ReportPropertyChanging("NombreTitular");
-                _NombreTitular = StructuralObject.SetValidValue(value, true);
+                _NombreTitular = StructuralObject.SetValidValue(value, true, "NombreTitular");
                 ReportPropertyChanged("NombreTitular");
                 OnNombreTitularChanged();
             }
@@ -11260,7 +11362,7 @@ namespace Entidades
             {
                 OnAltaEmpresaChanging(value);
                 ReportPropertyChanging("AltaEmpresa");
-                _AltaEmpresa = StructuralObject.SetValidValue(value);
+                _AltaEmpresa = StructuralObject.SetValidValue(value, "AltaEmpresa");
                 ReportPropertyChanged("AltaEmpresa");
                 OnAltaEmpresaChanged();
             }
@@ -11284,7 +11386,7 @@ namespace Entidades
             {
                 OnBajaEmpresaChanging(value);
                 ReportPropertyChanging("BajaEmpresa");
-                _BajaEmpresa = StructuralObject.SetValidValue(value);
+                _BajaEmpresa = StructuralObject.SetValidValue(value, "BajaEmpresa");
                 ReportPropertyChanged("BajaEmpresa");
                 OnBajaEmpresaChanged();
             }
@@ -11308,7 +11410,7 @@ namespace Entidades
             {
                 OnEquipamientoAgregadoChanging(value);
                 ReportPropertyChanging("EquipamientoAgregado");
-                _EquipamientoAgregado = StructuralObject.SetValidValue(value, true);
+                _EquipamientoAgregado = StructuralObject.SetValidValue(value, true, "EquipamientoAgregado");
                 ReportPropertyChanged("EquipamientoAgregado");
                 OnEquipamientoAgregadoChanged();
             }
@@ -11332,7 +11434,7 @@ namespace Entidades
             {
                 OnTipoChanging(value);
                 ReportPropertyChanging("Tipo");
-                _Tipo = StructuralObject.SetValidValue(value, true);
+                _Tipo = StructuralObject.SetValidValue(value, true, "Tipo");
                 ReportPropertyChanged("Tipo");
                 OnTipoChanged();
             }
@@ -11356,7 +11458,7 @@ namespace Entidades
             {
                 OnContratoAfectadoChanging(value);
                 ReportPropertyChanging("ContratoAfectado");
-                _ContratoAfectado = StructuralObject.SetValidValue(value);
+                _ContratoAfectado = StructuralObject.SetValidValue(value, "ContratoAfectado");
                 ReportPropertyChanged("ContratoAfectado");
                 OnContratoAfectadoChanged();
             }
@@ -11380,7 +11482,7 @@ namespace Entidades
             {
                 OnEmpresaChanging(value);
                 ReportPropertyChanging("Empresa");
-                _Empresa = StructuralObject.SetValidValue(value);
+                _Empresa = StructuralObject.SetValidValue(value, "Empresa");
                 ReportPropertyChanged("Empresa");
                 OnEmpresaChanged();
             }
@@ -11404,7 +11506,7 @@ namespace Entidades
             {
                 OnVencimientoCredencialChanging(value);
                 ReportPropertyChanging("VencimientoCredencial");
-                _VencimientoCredencial = StructuralObject.SetValidValue(value);
+                _VencimientoCredencial = StructuralObject.SetValidValue(value, "VencimientoCredencial");
                 ReportPropertyChanged("VencimientoCredencial");
                 OnVencimientoCredencialChanged();
             }
@@ -11428,7 +11530,7 @@ namespace Entidades
             {
                 OnHabilitarCredencialChanging(value);
                 ReportPropertyChanging("HabilitarCredencial");
-                _HabilitarCredencial = StructuralObject.SetValidValue(value);
+                _HabilitarCredencial = StructuralObject.SetValidValue(value, "HabilitarCredencial");
                 ReportPropertyChanged("HabilitarCredencial");
                 OnHabilitarCredencialChanged();
             }
@@ -11452,7 +11554,7 @@ namespace Entidades
             {
                 OnNroPolizaSeguroChanging(value);
                 ReportPropertyChanging("NroPolizaSeguro");
-                _NroPolizaSeguro = StructuralObject.SetValidValue(value, true);
+                _NroPolizaSeguro = StructuralObject.SetValidValue(value, true, "NroPolizaSeguro");
                 ReportPropertyChanged("NroPolizaSeguro");
                 OnNroPolizaSeguroChanged();
             }
@@ -11476,7 +11578,7 @@ namespace Entidades
             {
                 OnDescripcionSeguroChanging(value);
                 ReportPropertyChanging("DescripcionSeguro");
-                _DescripcionSeguro = StructuralObject.SetValidValue(value, true);
+                _DescripcionSeguro = StructuralObject.SetValidValue(value, true, "DescripcionSeguro");
                 ReportPropertyChanged("DescripcionSeguro");
                 OnDescripcionSeguroChanged();
             }
@@ -11500,7 +11602,7 @@ namespace Entidades
             {
                 OnCompañiaSeguroChanging(value);
                 ReportPropertyChanging("CompañiaSeguro");
-                _CompañiaSeguro = StructuralObject.SetValidValue(value);
+                _CompañiaSeguro = StructuralObject.SetValidValue(value, "CompañiaSeguro");
                 ReportPropertyChanged("CompañiaSeguro");
                 OnCompañiaSeguroChanged();
             }
@@ -11524,7 +11626,7 @@ namespace Entidades
             {
                 OnFechaInicialSeguroChanging(value);
                 ReportPropertyChanging("FechaInicialSeguro");
-                _FechaInicialSeguro = StructuralObject.SetValidValue(value);
+                _FechaInicialSeguro = StructuralObject.SetValidValue(value, "FechaInicialSeguro");
                 ReportPropertyChanged("FechaInicialSeguro");
                 OnFechaInicialSeguroChanged();
             }
@@ -11548,7 +11650,7 @@ namespace Entidades
             {
                 OnFechaVencimientoSeguroChanging(value);
                 ReportPropertyChanging("FechaVencimientoSeguro");
-                _FechaVencimientoSeguro = StructuralObject.SetValidValue(value);
+                _FechaVencimientoSeguro = StructuralObject.SetValidValue(value, "FechaVencimientoSeguro");
                 ReportPropertyChanged("FechaVencimientoSeguro");
                 OnFechaVencimientoSeguroChanged();
             }
@@ -11572,7 +11674,7 @@ namespace Entidades
             {
                 OnFechaUltimoPagoSeguroChanging(value);
                 ReportPropertyChanging("FechaUltimoPagoSeguro");
-                _FechaUltimoPagoSeguro = StructuralObject.SetValidValue(value);
+                _FechaUltimoPagoSeguro = StructuralObject.SetValidValue(value, "FechaUltimoPagoSeguro");
                 ReportPropertyChanged("FechaUltimoPagoSeguro");
                 OnFechaUltimoPagoSeguroChanged();
             }
@@ -11596,7 +11698,7 @@ namespace Entidades
             {
                 OnFechaUltimaActualizacionChanging(value);
                 ReportPropertyChanging("FechaUltimaActualizacion");
-                _FechaUltimaActualizacion = StructuralObject.SetValidValue(value);
+                _FechaUltimaActualizacion = StructuralObject.SetValidValue(value, "FechaUltimaActualizacion");
                 ReportPropertyChanged("FechaUltimaActualizacion");
                 OnFechaUltimaActualizacionChanged();
             }
@@ -11620,7 +11722,7 @@ namespace Entidades
             {
                 OnFechaCreacionChanging(value);
                 ReportPropertyChanging("FechaCreacion");
-                _FechaCreacion = StructuralObject.SetValidValue(value);
+                _FechaCreacion = StructuralObject.SetValidValue(value, "FechaCreacion");
                 ReportPropertyChanged("FechaCreacion");
                 OnFechaCreacionChanged();
             }
@@ -11644,7 +11746,7 @@ namespace Entidades
             {
                 OnNroInternoChanging(value);
                 ReportPropertyChanging("NroInterno");
-                _NroInterno = StructuralObject.SetValidValue(value);
+                _NroInterno = StructuralObject.SetValidValue(value, "NroInterno");
                 ReportPropertyChanged("NroInterno");
                 OnNroInternoChanged();
             }
@@ -11668,7 +11770,7 @@ namespace Entidades
             {
                 OnNroHabilitacionEEChanging(value);
                 ReportPropertyChanging("NroHabilitacionEE");
-                _NroHabilitacionEE = StructuralObject.SetValidValue(value, true);
+                _NroHabilitacionEE = StructuralObject.SetValidValue(value, true, "NroHabilitacionEE");
                 ReportPropertyChanged("NroHabilitacionEE");
                 OnNroHabilitacionEEChanged();
             }
@@ -11692,7 +11794,7 @@ namespace Entidades
             {
                 OnFechaHabilitacionEEChanging(value);
                 ReportPropertyChanging("FechaHabilitacionEE");
-                _FechaHabilitacionEE = StructuralObject.SetValidValue(value);
+                _FechaHabilitacionEE = StructuralObject.SetValidValue(value, "FechaHabilitacionEE");
                 ReportPropertyChanged("FechaHabilitacionEE");
                 OnFechaHabilitacionEEChanged();
             }
@@ -11716,7 +11818,7 @@ namespace Entidades
             {
                 OnFechaVencimientoHabilitacionEEChanging(value);
                 ReportPropertyChanging("FechaVencimientoHabilitacionEE");
-                _FechaVencimientoHabilitacionEE = StructuralObject.SetValidValue(value);
+                _FechaVencimientoHabilitacionEE = StructuralObject.SetValidValue(value, "FechaVencimientoHabilitacionEE");
                 ReportPropertyChanged("FechaVencimientoHabilitacionEE");
                 OnFechaVencimientoHabilitacionEEChanged();
             }
@@ -11740,7 +11842,7 @@ namespace Entidades
             {
                 OnPuestoIngresoChanging(value);
                 ReportPropertyChanging("PuestoIngreso");
-                _PuestoIngreso = StructuralObject.SetValidValue(value, true);
+                _PuestoIngreso = StructuralObject.SetValidValue(value, true, "PuestoIngreso");
                 ReportPropertyChanged("PuestoIngreso");
                 OnPuestoIngresoChanged();
             }
@@ -11751,7 +11853,6 @@ namespace Entidades
 
         #endregion
 
-    
         #region Propiedades de navegación
     
         /// <summary>
@@ -11933,7 +12034,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -11952,7 +12053,7 @@ namespace Entidades
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -11977,7 +12078,7 @@ namespace Entidades
             {
                 OnTipoChanging(value);
                 ReportPropertyChanging("Tipo");
-                _Tipo = StructuralObject.SetValidValue(value, true);
+                _Tipo = StructuralObject.SetValidValue(value, true, "Tipo");
                 ReportPropertyChanged("Tipo");
                 OnTipoChanged();
             }
@@ -12001,7 +12102,7 @@ namespace Entidades
             {
                 OnEmpresaChanging(value);
                 ReportPropertyChanging("Empresa");
-                _Empresa = StructuralObject.SetValidValue(value, true);
+                _Empresa = StructuralObject.SetValidValue(value, true, "Empresa");
                 ReportPropertyChanged("Empresa");
                 OnEmpresaChanged();
             }
@@ -12025,7 +12126,7 @@ namespace Entidades
             {
                 OnPatenteChanging(value);
                 ReportPropertyChanging("Patente");
-                _Patente = StructuralObject.SetValidValue(value, true);
+                _Patente = StructuralObject.SetValidValue(value, true, "Patente");
                 ReportPropertyChanged("Patente");
                 OnPatenteChanged();
             }
@@ -12049,7 +12150,7 @@ namespace Entidades
             {
                 OnFechaFabricacionChanging(value);
                 ReportPropertyChanging("FechaFabricacion");
-                _FechaFabricacion = StructuralObject.SetValidValue(value);
+                _FechaFabricacion = StructuralObject.SetValidValue(value, "FechaFabricacion");
                 ReportPropertyChanged("FechaFabricacion");
                 OnFechaFabricacionChanged();
             }
@@ -12073,7 +12174,7 @@ namespace Entidades
             {
                 OnTipoUnidadChanging(value);
                 ReportPropertyChanging("TipoUnidad");
-                _TipoUnidad = StructuralObject.SetValidValue(value, true);
+                _TipoUnidad = StructuralObject.SetValidValue(value, true, "TipoUnidad");
                 ReportPropertyChanged("TipoUnidad");
                 OnTipoUnidadChanged();
             }
@@ -12097,7 +12198,7 @@ namespace Entidades
             {
                 OnMarcaChanging(value);
                 ReportPropertyChanging("Marca");
-                _Marca = StructuralObject.SetValidValue(value, true);
+                _Marca = StructuralObject.SetValidValue(value, true, "Marca");
                 ReportPropertyChanged("Marca");
                 OnMarcaChanged();
             }
@@ -12121,7 +12222,7 @@ namespace Entidades
             {
                 OnTitularChanging(value);
                 ReportPropertyChanging("Titular");
-                _Titular = StructuralObject.SetValidValue(value, true);
+                _Titular = StructuralObject.SetValidValue(value, true, "Titular");
                 ReportPropertyChanged("Titular");
                 OnTitularChanged();
             }
@@ -12145,7 +12246,7 @@ namespace Entidades
             {
                 OnContratoChanging(value);
                 ReportPropertyChanging("Contrato");
-                _Contrato = StructuralObject.SetValidValue(value, true);
+                _Contrato = StructuralObject.SetValidValue(value, true, "Contrato");
                 ReportPropertyChanged("Contrato");
                 OnContratoChanged();
             }
@@ -12169,7 +12270,7 @@ namespace Entidades
             {
                 OnNroPolizaChanging(value);
                 ReportPropertyChanging("NroPoliza");
-                _NroPoliza = StructuralObject.SetValidValue(value, true);
+                _NroPoliza = StructuralObject.SetValidValue(value, true, "NroPoliza");
                 ReportPropertyChanged("NroPoliza");
                 OnNroPolizaChanged();
             }
@@ -12193,7 +12294,7 @@ namespace Entidades
             {
                 OnCiaSeguroChanging(value);
                 ReportPropertyChanging("CiaSeguro");
-                _CiaSeguro = StructuralObject.SetValidValue(value, true);
+                _CiaSeguro = StructuralObject.SetValidValue(value, true, "CiaSeguro");
                 ReportPropertyChanged("CiaSeguro");
                 OnCiaSeguroChanged();
             }
@@ -12217,7 +12318,7 @@ namespace Entidades
             {
                 OnFechaHabilitacionCENTChanging(value);
                 ReportPropertyChanging("FechaHabilitacionCENT");
-                _FechaHabilitacionCENT = StructuralObject.SetValidValue(value);
+                _FechaHabilitacionCENT = StructuralObject.SetValidValue(value, "FechaHabilitacionCENT");
                 ReportPropertyChanged("FechaHabilitacionCENT");
                 OnFechaHabilitacionCENTChanged();
             }
@@ -12241,7 +12342,7 @@ namespace Entidades
             {
                 OnFechaPolizaChanging(value);
                 ReportPropertyChanging("FechaPoliza");
-                _FechaPoliza = StructuralObject.SetValidValue(value, true);
+                _FechaPoliza = StructuralObject.SetValidValue(value, true, "FechaPoliza");
                 ReportPropertyChanged("FechaPoliza");
                 OnFechaPolizaChanged();
             }
@@ -12265,7 +12366,7 @@ namespace Entidades
             {
                 OnFechaVencimientoCredencialChanging(value);
                 ReportPropertyChanging("FechaVencimientoCredencial");
-                _FechaVencimientoCredencial = StructuralObject.SetValidValue(value);
+                _FechaVencimientoCredencial = StructuralObject.SetValidValue(value, "FechaVencimientoCredencial");
                 ReportPropertyChanged("FechaVencimientoCredencial");
                 OnFechaVencimientoCredencialChanged();
             }
@@ -12276,7 +12377,6 @@ namespace Entidades
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -12304,7 +12404,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -12321,7 +12421,7 @@ namespace Entidades
             {
                 OnPatenteChanging(value);
                 ReportPropertyChanging("Patente");
-                _Patente = StructuralObject.SetValidValue(value, false);
+                _Patente = StructuralObject.SetValidValue(value, false, "Patente");
                 ReportPropertyChanged("Patente");
                 OnPatenteChanged();
             }
@@ -12345,7 +12445,7 @@ namespace Entidades
             {
                 OnModeloChanging(value);
                 ReportPropertyChanging("Modelo");
-                _Modelo = StructuralObject.SetValidValue(value, true);
+                _Modelo = StructuralObject.SetValidValue(value, true, "Modelo");
                 ReportPropertyChanged("Modelo");
                 OnModeloChanged();
             }
@@ -12369,7 +12469,7 @@ namespace Entidades
             {
                 OnAñoChanging(value);
                 ReportPropertyChanging("Año");
-                _Año = StructuralObject.SetValidValue(value, true);
+                _Año = StructuralObject.SetValidValue(value, true, "Año");
                 ReportPropertyChanged("Año");
                 OnAñoChanged();
             }
@@ -12395,7 +12495,7 @@ namespace Entidades
                 {
                     OnIdChanging(value);
                     ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
+                    _Id = StructuralObject.SetValidValue(value, "Id");
                     ReportPropertyChanged("Id");
                     OnIdChanged();
                 }
@@ -12420,7 +12520,7 @@ namespace Entidades
             {
                 OnCombustibleChanging(value);
                 ReportPropertyChanging("Combustible");
-                _Combustible = StructuralObject.SetValidValue(value);
+                _Combustible = StructuralObject.SetValidValue(value, "Combustible");
                 ReportPropertyChanged("Combustible");
                 OnCombustibleChanged();
             }
@@ -12444,7 +12544,7 @@ namespace Entidades
             {
                 OnDepartamentoChanging(value);
                 ReportPropertyChanging("Departamento");
-                _Departamento = StructuralObject.SetValidValue(value);
+                _Departamento = StructuralObject.SetValidValue(value, "Departamento");
                 ReportPropertyChanged("Departamento");
                 OnDepartamentoChanged();
             }
@@ -12468,7 +12568,7 @@ namespace Entidades
             {
                 OnSectorChanging(value);
                 ReportPropertyChanging("Sector");
-                _Sector = StructuralObject.SetValidValue(value);
+                _Sector = StructuralObject.SetValidValue(value, "Sector");
                 ReportPropertyChanged("Sector");
                 OnSectorChanged();
             }
@@ -12492,7 +12592,7 @@ namespace Entidades
             {
                 OnTitularChanging(value);
                 ReportPropertyChanging("Titular");
-                _Titular = StructuralObject.SetValidValue(value, true);
+                _Titular = StructuralObject.SetValidValue(value, true, "Titular");
                 ReportPropertyChanged("Titular");
                 OnTitularChanged();
             }
@@ -12516,7 +12616,7 @@ namespace Entidades
             {
                 OnFechaVtoTarjVerdeChanging(value);
                 ReportPropertyChanging("FechaVtoTarjVerde");
-                _FechaVtoTarjVerde = StructuralObject.SetValidValue(value);
+                _FechaVtoTarjVerde = StructuralObject.SetValidValue(value, "FechaVtoTarjVerde");
                 ReportPropertyChanged("FechaVtoTarjVerde");
                 OnFechaVtoTarjVerdeChanged();
             }
@@ -12540,7 +12640,7 @@ namespace Entidades
             {
                 OnFechaVtoRevTecnicaChanging(value);
                 ReportPropertyChanging("FechaVtoRevTecnica");
-                _FechaVtoRevTecnica = StructuralObject.SetValidValue(value);
+                _FechaVtoRevTecnica = StructuralObject.SetValidValue(value, "FechaVtoRevTecnica");
                 ReportPropertyChanged("FechaVtoRevTecnica");
                 OnFechaVtoRevTecnicaChanged();
             }
@@ -12564,7 +12664,7 @@ namespace Entidades
             {
                 OnContratoChanging(value);
                 ReportPropertyChanging("Contrato");
-                _Contrato = StructuralObject.SetValidValue(value, true);
+                _Contrato = StructuralObject.SetValidValue(value, true, "Contrato");
                 ReportPropertyChanged("Contrato");
                 OnContratoChanged();
             }
@@ -12588,7 +12688,7 @@ namespace Entidades
             {
                 OnNroTarjetaChanging(value);
                 ReportPropertyChanging("NroTarjeta");
-                _NroTarjeta = StructuralObject.SetValidValue(value, true);
+                _NroTarjeta = StructuralObject.SetValidValue(value, true, "NroTarjeta");
                 ReportPropertyChanged("NroTarjeta");
                 OnNroTarjetaChanged();
             }
@@ -12612,7 +12712,7 @@ namespace Entidades
             {
                 OnTipoAsignacionChanging(value);
                 ReportPropertyChanging("TipoAsignacion");
-                _TipoAsignacion = StructuralObject.SetValidValue(value);
+                _TipoAsignacion = StructuralObject.SetValidValue(value, "TipoAsignacion");
                 ReportPropertyChanged("TipoAsignacion");
                 OnTipoAsignacionChanged();
             }
@@ -12636,7 +12736,7 @@ namespace Entidades
             {
                 OnCentroCostoChanging(value);
                 ReportPropertyChanging("CentroCosto");
-                _CentroCosto = StructuralObject.SetValidValue(value, true);
+                _CentroCosto = StructuralObject.SetValidValue(value, true, "CentroCosto");
                 ReportPropertyChanged("CentroCosto");
                 OnCentroCostoChanged();
             }
@@ -12660,7 +12760,7 @@ namespace Entidades
             {
                 OnVelocimetroFechaChanging(value);
                 ReportPropertyChanging("VelocimetroFecha");
-                _VelocimetroFecha = StructuralObject.SetValidValue(value);
+                _VelocimetroFecha = StructuralObject.SetValidValue(value, "VelocimetroFecha");
                 ReportPropertyChanged("VelocimetroFecha");
                 OnVelocimetroFechaChanged();
             }
@@ -12684,7 +12784,7 @@ namespace Entidades
             {
                 OnVelocimetroOdometroChanging(value);
                 ReportPropertyChanging("VelocimetroOdometro");
-                _VelocimetroOdometro = StructuralObject.SetValidValue(value, true);
+                _VelocimetroOdometro = StructuralObject.SetValidValue(value, true, "VelocimetroOdometro");
                 ReportPropertyChanged("VelocimetroOdometro");
                 OnVelocimetroOdometroChanged();
             }
@@ -12708,7 +12808,7 @@ namespace Entidades
             {
                 OnFechaBajaChanging(value);
                 ReportPropertyChanging("FechaBaja");
-                _FechaBaja = StructuralObject.SetValidValue(value);
+                _FechaBaja = StructuralObject.SetValidValue(value, "FechaBaja");
                 ReportPropertyChanged("FechaBaja");
                 OnFechaBajaChanged();
             }
@@ -12732,7 +12832,7 @@ namespace Entidades
             {
                 OnObservacionChanging(value);
                 ReportPropertyChanging("Observacion");
-                _Observacion = StructuralObject.SetValidValue(value, true);
+                _Observacion = StructuralObject.SetValidValue(value, true, "Observacion");
                 ReportPropertyChanged("Observacion");
                 OnObservacionChanged();
             }
@@ -12756,7 +12856,7 @@ namespace Entidades
             {
                 OnRazonSocialChanging(value);
                 ReportPropertyChanging("RazonSocial");
-                _RazonSocial = StructuralObject.SetValidValue(value, true);
+                _RazonSocial = StructuralObject.SetValidValue(value, true, "RazonSocial");
                 ReportPropertyChanged("RazonSocial");
                 OnRazonSocialChanged();
             }
@@ -12780,7 +12880,7 @@ namespace Entidades
             {
                 OnTarjetasActivasChanging(value);
                 ReportPropertyChanging("TarjetasActivas");
-                _TarjetasActivas = StructuralObject.SetValidValue(value);
+                _TarjetasActivas = StructuralObject.SetValidValue(value, "TarjetasActivas");
                 ReportPropertyChanged("TarjetasActivas");
                 OnTarjetasActivasChanged();
             }
@@ -12804,7 +12904,7 @@ namespace Entidades
             {
                 OnLimiteCreditoChanging(value);
                 ReportPropertyChanging("LimiteCredito");
-                _LimiteCredito = StructuralObject.SetValidValue(value);
+                _LimiteCredito = StructuralObject.SetValidValue(value, "LimiteCredito");
                 ReportPropertyChanged("LimiteCredito");
                 OnLimiteCreditoChanged();
             }
@@ -12828,7 +12928,7 @@ namespace Entidades
             {
                 OnPINChanging(value);
                 ReportPropertyChanging("PIN");
-                _PIN = StructuralObject.SetValidValue(value);
+                _PIN = StructuralObject.SetValidValue(value, "PIN");
                 ReportPropertyChanged("PIN");
                 OnPINChanged();
             }
@@ -12852,7 +12952,7 @@ namespace Entidades
             {
                 OnTitularPinChanging(value);
                 ReportPropertyChanging("TitularPin");
-                _TitularPin = StructuralObject.SetValidValue(value, true);
+                _TitularPin = StructuralObject.SetValidValue(value, true, "TitularPin");
                 ReportPropertyChanged("TitularPin");
                 OnTitularPinChanged();
             }
@@ -12876,7 +12976,7 @@ namespace Entidades
             {
                 OnResponsableChanging(value);
                 ReportPropertyChanging("Responsable");
-                _Responsable = StructuralObject.SetValidValue(value, true);
+                _Responsable = StructuralObject.SetValidValue(value, true, "Responsable");
                 ReportPropertyChanged("Responsable");
                 OnResponsableChanged();
             }
@@ -12900,7 +13000,7 @@ namespace Entidades
             {
                 OnPIN1Changing(value);
                 ReportPropertyChanging("PIN1");
-                _PIN1 = StructuralObject.SetValidValue(value);
+                _PIN1 = StructuralObject.SetValidValue(value, "PIN1");
                 ReportPropertyChanged("PIN1");
                 OnPIN1Changed();
             }
@@ -12924,7 +13024,7 @@ namespace Entidades
             {
                 OnTitularPin1Changing(value);
                 ReportPropertyChanging("TitularPin1");
-                _TitularPin1 = StructuralObject.SetValidValue(value, true);
+                _TitularPin1 = StructuralObject.SetValidValue(value, true, "TitularPin1");
                 ReportPropertyChanged("TitularPin1");
                 OnTitularPin1Changed();
             }
@@ -12948,7 +13048,7 @@ namespace Entidades
             {
                 OnPIN2Changing(value);
                 ReportPropertyChanging("PIN2");
-                _PIN2 = StructuralObject.SetValidValue(value);
+                _PIN2 = StructuralObject.SetValidValue(value, "PIN2");
                 ReportPropertyChanged("PIN2");
                 OnPIN2Changed();
             }
@@ -12972,7 +13072,7 @@ namespace Entidades
             {
                 OnTitularPin2Changing(value);
                 ReportPropertyChanging("TitularPin2");
-                _TitularPin2 = StructuralObject.SetValidValue(value, true);
+                _TitularPin2 = StructuralObject.SetValidValue(value, true, "TitularPin2");
                 ReportPropertyChanged("TitularPin2");
                 OnTitularPin2Changed();
             }
@@ -12996,7 +13096,7 @@ namespace Entidades
             {
                 OnPIN3Changing(value);
                 ReportPropertyChanging("PIN3");
-                _PIN3 = StructuralObject.SetValidValue(value);
+                _PIN3 = StructuralObject.SetValidValue(value, "PIN3");
                 ReportPropertyChanged("PIN3");
                 OnPIN3Changed();
             }
@@ -13020,7 +13120,7 @@ namespace Entidades
             {
                 OnTitularPin3Changing(value);
                 ReportPropertyChanging("TitularPin3");
-                _TitularPin3 = StructuralObject.SetValidValue(value, true);
+                _TitularPin3 = StructuralObject.SetValidValue(value, true, "TitularPin3");
                 ReportPropertyChanged("TitularPin3");
                 OnTitularPin3Changed();
             }
@@ -13044,7 +13144,7 @@ namespace Entidades
             {
                 OnPIN4Changing(value);
                 ReportPropertyChanging("PIN4");
-                _PIN4 = StructuralObject.SetValidValue(value);
+                _PIN4 = StructuralObject.SetValidValue(value, "PIN4");
                 ReportPropertyChanged("PIN4");
                 OnPIN4Changed();
             }
@@ -13068,7 +13168,7 @@ namespace Entidades
             {
                 OnTitularPin4Changing(value);
                 ReportPropertyChanging("TitularPin4");
-                _TitularPin4 = StructuralObject.SetValidValue(value, true);
+                _TitularPin4 = StructuralObject.SetValidValue(value, true, "TitularPin4");
                 ReportPropertyChanged("TitularPin4");
                 OnTitularPin4Changed();
             }
@@ -13092,7 +13192,7 @@ namespace Entidades
             {
                 OnPIN5Changing(value);
                 ReportPropertyChanging("PIN5");
-                _PIN5 = StructuralObject.SetValidValue(value);
+                _PIN5 = StructuralObject.SetValidValue(value, "PIN5");
                 ReportPropertyChanged("PIN5");
                 OnPIN5Changed();
             }
@@ -13116,7 +13216,7 @@ namespace Entidades
             {
                 OnTitularPin5Changing(value);
                 ReportPropertyChanging("TitularPin5");
-                _TitularPin5 = StructuralObject.SetValidValue(value, true);
+                _TitularPin5 = StructuralObject.SetValidValue(value, true, "TitularPin5");
                 ReportPropertyChanged("TitularPin5");
                 OnTitularPin5Changed();
             }
@@ -13140,7 +13240,7 @@ namespace Entidades
             {
                 OnPIN6Changing(value);
                 ReportPropertyChanging("PIN6");
-                _PIN6 = StructuralObject.SetValidValue(value);
+                _PIN6 = StructuralObject.SetValidValue(value, "PIN6");
                 ReportPropertyChanged("PIN6");
                 OnPIN6Changed();
             }
@@ -13164,7 +13264,7 @@ namespace Entidades
             {
                 OnTitularPin6Changing(value);
                 ReportPropertyChanging("TitularPin6");
-                _TitularPin6 = StructuralObject.SetValidValue(value, true);
+                _TitularPin6 = StructuralObject.SetValidValue(value, true, "TitularPin6");
                 ReportPropertyChanged("TitularPin6");
                 OnTitularPin6Changed();
             }
@@ -13188,7 +13288,7 @@ namespace Entidades
             {
                 OnPIN7Changing(value);
                 ReportPropertyChanging("PIN7");
-                _PIN7 = StructuralObject.SetValidValue(value);
+                _PIN7 = StructuralObject.SetValidValue(value, "PIN7");
                 ReportPropertyChanged("PIN7");
                 OnPIN7Changed();
             }
@@ -13212,7 +13312,7 @@ namespace Entidades
             {
                 OnTitularPin7Changing(value);
                 ReportPropertyChanging("TitularPin7");
-                _TitularPin7 = StructuralObject.SetValidValue(value, true);
+                _TitularPin7 = StructuralObject.SetValidValue(value, true, "TitularPin7");
                 ReportPropertyChanged("TitularPin7");
                 OnTitularPin7Changed();
             }
@@ -13236,7 +13336,7 @@ namespace Entidades
             {
                 OnChasisChanging(value);
                 ReportPropertyChanging("Chasis");
-                _Chasis = StructuralObject.SetValidValue(value, true);
+                _Chasis = StructuralObject.SetValidValue(value, true, "Chasis");
                 ReportPropertyChanged("Chasis");
                 OnChasisChanged();
             }
@@ -13260,7 +13360,7 @@ namespace Entidades
             {
                 OnMotorChanging(value);
                 ReportPropertyChanging("Motor");
-                _Motor = StructuralObject.SetValidValue(value, true);
+                _Motor = StructuralObject.SetValidValue(value, true, "Motor");
                 ReportPropertyChanged("Motor");
                 OnMotorChanged();
             }
@@ -13284,7 +13384,7 @@ namespace Entidades
             {
                 OnABSChanging(value);
                 ReportPropertyChanging("ABS");
-                _ABS = StructuralObject.SetValidValue(value);
+                _ABS = StructuralObject.SetValidValue(value, "ABS");
                 ReportPropertyChanged("ABS");
                 OnABSChanged();
             }
@@ -13308,7 +13408,7 @@ namespace Entidades
             {
                 OnAIRBAGSChanging(value);
                 ReportPropertyChanging("AIRBAGS");
-                _AIRBAGS = StructuralObject.SetValidValue(value);
+                _AIRBAGS = StructuralObject.SetValidValue(value, "AIRBAGS");
                 ReportPropertyChanged("AIRBAGS");
                 OnAIRBAGSChanged();
             }
@@ -13332,7 +13432,7 @@ namespace Entidades
             {
                 OnEstadoChanging(value);
                 ReportPropertyChanging("Estado");
-                _Estado = StructuralObject.SetValidValue(value);
+                _Estado = StructuralObject.SetValidValue(value, "Estado");
                 ReportPropertyChanged("Estado");
                 OnEstadoChanged();
             }
@@ -13356,7 +13456,7 @@ namespace Entidades
             {
                 OnTipoVehiculoChanging(value);
                 ReportPropertyChanging("TipoVehiculo");
-                _TipoVehiculo = StructuralObject.SetValidValue(value);
+                _TipoVehiculo = StructuralObject.SetValidValue(value, "TipoVehiculo");
                 ReportPropertyChanged("TipoVehiculo");
                 OnTipoVehiculoChanged();
             }
@@ -13380,7 +13480,7 @@ namespace Entidades
             {
                 OnLlaveChanging(value);
                 ReportPropertyChanging("Llave");
-                _Llave = StructuralObject.SetValidValue(value);
+                _Llave = StructuralObject.SetValidValue(value, "Llave");
                 ReportPropertyChanged("Llave");
                 OnLlaveChanged();
             }
@@ -13404,7 +13504,7 @@ namespace Entidades
             {
                 OnControlAlarmaChanging(value);
                 ReportPropertyChanging("ControlAlarma");
-                _ControlAlarma = StructuralObject.SetValidValue(value);
+                _ControlAlarma = StructuralObject.SetValidValue(value, "ControlAlarma");
                 ReportPropertyChanged("ControlAlarma");
                 OnControlAlarmaChanged();
             }
@@ -13428,7 +13528,7 @@ namespace Entidades
             {
                 OnLlaveAlarmaChanging(value);
                 ReportPropertyChanging("LlaveAlarma");
-                _LlaveAlarma = StructuralObject.SetValidValue(value);
+                _LlaveAlarma = StructuralObject.SetValidValue(value, "LlaveAlarma");
                 ReportPropertyChanged("LlaveAlarma");
                 OnLlaveAlarmaChanged();
             }
@@ -13452,7 +13552,7 @@ namespace Entidades
             {
                 OnPosicionChanging(value);
                 ReportPropertyChanging("Posicion");
-                _Posicion = StructuralObject.SetValidValue(value, true);
+                _Posicion = StructuralObject.SetValidValue(value, true, "Posicion");
                 ReportPropertyChanged("Posicion");
                 OnPosicionChanged();
             }
@@ -13476,7 +13576,7 @@ namespace Entidades
             {
                 OnLimiteConsMensualChanging(value);
                 ReportPropertyChanging("LimiteConsMensual");
-                _LimiteConsMensual = StructuralObject.SetValidValue(value);
+                _LimiteConsMensual = StructuralObject.SetValidValue(value, "LimiteConsMensual");
                 ReportPropertyChanged("LimiteConsMensual");
                 OnLimiteConsMensualChanged();
             }
@@ -13500,7 +13600,7 @@ namespace Entidades
             {
                 OnMICROTRACKChanging(value);
                 ReportPropertyChanging("MICROTRACK");
-                _MICROTRACK = StructuralObject.SetValidValue(value);
+                _MICROTRACK = StructuralObject.SetValidValue(value, "MICROTRACK");
                 ReportPropertyChanged("MICROTRACK");
                 OnMICROTRACKChanged();
             }
@@ -13511,7 +13611,6 @@ namespace Entidades
 
         #endregion
 
-    
         #region Propiedades de navegación
     
         /// <summary>
@@ -13769,7 +13868,7 @@ namespace Entidades
 
         #endregion
 
-        #region Propiedades primitivas
+        #region Propiedades simples
     
         /// <summary>
         /// No hay documentación de metadatos disponible.
@@ -13786,7 +13885,7 @@ namespace Entidades
             {
                 OnRazonSocialChanging(value);
                 ReportPropertyChanging("RazonSocial");
-                _RazonSocial = StructuralObject.SetValidValue(value, true);
+                _RazonSocial = StructuralObject.SetValidValue(value, true, "RazonSocial");
                 ReportPropertyChanged("RazonSocial");
                 OnRazonSocialChanged();
             }
@@ -13812,7 +13911,7 @@ namespace Entidades
                 {
                     OnCodigoContratoChanging(value);
                     ReportPropertyChanging("CodigoContrato");
-                    _CodigoContrato = StructuralObject.SetValidValue(value, false);
+                    _CodigoContrato = StructuralObject.SetValidValue(value, false, "CodigoContrato");
                     ReportPropertyChanged("CodigoContrato");
                     OnCodigoContratoChanged();
                 }
@@ -13837,7 +13936,7 @@ namespace Entidades
             {
                 OnEsContratistaChanging(value);
                 ReportPropertyChanging("EsContratista");
-                _EsContratista = StructuralObject.SetValidValue(value);
+                _EsContratista = StructuralObject.SetValidValue(value, "EsContratista");
                 ReportPropertyChanged("EsContratista");
                 OnEsContratistaChanged();
             }
@@ -13848,10 +13947,8 @@ namespace Entidades
 
         #endregion
 
-    
     }
 
     #endregion
 
-    
 }

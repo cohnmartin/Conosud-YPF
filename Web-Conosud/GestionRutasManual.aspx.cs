@@ -104,6 +104,10 @@ public partial class GestionRutasManual : System.Web.UI.Page
         alias.Add("TipoTurno", "REGIMEN TRABAJO");
         alias.Add("TipoServicio", "TIPO SERVICIO");
 
+        alias.Add("DestinoRuta", "DESTINO RECORRIDO");
+        alias.Add("UbicacionTrabajo", "UBICACION TRABAJO");
+
+        
 
         List<string> DatosReporte = new List<string>();
         DatosReporte.Add("Domicilios de los legajos");

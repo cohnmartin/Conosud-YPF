@@ -295,7 +295,7 @@
                             </td>
                             <td class="tdSimple" align="left" style="width: 115px;">
                                 <select id="cboDepartamentos" ng-model="Current.Distrito">
-                                    <option value="MENDOZA" selected="selected">CAPITAL</option>
+                                    <option value="MENDOZA" ng-selected="true">CAPITAL</option>
                                     <option value="GENERAL ALVEAR">GENERAL ALVEAR</option>
                                     <option value="GODOY CRUZ">GODOY CRUZ</option>
                                     <option value="GUAYMALLÉN">GUAYMALLÉN</option>
@@ -328,21 +328,19 @@
                             </td>
                             <td class="tdSimple" align="left" style="width: 65px;">
                                 <select id="Select3" ng-model="Current.TipoTurno" ng-change="checkLineaRetorno()">
-                                    <option value="TURNO" selected="selected">TURNO</option>
+                                    <option value="TURNO">TURNO</option>
                                     <option value="DIURNO">DIURNO</option>
                                     <option value="6x1">6x1</option>
                                     <option value="VEHÍCULO ASIGNADO">VEHÍCULO ASIGNADO</option>
                                     <option value="Jefe Turno">Jefe Turno</option>
                                     <option value="Gascon II">Gascón II</option>
-                                    <option value="BCAS REMOTO NO">BCAS REMOTO NO</option>
-
                                 </select>
                             </td>
                             <td class="tdSimple" align="left" style="width: 240px;">Tipo servicio transp:
                             </td>
                             <td class="tdSimple" align="left" style="width: 220px;">
                                 <select id="Select3" ng-model="Current.TipoServicio">
-                                    <option value="Omnibus/Minibus" selected="selected">Ómnibus/Minibús</option>
+                                    <option value="Omnibus/Minibus" ng-selected="true">Ómnibus/Minibús</option>
                                     <option value="Remis">Remís</option>
                                     <option value="Vehiculo Asignado">Vehículo Asignado</option>
                                 </select>
@@ -354,12 +352,14 @@
                             </td>
                             <td class="tdSimple" align="left" style="width: 65px;">
                                 <select id="cboRecorridosAlta" ng-model="Current.LineaAsignada" ng-options="clasif.Id as clasif.NombreAbreviado for clasif in recorridos">
+                                    <option value="" hidden />
                                 </select>
                             </td>
                             <td class="tdSimple" align="left" style="width: 240px;">Línea Asignada Ret:
                             </td>
                             <td class="tdSimple" align="left" style="width: 220px;">
                                 <select id="cboRecorridoVuelta" ng-model="Current.LineaAsignadaVuelta" ng-options="clasif.Id as clasif.NombreAbreviado for clasif in recorridos">
+                                    <option value="" hidden />
                                 </select>
                             </td>
 
@@ -379,6 +379,7 @@
                             </td>
                             <td class="tdSimple" align="left" style="width: 250px;">
                                 <select id="cboEmpresas" ng-model="Current.Empresa" ng-options="clasif.Id as clasif.RazonSocial for clasif in empresas">
+                                    <option value="" hidden />
                                 </select>
                             </td>
                         </tr>
@@ -412,6 +413,41 @@
                         </tr>
 
 
+
+                         <tr>
+                            <td class="tdSimple" align="left" style="width: 240px;">Destino Recorrido:
+                            </td>
+                            <td class="tdSimple" align="left" style="width: 220px;">
+                                <select id="cboEmpresasDestino" ng-model="Current.DestinoRuta" ng-options="clasif.Id as clasif.RazonSocial for clasif in empresas | filter:{RazonSocial:'YPF'}">
+                                    <option value="" hidden />
+                                </select>
+                            </td>
+                            
+                             <td class="tdSimple" align="left" style="width: 240px;">Ubicacion Trabajo:
+                            </td>
+                            <td class="tdSimple" align="left" style="width: 220px;">
+
+                                <select id="cboUbicacionTrabajo" ng-model="Current.UbicacionTrabajo">
+                                    <option value="BARRANCAS">BARRANCAS</option>
+                                    <option value="REFINERIA">REFINERIA</option>
+                                    <option value="VIZCACHERAS">VIZCACHERAS</option>
+                                    <option value="2VM">2VM</option>
+                                </select>
+
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdSimple" align="left" style="width: 240px;">Pasajero Activo:
+                            </td>
+                            <td class="tdSimple" align="left" style="width: 220px;" colspan="3">
+                                <input type="checkbox" name="chkActivo" ng-model="Current.Activo" />
+                            </td>
+
+
+                        </tr>
+
+
                         <tr>
 
                             <td align="center" colspan="4" style="padding: 5px">
@@ -432,6 +468,11 @@
                             </td>
 
                         </tr>
+
+
+                        
+
+
                     </tbody>
                 </table>
             </div>

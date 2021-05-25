@@ -123,7 +123,7 @@ modulYPF.controller('controller_consultaRecorridos', function ($scope, $mdSidena
     $scope.rutasDisponibles;
     $scope.rutasSeleccionadas=[];
 
-    $scope.rutasSeleccionada;
+    $scope.rutasSeleccionada=null;
     $scope.fechaDesde;
     $scope.fechaHasta;
 
@@ -246,7 +246,7 @@ modulYPF.controller('controller_consultaRecorridos', function ($scope, $mdSidena
 
     $scope.checkInConsult = function () {
 
-        if ($scope.rutasSeleccionada == undefined ||
+        if (
             $scope.fechaDesde == undefined||
             $scope.fechaHasta == undefined)
         {

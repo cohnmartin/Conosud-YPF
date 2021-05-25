@@ -560,7 +560,7 @@
                                     padding-right: 5px;" /><span style="color: White; position: relative; top: -3px">Nuevo
                                         Vehículo</span></div>
                             <div style="cursor: hand; width: 120px; display: inline" ng-click="exportarExcel()">
-                                <asp:ImageButton ID="imgExportar" ImageUrl="~/images/excel_16x16.gif" runat="server"
+                                <asp:ImageButton ID="imgExportar" ImageUrl="~/images/excel_16x16.gif" runat="server" OnClientClick="return false;"
                                     Style="cursor: hand; padding-right: 5px;" /><span style="color: White; position: relative;
                                         top: -3px">Exportar Excel</span>
                                 <asp:Button ID="btnExportar" runat="server" Text="Exportar" OnClick="btnBuscar_Click"

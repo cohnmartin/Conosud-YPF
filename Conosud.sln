@@ -1,11 +1,13 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entidades", "Entidades\Entidades.csproj", "{E21D6130-C633-4E4A-900C-575966DF1241}"
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Web-Conosud", "Web-Conosud\", "{E9733CDB-3D6F-4A90-AB39-60B9FCB12DF3}"
 	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.7.2"
 		ProjectReferences = "{E21D6130-C633-4E4A-900C-575966DF1241}|Entidades.dll;{DDACB432-E830-4B38-AE60-E9489340C3BB}|ControlsAjaxNotti.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/Web-Conosud"
 		Debug.AspNetCompiler.PhysicalPath = "Web-Conosud\"
@@ -22,6 +24,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Web-Conosud", "Web-Conosud\
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "11798"
+		SlnRelativePath = "Web-Conosud\"
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlsAjaxNotti", "..\..\Common\trunk\ControlAjax\ControlsAjaxNotti.csproj", "{DDACB432-E830-4B38-AE60-E9489340C3BB}"
@@ -55,5 +58,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {38858A92-751E-401C-A53F-ECA6EE09E225}
 	EndGlobalSection
 EndGlobal

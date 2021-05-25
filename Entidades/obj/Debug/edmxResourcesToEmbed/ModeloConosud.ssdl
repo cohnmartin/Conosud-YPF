@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="ModeloConosud.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+<Schema Namespace="ModeloConosud.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="ArchivosAdjuntos">
     <Key>
       <PropertyRef Name="IdArchivoAdjunto" />
@@ -197,6 +197,9 @@
     <Property Name="DatosActualizacion" Type="varchar" MaxLength="4000" />
     <Property Name="RutaConCambio" Type="varchar" MaxLength="1000" />
     <Property Name="TipoServicio" Type="varchar" MaxLength="500" />
+    <Property Name="DestinoRuta" Type="bigint" />
+    <Property Name="UbicacionTrabajo" Type="varchar" MaxLength="100" />
+    <Property Name="Activo" Type="bit" />
   </EntityType>
   <EntityType Name="Empresa">
     <Key>

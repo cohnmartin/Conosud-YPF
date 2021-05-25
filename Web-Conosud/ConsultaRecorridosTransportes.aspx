@@ -130,6 +130,7 @@
         function ShowRutaEncontradaLines(newPoints, color) {
 
             var flightPlanCoordinates = [];
+            var flightPath = null;
 
             for (var i = 0; i < newPoints["recorrido"].length; i++) {
                 flightPlanCoordinates.push(new google.maps.LatLng(newPoints["recorrido"][i].Latitud.replace(',', '.'), newPoints["recorrido"][i].Longitud.replace(',', '.')));
@@ -147,12 +148,13 @@
 
             flightPath.setMap(map);
 
+            
             var path = flightPath.getPath();
             var distance = google.maps.geometry.spherical.computeLength(path.getArray()) / 1000;
 
             markerInicial = createMarker(map, flightPlanCoordinates[0], '<p style="color:' + color + '"><b>DETALLE DEL RECORRIDO</b></p><br>Distancia Total: ' + distance.toFixed(2) + ' km.</br><br>Emrpesa:' + newPoints["Empresa"] + '</br><br>Horarios:' + newPoints["Horario"] + '</br><br>Tipo Recorrido:' + newPoints["TipoRecorrido"] + '</br>', "", "change");
             markerFinal = createMarker(map, flightPlanCoordinates[flightPlanCoordinates.length - 1], '<p style="color:' + color + '"><b>DETALLE DEL RECORRIDO</b></p><br>Distancia Total: ' + distance.toFixed(2) + ' km.</br><br>Emrpesa:' + newPoints["Empresa"] + '</br><br>Horarios:' + newPoints["Horario"] + '</br><br>Tipo Recorrido:' + newPoints["TipoRecorrido"] + '</br>', "", "change");
-
+            
 
         }
 
@@ -227,7 +229,7 @@
             map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
 
-            for (i = 0; i <= ids.length - 1; i++) {
+            //for (i = 0; i <= ids.length - 1; i++) {
 
                 PageMethods.GetRecorridoAll(ids, function (newPoints) {
 
@@ -236,7 +238,7 @@
                 }, function () {
                     alert("Error en el llamado de recuperacion del recorrido.");
                 });
-            }
+            //}
 
 
 
